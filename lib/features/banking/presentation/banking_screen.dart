@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../shared/widgets/rounded_card.dart';
 
@@ -7,7 +8,8 @@ class BankingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isMobile = MediaQuery.of(context).size.width < 768;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 900;
     return SingleChildScrollView(
       padding: EdgeInsets.all(isMobile ? 16 : 24),
       child: Column(
@@ -18,7 +20,7 @@ class BankingScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  'Banking & Reconciliation',
+                  'Bank Accounts & Treasury',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w800,
@@ -32,10 +34,21 @@ class BankingScreen extends StatelessWidget {
                   style: TextStyle(fontSize: 12.5, color: AppColors.textSecondary),
                 ),
                 const SizedBox(height: 12),
-                ElevatedButton.icon(
-                  onPressed: () {},
-                  icon: const Icon(Icons.upload_file_outlined, size: 16),
-                  label: const Text('Import Bank Statement (OFX/CSV)'),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: [
+                    OutlinedButton.icon(
+                      onPressed: () => context.go('/banking/reconciliation'),
+                      icon: const Icon(Icons.sync_alt, size: 16),
+                      label: const Text('Reconciliation'),
+                    ),
+                    ElevatedButton.icon(
+                      onPressed: () {},
+                      icon: const Icon(Icons.upload_file_outlined, size: 16),
+                      label: const Text('Import Statement (OFX/CSV)'),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -49,7 +62,7 @@ class BankingScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Banking & Reconciliation',
+                        'Bank Accounts & Treasury',
                         style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.w800,
@@ -66,10 +79,20 @@ class BankingScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 16),
-                ElevatedButton.icon(
-                  onPressed: () {},
-                  icon: const Icon(Icons.upload_file_outlined, size: 16),
-                  label: const Text('Import Bank Statement (OFX/CSV)'),
+                Wrap(
+                  spacing: 10,
+                  children: [
+                    OutlinedButton.icon(
+                      onPressed: () => context.go('/banking/reconciliation'),
+                      icon: const Icon(Icons.sync_alt, size: 16),
+                      label: const Text('Bank Reconciliation'),
+                    ),
+                    ElevatedButton.icon(
+                      onPressed: () {},
+                      icon: const Icon(Icons.upload_file_outlined, size: 16),
+                      label: const Text('Import Statement (OFX/CSV)'),
+                    ),
+                  ],
                 ),
               ],
             ),

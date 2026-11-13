@@ -71,7 +71,7 @@ class Account {
       normalBalance: json['normalBalance'] as String? ?? 'DEBIT',
       currencyCode: json['currencyCode'] as String? ?? 'AED',
       openingBalance: (json['openingBalance'] as num?)?.toDouble() ?? 0.0,
-      currentBalance: (json['currentBalance'] ?? json['balance'] as num?)?.toDouble() ?? 0.0,
+      currentBalance: ((json['currentBalance'] ?? json['balance']) as num?)?.toDouble() ?? 0.0,
       isSystem: json['isSystem'] == true || json['isSystem'] == 1,
       isActive: json['isActive'] != false && json['isActive'] != 0,
       level: json['level'] as int? ?? level,

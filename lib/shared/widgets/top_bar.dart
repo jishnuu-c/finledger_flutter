@@ -20,17 +20,62 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(56);
 
   String _getPageTitle(String route) {
+    if (route.startsWith('/crm/leads')) {
+      return 'CRM / Leads';
+    }
+    if (route.startsWith('/crm/quotations')) {
+      return 'CRM / Quotations';
+    }
+    if (route.startsWith('/crm/opportunities')) {
+      return 'CRM / Opportunities';
+    }
     if (route.startsWith('/crm')) {
-      return 'CRM';
+      return 'Sales Pipeline';
+    }
+    if (route.startsWith('/sales/customers')) {
+      return 'Sales / Customers';
+    }
+    if (route.startsWith('/sales/invoices/new')) {
+      return 'Sales / New Invoice';
+    }
+    if (route.startsWith('/sales/invoices')) {
+      return 'Sales Invoices';
+    }
+    if (route.startsWith('/sales/receipts')) {
+      return 'Customer Receipts';
     }
     if (route.startsWith('/sales')) {
       return 'Sales';
     }
+    if (route.startsWith('/purchases/vendors')) {
+      return 'Purchases / Vendors';
+    }
+    if (route.startsWith('/purchases/bills')) {
+      return 'Vendor Bills';
+    }
+    if (route.startsWith('/purchases/payments')) {
+      return 'Purchases / Payments';
+    }
     if (route.startsWith('/purchases')) {
       return 'Purchases';
     }
+    if (route.startsWith('/inventory/items')) {
+      return 'Items & Stock';
+    }
+    if (route.startsWith('/inventory/adjustments')) {
+      return 'Stock Adjustments';
+    }
+    if (route.startsWith('/inventory/transfers')) {
+      return 'Stock Transfers';
+    }
     if (route.startsWith('/inventory')) {
       return 'Inventory';
+    }
+    if (route.startsWith('/expenses/approvals')) {
+      return 'Expense Approvals';
+    }
+    if (route.startsWith('/expenses/new')) {
+      return 'New Expense Claim';
     }
     if (route.startsWith('/expenses')) {
       return 'Expenses';
@@ -47,14 +92,17 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
     if (route.startsWith('/accounting')) {
       return 'Accounting';
     }
+    if (route.startsWith('/banking/reconciliation')) {
+      return 'Bank Reconciliation';
+    }
     if (route.startsWith('/banking')) {
-      return 'Banking';
+      return 'Bank Accounts';
     }
     if (route.startsWith('/reports')) {
-      return 'Reports';
+      return 'Financial Reports';
     }
     if (route.startsWith('/settings')) {
-      return 'Settings';
+      return 'Company Settings';
     }
     return 'Dashboard';
   }

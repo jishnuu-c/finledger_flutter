@@ -5,8 +5,10 @@ import 'app_routes.dart';
 import '../../shared/widgets/app_shell.dart';
 import '../../features/auth/presentation/login_screen.dart';
 import '../../features/dashboard/presentation/dashboard_screen.dart';
+import '../../features/crm/presentation/crm_screen.dart';
 import '../../features/crm/presentation/pipeline_board_screen.dart';
 import '../../features/crm/presentation/opportunity_detail_screen.dart';
+import '../../features/sales/presentation/sales_screen.dart';
 import '../../features/sales/presentation/sales_invoices_list_screen.dart';
 import '../../features/sales/presentation/create_tax_invoice_screen.dart';
 import '../../features/sales/presentation/record_customer_receipt_screen.dart';
@@ -18,6 +20,7 @@ import '../../features/expenses/presentation/new_expense_claim_screen.dart';
 import '../../features/accounting/presentation/chart_of_accounts_screen.dart';
 import '../../features/accounting/presentation/journal_entries_list_screen.dart';
 import '../../features/accounting/presentation/new_journal_entry_screen.dart';
+import '../../features/banking/presentation/banking_screen.dart';
 import '../../features/banking/presentation/bank_reconciliation_screen.dart';
 import '../../features/reports/presentation/reports_viewer_screen.dart';
 import '../../features/settings/presentation/company_settings_screen.dart';
@@ -78,6 +81,20 @@ GoRouter createAppRouter(TokenService tokenService) {
             ),
           ),
           GoRoute(
+            path: AppRoutes.crmLeads,
+            name: 'crmLeads',
+            pageBuilder: (context, state) => const NoTransitionPage(
+              child: CrmScreen(),
+            ),
+          ),
+          GoRoute(
+            path: AppRoutes.crmQuotations,
+            name: 'crmQuotations',
+            pageBuilder: (context, state) => const NoTransitionPage(
+              child: CrmScreen(),
+            ),
+          ),
+          GoRoute(
             path: AppRoutes.crmOpportunityDetail,
             name: 'crmOpportunityDetail',
             pageBuilder: (context, state) {
@@ -91,6 +108,13 @@ GoRouter createAppRouter(TokenService tokenService) {
           GoRoute(
             path: AppRoutes.sales,
             redirect: (context, state) => AppRoutes.salesInvoices,
+          ),
+          GoRoute(
+            path: AppRoutes.salesCustomers,
+            name: 'salesCustomers',
+            pageBuilder: (context, state) => const NoTransitionPage(
+              child: SalesScreen(),
+            ),
           ),
           GoRoute(
             path: AppRoutes.salesInvoices,
@@ -117,7 +141,28 @@ GoRouter createAppRouter(TokenService tokenService) {
             path: AppRoutes.purchases,
             name: 'purchases',
             pageBuilder: (context, state) => const NoTransitionPage(
-              child: PurchasesScreen(),
+              child: PurchasesScreen(initialTab: 'bills'),
+            ),
+          ),
+          GoRoute(
+            path: AppRoutes.purchasesBills,
+            name: 'purchasesBills',
+            pageBuilder: (context, state) => const NoTransitionPage(
+              child: PurchasesScreen(initialTab: 'bills'),
+            ),
+          ),
+          GoRoute(
+            path: AppRoutes.purchasesVendors,
+            name: 'purchasesVendors',
+            pageBuilder: (context, state) => const NoTransitionPage(
+              child: PurchasesScreen(initialTab: 'vendors'),
+            ),
+          ),
+          GoRoute(
+            path: AppRoutes.purchasesPaymentsNew,
+            name: 'purchasesPayments',
+            pageBuilder: (context, state) => const NoTransitionPage(
+              child: PurchasesScreen(initialTab: 'payments'),
             ),
           ),
           GoRoute(
@@ -149,7 +194,14 @@ GoRouter createAppRouter(TokenService tokenService) {
             path: AppRoutes.expenses,
             name: 'expenses',
             pageBuilder: (context, state) => const NoTransitionPage(
-              child: ExpensesListScreen(),
+              child: ExpensesListScreen(initialTab: 'all'),
+            ),
+          ),
+          GoRoute(
+            path: AppRoutes.expensesApprovals,
+            name: 'expensesApprovals',
+            pageBuilder: (context, state) => const NoTransitionPage(
+              child: ExpensesListScreen(initialTab: 'approvals'),
             ),
           ),
           GoRoute(
@@ -186,7 +238,17 @@ GoRouter createAppRouter(TokenService tokenService) {
           ),
           GoRoute(
             path: AppRoutes.banking,
-            redirect: (context, state) => AppRoutes.bankingReconciliation,
+            name: 'banking',
+            pageBuilder: (context, state) => const NoTransitionPage(
+              child: BankingScreen(),
+            ),
+          ),
+          GoRoute(
+            path: AppRoutes.bankingAccounts,
+            name: 'bankingAccounts',
+            pageBuilder: (context, state) => const NoTransitionPage(
+              child: BankingScreen(),
+            ),
           ),
           GoRoute(
             path: AppRoutes.bankingReconciliation,

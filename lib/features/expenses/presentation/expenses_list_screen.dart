@@ -9,8 +9,13 @@ import 'widgets/receipt_badge.dart';
 
 class ExpensesListScreen extends StatefulWidget {
   final ExpenseService? expenseService;
+  final String? initialTab;
 
-  const ExpensesListScreen({super.key, this.expenseService});
+  const ExpensesListScreen({
+    super.key,
+    this.expenseService,
+    this.initialTab,
+  });
 
   @override
   State<ExpensesListScreen> createState() => _ExpensesListScreenState();
@@ -32,7 +37,21 @@ class _ExpensesListScreenState extends State<ExpensesListScreen> {
   void initState() {
     super.initState();
     _expenseService = widget.expenseService ?? ExpenseService();
+    if (widget.initialTab != null) {
+      _activeTab = widget.initialTab!;
+    }
     _loadData();
+  }
+
+  @override
+  void didUpdateWidget(ExpensesListScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.initialTab != null && widget.initialTab != oldWidget.initialTab && widget.initialTab != _activeTab) {
+      setState(() {
+        _activeTab = widget.initialTab!;
+        _loadExpenses();
+      });
+    }
   }
 
   void _loadData() {

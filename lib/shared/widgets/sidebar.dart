@@ -45,15 +45,15 @@ class Sidebar extends StatelessWidget {
     NavSection(
       title: 'CRM',
       items: [
-        NavSubItem(label: 'Leads', route: '/crm/pipeline'),
+        NavSubItem(label: 'Leads', route: '/crm/leads'),
         NavSubItem(label: 'Pipeline', route: '/crm/pipeline'),
-        NavSubItem(label: 'Quotations', route: '/crm/pipeline'),
+        NavSubItem(label: 'Quotations', route: '/crm/quotations'),
       ],
     ),
     NavSection(
       title: 'SALES',
       items: [
-        NavSubItem(label: 'Customers', route: '/sales/invoices'),
+        NavSubItem(label: 'Customers', route: '/sales/customers'),
         NavSubItem(label: 'Invoices', route: '/sales/invoices'),
         NavSubItem(label: 'Receipts', route: '/sales/receipts/new'),
       ],
@@ -61,9 +61,9 @@ class Sidebar extends StatelessWidget {
     NavSection(
       title: 'PURCHASES',
       items: [
-        NavSubItem(label: 'Vendors', route: '/purchases'),
-        NavSubItem(label: 'Bills', route: '/purchases'),
-        NavSubItem(label: 'Payments', route: '/purchases'),
+        NavSubItem(label: 'Vendors', route: '/purchases/vendors'),
+        NavSubItem(label: 'Bills', route: '/purchases/bills'),
+        NavSubItem(label: 'Payments', route: '/purchases/payments/new'),
       ],
     ),
     NavSection(
@@ -78,14 +78,14 @@ class Sidebar extends StatelessWidget {
       title: 'EXPENSES',
       items: [
         NavSubItem(label: 'Expenses', route: '/expenses'),
-        NavSubItem(label: 'Approvals', route: '/expenses'),
+        NavSubItem(label: 'Approvals', route: '/expenses/approvals'),
       ],
     ),
     NavSection(
       title: 'ACCOUNTING',
       items: [
-        NavSubItem(label: 'Chart of Accounts', route: '/accounting'),
-        NavSubItem(label: 'Journal Entries', route: '/accounting'),
+        NavSubItem(label: 'Chart of Accounts', route: '/accounting/accounts'),
+        NavSubItem(label: 'Journal Entries', route: '/accounting/journals'),
       ],
     ),
     NavSection(
@@ -111,6 +111,55 @@ class Sidebar extends StatelessWidget {
       ],
     ),
   ];
+
+  bool _isItemActive(NavSubItem item, String currentRoute) {
+    switch (item.label) {
+      case 'Dashboard':
+        return currentRoute == '/dashboard' || currentRoute == '/';
+      case 'Leads':
+        return currentRoute == '/crm/leads';
+      case 'Pipeline':
+        return currentRoute == '/crm/pipeline' || currentRoute.startsWith('/crm/opportunities');
+      case 'Quotations':
+        return currentRoute == '/crm/quotations';
+      case 'Customers':
+        return currentRoute == '/sales/customers';
+      case 'Invoices':
+        return currentRoute == '/sales/invoices' || currentRoute == '/sales/invoices/new';
+      case 'Receipts':
+        return currentRoute.startsWith('/sales/receipts');
+      case 'Vendors':
+        return currentRoute == '/purchases/vendors';
+      case 'Bills':
+        return currentRoute == '/purchases' || currentRoute == '/purchases/bills';
+      case 'Payments':
+        return currentRoute.startsWith('/purchases/payments');
+      case 'Items & Stock':
+        return currentRoute == '/inventory' || currentRoute == '/inventory/items';
+      case 'Adjustments':
+        return currentRoute.startsWith('/inventory/adjustments');
+      case 'Transfers':
+        return currentRoute.startsWith('/inventory/transfers');
+      case 'Expenses':
+        return currentRoute == '/expenses' || currentRoute == '/expenses/new';
+      case 'Approvals':
+        return currentRoute == '/expenses/approvals';
+      case 'Chart of Accounts':
+        return currentRoute == '/accounting' || currentRoute == '/accounting/accounts';
+      case 'Journal Entries':
+        return currentRoute.startsWith('/accounting/journals');
+      case 'Bank Accounts':
+        return currentRoute == '/banking' || currentRoute == '/banking/accounts';
+      case 'Reconciliation':
+        return currentRoute.startsWith('/banking/reconciliation');
+      case 'Reports':
+        return currentRoute.startsWith('/reports');
+      case 'Settings':
+        return currentRoute.startsWith('/settings');
+      default:
+        return currentRoute == item.route;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -168,37 +217,46 @@ class Sidebar extends StatelessWidget {
   Widget _buildHeader(BuildContext context) {
     return Container(
       height: 58,
-      padding: EdgeInsets.symmetric(horizontal: isCollapsed ? 12 : 18),
+      padding: EdgeInsets.symmetric(horizontal: isCollapsed ? 10 : 14),
       child: Row(
         mainAxisAlignment:
             isCollapsed ? MainAxisAlignment.center : MainAxisAlignment.spaceBetween,
         children: [
           if (!isCollapsed) ...[
-            Row(
-              children: [
-                const Text(
-                  'FinLedger',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w800,
-                    color: Colors.white,
-                    letterSpacing: -0.4,
+            Flexible(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Flexible(
+                    child: Text(
+                      'FinLedger',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w800,
+                        color: Colors.white,
+                        letterSpacing: -0.4,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
-                ),
-                const SizedBox(width: 4),
-                Container(
-                  width: 5,
-                  height: 5,
-                  decoration: const BoxDecoration(
-                    color: Color(0xFF38BDF8),
-                    shape: BoxShape.circle,
+                  const SizedBox(width: 4),
+                  Container(
+                    width: 5,
+                    height: 5,
+                    decoration: const BoxDecoration(
+                      color: Color(0xFF38BDF8),
+                      shape: BoxShape.circle,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             IconButton(
               onPressed: onToggleCollapse,
               tooltip: 'Collapse sidebar',
+              visualDensity: VisualDensity.compact,
+              padding: EdgeInsets.zero,
+              constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
               icon: const Icon(
                 Icons.menu_open_rounded,
                 color: Color(0xFF94A3B8),
@@ -231,20 +289,7 @@ class Sidebar extends StatelessWidget {
   }
 
   Widget _buildNavItem(BuildContext context, NavSubItem item, String currentRoute, bool isSubItem) {
-    final isSelected = (currentRoute == item.route) ||
-        (item.route != '/dashboard' && currentRoute.startsWith('${item.route}/')) ||
-        (item.label == 'Pipeline' && currentRoute.startsWith('/crm/opportunities')) ||
-        (item.label == 'Invoices' && currentRoute.startsWith('/sales/invoices')) ||
-        (item.label == 'Receipts' && currentRoute.startsWith('/sales/receipts')) ||
-        (item.label == 'Items & Stock' && currentRoute.startsWith('/inventory/items')) ||
-        (item.label == 'Adjustments' && currentRoute.startsWith('/inventory/adjustments')) ||
-        (item.label == 'Transfers' && currentRoute.startsWith('/inventory/transfers')) ||
-        (item.label == 'Expenses' && (currentRoute == '/expenses' || currentRoute.startsWith('/expenses/'))) ||
-        (item.label == 'Reconciliation' && currentRoute.startsWith('/banking')) ||
-        (item.label == 'Reports' && (currentRoute == '/reports' || currentRoute.startsWith('/reports/'))) ||
-        (item.label == 'Settings' && (currentRoute == '/settings' || currentRoute.startsWith('/settings/')));
-
-    // Special treatment for Dashboard or Top-level items matching Figure 3
+    final isSelected = _isItemActive(item, currentRoute);
     final isDashboard = item.label == 'Dashboard';
 
     return Container(
@@ -257,6 +302,10 @@ class Sidebar extends StatelessWidget {
         waitDuration: const Duration(milliseconds: 300),
         child: InkWell(
           onTap: () {
+            // Dismiss drawer on mobile if open
+            if (Scaffold.maybeOf(context)?.isDrawerOpen ?? false) {
+              Navigator.of(context).pop();
+            }
             if (currentRoute != item.route) {
               context.go(item.route);
             }
@@ -313,6 +362,9 @@ class Sidebar extends StatelessWidget {
         child: IconButton(
           onPressed: onToggleCollapse,
           tooltip: 'Expand sidebar',
+          visualDensity: VisualDensity.compact,
+          padding: EdgeInsets.zero,
+          constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
           icon: const Icon(
             Icons.chevron_right_rounded,
             color: Color(0xFF94A3B8),
@@ -330,13 +382,19 @@ class Sidebar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text(
-            'FinLedger v2.0',
-            style: TextStyle(fontSize: 10, color: Color(0xFF64748B)),
+          const Flexible(
+            child: Text(
+              'FinLedger v2.0',
+              style: TextStyle(fontSize: 10, color: Color(0xFF64748B)),
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
           IconButton(
             onPressed: onToggleCollapse,
             tooltip: 'Collapse sidebar',
+            visualDensity: VisualDensity.compact,
+            padding: EdgeInsets.zero,
+            constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
             icon: const Icon(
               Icons.chevron_left_rounded,
               color: Color(0xFF94A3B8),

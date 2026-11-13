@@ -24,12 +24,12 @@ class JournalLine {
   factory JournalLine.fromJson(Map<String, dynamic> json) {
     return JournalLine(
       id: json['id'] as int?,
-      lineNo: (json['lineNo'] ?? json['line_no'] as num?)?.toInt() ?? 1,
-      accountId: (json['accountId'] ?? json['account_id'] as num?)?.toInt() ?? 0,
-      accountCode: json['accountCode'] ?? json['account_code'] as String? ?? '',
-      accountName: json['accountName'] ?? json['account_name'] as String? ?? '',
+      lineNo: ((json['lineNo'] ?? json['line_no']) as num?)?.toInt() ?? 1,
+      accountId: ((json['accountId'] ?? json['account_id']) as num?)?.toInt() ?? 0,
+      accountCode: (json['accountCode'] ?? json['account_code']) as String? ?? '',
+      accountName: (json['accountName'] ?? json['account_name']) as String? ?? '',
       description: json['description'] as String? ?? '',
-      costCenter: json['costCenter'] ?? json['cost_center'] as String? ?? '',
+      costCenter: (json['costCenter'] ?? json['cost_center']) as String? ?? '',
       debit: (json['debit'] as num?)?.toDouble() ?? 0.0,
       credit: (json['credit'] as num?)?.toDouble() ?? 0.0,
     );
@@ -106,14 +106,14 @@ class JournalEntry {
     final rawLines = json['lines'] as List? ?? [];
     return JournalEntry(
       id: (json['id'] as num?)?.toInt() ?? 0,
-      entryNo: json['entryNo'] ?? json['entry_no'] as String? ?? '',
-      entryDate: json['entryDate'] ?? json['entry_date'] as String? ?? '',
+      entryNo: (json['entryNo'] ?? json['entry_no']) as String? ?? '',
+      entryDate: (json['entryDate'] ?? json['entry_date']) as String? ?? '',
       reference: json['reference'] as String? ?? '',
       narration: json['narration'] as String? ?? '',
-      currencyCode: json['currencyCode'] ?? json['currency_code'] as String? ?? 'AED',
-      exchangeRate: (json['exchangeRate'] ?? json['exchange_rate'] as num?)?.toDouble() ?? 1.0,
-      totalDebit: (json['totalDebit'] ?? json['total_debit'] as num?)?.toDouble() ?? 0.0,
-      totalCredit: (json['totalCredit'] ?? json['total_credit'] as num?)?.toDouble() ?? 0.0,
+      currencyCode: (json['currencyCode'] ?? json['currency_code']) as String? ?? 'AED',
+      exchangeRate: ((json['exchangeRate'] ?? json['exchange_rate']) as num?)?.toDouble() ?? 1.0,
+      totalDebit: ((json['totalDebit'] ?? json['total_debit']) as num?)?.toDouble() ?? 0.0,
+      totalCredit: ((json['totalCredit'] ?? json['total_credit']) as num?)?.toDouble() ?? 0.0,
       status: json['status'] as String? ?? 'DRAFT',
       lines: rawLines.map((l) => JournalLine.fromJson(l as Map<String, dynamic>)).toList(),
     );
