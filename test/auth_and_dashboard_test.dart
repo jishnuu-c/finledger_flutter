@@ -1,9 +1,12 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:finledger/core/api/dio_client.dart';
 import 'package:finledger/core/services/token_service.dart';
 import 'package:finledger/core/services/loading_service.dart';
 import 'package:finledger/features/auth/data/auth_service.dart';
+import 'package:finledger/features/auth/presentation/providers/auth_provider.dart';
+import 'package:finledger/shared/models/user_profile.dart';
 import 'package:finledger/features/dashboard/data/dashboard_models.dart';
 import 'package:finledger/features/dashboard/data/dashboard_service.dart';
 
@@ -62,13 +65,89 @@ void main() {
       );
 
       await authService.login(
-        email: 'accountant@company.com',
-        password: 'Password@2026',
+        email: 'admin@finledger.com',
+        password: 'password',
         rememberMe: true,
       );
 
       final saved = await authService.getRememberedEmail();
-      expect(saved, 'accountant@company.com');
+      expect(saved, 'admin@finledger.com');
+    });
+
+    test('UserProfile parses Spring Boot AuthResponse payload correctly', () {
+      final authResponseJson = {
+        "accessToken": "test_access_token",
+        "refreshToken": "test_refresh_token",
+        "user": {
+          "id": 1,
+          "companyId": 1,
+          "email": "admin@finledger.com",
+          "fullName": "System Administrator",
+          "status": "ACTIVE",
+          "roles": ["ADMIN"],
+          "lastLoginAt": "2026-11-16T08:57:10.682312300Z",
+          "createdAt": "2026-11-13T05:49:46.207Z"
+        },
+        "permissions": ["USER_VIEW", "ITEM_EDIT", "INVOICE_CREATE"]
+      };
+
+      final profile = UserProfile.fromJson(authResponseJson);
+      expect(profile.id, '1');
+      expect(profile.email, 'admin@finledger.com');
+      expect(profile.fullName, 'System Administrator');
+      expect(profile.role, 'System Administrator');
+      expect(profile.permissions, contains('USER_VIEW'));
+      expect(profile.permissions, contains('ITEM_EDIT'));
+    });
+
+    test('UserProfile parses Spring Boot MeResponse payload correctly', () {
+      final meResponseJson = {
+        "user": {
+          "id": 2,
+          "companyId": 1,
+          "email": "controller@bsbtrading.ae",
+          "fullName": "Financial Controller",
+          "roles": ["CONTROLLER"]
+        },
+        "company": {
+          "id": 1,
+          "legalName": "BSB Trading LLC",
+          "trn": "100234567800003",
+          "countryCode": "AE",
+          "baseCurrency": "AED"
+        },
+        "permissions": ["DASHBOARD_VIEW", "LEDGER_VIEW"]
+      };
+
+      final profile = UserProfile.fromJson(meResponseJson);
+      expect(profile.id, '2');
+      expect(profile.email, 'controller@bsbtrading.ae');
+      expect(profile.role, 'Financial Controller');
+      expect(profile.company.name, 'BSB Trading LLC');
+      expect(profile.company.trn, '100234567800003');
+      expect(profile.company.currency, 'AED');
+    });
+
+    test('Riverpod AuthNotifier builds initial state from TokenService', () {
+      final tokenService = TokenService();
+      final loadingService = LoadingService();
+      final dioClient = DioClient(
+        tokenService: tokenService,
+        loadingService: loadingService,
+      );
+
+      final container = ProviderContainer(
+        overrides: [
+          tokenServiceProvider.overrideWithValue(tokenService),
+          dioClientProvider.overrideWithValue(dioClient),
+        ],
+      );
+      addTearDown(container.dispose);
+
+      final authState = container.read(authNotifierProvider);
+      expect(authState.status, AuthStatus.unauthenticated);
+      expect(authState.isLoading, false);
+      expect(authState.isLockedOut, false);
     });
   });
 

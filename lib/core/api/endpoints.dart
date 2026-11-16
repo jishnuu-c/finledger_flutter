@@ -1,5 +1,8 @@
 class Endpoints {
-  static const String defaultBaseUrl = 'https://api.finledger.com/api/v1';
+  static const String defaultBaseUrl = String.fromEnvironment(
+    'API_BASE_URL',
+    defaultValue: 'http://192.168.1.201:8080/api/v1',
+  );
 
   // Auth
   static const String login = '/auth/login';
@@ -52,7 +55,8 @@ class Endpoints {
   static const String bankStatements = '/bank-statements';
   static const String bankStatementImport = '/bank-statements/import';
   static const String bankStatementMatch = '/bank-reconciliations/match';
-  static const String bankStatementReconcile = '/bank-reconciliations/reconcile';
+  static const String bankStatementReconcile =
+      '/bank-reconciliations/reconcile';
 
   // Reports
   static const String reports = '/reports';

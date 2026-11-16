@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:provider/provider.dart' as legacy_provider;
 import 'core/theme/app_theme.dart';
 import 'core/services/token_service.dart';
 import 'core/services/loading_service.dart';
 import 'core/api/dio_client.dart';
 import 'core/router/app_router.dart';
+import 'features/auth/presentation/providers/auth_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   final tokenService = TokenService();
   await tokenService.init();
-
-  // Pre-seed demo session if empty so user can immediately experience the Application Shell & modules
-  if (!tokenService.isAuthenticated) {
-    await tokenService.setDemoSession();
-  }
 
   final loadingService = LoadingService();
 
@@ -54,17 +51,23 @@ class _FinLedgerAppState extends State<FinLedgerApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
+    return legacy_provider.MultiProvider(
       providers: [
-        ChangeNotifierProvider<TokenService>.value(value: widget.tokenService),
-        ChangeNotifierProvider<LoadingService>.value(value: widget.loadingService),
-        Provider<DioClient>.value(value: widget.dioClient),
+        legacy_provider.ChangeNotifierProvider<TokenService>.value(value: widget.tokenService),
+        legacy_provider.ChangeNotifierProvider<LoadingService>.value(value: widget.loadingService),
+        legacy_provider.Provider<DioClient>.value(value: widget.dioClient),
       ],
-      child: MaterialApp.router(
-        title: 'FinLedger - Double-Entry Accounting',
-        debugShowCheckedModeBanner: false,
-        theme: AppTheme.lightTheme,
-        routerConfig: _router,
+      child: ProviderScope(
+        overrides: [
+          tokenServiceProvider.overrideWithValue(widget.tokenService),
+          dioClientProvider.overrideWithValue(widget.dioClient),
+        ],
+        child: MaterialApp.router(
+          title: 'FinLedger - Double-Entry Accounting',
+          debugShowCheckedModeBanner: false,
+          theme: AppTheme.lightTheme,
+          routerConfig: _router,
+        ),
       ),
     );
   }

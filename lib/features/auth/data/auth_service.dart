@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../core/api/endpoints.dart';
 import '../../../core/api/dio_client.dart';
@@ -91,7 +92,7 @@ class AuthService {
     );
   }
 
-  /// Execute POST /api/v1/auth/login and GET /api/v1/auth/me
+  /// Execute POST /api/v1/auth/login and enrich with /api/v1/auth/me
   Future<AuthResult> login({
     required String email,
     required String password,
@@ -110,21 +111,31 @@ class AuthService {
     }
 
     final prefs = await SharedPreferences.getInstance();
+    final cleanEmail = email.trim();
     if (rememberMe) {
-      await prefs.setString(_keyRememberedEmail, email);
+      await prefs.setString(_keyRememberedEmail, cleanEmail);
     } else {
       await prefs.remove(_keyRememberedEmail);
     }
 
     try {
+      debugPrint('[AuthService] POST ${Endpoints.login} to ${dioClient.dio.options.baseUrl} for $cleanEmail');
+
       // 2. Call POST /api/v1/auth/login
       final response = await dioClient.dio.post(
         Endpoints.login,
         data: {
-          'email': email.trim(),
+          'email': cleanEmail,
           'password': password,
         },
-        options: Options(extra: {'silent': true}),
+        options: Options(
+          contentType: Headers.jsonContentType,
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          extra: {'silent': true},
+        ),
       );
 
       if (response.statusCode == 200 && response.data != null) {
@@ -132,26 +143,40 @@ class AuthService {
         final accessToken = data['accessToken'] as String? ?? '';
         final refreshToken = data['refreshToken'] as String? ?? '';
 
-        // 3. Call GET /api/v1/auth/me to fetch profile and company details
-        UserProfile? userProfile;
+        if (accessToken.isEmpty) {
+          return const AuthResult(
+            success: false,
+            message: 'Server response did not contain an access token.',
+          );
+        }
+
+        // Direct parse from AuthResponse (contains user and permissions)
+        UserProfile userProfile;
+        try {
+          userProfile = UserProfile.fromJson(data);
+        } catch (e) {
+          debugPrint('[AuthService] Error parsing AuthResponse: $e');
+          userProfile = UserProfile.defaultMock();
+        }
+
+        // 3. Enrich with GET /api/v1/auth/me to fetch company legal profile
         try {
           final meResponse = await dioClient.dio.get(
             Endpoints.me,
             options: Options(
-              headers: {'Authorization': 'Bearer $accessToken'},
+              headers: {
+                'Authorization': 'Bearer $accessToken',
+                'Accept': 'application/json',
+              },
               extra: {'silent': true},
             ),
           );
-          if (meResponse.statusCode == 200 && meResponse.data != null) {
-            userProfile = UserProfile.fromJson(meResponse.data as Map<String, dynamic>);
+          if (meResponse.statusCode == 200 && meResponse.data is Map<String, dynamic>) {
+            final meProfile = UserProfile.fromJson(meResponse.data as Map<String, dynamic>);
+            userProfile = meProfile;
           }
-        } catch (_) {
-          // If me call fails, construct from login response payload or default mock
-          if (data['user'] is Map<String, dynamic>) {
-            userProfile = UserProfile.fromJson(data['user'] as Map<String, dynamic>);
-          } else {
-            userProfile = UserProfile.defaultMock();
-          }
+        } catch (meErr) {
+          debugPrint('[AuthService] /auth/me call skipped/failed: $meErr');
         }
 
         await tokenService.saveTokens(
@@ -166,26 +191,102 @@ class AuthService {
         return await recordFailedAttempt();
       }
     } on DioException catch (dioErr) {
+      debugPrint('[AuthService] DioException: type=${dioErr.type}, statusCode=${dioErr.response?.statusCode}, message=${dioErr.message}');
+
+      // Connectivity & Timeout Errors (Do NOT count as failed password attempts)
+      if (dioErr.type == DioExceptionType.connectionTimeout ||
+          dioErr.type == DioExceptionType.sendTimeout ||
+          dioErr.type == DioExceptionType.receiveTimeout) {
+        return const AuthResult(
+          success: false,
+          message: 'Connection timed out. Unable to reach FinLedger backend at 192.168.1.201:8080.',
+        );
+      }
+
+      if (dioErr.type == DioExceptionType.connectionError) {
+        return const AuthResult(
+          success: false,
+          message: 'Cannot reach server at 192.168.1.201:8080. Ensure the backend is running and your device is on the same local network.',
+        );
+      }
+
+      // Backend HTTP response errors
+      final res = dioErr.response;
+      if (res != null) {
+        final dynamic resData = res.data;
+        String? backendCode;
+        String? backendMessage;
+
+        if (resData is Map<String, dynamic>) {
+          backendCode = resData['code']?.toString();
+          backendMessage = resData['message']?.toString();
+        }
+
+        if (res.statusCode == 422) {
+          if (backendCode == 'ACCOUNT_LOCKED') {
+            return AuthResult(
+              success: false,
+              isLockedOut: true,
+              remainingLockoutSeconds: lockoutDuration.inSeconds,
+              message: backendMessage ?? 'Account is locked due to 5 consecutive failed attempts.',
+            );
+          } else if (backendCode == 'ACCOUNT_DISABLED') {
+            return AuthResult(
+              success: false,
+              message: backendMessage ?? 'Account is disabled. Please contact your administrator.',
+            );
+          } else if (backendCode == 'INVALID_CREDENTIALS') {
+            return await recordFailedAttempt();
+          } else {
+            return AuthResult(
+              success: false,
+              message: backendMessage ?? 'Unprocessable entity.',
+            );
+          }
+        }
+
+        if (res.statusCode == 401) {
+          return await recordFailedAttempt();
+        }
+
+        if (res.statusCode == 400) {
+          return AuthResult(
+            success: false,
+            message: backendMessage ?? 'Invalid request format.',
+          );
+        }
+
+        if (backendMessage != null && backendMessage.isNotEmpty) {
+          return AuthResult(success: false, message: backendMessage);
+        }
+      }
+
       if (dioErr.error is ApiError) {
         final apiError = dioErr.error as ApiError;
-        if (apiError.status == 401 || apiError.status == 400) {
+        if (apiError.code == 'ACCOUNT_LOCKED') {
+          return AuthResult(
+            success: false,
+            isLockedOut: true,
+            remainingLockoutSeconds: lockoutDuration.inSeconds,
+            message: apiError.message,
+          );
+        }
+        if (apiError.code == 'INVALID_CREDENTIALS' || apiError.status == 401) {
           return await recordFailedAttempt();
         }
         return AuthResult(success: false, message: apiError.message);
       }
 
-      // If network server is not reachable yet during local development, allow authenticated demo entry
-      if (email.trim() == 'accountant@company.com' || email.trim() == 'ahmed.alhamri@bsbtrading.ae') {
-        if (password == 'Password@2026' || password.length >= 6) {
-          await tokenService.setDemoSession();
-          await resetFailedAttempts();
-          return const AuthResult(success: true);
-        }
-      }
-
-      return await recordFailedAttempt();
-    } catch (_) {
-      return await recordFailedAttempt();
+      return AuthResult(
+        success: false,
+        message: dioErr.message ?? 'An unexpected network error occurred.',
+      );
+    } catch (e, stack) {
+      debugPrint('[AuthService] Unexpected error: $e\n$stack');
+      return AuthResult(
+        success: false,
+        message: 'An unexpected application error occurred: $e',
+      );
     }
   }
 

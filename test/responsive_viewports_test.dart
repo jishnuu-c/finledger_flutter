@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:provider/provider.dart';
+import 'package:provider/provider.dart' as legacy_provider;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:finledger/features/auth/presentation/providers/auth_provider.dart';
 import 'package:finledger/core/services/token_service.dart';
 import 'package:finledger/core/services/loading_service.dart';
 import 'package:finledger/core/api/dio_client.dart';
@@ -60,14 +62,20 @@ void main() {
     final loadingService = LoadingService();
     final dioClient = DioClient(tokenService: tokenService, loadingService: loadingService);
 
-    return MultiProvider(
+    return legacy_provider.MultiProvider(
       providers: [
-        ChangeNotifierProvider<TokenService>.value(value: tokenService),
-        ChangeNotifierProvider<LoadingService>.value(value: loadingService),
-        Provider<DioClient>.value(value: dioClient),
+        legacy_provider.ChangeNotifierProvider<TokenService>.value(value: tokenService),
+        legacy_provider.ChangeNotifierProvider<LoadingService>.value(value: loadingService),
+        legacy_provider.Provider<DioClient>.value(value: dioClient),
       ],
-      child: MaterialApp(
-        home: Scaffold(body: child),
+      child: ProviderScope(
+        overrides: [
+          tokenServiceProvider.overrideWithValue(tokenService),
+          dioClientProvider.overrideWithValue(dioClient),
+        ],
+        child: MaterialApp(
+          home: Scaffold(body: child),
+        ),
       ),
     );
   }

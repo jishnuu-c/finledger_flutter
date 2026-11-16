@@ -16,10 +16,10 @@ class Company {
   factory Company.fromJson(Map<String, dynamic> json) {
     return Company(
       id: json['id']?.toString() ?? '',
-      name: json['name'] as String? ?? 'BSB Trading LLC',
+      name: json['legalName'] as String? ?? json['name'] as String? ?? 'BSB Trading LLC',
       trn: json['trn'] as String? ?? '100234891000003',
-      currency: json['currency'] as String? ?? 'AED',
-      country: json['country'] as String? ?? 'United Arab Emirates',
+      currency: json['baseCurrency'] as String? ?? json['currency'] as String? ?? 'AED',
+      country: json['countryCode'] as String? ?? json['country'] as String? ?? 'United Arab Emirates',
     );
   }
 
@@ -52,17 +52,56 @@ class UserProfile {
   });
 
   factory UserProfile.fromJson(Map<String, dynamic> json) {
+    // Support root user map, nested 'user' map (from AuthResponse/MeResponse), or mixed payload
+    final userMap = json['user'] is Map<String, dynamic>
+        ? json['user'] as Map<String, dynamic>
+        : json;
+
     final companyJson = json['company'] is Map<String, dynamic>
         ? json['company'] as Map<String, dynamic>
-        : <String, dynamic>{};
+        : (userMap['company'] is Map<String, dynamic>
+            ? userMap['company'] as Map<String, dynamic>
+            : <String, dynamic>{});
+
+    // Derive display role from 'role' string or 'roles' array (e.g. ["ADMIN"])
+    String roleStr = 'System User';
+    if (userMap['role'] is String && (userMap['role'] as String).trim().isNotEmpty) {
+      roleStr = userMap['role'] as String;
+    } else if (userMap['roles'] is List && (userMap['roles'] as List).isNotEmpty) {
+      final firstRole = (userMap['roles'] as List).first.toString().replaceAll('ROLE_', '');
+      switch (firstRole.toUpperCase()) {
+        case 'ADMIN':
+          roleStr = 'System Administrator';
+          break;
+        case 'CONTROLLER':
+          roleStr = 'Financial Controller';
+          break;
+        case 'ACCOUNTANT':
+          roleStr = 'Senior Accountant';
+          break;
+        case 'SALES_REP':
+          roleStr = 'Sales Representative';
+          break;
+        case 'WAREHOUSE_MANAGER':
+        case 'STOREKEEPER':
+          roleStr = 'Warehouse Manager';
+          break;
+        default:
+          roleStr = firstRole;
+      }
+    }
+
+    // Extract permissions from root level (AuthResponse) or user map
+    final rawPerms = json['permissions'] ?? userMap['permissions'];
+    final permsList = (rawPerms as List?)?.map((e) => e.toString()).toList() ?? [];
 
     return UserProfile(
-      id: json['id']?.toString() ?? '',
-      email: json['email'] as String? ?? '',
-      fullName: json['fullName'] as String? ?? 'Ahmed Jaber Al Hamri',
-      role: json['role'] as String? ?? 'Financial Controller',
-      avatarUrl: json['avatarUrl'] as String?,
-      permissions: (json['permissions'] as List?)?.map((e) => e.toString()).toList() ?? [],
+      id: userMap['id']?.toString() ?? '',
+      email: userMap['email'] as String? ?? '',
+      fullName: userMap['fullName'] as String? ?? 'System User',
+      role: roleStr,
+      avatarUrl: userMap['avatarUrl'] as String?,
+      permissions: permsList,
       company: Company.fromJson(companyJson),
     );
   }

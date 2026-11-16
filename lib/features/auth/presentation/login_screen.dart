@@ -1,58 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 import '../../../core/theme/app_colors.dart';
-import '../../../core/api/dio_client.dart';
-import '../../../core/services/token_service.dart';
-import '../data/auth_service.dart';
+import 'providers/auth_provider.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  ConsumerState<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends ConsumerState<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController(
-    text: 'accountant@company.com',
-  );
-  final _passwordController = TextEditingController(text: 'Password@2026');
+  late final TextEditingController _emailController;
+  late final TextEditingController _passwordController;
   bool _obscurePassword = true;
   bool _rememberMe = true;
-  bool _isLoading = false;
-  String? _errorMessage;
-  bool _isLockedOut = false;
-  late final AuthService _authService;
+  bool _initialEmailLoaded = false;
 
   @override
   void initState() {
     super.initState();
-    final dioClient = context.read<DioClient>();
-    final tokenService = context.read<TokenService>();
-    _authService = AuthService(
-      dioClient: dioClient,
-      tokenService: tokenService,
-    );
-    _checkLockoutAndSavedEmail();
+    _emailController = TextEditingController();
+    _passwordController = TextEditingController();
   }
 
-  Future<void> _checkLockoutAndSavedEmail() async {
-    final remaining = await _authService.getRemainingLockoutSeconds();
-    if (remaining != null && remaining > 0) {
-      final minutes = (remaining / 60).ceil();
-      setState(() {
-        _isLockedOut = true;
-        _errorMessage =
-            'Account temporarily locked after 5 failed attempts. Please contact your administrator or try again in $minutes minute${minutes == 1 ? '' : 's'}.';
-      });
-    }
-
-    final savedEmail = await _authService.getRememberedEmail();
-    if (savedEmail != null && savedEmail.isNotEmpty) {
-      _emailController.text = savedEmail;
-      _rememberMe = true;
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_initialEmailLoaded) {
+      _initialEmailLoaded = true;
+      final authState = ref.read(authNotifierProvider);
+      if (authState.savedEmail != null && authState.savedEmail!.isNotEmpty) {
+        _emailController.text = authState.savedEmail!;
+        _rememberMe = true;
+      } else {
+        // Pre-fill backend default admin for developer convenience
+        _emailController.text = 'admin@finledger.com';
+      }
     }
   }
 
@@ -64,15 +50,11 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> _handleLogin() async {
-    if (_isLockedOut) return;
+    final authState = ref.read(authNotifierProvider);
+    if (authState.isLockedOut || authState.isLoading) return;
     if (!_formKey.currentState!.validate()) return;
 
-    setState(() {
-      _isLoading = true;
-      _errorMessage = null;
-    });
-
-    final result = await _authService.login(
+    final success = await ref.read(authNotifierProvider.notifier).login(
       email: _emailController.text,
       password: _passwordController.text,
       rememberMe: _rememberMe,
@@ -80,22 +62,30 @@ class _LoginScreenState extends State<LoginScreen> {
 
     if (!mounted) return;
 
-    setState(() {
-      _isLoading = false;
-    });
-
-    if (result.success) {
+    if (success) {
       context.go('/dashboard');
     } else {
-      setState(() {
-        _errorMessage = result.message ?? 'Invalid email or password.';
-        _isLockedOut = result.isLockedOut;
-      });
+      final updatedState = ref.read(authNotifierProvider);
+      if (updatedState.errorMessage != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(updatedState.errorMessage!),
+            backgroundColor: AppColors.overdue,
+            behavior: SnackBarBehavior.floating,
+            duration: const Duration(seconds: 4),
+          ),
+        );
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final authState = ref.watch(authNotifierProvider);
+    final isLoading = authState.isLoading;
+    final isLockedOut = authState.isLockedOut;
+    final errorMessage = authState.errorMessage;
+
     final screenWidth = MediaQuery.of(context).size.width;
     final isSplitView = screenWidth >= 900;
 
@@ -254,17 +244,17 @@ class _LoginScreenState extends State<LoginScreen> {
                             const SizedBox(height: 28),
 
                             // Lockout / Error Alert Banner
-                            if (_errorMessage != null)
+                            if (errorMessage != null)
                               Container(
                                 padding: const EdgeInsets.all(12),
                                 margin: const EdgeInsets.only(bottom: 20),
                                 decoration: BoxDecoration(
-                                  color: _isLockedOut
+                                  color: isLockedOut
                                       ? const Color(0xFFFEE2E2)
                                       : const Color(0xFFFFFBEB),
                                   borderRadius: BorderRadius.circular(8),
                                   border: Border.all(
-                                    color: _isLockedOut
+                                    color: isLockedOut
                                         ? const Color(0xFFF87171)
                                         : const Color(0xFFFCD34D),
                                   ),
@@ -273,21 +263,21 @@ class _LoginScreenState extends State<LoginScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Icon(
-                                      _isLockedOut
+                                      isLockedOut
                                           ? Icons.lock_clock
                                           : Icons.error_outline_rounded,
                                       size: 18,
-                                      color: _isLockedOut
+                                      color: isLockedOut
                                           ? AppColors.overdue
                                           : AppColors.warning,
                                     ),
                                     const SizedBox(width: 10),
                                     Expanded(
                                       child: Text(
-                                        _errorMessage!,
+                                        errorMessage,
                                         style: TextStyle(
                                           fontSize: 12.5,
-                                          color: _isLockedOut
+                                          color: isLockedOut
                                               ? AppColors.overdue
                                               : const Color(0xFF92400E),
                                           fontWeight: FontWeight.w500,
@@ -312,9 +302,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             TextFormField(
                               controller: _emailController,
                               keyboardType: TextInputType.emailAddress,
-                              enabled: !_isLockedOut,
+                              enabled: !isLockedOut,
                               decoration: InputDecoration(
-                                hintText: 'accountant@company.com',
+                                hintText: 'admin@finledger.com',
                                 fillColor: Colors.white,
                                 filled: true,
                                 contentPadding: const EdgeInsets.symmetric(
@@ -366,7 +356,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             TextFormField(
                               controller: _passwordController,
                               obscureText: _obscurePassword,
-                              enabled: !_isLockedOut,
+                              enabled: !isLockedOut,
                               decoration: InputDecoration(
                                 hintText: '•••••••••',
                                 fillColor: Colors.white,
@@ -438,7 +428,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                             4,
                                           ),
                                         ),
-                                        onChanged: _isLockedOut
+                                        onChanged: isLockedOut
                                             ? null
                                             : (val) {
                                                 setState(() {
@@ -493,7 +483,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               width: double.infinity,
                               height: 44,
                               child: ElevatedButton(
-                                onPressed: (_isLoading || _isLockedOut)
+                                onPressed: (isLoading || isLockedOut)
                                     ? null
                                     : _handleLogin,
                                 style: ElevatedButton.styleFrom(
@@ -507,7 +497,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                 ),
-                                child: _isLoading
+                                child: isLoading
                                     ? const SizedBox(
                                         width: 18,
                                         height: 18,
