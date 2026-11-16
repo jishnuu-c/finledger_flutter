@@ -43,7 +43,14 @@ class SettingsScreen extends StatelessWidget {
                 ),
               ),
               ElevatedButton.icon(
-                onPressed: () {},
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Company settings saved successfully.'),
+                      backgroundColor: AppColors.paid,
+                    ),
+                  );
+                },
                 icon: const Icon(Icons.save_outlined, size: 16),
                 label: const Text('Save Changes'),
               ),

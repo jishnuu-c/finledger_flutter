@@ -86,7 +86,7 @@ class _ReportsViewerScreenState extends State<ReportsViewerScreen> {
           action: SnackBarAction(
             label: 'Open',
             textColor: Colors.white,
-            onPressed: () {},
+            onPressed: () => ScaffoldMessenger.of(context).hideCurrentSnackBar(),
           ),
         ),
       );

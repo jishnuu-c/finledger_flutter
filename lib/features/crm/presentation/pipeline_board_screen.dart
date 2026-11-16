@@ -689,6 +689,7 @@ class _PipelineBoardScreenState extends State<PipelineBoardScreen> {
         separatorBuilder: (_, _) => const Divider(height: 1, color: AppColors.borderSubtle),
         itemBuilder: (context, index) {
           final opp = allOpps[index];
+          final cleanClose = opp.expectedCloseDate.replaceAll('Close ', '');
           return ListTile(
             onTap: () => _navigateToDetail(opp),
             contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
@@ -716,7 +717,7 @@ class _PipelineBoardScreenState extends State<PipelineBoardScreen> {
               ],
             ),
             subtitle: Text(
-              '${opp.customerName} • Close: ${opp.expectedCloseDate} • Owner: ${opp.ownerName}',
+              '${opp.customerName} • Close: $cleanClose • Owner: ${opp.ownerName}',
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(fontSize: 12, color: AppColors.textSecondary),

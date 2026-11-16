@@ -76,7 +76,7 @@ class _JournalEntriesListScreenState extends State<JournalEntriesListScreen> {
                 ElevatedButton.icon(
                   onPressed: () => context.go('/accounting/journals/new'),
                   icon: const Icon(Icons.add, size: 16),
-                  label: const Text('+ New Journal Entry'),
+                  label: const Text('New Journal Entry'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF1D4ED8),
                     foregroundColor: Colors.white,
@@ -125,7 +125,7 @@ class _JournalEntriesListScreenState extends State<JournalEntriesListScreen> {
                 ElevatedButton.icon(
                   onPressed: () => context.go('/accounting/journals/new'),
                   icon: const Icon(Icons.add, size: 16),
-                  label: const Text('+ New Journal Entry'),
+                  label: const Text('New Journal Entry'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF1D4ED8),
                     foregroundColor: Colors.white,

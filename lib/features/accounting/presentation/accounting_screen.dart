@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../shared/widgets/rounded_card.dart';
 import '../../../shared/widgets/status_chip.dart';
@@ -57,9 +58,9 @@ class _AccountingScreenState extends State<AccountingScreen>
                 ),
                 const SizedBox(height: 12),
                 ElevatedButton.icon(
-                  onPressed: () {},
+                  onPressed: () => context.go('/accounting/journals/new'),
                   icon: const Icon(Icons.add, size: 16),
-                  label: const Text('+ New Journal Entry'),
+                  label: const Text('New Journal Entry'),
                 ),
               ],
             ),
@@ -94,9 +95,9 @@ class _AccountingScreenState extends State<AccountingScreen>
                 ),
                 const SizedBox(width: 16),
                 ElevatedButton.icon(
-                  onPressed: () {},
+                  onPressed: () => context.go('/accounting/journals/new'),
                   icon: const Icon(Icons.add, size: 16),
-                  label: const Text('+ New Journal Entry'),
+                  label: const Text('New Journal Entry'),
                 ),
               ],
             ),

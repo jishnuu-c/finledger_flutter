@@ -31,6 +31,57 @@ class _PurchasesScreenState extends State<PurchasesScreen> {
     }
   }
 
+  void _showNewBillDialog() {
+    final billNoController = TextEditingController(text: 'BILL-2026-004');
+    final vendorController = TextEditingController();
+    final amountController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Enter Vendor Bill'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: billNoController,
+              decoration: const InputDecoration(labelText: 'Bill Number', border: OutlineInputBorder()),
+            ),
+            const SizedBox(height: 12),
+            TextField(
+              controller: vendorController,
+              decoration: const InputDecoration(labelText: 'Vendor Name', hintText: 'e.g. Al-Futtaim Logistics', border: OutlineInputBorder()),
+            ),
+            const SizedBox(height: 12),
+            TextField(
+              controller: amountController,
+              keyboardType: const TextInputType.numberWithOptions(decimal: true),
+              decoration: const InputDecoration(labelText: 'Total Amount (AED)', border: OutlineInputBorder()),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(ctx);
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Vendor Bill ${billNoController.text} recorded successfully.'),
+                  backgroundColor: AppColors.paid,
+                ),
+              );
+            },
+            child: const Text('Save Bill'),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final bills = [
@@ -80,9 +131,9 @@ class _PurchasesScreenState extends State<PurchasesScreen> {
                 ),
                 const SizedBox(height: 12),
                 ElevatedButton.icon(
-                  onPressed: () {},
+                  onPressed: _showNewBillDialog,
                   icon: const Icon(Icons.add, size: 16),
-                  label: const Text('+ Enter Vendor Bill'),
+                  label: const Text('Enter Vendor Bill'),
                 ),
               ],
             ),
@@ -114,9 +165,9 @@ class _PurchasesScreenState extends State<PurchasesScreen> {
                 ),
                 const SizedBox(width: 16),
                 ElevatedButton.icon(
-                  onPressed: () {},
+                  onPressed: _showNewBillDialog,
                   icon: const Icon(Icons.add, size: 16),
-                  label: const Text('+ Enter Vendor Bill'),
+                  label: const Text('Enter Vendor Bill'),
                 ),
               ],
             ),
@@ -244,7 +295,15 @@ class _PurchasesScreenState extends State<PurchasesScreen> {
                           DataCell(StatusChip.fromStatusString(b['status']!)),
                           DataCell(
                             TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                setState(() => _activeTab = 'payments');
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text('Switched to Payments tab for ${b['num']} (${b['vendor']})'),
+                                    backgroundColor: AppColors.primary,
+                                  ),
+                                );
+                              },
                               child: const Text('Record Payment', style: TextStyle(fontSize: 12)),
                             ),
                           ),

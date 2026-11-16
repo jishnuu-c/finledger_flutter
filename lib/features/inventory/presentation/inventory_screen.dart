@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../shared/widgets/rounded_card.dart';
 import '../../../shared/widgets/stat_kpi_card.dart';
@@ -47,14 +48,14 @@ class InventoryScreen extends StatelessWidget {
                   runSpacing: 8,
                   children: [
                     OutlinedButton.icon(
-                      onPressed: () {},
+                      onPressed: () => context.go('/inventory/transfers/new'),
                       icon: const Icon(Icons.sync_alt, size: 16),
                       label: const Text('Stock Transfer'),
                     ),
                     ElevatedButton.icon(
-                      onPressed: () {},
+                      onPressed: () => context.go('/inventory/items'),
                       icon: const Icon(Icons.add, size: 16),
-                      label: const Text('+ New Item SKU'),
+                      label: const Text('New Item SKU'),
                     ),
                   ],
                 ),
@@ -92,14 +93,14 @@ class InventoryScreen extends StatelessWidget {
                   runSpacing: 8,
                   children: [
                     OutlinedButton.icon(
-                      onPressed: () {},
+                      onPressed: () => context.go('/inventory/transfers/new'),
                       icon: const Icon(Icons.sync_alt, size: 16),
                       label: const Text('Stock Transfer'),
                     ),
                     ElevatedButton.icon(
-                      onPressed: () {},
+                      onPressed: () => context.go('/inventory/items'),
                       icon: const Icon(Icons.add, size: 16),
-                      label: const Text('+ New Item SKU'),
+                      label: const Text('New Item SKU'),
                     ),
                   ],
                 ),

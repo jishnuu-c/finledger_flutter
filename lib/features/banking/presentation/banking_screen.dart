@@ -2,9 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../shared/widgets/rounded_card.dart';
+import 'widgets/import_statement_modal.dart';
 
 class BankingScreen extends StatelessWidget {
   const BankingScreen({super.key});
+
+  void _openImportModal(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (ctx) => ImportStatementModal(
+        onImport: (csvData) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Bank statement imported successfully.'),
+              backgroundColor: AppColors.paid,
+            ),
+          );
+        },
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +61,7 @@ class BankingScreen extends StatelessWidget {
                       label: const Text('Reconciliation'),
                     ),
                     ElevatedButton.icon(
-                      onPressed: () {},
+                      onPressed: () => _openImportModal(context),
                       icon: const Icon(Icons.upload_file_outlined, size: 16),
                       label: const Text('Import Statement (OFX/CSV)'),
                     ),
@@ -88,7 +105,7 @@ class BankingScreen extends StatelessWidget {
                       label: const Text('Bank Reconciliation'),
                     ),
                     ElevatedButton.icon(
-                      onPressed: () {},
+                      onPressed: () => _openImportModal(context),
                       icon: const Icon(Icons.upload_file_outlined, size: 16),
                       label: const Text('Import Statement (OFX/CSV)'),
                     ),
@@ -292,7 +309,7 @@ class BankingScreen extends StatelessWidget {
                   ),
                   const SizedBox(width: 8),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () => context.go('/banking/reconciliation'),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: isMatched ? AppColors.paid : AppColors.primary,
                       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
@@ -342,7 +359,7 @@ class BankingScreen extends StatelessWidget {
             ),
             const SizedBox(width: 12),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () => context.go('/banking/reconciliation'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: isMatched ? AppColors.paid : AppColors.primary,
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),

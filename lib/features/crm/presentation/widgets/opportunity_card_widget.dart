@@ -153,28 +153,52 @@ class _OpportunityCardWidgetState extends State<OpportunityCardWidget> {
       ),
     );
 
+    final isTouch = Theme.of(context).platform == TargetPlatform.android ||
+        Theme.of(context).platform == TargetPlatform.iOS ||
+        MediaQuery.of(context).size.width < 768;
+
+    final feedbackCard = Material(
+      elevation: 6,
+      borderRadius: BorderRadius.circular(8),
+      child: SizedBox(
+        width: 260,
+        child: cardContent,
+      ),
+    );
+
+    final interactiveCard = Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: widget.onTap,
+        borderRadius: BorderRadius.circular(8),
+        child: cardContent,
+      ),
+    );
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
-      child: Draggable<Opportunity>(
-        data: opp,
-        dragAnchorStrategy: pointerDragAnchorStrategy,
-        feedback: Material(
-          elevation: 6,
-          borderRadius: BorderRadius.circular(8),
-          child: SizedBox(
-            width: 260,
-            child: cardContent,
-          ),
-        ),
-        childWhenDragging: Opacity(
-          opacity: 0.35,
-          child: cardContent,
-        ),
-        child: GestureDetector(
-          onTap: widget.onTap,
-          child: cardContent,
-        ),
-      ),
+      child: isTouch
+          ? LongPressDraggable<Opportunity>(
+              data: opp,
+              delay: const Duration(milliseconds: 250),
+              dragAnchorStrategy: pointerDragAnchorStrategy,
+              feedback: feedbackCard,
+              childWhenDragging: Opacity(
+                opacity: 0.35,
+                child: cardContent,
+              ),
+              child: interactiveCard,
+            )
+          : Draggable<Opportunity>(
+              data: opp,
+              dragAnchorStrategy: pointerDragAnchorStrategy,
+              feedback: feedbackCard,
+              childWhenDragging: Opacity(
+                opacity: 0.35,
+                child: cardContent,
+              ),
+              child: interactiveCard,
+            ),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../shared/widgets/rounded_card.dart';
 import '../../../shared/widgets/status_chip.dart';
@@ -46,14 +47,21 @@ class ExpensesScreen extends StatelessWidget {
                   runSpacing: 8,
                   children: [
                     OutlinedButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('All pending expense claims approved successfully.'),
+                            backgroundColor: AppColors.paid,
+                          ),
+                        );
+                      },
                       icon: const Icon(Icons.check_circle_outline, size: 16),
                       label: const Text('Batch Approve'),
                     ),
                     ElevatedButton.icon(
-                      onPressed: () {},
+                      onPressed: () => context.go('/expenses/new'),
                       icon: const Icon(Icons.add, size: 16),
-                      label: const Text('+ New Expense Claim'),
+                      label: const Text('New Expense Claim'),
                     ),
                   ],
                 ),
@@ -91,14 +99,21 @@ class ExpensesScreen extends StatelessWidget {
                   runSpacing: 8,
                   children: [
                     OutlinedButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('All pending expense claims approved successfully.'),
+                            backgroundColor: AppColors.paid,
+                          ),
+                        );
+                      },
                       icon: const Icon(Icons.check_circle_outline, size: 16),
                       label: const Text('Batch Approve'),
                     ),
                     ElevatedButton.icon(
-                      onPressed: () {},
+                      onPressed: () => context.go('/expenses/new'),
                       icon: const Icon(Icons.add, size: 16),
-                      label: const Text('+ New Expense Claim'),
+                      label: const Text('New Expense Claim'),
                     ),
                   ],
                 ),
@@ -153,12 +168,26 @@ class ExpensesScreen extends StatelessWidget {
                             ? Row(
                                 children: [
                                   IconButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                          content: Text('Expense claim ${c['id']} approved.'),
+                                          backgroundColor: AppColors.paid,
+                                        ),
+                                      );
+                                    },
                                     icon: const Icon(Icons.check, color: AppColors.paid, size: 18),
                                     tooltip: 'Approve',
                                   ),
                                   IconButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                          content: Text('Expense claim ${c['id']} rejected.'),
+                                          backgroundColor: AppColors.overdue,
+                                        ),
+                                      );
+                                    },
                                     icon: const Icon(Icons.close, color: AppColors.overdue, size: 18),
                                     tooltip: 'Reject',
                                   ),

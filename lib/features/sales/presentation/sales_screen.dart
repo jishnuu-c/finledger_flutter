@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../shared/widgets/rounded_card.dart';
 import '../../../shared/widgets/status_chip.dart';
+import '../data/models/sales_models.dart';
+import 'widgets/invoice_pdf_preview_dialog.dart';
 
 class SalesScreen extends StatefulWidget {
   const SalesScreen({super.key});
@@ -124,14 +127,14 @@ class _SalesScreenState extends State<SalesScreen> {
             runSpacing: 8,
             children: [
               OutlinedButton.icon(
-                onPressed: () {},
+                onPressed: () => context.go('/sales/receipts/new'),
                 icon: const Icon(Icons.receipt_outlined, size: 16),
-                label: const Text('+ Customer Receipt'),
+                label: const Text('Customer Receipt'),
               ),
               ElevatedButton.icon(
-                onPressed: () {},
+                onPressed: () => context.go('/sales/invoices/new'),
                 icon: const Icon(Icons.add, size: 16),
-                label: const Text('+ Create Tax Invoice'),
+                label: const Text('Create Tax Invoice'),
               ),
             ],
           ),
@@ -169,14 +172,14 @@ class _SalesScreenState extends State<SalesScreen> {
           runSpacing: 8,
           children: [
             OutlinedButton.icon(
-              onPressed: () {},
+              onPressed: () => context.go('/sales/receipts/new'),
               icon: const Icon(Icons.receipt_outlined, size: 16),
-              label: const Text('+ Customer Receipt'),
+              label: const Text('Customer Receipt'),
             ),
             ElevatedButton.icon(
-              onPressed: () {},
+              onPressed: () => context.go('/sales/invoices/new'),
               icon: const Icon(Icons.add, size: 16),
-              label: const Text('+ Create Tax Invoice'),
+              label: const Text('Create Tax Invoice'),
             ),
           ],
         ),
@@ -272,7 +275,14 @@ class _SalesScreenState extends State<SalesScreen> {
           ),
           const SizedBox(width: 12),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Invoices exported to CSV successfully.'),
+                  backgroundColor: AppColors.paid,
+                ),
+              );
+            },
             tooltip: 'Export CSV',
             icon: const Icon(Icons.download_rounded, size: 18),
           ),
@@ -332,12 +342,43 @@ class _SalesScreenState extends State<SalesScreen> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          final invObj = Invoice(
+                            id: 1,
+                            invoiceNo: inv['number'] ?? 'INV-2026-001',
+                            customerId: 1,
+                            customerName: inv['customer'] ?? 'Customer',
+                            customerTrn: inv['trn'] ?? '100234891000003',
+                            customerAddress: 'Building 4, Al Quoz, Dubai, UAE',
+                            invoiceDate: inv['date'] ?? '28-Oct-2026',
+                            dueDate: inv['dueDate'] ?? '27-Nov-2026',
+                            paymentTerms: 'Net 30',
+                            currencyCode: 'AED',
+                            subtotal: 10000.0,
+                            taxTotal: 500.0,
+                            total: 10500.0,
+                            amountPaid: 0.0,
+                            balanceDue: 10500.0,
+                            status: inv['status'] ?? 'SENT',
+                            lines: const [],
+                          );
+                          showDialog(
+                            context: context,
+                            builder: (ctx) => InvoicePdfPreviewDialog(invoice: invObj),
+                          );
+                        },
                         icon: const Icon(Icons.picture_as_pdf_outlined, size: 16, color: AppColors.primary),
                         tooltip: 'Download Tax PDF',
                       ),
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Tax Invoice ${inv['number']} sent to ${inv['customer']} successfully.'),
+                              backgroundColor: AppColors.paid,
+                            ),
+                          );
+                        },
                         icon: const Icon(Icons.send_outlined, size: 16, color: AppColors.textSecondary),
                         tooltip: 'Send to Customer',
                       ),

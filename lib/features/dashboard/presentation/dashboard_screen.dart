@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../../core/theme/app_colors.dart';
@@ -168,6 +169,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               value: _formatCurrency(f.revenueYtd),
               trendBadge: '▲ ${f.revenueGrowth.toStringAsFixed(1)}% vs last year',
               trendIsPositive: true,
+              route: '/sales/invoices',
             ),
 
             // Total Expenses (YTD)
@@ -176,6 +178,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               value: _formatCurrency(f.expensesYtd),
               trendBadge: '▲ ${f.expensesGrowth.toStringAsFixed(1)}% vs last year',
               trendIsPositive: false, // In accounting/Figure 3, expense increase is red
+              route: '/expenses',
             ),
 
             // Accounts Receivable
@@ -183,6 +186,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               title: 'Accounts Receivable',
               value: _formatCurrency(f.receivables),
               subtitle: '${f.openInvoicesCount} open invoices',
+              route: '/sales/invoices',
             ),
 
             // Cash & Bank
@@ -190,6 +194,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               title: 'Cash & Bank',
               value: _formatCurrency(f.cashAndBank),
               subtitle: '${f.bankAccountsCount} bank accounts',
+              route: '/banking/accounts',
             ),
           ],
         );
@@ -215,6 +220,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               title: 'Open Pipeline (CRM)',
               value: _formatCurrency(o.openPipelineCrm),
               subtitle: '${o.opportunitiesCount} opportunities • ${o.weightedProbability}% weighted',
+              route: '/crm/pipeline',
             ),
 
             // Inventory Value with Low Stock in RED
@@ -223,6 +229,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               value: _formatCurrency(o.inventoryValue),
               subtitle: '${o.lowStockCount} items below reorder level',
               subtitleColor: const Color(0xFFDC2626), // Red per Figure 3
+              route: '/inventory/items',
             ),
 
             // Expenses Awaiting Approval
@@ -230,6 +237,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               title: 'Expenses Awaiting Approval',
               value: _formatCurrency(o.expensesAwaitingApproval),
               subtitle: '${o.pendingClaimsCount} claims',
+              route: '/expenses/approvals',
             ),
 
             // Accounts Payable
@@ -237,6 +245,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               title: 'Accounts Payable',
               value: _formatCurrency(o.accountsPayable),
               subtitle: '${o.openBillsCount} open bills',
+              route: '/purchases/bills',
             ),
           ],
         );
@@ -251,8 +260,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
     Color? subtitleColor,
     String? trendBadge,
     bool? trendIsPositive,
+    String? route,
   }) {
-    return Container(
+    final cardContent = Container(
       padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -329,6 +339,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ],
       ),
     );
+
+    if (route != null) {
+      return Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: () => context.go(route),
+          borderRadius: BorderRadius.circular(10),
+          child: cardContent,
+        ),
+      );
+    }
+    return cardContent;
   }
 
   // Row 3 Left: Revenue vs Expenses (last 6 months)

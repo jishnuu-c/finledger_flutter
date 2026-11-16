@@ -1266,6 +1266,67 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
     );
   }
 
+  void _showInviteUserDialog() {
+    final emailController = TextEditingController();
+    final nameController = TextEditingController();
+    String selectedRole = 'Accountant';
+
+    showDialog(
+      context: context,
+      builder: (ctx) => StatefulBuilder(
+        builder: (context, setModalState) => AlertDialog(
+          title: const Text('Invite Team Member'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: nameController,
+                decoration: const InputDecoration(labelText: 'Full Name', border: OutlineInputBorder()),
+              ),
+              const SizedBox(height: 12),
+              TextField(
+                controller: emailController,
+                decoration: const InputDecoration(labelText: 'Email Address', border: OutlineInputBorder()),
+              ),
+              const SizedBox(height: 12),
+              DropdownButtonFormField<String>(
+                initialValue: selectedRole,
+                decoration: const InputDecoration(labelText: 'Role Directive', border: OutlineInputBorder()),
+                items: const [
+                  DropdownMenuItem(value: 'Accountant', child: Text('Accountant')),
+                  DropdownMenuItem(value: 'Sales Representative', child: Text('Sales Representative')),
+                  DropdownMenuItem(value: 'Warehouse Manager', child: Text('Warehouse Manager')),
+                  DropdownMenuItem(value: 'Controller', child: Text('Controller')),
+                ],
+                onChanged: (val) {
+                  if (val != null) setModalState(() => selectedRole = val);
+                },
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(ctx),
+              child: const Text('Cancel'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(ctx);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('Invitation sent to ${emailController.text} as $selectedRole.'),
+                    backgroundColor: AppColors.paid,
+                  ),
+                );
+              },
+              child: const Text('Send Invite'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget _buildUsersAndRolesTab() {
     final isMobile = MediaQuery.of(context).size.width < 768;
     final users = _service.getUsersAndRoles();
@@ -1294,7 +1355,7 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
                     ),
                     const SizedBox(height: 12),
                     ElevatedButton.icon(
-                      onPressed: () {},
+                      onPressed: _showInviteUserDialog,
                       icon: const Icon(Icons.person_add_outlined, size: 14),
                       label: const Text('+ Invite User'),
                     ),
@@ -1316,7 +1377,7 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
                   ),
                   const SizedBox(width: 16),
                   ElevatedButton.icon(
-                    onPressed: () {},
+                    onPressed: _showInviteUserDialog,
                     icon: const Icon(Icons.person_add_outlined, size: 14),
                     label: const Text('+ Invite User'),
                   ),

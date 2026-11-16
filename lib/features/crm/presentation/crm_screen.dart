@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
 
 class CrmScreen extends StatelessWidget {
@@ -52,14 +53,14 @@ class CrmScreen extends StatelessWidget {
             runSpacing: 8,
             children: [
               OutlinedButton.icon(
-                onPressed: () {},
+                onPressed: () => context.go('/crm/pipeline'),
                 icon: const Icon(Icons.file_upload_outlined, size: 16),
                 label: const Text('Import Leads'),
               ),
               ElevatedButton.icon(
-                onPressed: () {},
+                onPressed: () => context.go('/crm/pipeline'),
                 icon: const Icon(Icons.add, size: 16),
-                label: const Text('+ New Opportunity'),
+                label: const Text('New Opportunity'),
               ),
             ],
           ),
@@ -97,14 +98,14 @@ class CrmScreen extends StatelessWidget {
           runSpacing: 8,
           children: [
             OutlinedButton.icon(
-              onPressed: () {},
+              onPressed: () => context.go('/crm/pipeline'),
               icon: const Icon(Icons.file_upload_outlined, size: 16),
               label: const Text('Import Leads'),
             ),
             ElevatedButton.icon(
-              onPressed: () {},
+              onPressed: () => context.go('/crm/pipeline'),
               icon: const Icon(Icons.add, size: 16),
-              label: const Text('+ New Opportunity'),
+              label: const Text('New Opportunity'),
             ),
           ],
         ),

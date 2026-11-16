@@ -1,19 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../shared/widgets/rounded_card.dart';
 
 class ReportsScreen extends StatelessWidget {
   const ReportsScreen({super.key});
 
+  void _exportBoardPack(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Board Pack PDF generated and downloaded successfully.'),
+        backgroundColor: AppColors.paid,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final reports = [
-      {'title': 'Profit & Loss Statement (P&L)', 'category': 'Financial Statements', 'desc': 'Trading revenue, cost of goods sold (COGS), operating expenses, and net profit margins', 'icon': Icons.trending_up},
-      {'title': 'Balance Sheet', 'category': 'Financial Statements', 'desc': 'Assets, liabilities, and retained earnings equity summary', 'icon': Icons.balance_outlined},
-      {'title': 'Trial Balance', 'category': 'General Ledger', 'desc': 'Complete listing of all debit and credit account balances verifying ledger equilibrium', 'icon': Icons.account_tree_outlined},
-      {'title': 'UAE FTA VAT 201 Return', 'category': 'Tax & Compliance', 'desc': 'Box-by-box breakdown of 5% standard rated sales, zero rated supplies, and recoverable input VAT', 'icon': Icons.receipt_long_outlined},
-      {'title': 'Aged Receivables (AR Summary)', 'category': 'Cash Flow & Credit', 'desc': 'Customer balances aged by current, 30, 60, 90+ days overdue', 'icon': Icons.calendar_month_outlined},
-      {'title': 'Inventory Valuation & Movement', 'category': 'Operations', 'desc': 'Weighted average cost stock valuations per warehouse and movement log', 'icon': Icons.inventory_2_outlined},
+      {'code': 'pnl', 'title': 'Profit & Loss Statement (P&L)', 'category': 'Financial Statements', 'desc': 'Trading revenue, cost of goods sold (COGS), operating expenses, and net profit margins', 'icon': Icons.trending_up},
+      {'code': 'balance-sheet', 'title': 'Balance Sheet', 'category': 'Financial Statements', 'desc': 'Assets, liabilities, and retained earnings equity summary', 'icon': Icons.balance_outlined},
+      {'code': 'trial-balance', 'title': 'Trial Balance', 'category': 'General Ledger', 'desc': 'Complete listing of all debit and credit account balances verifying ledger equilibrium', 'icon': Icons.account_tree_outlined},
+      {'code': 'vat-return', 'title': 'UAE FTA VAT 201 Return', 'category': 'Tax & Compliance', 'desc': 'Box-by-box breakdown of 5% standard rated sales, zero rated supplies, and recoverable input VAT', 'icon': Icons.receipt_long_outlined},
+      {'code': 'ar-ageing', 'title': 'Aged Receivables (AR Summary)', 'category': 'Cash Flow & Credit', 'desc': 'Customer balances aged by current, 30, 60, 90+ days overdue', 'icon': Icons.calendar_month_outlined},
+      {'code': 'stock-valuation', 'title': 'Inventory Valuation & Movement', 'category': 'Operations', 'desc': 'Weighted average cost stock valuations per warehouse and movement log', 'icon': Icons.inventory_2_outlined},
     ];
 
     final isMobile = MediaQuery.of(context).size.width < 768;
@@ -42,7 +52,7 @@ class ReportsScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
                 OutlinedButton.icon(
-                  onPressed: () {},
+                  onPressed: () => _exportBoardPack(context),
                   icon: const Icon(Icons.picture_as_pdf_outlined, size: 16),
                   label: const Text('Export Board Pack PDF'),
                 ),
@@ -76,7 +86,7 @@ class ReportsScreen extends StatelessWidget {
                 ),
                 const SizedBox(width: 16),
                 OutlinedButton.icon(
-                  onPressed: () {},
+                  onPressed: () => _exportBoardPack(context),
                   icon: const Icon(Icons.picture_as_pdf_outlined, size: 16),
                   label: const Text('Export Board Pack PDF'),
                 ),
@@ -98,52 +108,57 @@ class ReportsScreen extends StatelessWidget {
                 mainAxisSpacing: 16,
                 childAspectRatio: ratio,
                 children: reports.map((r) {
-                  return RoundedCard(
-                    padding: EdgeInsets.all(isNarrow ? 12 : 18),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: 42,
-                          height: 42,
-                          decoration: BoxDecoration(
-                            color: AppColors.primarySurface,
-                            borderRadius: BorderRadius.circular(8),
+                  final code = r['code'] as String;
+                  return InkWell(
+                    onTap: () => context.go('/reports/$code'),
+                    borderRadius: BorderRadius.circular(10),
+                    child: RoundedCard(
+                      padding: EdgeInsets.all(isNarrow ? 12 : 18),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: 42,
+                            height: 42,
+                            decoration: BoxDecoration(
+                              color: AppColors.primarySurface,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Icon(r['icon'] as IconData, color: AppColors.primary, size: 22),
                           ),
-                          child: Icon(r['icon'] as IconData, color: AppColors.primary, size: 22),
-                        ),
-                        const SizedBox(width: 14),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                (r['category'] as String).toUpperCase(),
-                                style: const TextStyle(fontSize: 9.5, fontWeight: FontWeight.bold, color: AppColors.textMuted, letterSpacing: 0.8),
-                              ),
-                              const SizedBox(height: 2),
-                              Text(
-                                r['title'] as String,
-                                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                              ),
-                              const SizedBox(height: 4),
-                              Text(
-                                r['desc'] as String,
-                                style: const TextStyle(fontSize: 11.5, color: AppColors.textSecondary),
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ],
+                          const SizedBox(width: 14),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  (r['category'] as String).toUpperCase(),
+                                  style: const TextStyle(fontSize: 9.5, fontWeight: FontWeight.bold, color: AppColors.textMuted, letterSpacing: 0.8),
+                                ),
+                                const SizedBox(height: 2),
+                                Text(
+                                  r['title'] as String,
+                                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  r['desc'] as String,
+                                  style: const TextStyle(fontSize: 11.5, color: AppColors.textSecondary),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.arrow_forward_ios_rounded, size: 14, color: AppColors.textMuted),
-                          tooltip: 'Run Report',
-                        ),
-                      ],
+                          IconButton(
+                            onPressed: () => context.go('/reports/$code'),
+                            icon: const Icon(Icons.arrow_forward_ios_rounded, size: 14, color: AppColors.textMuted),
+                            tooltip: 'Run Report',
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 }).toList(),

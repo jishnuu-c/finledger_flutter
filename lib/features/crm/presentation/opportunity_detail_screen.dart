@@ -368,22 +368,43 @@ class _OpportunityDetailScreenState extends State<OpportunityDetailScreen> {
   }
 
   Widget _buildBreadcrumb(Opportunity opp) {
-    return Wrap(
-      crossAxisAlignment: WrapCrossAlignment.center,
+    return Row(
       children: [
-        InkWell(
-          onTap: () => context.go('/crm/pipeline'),
-          child: const Text('CRM', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
+        IconButton(
+          icon: const Icon(Icons.arrow_back, size: 20, color: AppColors.textSecondary),
+          tooltip: 'Back to Pipeline',
+          visualDensity: VisualDensity.compact,
+          padding: EdgeInsets.zero,
+          constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+          onPressed: () {
+            if (context.canPop()) {
+              context.pop();
+            } else {
+              context.go('/crm/pipeline');
+            }
+          },
         ),
-        const Text('  /  ', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
-        InkWell(
-          onTap: () => context.go('/crm/pipeline'),
-          child: const Text('Opportunities', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
-        ),
-        const Text('  /  ', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
-        Text(
-          opp.opportunityNo,
-          style: const TextStyle(fontSize: 12, color: AppColors.textSecondary, fontWeight: FontWeight.w600),
+        const SizedBox(width: 6),
+        Expanded(
+          child: Wrap(
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
+              InkWell(
+                onTap: () => context.go('/crm/pipeline'),
+                child: const Text('CRM', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
+              ),
+              const Text('  /  ', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
+              InkWell(
+                onTap: () => context.go('/crm/pipeline'),
+                child: const Text('Opportunities', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
+              ),
+              const Text('  /  ', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
+              Text(
+                opp.opportunityNo,
+                style: const TextStyle(fontSize: 12, color: AppColors.textSecondary, fontWeight: FontWeight.w600),
+              ),
+            ],
+          ),
         ),
       ],
     );
