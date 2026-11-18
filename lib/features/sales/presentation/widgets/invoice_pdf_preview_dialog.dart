@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/localization/locale_provider.dart';
 import '../../data/models/sales_models.dart';
 
 class InvoicePdfPreviewDialog extends StatelessWidget {
@@ -44,15 +45,15 @@ class InvoicePdfPreviewDialog extends StatelessWidget {
                     child: const Icon(Icons.picture_as_pdf_outlined, color: Color(0xFF2563EB), size: 20),
                   ),
                   const SizedBox(width: 10),
-                  const Expanded(
+                  Expanded(
                     child: Text(
-                      'Tax Invoice PDF Preview',
+                      context.l10n.invoicePdfPreview,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
                     ),
                   ),
                   IconButton(
-                    tooltip: 'Download / Print PDF',
+                    tooltip: context.l10n.downloadPrintPdf,
                     onPressed: () {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

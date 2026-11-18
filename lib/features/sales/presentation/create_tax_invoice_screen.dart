@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../../../core/api/dio_client.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/localization/locale_provider.dart';
 import '../data/models/sales_models.dart';
 import '../data/services/sales_service.dart';
 import 'widgets/invoice_pdf_preview_dialog.dart';
@@ -372,21 +373,21 @@ class _CreateTaxInvoiceScreenState extends State<CreateTaxInvoiceScreen> {
           children: [
             InkWell(
               onTap: () => context.go('/sales/invoices'),
-              child: const Text('Sales', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
+              child: Text(context.l10n.sales, style: const TextStyle(fontSize: 12, color: AppColors.textMuted)),
             ),
             const Text('  /  ', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
             InkWell(
               onTap: () => context.go('/sales/invoices'),
-              child: const Text('Invoices', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
+              child: Text(context.l10n.invoices, style: const TextStyle(fontSize: 12, color: AppColors.textMuted)),
             ),
             const Text('  /  ', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
-            const Text('New', style: TextStyle(fontSize: 12, color: AppColors.textSecondary, fontWeight: FontWeight.w600)),
+            Text(context.l10n.create, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary, fontWeight: FontWeight.w600)),
           ],
         ),
         const SizedBox(height: 4),
-        const Text(
-          'New Tax Invoice',
-          style: TextStyle(
+        Text(
+          context.l10n.newTaxInvoice,
+          style: const TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.w800,
             color: AppColors.textPrimary,

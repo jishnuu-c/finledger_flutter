@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/localization/locale_provider.dart';
 import '../../data/models/expense_models.dart';
 import '../../data/services/expense_service.dart';
 
@@ -87,15 +88,15 @@ class _MobileCameraModalState extends State<MobileCameraModal> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Expanded(
+                    Expanded(
                       child: Row(
                         children: [
-                          Icon(Icons.photo_camera, color: Color(0xFF2563EB), size: 20),
-                          SizedBox(width: 8),
+                          const Icon(Icons.photo_camera, color: Color(0xFF2563EB), size: 20),
+                          const SizedBox(width: 8),
                           Expanded(
                             child: Text(
-                              'Mobile Receipt Camera',
-                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                              context.l10n.mobileReceiptCamera,
+                              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),

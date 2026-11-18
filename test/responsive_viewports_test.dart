@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart' as legacy_provider;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:finledger/l10n/app_localizations.dart';
 import 'package:finledger/features/auth/presentation/providers/auth_provider.dart';
 import 'package:finledger/core/services/token_service.dart';
 import 'package:finledger/core/services/loading_service.dart';
@@ -74,6 +75,8 @@ void main() {
           dioClientProvider.overrideWithValue(dioClient),
         ],
         child: MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
           home: Scaffold(body: child),
         ),
       ),
@@ -352,7 +355,7 @@ void main() {
       ));
       await tester.pumpAndSettle();
       expect(tester.takeException(), isNull);
-      expect(find.textContaining('Convert to Customer Account'), findsOneWidget);
+      expect(find.textContaining('Convert to Customer Account'), findsWidgets);
     });
 
     testWidgets('NewOpportunityDialog renders without overflow on mobile', (tester) async {

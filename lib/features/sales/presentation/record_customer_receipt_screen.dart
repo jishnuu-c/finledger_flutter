@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../../../core/api/dio_client.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/localization/locale_provider.dart';
 import '../data/models/sales_models.dart';
 import '../data/services/sales_service.dart';
 
@@ -220,7 +221,7 @@ class _RecordCustomerReceiptScreenState extends State<RecordCustomerReceiptScree
     }).toList();
 
     try {
-      final receipt = await _salesService.createReceipt(
+      await _salesService.createReceipt(
         customerId: _selectedCustomer!.id,
         customerName: _selectedCustomer!.name,
         receiptDate: _receiptDateController.text.trim(),
@@ -235,7 +236,7 @@ class _RecordCustomerReceiptScreenState extends State<RecordCustomerReceiptScree
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Customer receipt ${receipt.receiptNo} recorded and posted to ledger!'),
+            content: Text(context.l10n.customerReceiptRecorded),
             backgroundColor: AppColors.success,
           ),
         );
@@ -309,22 +310,23 @@ class _RecordCustomerReceiptScreenState extends State<RecordCustomerReceiptScree
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
+        Wrap(
+          crossAxisAlignment: WrapCrossAlignment.center,
           children: [
             InkWell(
               onTap: () => context.go('/sales/invoices'),
-              child: const Text('Sales', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
+              child: Text(context.l10n.sales, style: const TextStyle(fontSize: 12, color: AppColors.textMuted)),
             ),
             const Text('  /  ', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
-            const Text('Receipts', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
+            Text(context.l10n.receipts, style: const TextStyle(fontSize: 12, color: AppColors.textMuted)),
             const Text('  /  ', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
-            const Text('New', style: TextStyle(fontSize: 12, color: AppColors.textSecondary, fontWeight: FontWeight.w600)),
+            Text(context.l10n.create, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary, fontWeight: FontWeight.w600)),
           ],
         ),
         const SizedBox(height: 4),
-        const Text(
-          'Record Customer Receipt',
-          style: TextStyle(
+        Text(
+          context.l10n.recordCustomerReceipt,
+          style: const TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.w800,
             color: AppColors.textPrimary,

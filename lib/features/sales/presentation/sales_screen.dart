@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/localization/locale_provider.dart';
 import '../../../shared/widgets/rounded_card.dart';
 import '../../../shared/widgets/status_chip.dart';
 import '../data/models/sales_models.dart';
@@ -107,9 +108,9 @@ class _SalesScreenState extends State<SalesScreen> {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Sales Invoices',
-            style: TextStyle(
+          Text(
+            context.l10n.salesInvoicesTitle,
+            style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w800,
               color: AppColors.textPrimary,
@@ -117,9 +118,9 @@ class _SalesScreenState extends State<SalesScreen> {
             ),
           ),
           const SizedBox(height: 4),
-          const Text(
-            'Manage UAE VAT compliant tax invoices, credit notes, and customer receipts',
-            style: TextStyle(fontSize: 12.5, color: AppColors.textSecondary),
+          Text(
+            context.l10n.salesInvoicesSubtitle,
+            style: const TextStyle(fontSize: 12.5, color: AppColors.textSecondary),
           ),
           const SizedBox(height: 12),
           Wrap(
@@ -129,12 +130,12 @@ class _SalesScreenState extends State<SalesScreen> {
               OutlinedButton.icon(
                 onPressed: () => context.go('/sales/receipts/new'),
                 icon: const Icon(Icons.receipt_outlined, size: 16),
-                label: const Text('Customer Receipt'),
+                label: Text(context.l10n.customerReceipts),
               ),
               ElevatedButton.icon(
                 onPressed: () => context.go('/sales/invoices/new'),
                 icon: const Icon(Icons.add, size: 16),
-                label: const Text('Create Tax Invoice'),
+                label: Text(context.l10n.createTaxInvoice),
               ),
             ],
           ),
@@ -145,23 +146,23 @@ class _SalesScreenState extends State<SalesScreen> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const Expanded(
+        Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Sales Invoices',
-                style: TextStyle(
+                context.l10n.salesInvoicesTitle,
+                style: const TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.w800,
                   color: AppColors.textPrimary,
                   letterSpacing: -0.5,
                 ),
               ),
-              SizedBox(height: 4),
+              const SizedBox(height: 4),
               Text(
-                'Manage UAE VAT compliant tax invoices, credit notes, and customer receipts',
-                style: TextStyle(fontSize: 13, color: AppColors.textSecondary),
+                context.l10n.salesInvoicesSubtitle,
+                style: const TextStyle(fontSize: 13, color: AppColors.textSecondary),
               ),
             ],
           ),
@@ -174,12 +175,12 @@ class _SalesScreenState extends State<SalesScreen> {
             OutlinedButton.icon(
               onPressed: () => context.go('/sales/receipts/new'),
               icon: const Icon(Icons.receipt_outlined, size: 16),
-              label: const Text('Customer Receipt'),
+              label: Text(context.l10n.customerReceipts),
             ),
             ElevatedButton.icon(
               onPressed: () => context.go('/sales/invoices/new'),
               icon: const Icon(Icons.add, size: 16),
-              label: const Text('Create Tax Invoice'),
+              label: Text(context.l10n.createTaxInvoice),
             ),
           ],
         ),
@@ -200,11 +201,11 @@ class _SalesScreenState extends State<SalesScreen> {
           mainAxisSpacing: 12,
           childAspectRatio: ratio,
           children: [
-            _buildStatusCard('DRAFT', '2 Invoices', 'AED 18,400', AppColors.draft, AppColors.draftBg),
-            _buildStatusCard('SENT', '8 Invoices', 'AED 164,200', AppColors.sent, AppColors.sentBg),
-            _buildStatusCard('PARTIAL', '4 Invoices', 'AED 48,500', AppColors.partial, AppColors.partialBg),
-            _buildStatusCard('PAID', '42 Invoices', 'AED 840,000', AppColors.paid, AppColors.paidBg),
-            _buildStatusCard('OVERDUE', '5 Invoices', 'AED 56,700', AppColors.overdue, AppColors.overdueBg),
+            _buildStatusCard(context.l10n.statusDraft.toUpperCase(), '2 ${context.l10n.invoices}', 'AED 18,400', AppColors.draft, AppColors.draftBg),
+            _buildStatusCard(context.l10n.statusSent.toUpperCase(), '8 ${context.l10n.invoices}', 'AED 164,200', AppColors.sent, AppColors.sentBg),
+            _buildStatusCard(context.l10n.statusPartiallyPaid.toUpperCase(), '4 ${context.l10n.invoices}', 'AED 48,500', AppColors.partial, AppColors.partialBg),
+            _buildStatusCard(context.l10n.statusPaid.toUpperCase(), '42 ${context.l10n.invoices}', 'AED 840,000', AppColors.paid, AppColors.paidBg),
+            _buildStatusCard(context.l10n.statusOverdue.toUpperCase(), '5 ${context.l10n.invoices}', 'AED 56,700', AppColors.overdue, AppColors.overdueBg),
           ],
         );
       },
@@ -294,15 +295,15 @@ class _SalesScreenState extends State<SalesScreen> {
           headingRowHeight: 42,
           dataRowMinHeight: 52,
           dataRowMaxHeight: 52,
-          columns: const [
-            DataColumn(label: Text('INVOICE #', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-            DataColumn(label: Text('CUSTOMER', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-            DataColumn(label: Text('ISSUE DATE', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-            DataColumn(label: Text('DUE DATE', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-            DataColumn(label: Text('TOTAL (AED)', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-            DataColumn(label: Text('BALANCE (AED)', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-            DataColumn(label: Text('STATUS', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-            DataColumn(label: Text('ACTIONS', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+          columns: [
+            DataColumn(label: Text(context.l10n.invoiceNumber.toUpperCase(), style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+            DataColumn(label: Text(context.l10n.customer.toUpperCase(), style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+            DataColumn(label: Text(context.l10n.issueDate.toUpperCase(), style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+            DataColumn(label: Text(context.l10n.dueDate.toUpperCase(), style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+            DataColumn(label: Text(context.l10n.totalAmount.toUpperCase(), style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+            DataColumn(label: Text(context.l10n.balanceDue.toUpperCase(), style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+            DataColumn(label: Text(context.l10n.status.toUpperCase(), style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+            DataColumn(label: Text(context.l10n.actions.toUpperCase(), style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
           ],
           rows: _invoices.map((inv) {
             return DataRow(

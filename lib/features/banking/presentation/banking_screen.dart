@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/localization/locale_provider.dart';
 import '../../../shared/widgets/rounded_card.dart';
 import 'widgets/import_statement_modal.dart';
 
@@ -36,9 +37,9 @@ class BankingScreen extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Bank Accounts & Treasury',
-                  style: TextStyle(
+                Text(
+                  context.l10n.bankingTitle,
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w800,
                     color: AppColors.textPrimary,
@@ -46,9 +47,9 @@ class BankingScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 4),
-                const Text(
-                  'Bank feeds, statement reconciliation, transaction matching & auto-clearing',
-                  style: TextStyle(fontSize: 12.5, color: AppColors.textSecondary),
+                Text(
+                  context.l10n.bankingSubtitle,
+                  style: const TextStyle(fontSize: 12.5, color: AppColors.textSecondary),
                 ),
                 const SizedBox(height: 12),
                 Wrap(
@@ -58,12 +59,12 @@ class BankingScreen extends StatelessWidget {
                     OutlinedButton.icon(
                       onPressed: () => context.go('/banking/reconciliation'),
                       icon: const Icon(Icons.sync_alt, size: 16),
-                      label: const Text('Reconciliation'),
+                      label: Text(context.l10n.reconciliation),
                     ),
                     ElevatedButton.icon(
                       onPressed: () => _openImportModal(context),
                       icon: const Icon(Icons.upload_file_outlined, size: 16),
-                      label: const Text('Import Statement (OFX/CSV)'),
+                      label: Text(context.l10n.importBankStatement),
                     ),
                   ],
                 ),
@@ -74,23 +75,23 @@ class BankingScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Expanded(
+                Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Bank Accounts & Treasury',
-                        style: TextStyle(
+                        context.l10n.bankingTitle,
+                        style: const TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.w800,
                           color: AppColors.textPrimary,
                           letterSpacing: -0.5,
                         ),
                       ),
-                      SizedBox(height: 4),
+                      const SizedBox(height: 4),
                       Text(
-                        'Bank feeds, statement reconciliation, transaction matching & auto-clearing',
-                        style: TextStyle(fontSize: 13, color: AppColors.textSecondary),
+                        context.l10n.bankingSubtitle,
+                        style: const TextStyle(fontSize: 13, color: AppColors.textSecondary),
                       ),
                     ],
                   ),
@@ -102,12 +103,12 @@ class BankingScreen extends StatelessWidget {
                     OutlinedButton.icon(
                       onPressed: () => context.go('/banking/reconciliation'),
                       icon: const Icon(Icons.sync_alt, size: 16),
-                      label: const Text('Bank Reconciliation'),
+                      label: Text(context.l10n.bankReconciliation),
                     ),
                     ElevatedButton.icon(
                       onPressed: () => _openImportModal(context),
                       icon: const Icon(Icons.upload_file_outlined, size: 16),
-                      label: const Text('Import Statement (OFX/CSV)'),
+                      label: Text(context.l10n.importBankStatement),
                     ),
                   ],
                 ),

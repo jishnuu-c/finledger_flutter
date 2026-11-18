@@ -5,6 +5,8 @@ import 'package:provider/provider.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/services/loading_service.dart';
 import '../../core/services/token_service.dart';
+import '../../core/localization/locale_provider.dart';
+import 'language_switcher.dart';
 
 class TopBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback? onMobileMenuToggle;
@@ -19,92 +21,37 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => const Size.fromHeight(56);
 
-  String _getPageTitle(String route) {
-    if (route.startsWith('/crm/leads')) {
-      return 'CRM / Leads';
-    }
-    if (route.startsWith('/crm/quotations')) {
-      return 'CRM / Quotations';
-    }
-    if (route.startsWith('/crm/opportunities')) {
-      return 'CRM / Opportunities';
-    }
-    if (route.startsWith('/crm')) {
-      return 'Sales Pipeline';
-    }
-    if (route.startsWith('/sales/customers')) {
-      return 'Sales / Customers';
-    }
-    if (route.startsWith('/sales/invoices/new')) {
-      return 'Sales / New Invoice';
-    }
-    if (route.startsWith('/sales/invoices')) {
-      return 'Sales Invoices';
-    }
-    if (route.startsWith('/sales/receipts')) {
-      return 'Customer Receipts';
-    }
-    if (route.startsWith('/sales')) {
-      return 'Sales';
-    }
-    if (route.startsWith('/purchases/vendors')) {
-      return 'Purchases / Vendors';
-    }
-    if (route.startsWith('/purchases/bills')) {
-      return 'Vendor Bills';
-    }
-    if (route.startsWith('/purchases/payments')) {
-      return 'Purchases / Payments';
-    }
-    if (route.startsWith('/purchases')) {
-      return 'Purchases';
-    }
-    if (route.startsWith('/inventory/items')) {
-      return 'Items & Stock';
-    }
-    if (route.startsWith('/inventory/adjustments')) {
-      return 'Stock Adjustments';
-    }
-    if (route.startsWith('/inventory/transfers')) {
-      return 'Stock Transfers';
-    }
-    if (route.startsWith('/inventory')) {
-      return 'Inventory';
-    }
-    if (route.startsWith('/expenses/approvals')) {
-      return 'Expense Approvals';
-    }
-    if (route.startsWith('/expenses/new')) {
-      return 'New Expense Claim';
-    }
-    if (route.startsWith('/expenses')) {
-      return 'Expenses';
-    }
-    if (route.startsWith('/accounting/accounts')) {
-      return 'Chart of Accounts';
-    }
-    if (route.startsWith('/accounting/journals/new')) {
-      return 'Journal Entries / New';
-    }
-    if (route.startsWith('/accounting/journals')) {
-      return 'Journal Entries';
-    }
-    if (route.startsWith('/accounting')) {
-      return 'Accounting';
-    }
-    if (route.startsWith('/banking/reconciliation')) {
-      return 'Bank Reconciliation';
-    }
-    if (route.startsWith('/banking')) {
-      return 'Bank Accounts';
-    }
-    if (route.startsWith('/reports')) {
-      return 'Financial Reports';
-    }
-    if (route.startsWith('/settings')) {
-      return 'Company Settings';
-    }
-    return 'Dashboard';
+  String _getPageTitle(BuildContext context, String route) {
+    final l = context.l10n;
+    if (route.startsWith('/crm/leads')) return '${l.crm} / ${l.leads}';
+    if (route.startsWith('/crm/quotations')) return '${l.crm} / ${l.quotations}';
+    if (route.startsWith('/crm/opportunities')) return '${l.crm} / ${l.opportunities}';
+    if (route.startsWith('/crm')) return l.crmPipeline;
+    if (route.startsWith('/sales/customers')) return '${l.sales} / ${l.customers}';
+    if (route.startsWith('/sales/invoices/new')) return '${l.sales} / ${l.newInvoice}';
+    if (route.startsWith('/sales/invoices')) return l.invoices;
+    if (route.startsWith('/sales/receipts')) return l.customerReceipts;
+    if (route.startsWith('/sales')) return l.sales;
+    if (route.startsWith('/purchases/vendors')) return '${l.purchases} / ${l.vendors}';
+    if (route.startsWith('/purchases/bills')) return l.vendorBills;
+    if (route.startsWith('/purchases/payments')) return '${l.purchases} / ${l.payments}';
+    if (route.startsWith('/purchases')) return l.purchases;
+    if (route.startsWith('/inventory/items')) return l.itemsAndStock;
+    if (route.startsWith('/inventory/adjustments')) return l.adjustments;
+    if (route.startsWith('/inventory/transfers')) return l.transfers;
+    if (route.startsWith('/inventory')) return l.inventory;
+    if (route.startsWith('/expenses/approvals')) return l.approvals;
+    if (route.startsWith('/expenses/new')) return l.newExpenseClaim;
+    if (route.startsWith('/expenses')) return l.expenses;
+    if (route.startsWith('/accounting/accounts')) return l.chartOfAccounts;
+    if (route.startsWith('/accounting/journals/new')) return '${l.journalEntries} / ${l.create}';
+    if (route.startsWith('/accounting/journals')) return l.journalEntries;
+    if (route.startsWith('/accounting')) return l.accounting;
+    if (route.startsWith('/banking/reconciliation')) return l.bankReconciliation;
+    if (route.startsWith('/banking')) return l.bankAccounts;
+    if (route.startsWith('/reports')) return l.financialReports;
+    if (route.startsWith('/settings')) return l.companySettings;
+    return l.dashboard;
   }
 
   @override
@@ -114,7 +61,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
     final user = tokenService.currentUser;
     final company = user?.company;
     final currentRoute = GoRouterState.of(context).matchedLocation;
-    final pageTitle = _getPageTitle(currentRoute);
+    final pageTitle = _getPageTitle(context, currentRoute);
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
@@ -145,7 +92,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                   children: [
                     Padding(
                       padding: EdgeInsets.symmetric(
-                        horizontal: isMobile ? 12 : 20,
+                        horizontal: isMobile ? 8 : 16,
                       ),
                       child: Row(
                         children: [
@@ -159,49 +106,66 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                                 size: 20,
                               ),
                               tooltip: 'Menu',
+                              visualDensity: VisualDensity.compact,
+                              padding: EdgeInsets.zero,
+                              constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
                             ),
                             const SizedBox(width: 4),
                           ],
 
-                          // Breadcrumb on left: Home > Dashboard (Figure 3)
-                          Flexible(
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const Text(
-                                  'Home',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: Color(0xFF94A3B8),
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                                const SizedBox(width: 4),
-                                const Text(
-                                  '>',
-                                  style: TextStyle(
-                                    fontSize: 11,
-                                    color: Color(0xFF94A3B8),
-                                  ),
-                                ),
-                                const SizedBox(width: 4),
-                                Flexible(
-                                  child: Text(
-                                    pageTitle,
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                      color: Color(0xFF475569),
-                                      fontWeight: FontWeight.w500,
+                          // Title / Breadcrumb: Never overflows on mobile
+                          Expanded(
+                            child: Align(
+                              alignment: AlignmentDirectional.centerStart,
+                              child: isMobile
+                                  ? Text(
+                                      pageTitle,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                      style: const TextStyle(
+                                        fontSize: 13,
+                                        color: Color(0xFF1E293B),
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    )
+                                  : Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          context.l10n.home,
+                                          style: const TextStyle(
+                                            fontSize: 12,
+                                            color: Color(0xFF94A3B8),
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 4),
+                                        const Text(
+                                          '>',
+                                          style: TextStyle(
+                                            fontSize: 11,
+                                            color: Color(0xFF94A3B8),
+                                          ),
+                                        ),
+                                        const SizedBox(width: 4),
+                                        Flexible(
+                                          child: Text(
+                                            pageTitle,
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                            style: const TextStyle(
+                                              fontSize: 12,
+                                              color: Color(0xFF475569),
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ),
-                                ),
-                              ],
                             ),
                           ),
 
-                          const Spacer(),
+                          const SizedBox(width: 4),
 
                           // Search box: Search... (Figure 3) - Adaptive on wider screens
                           if (!isNarrow) ...[
@@ -215,7 +179,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                               child: TextField(
                                 style: const TextStyle(fontSize: 12.5),
                                 decoration: InputDecoration(
-                                  hintText: 'Search...',
+                                  hintText: context.l10n.searchPlaceholder,
                                   hintStyle: const TextStyle(
                                     fontSize: 12,
                                     color: Color(0xFF94A3B8),
@@ -247,12 +211,12 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                                 ),
                               ),
                             ),
-                            const SizedBox(width: 12),
+                            const SizedBox(width: 8),
                           ],
 
                           // Company Switcher: BSB Trading LLC ▾ (Figure 3)
                           PopupMenuButton<String>(
-                            tooltip: 'Switch Company',
+                            tooltip: context.l10n.switchCompany,
                             offset: const Offset(0, 40),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
@@ -292,30 +256,35 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                               children: [
                                 ConstrainedBox(
                                   constraints: BoxConstraints(
-                                    maxWidth: isMobile ? 95 : 150,
+                                    maxWidth: isMobile ? 65 : (constraints.maxWidth >= 900 ? 150 : 110),
                                   ),
                                   child: Text(
                                     company?.name ?? 'BSB Trading LLC',
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(
-                                      fontSize: 13,
+                                    style: TextStyle(
+                                      fontSize: isMobile ? 12 : 13,
                                       fontWeight: FontWeight.w500,
-                                      color: Color(0xFF334155),
+                                      color: const Color(0xFF334155),
                                     ),
                                   ),
                                 ),
-                                const SizedBox(width: 4),
+                                const SizedBox(width: 2),
                                 const Icon(
                                   Icons.keyboard_arrow_down_rounded,
-                                  size: 16,
+                                  size: 15,
                                   color: Color(0xFF64748B),
                                 ),
                               ],
                             ),
                           ),
 
-                          SizedBox(width: isMobile ? 8 : 16),
+                          SizedBox(width: isMobile ? 4 : 8),
+
+                          // Global Language Switcher: Visible on TopBar
+                          const LanguageSwitcher(),
+
+                          SizedBox(width: isMobile ? 4 : 10),
 
                           // User Avatar: Blue circular avatar with 'R' (Figure 3)
                           PopupMenuButton<String>(
@@ -357,19 +326,19 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                                 ),
                               ),
                               const PopupMenuDivider(),
-                              const PopupMenuItem<String>(
+                              PopupMenuItem<String>(
                                 value: 'logout',
                                 child: Row(
                                   children: [
-                                    Icon(
+                                    const Icon(
                                       Icons.logout,
                                       size: 16,
                                       color: AppColors.error,
                                     ),
-                                    SizedBox(width: 8),
+                                    const SizedBox(width: 8),
                                     Text(
-                                      'Sign Out',
-                                      style: TextStyle(
+                                      context.l10n.signOut,
+                                      style: const TextStyle(
                                         color: AppColors.error,
                                         fontSize: 12.5,
                                       ),
@@ -379,21 +348,21 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                               ),
                             ],
                             child: Container(
-                              width: 32,
-                              height: 32,
+                              width: isMobile ? 28 : 32,
+                              height: isMobile ? 28 : 32,
                               decoration: const BoxDecoration(
                                 color: Color(
                                   0xFF2563EB,
                                 ), // Blue circle matching Figure 3
                                 shape: BoxShape.circle,
                               ),
-                              child: const Center(
+                              child: Center(
                                 child: Text(
-                                  'R', // Letter 'R' matching Figure 3
+                                  'R',
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.w600,
-                                    fontSize: 14,
+                                    fontSize: isMobile ? 12.5 : 14,
                                   ),
                                 ),
                               ),

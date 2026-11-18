@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/localization/locale_provider.dart';
 import '../../../shared/widgets/rounded_card.dart';
 
 class ReportsScreen extends StatelessWidget {
@@ -36,9 +37,9 @@ class ReportsScreen extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Financial Reports & Compliance',
-                  style: TextStyle(
+                Text(
+                  context.l10n.reportsTitle,
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w800,
                     color: AppColors.textPrimary,
@@ -46,15 +47,15 @@ class ReportsScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 4),
-                const Text(
-                  'Certified double-entry reports, UAE VAT 201 statements, and management intelligence',
-                  style: TextStyle(fontSize: 12.5, color: AppColors.textSecondary),
+                Text(
+                  context.l10n.reportsSubtitle,
+                  style: const TextStyle(fontSize: 12.5, color: AppColors.textSecondary),
                 ),
                 const SizedBox(height: 12),
                 OutlinedButton.icon(
                   onPressed: () => _exportBoardPack(context),
                   icon: const Icon(Icons.picture_as_pdf_outlined, size: 16),
-                  label: const Text('Export Board Pack PDF'),
+                  label: Text(context.l10n.exportBoardPackPdf),
                 ),
               ],
             ),
@@ -63,13 +64,13 @@ class ReportsScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Expanded(
+                Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Financial Reports & Compliance',
-                        style: TextStyle(
+                        context.l10n.reportsTitle,
+                        style: const TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.w800,
                           color: AppColors.textPrimary,
@@ -78,8 +79,8 @@ class ReportsScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 4),
                       Text(
-                        'Certified double-entry reports, UAE VAT 201 statements, and management intelligence',
-                        style: TextStyle(fontSize: 13, color: AppColors.textSecondary),
+                        context.l10n.reportsSubtitle,
+                        style: const TextStyle(fontSize: 13, color: AppColors.textSecondary),
                       ),
                     ],
                   ),
@@ -88,7 +89,7 @@ class ReportsScreen extends StatelessWidget {
                 OutlinedButton.icon(
                   onPressed: () => _exportBoardPack(context),
                   icon: const Icon(Icons.picture_as_pdf_outlined, size: 16),
-                  label: const Text('Export Board Pack PDF'),
+                  label: Text(context.l10n.exportBoardPackPdf),
                 ),
               ],
             ),

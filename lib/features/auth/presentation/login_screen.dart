@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/localization/locale_provider.dart';
+import '../../../shared/widgets/language_switcher.dart';
 import 'providers/auth_provider.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
@@ -199,34 +201,38 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            if (!isSplitView) ...[
-                              Row(
-                                children: [
-                                  const Text(
-                                    'FinLedger',
-                                    style: TextStyle(
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.w800,
-                                      color: AppColors.primary,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    const Text(
+                                      'FinLedger',
+                                      style: TextStyle(
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.w800,
+                                        color: AppColors.primary,
+                                      ),
                                     ),
-                                  ),
-                                  const SizedBox(width: 4),
-                                  Container(
-                                    width: 6,
-                                    height: 6,
-                                    decoration: const BoxDecoration(
-                                      color: Color(0xFF38BDF8),
-                                      shape: BoxShape.circle,
+                                    const SizedBox(width: 4),
+                                    Container(
+                                      width: 6,
+                                      height: 6,
+                                      decoration: const BoxDecoration(
+                                        color: Color(0xFF38BDF8),
+                                        shape: BoxShape.circle,
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 32),
-                            ],
+                                  ],
+                                ),
+                                const LanguageSwitcher(),
+                              ],
+                            ),
+                            const SizedBox(height: 28),
 
-                            const Text(
-                              'Sign in',
-                              style: TextStyle(
+                            Text(
+                              context.l10n.signIn,
+                              style: const TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.w700,
                                 color: Color(0xFF0F172A),
@@ -234,9 +240,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               ),
                             ),
                             const SizedBox(height: 6),
-                            const Text(
-                              'Enter your credentials to continue',
-                              style: TextStyle(
+                            Text(
+                              context.l10n.loginSubtitle,
+                              style: const TextStyle(
                                 fontSize: 13.5,
                                 color: Color(0xFF64748B),
                               ),
@@ -290,9 +296,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               ),
 
                             // Email
-                            const Text(
-                              'Email',
-                              style: TextStyle(
+                            Text(
+                              context.l10n.email,
+                              style: const TextStyle(
                                 fontSize: 12.5,
                                 fontWeight: FontWeight.w600,
                                 color: Color(0xFF334155),
@@ -304,7 +310,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               keyboardType: TextInputType.emailAddress,
                               enabled: !isLockedOut,
                               decoration: InputDecoration(
-                                hintText: 'admin@finledger.com',
+                                hintText: context.l10n.emailHint,
                                 fillColor: Colors.white,
                                 filled: true,
                                 contentPadding: const EdgeInsets.symmetric(
@@ -333,10 +339,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               ),
                               validator: (val) {
                                 if (val == null || val.trim().isEmpty) {
-                                  return 'Email is required';
+                                  return context.l10n.emailRequired;
                                 }
                                 if (!val.contains('@') || !val.contains('.')) {
-                                  return 'Please enter a valid email address';
+                                  return context.l10n.invalidEmail;
                                 }
                                 return null;
                               },
@@ -344,9 +350,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             const SizedBox(height: 18),
 
                             // Password
-                            const Text(
-                              'Password',
-                              style: TextStyle(
+                            Text(
+                              context.l10n.password,
+                              style: const TextStyle(
                                 fontSize: 12.5,
                                 fontWeight: FontWeight.w600,
                                 color: Color(0xFF334155),
@@ -401,7 +407,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               ),
                               validator: (val) {
                                 if (val == null || val.isEmpty) {
-                                  return 'Password is required';
+                                  return context.l10n.passwordRequired;
                                 }
                                 return null;
                               },
@@ -438,9 +444,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                       ),
                                     ),
                                     const SizedBox(width: 8),
-                                    const Text(
-                                      'Remember me',
-                                      style: TextStyle(
+                                    Text(
+                                      context.l10n.rememberMe,
+                                      style: const TextStyle(
                                         fontSize: 12.5,
                                         color: Color(0xFF475569),
                                         fontWeight: FontWeight.w400,
@@ -465,9 +471,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                     tapTargetSize:
                                         MaterialTapTargetSize.shrinkWrap,
                                   ),
-                                  child: const Text(
-                                    'Forgot password?',
-                                    style: TextStyle(
+                                  child: Text(
+                                    context.l10n.forgotPassword,
+                                    style: const TextStyle(
                                       fontSize: 12.5,
                                       color: Color(0xFF2563EB),
                                       fontWeight: FontWeight.w500,
@@ -506,9 +512,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                           strokeWidth: 2,
                                         ),
                                       )
-                                    : const Text(
-                                        'Sign In',
-                                        style: TextStyle(
+                                    : Text(
+                                        context.l10n.signIn,
+                                        style: const TextStyle(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w600,
                                           color: Colors.white,

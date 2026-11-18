@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/localization/locale_provider.dart';
 import '../../data/models/inventory_models.dart';
 import '../../data/services/inventory_service.dart';
 
@@ -135,7 +136,7 @@ class _StockLedgerModalState extends State<StockLedgerModal> {
                   IconButton(
                     onPressed: () => Navigator.of(context).pop(),
                     icon: const Icon(Icons.close, color: AppColors.textMuted),
-                    tooltip: 'Close',
+                    tooltip: context.l10n.close,
                     padding: EdgeInsets.zero,
                     constraints: const BoxConstraints(),
                   ),

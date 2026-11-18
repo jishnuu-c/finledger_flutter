@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/localization/locale_provider.dart';
 import '../../data/models/report_models.dart';
 import '../../data/services/report_service.dart';
 
@@ -67,7 +68,7 @@ class _GlDrilldownModalState extends State<GlDrilldownModal> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'General Ledger Drill-Down: ${widget.accountName}',
+                        '${context.l10n.glDrilldownTitle}: ${widget.accountName}',
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -248,7 +249,7 @@ class _GlDrilldownModalState extends State<GlDrilldownModal> {
                     padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                   ),
-                  child: const Text('Close'),
+                  child: Text(context.l10n.close),
                 ),
               ],
             ),

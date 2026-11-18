@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../shared/widgets/language_switcher.dart';
 import '../data/models/settings_models.dart';
 import '../data/services/settings_service.dart';
 
@@ -41,6 +42,7 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
 
   final List<Map<String, dynamic>> _tabs = [
     {'id': 'profile', 'label': 'Company Profile', 'icon': Icons.business_outlined},
+    {'id': 'language', 'label': 'Language & Region', 'icon': Icons.translate_rounded},
     {'id': 'fiscal_years', 'label': 'Fiscal Years', 'icon': Icons.calendar_month_outlined},
     {'id': 'tax_rates', 'label': 'Tax Rates', 'icon': Icons.percent_outlined},
     {'id': 'currencies', 'label': 'Currencies', 'icon': Icons.monetization_on_outlined},
@@ -327,6 +329,8 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
     switch (_activeTab) {
       case 'profile':
         return _buildCompanyProfileTab();
+      case 'language':
+        return LanguageSwitcher.settingsCard();
       case 'fiscal_years':
         return _buildFiscalYearsTab();
       case 'tax_rates':

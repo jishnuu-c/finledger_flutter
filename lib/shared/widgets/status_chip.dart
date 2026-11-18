@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../core/theme/app_colors.dart';
+import '../../core/localization/locale_provider.dart';
 
 enum StatusType {
   draft,
@@ -87,8 +88,28 @@ class StatusChip extends StatelessWidget {
     }
   }
 
+  String _getLocalizedLabel(BuildContext context) {
+    try {
+      final l = context.l10n;
+      final lower = label.toLowerCase();
+      if (lower == 'draft') return l.statusDraft;
+      if (lower == 'sent') return l.statusSent;
+      if (lower == 'partial' || lower == 'partially paid') return l.statusPartiallyPaid;
+      if (lower == 'paid' || lower == 'cleared') return l.statusPaid;
+      if (lower == 'overdue') return l.statusOverdue;
+      if (lower == 'void') return l.statusVoid;
+      if (lower == 'won' || lower == 'approved') return l.stageWon;
+      if (lower == 'lost' || lower == 'rejected') return l.stageLost;
+      if (lower == 'pending' || lower == 'pending approval') return l.claimsAwaitingApproval;
+      if (lower == 'optimal') return l.optimalStock;
+      if (lower == 'low stock') return l.lowStock;
+    } catch (_) {}
+    return label;
+  }
+
   @override
   Widget build(BuildContext context) {
+    final displayLabel = _getLocalizedLabel(context);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 4),
       decoration: BoxDecoration(
@@ -108,7 +129,7 @@ class StatusChip extends StatelessWidget {
           ),
           const SizedBox(width: 6),
           Text(
-            label,
+            displayLabel,
             style: TextStyle(
               fontSize: 11.5,
               fontWeight: FontWeight.w600,

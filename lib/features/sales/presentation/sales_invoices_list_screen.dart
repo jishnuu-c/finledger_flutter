@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../../../core/api/dio_client.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/localization/locale_provider.dart';
 import '../data/models/sales_models.dart';
 import '../data/services/sales_service.dart';
 import 'widgets/invoice_pdf_preview_dialog.dart';
@@ -145,16 +146,16 @@ class _SalesInvoicesListScreenState extends State<SalesInvoicesListScreen> {
           children: [
             InkWell(
               onTap: () => context.go('/sales/invoices'),
-              child: const Text('Sales', style: TextStyle(fontSize: 12, color: AppColors.textMuted, fontWeight: FontWeight.w500)),
+              child: Text(context.l10n.sales, style: const TextStyle(fontSize: 12, color: AppColors.textMuted, fontWeight: FontWeight.w500)),
             ),
             const Text('  /  ', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
-            const Text('Invoices', style: TextStyle(fontSize: 12, color: AppColors.textSecondary, fontWeight: FontWeight.w600)),
+            Text(context.l10n.invoices, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary, fontWeight: FontWeight.w600)),
           ],
         ),
         const SizedBox(height: 4),
-        const Text(
-          'Sales Invoices',
-          style: TextStyle(
+        Text(
+          context.l10n.salesInvoicesTitle,
+          style: const TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.w800,
             color: AppColors.textPrimary,
@@ -179,25 +180,25 @@ class _SalesInvoicesListScreenState extends State<SalesInvoicesListScreen> {
 
         final cards = [
           _buildSummaryCard(
-            title: 'Draft',
+            title: context.l10n.statusDraft,
             value: '${kpis?.draftCount ?? 6}',
             valueColor: AppColors.textPrimary,
             width: cardWidth,
           ),
           _buildSummaryCard(
-            title: 'Unpaid',
+            title: context.l10n.statusUnpaid,
             value: 'AED ${currencyFormatter.format(kpis?.unpaidAmount ?? 271320)}',
             valueColor: AppColors.textPrimary,
             width: cardWidth,
           ),
           _buildSummaryCard(
-            title: 'Overdue',
+            title: context.l10n.statusOverdue,
             value: 'AED ${currencyFormatter.format(kpis?.overdueAmount ?? 113600)}',
             valueColor: const Color(0xFFDC2626), // Red from Figure 6
             width: cardWidth,
           ),
           _buildSummaryCard(
-            title: 'Paid (this month)',
+            title: context.l10n.paidThisMonth,
             value: 'AED ${currencyFormatter.format(kpis?.paidThisMonthAmount ?? 196450)}',
             valueColor: const Color(0xFF16A34A), // Green from Figure 6
             width: cardWidth,

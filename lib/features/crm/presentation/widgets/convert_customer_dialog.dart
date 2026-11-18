@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/localization/locale_provider.dart';
 
 class ConvertCustomerDialogResult {
   final String customerName;
@@ -106,8 +107,8 @@ class _ConvertCustomerDialogState extends State<ConvertCustomerDialog> {
                     Expanded(
                       child: Text(
                         widget.isWinningDeal
-                            ? 'Link Customer to Win Deal'
-                            : 'Convert to Customer Account',
+                            ? context.l10n.convertCustomer
+                            : context.l10n.convertCustomer,
                         style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
                       ),
                     ),
@@ -121,14 +122,14 @@ class _ConvertCustomerDialogState extends State<ConvertCustomerDialog> {
                 const SizedBox(height: 8),
                 Text(
                   widget.isWinningDeal
-                      ? 'Moving an opportunity to Won requires a linked customer record in the Sales Ledger.'
-                      : 'Create a permanent Customer record in the Sales Ledger with VAT & contact coordinates.',
+                      ? context.l10n.dealCannotBeWonWithoutCustomer
+                      : context.l10n.crmSubtitle,
                   style: const TextStyle(fontSize: 12.5, color: AppColors.textSecondary),
                 ),
                 const SizedBox(height: 18),
 
                 // Company Name
-                const Text('Company / Organization Name *', style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600)),
+                Text('${context.l10n.companyOrgName} *', style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600)),
                 const SizedBox(height: 4),
                 TextFormField(
                   controller: _companyController,
@@ -147,7 +148,7 @@ class _ConvertCustomerDialogState extends State<ConvertCustomerDialog> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('Primary Contact Person', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+                          Text(context.l10n.contactPerson, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
                           const SizedBox(height: 4),
                           TextFormField(
                             controller: _contactController,
@@ -164,7 +165,7 @@ class _ConvertCustomerDialogState extends State<ConvertCustomerDialog> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('Tax / TRN Number', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+                          Text(context.l10n.trnTaxNumber, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
                           const SizedBox(height: 4),
                           TextFormField(
                             controller: _trnController,
@@ -187,7 +188,7 @@ class _ConvertCustomerDialogState extends State<ConvertCustomerDialog> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('Billing Email', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+                          Text(context.l10n.billingEmail, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
                           const SizedBox(height: 4),
                           TextFormField(
                             controller: _emailController,
@@ -204,7 +205,7 @@ class _ConvertCustomerDialogState extends State<ConvertCustomerDialog> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('Phone / WhatsApp', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+                          Text(context.l10n.phone, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
                           const SizedBox(height: 4),
                           TextFormField(
                             controller: _phoneController,
@@ -253,7 +254,7 @@ class _ConvertCustomerDialogState extends State<ConvertCustomerDialog> {
                     children: [
                       OutlinedButton(
                         onPressed: () => Navigator.of(context).pop(null),
-                        child: const Text('Cancel'),
+                        child: Text(context.l10n.cancel),
                       ),
                       ElevatedButton(
                         onPressed: () {
@@ -275,7 +276,7 @@ class _ConvertCustomerDialogState extends State<ConvertCustomerDialog> {
                           foregroundColor: Colors.white,
                           padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
                         ),
-                        child: Text(widget.isWinningDeal ? 'Save & Mark Won' : 'Convert & Link Customer'),
+                        child: Text(widget.isWinningDeal ? '${context.l10n.save} & ${context.l10n.markWon}' : context.l10n.convertCustomer),
                       ),
                     ],
                   ),

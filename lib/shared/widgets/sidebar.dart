@@ -1,24 +1,101 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../core/theme/app_colors.dart';
+import '../../core/localization/locale_provider.dart';
+import 'language_switcher.dart';
 
 class NavSection {
   final String? title; // If null, renders as standalone top item (e.g. Dashboard)
   final List<NavSubItem> items;
 
   const NavSection({this.title, required this.items});
+
+  String? getLocalizedTitle(BuildContext context) {
+    if (title == null) return null;
+    final l = context.l10n;
+    switch (title) {
+      case 'CRM':
+        return l.crm;
+      case 'SALES':
+        return l.sales;
+      case 'PURCHASES':
+        return l.purchases;
+      case 'INVENTORY':
+        return l.inventory;
+      case 'EXPENSES':
+        return l.expensesSection;
+      case 'ACCOUNTING':
+        return l.accounting;
+      case 'BANKING':
+        return l.banking;
+      default:
+        return title;
+    }
+  }
 }
 
 class NavSubItem {
+  final String id;
   final String label;
   final String route;
   final IconData? icon;
 
   const NavSubItem({
+    required this.id,
     required this.label,
     required this.route,
     this.icon,
   });
+
+  String getLocalizedLabel(BuildContext context) {
+    final l = context.l10n;
+    switch (id) {
+      case 'dashboard':
+        return l.dashboard;
+      case 'crm_leads':
+        return l.leads;
+      case 'crm_pipeline':
+        return l.pipeline;
+      case 'crm_quotations':
+        return l.quotations;
+      case 'sales_customers':
+        return l.customers;
+      case 'sales_invoices':
+        return l.invoices;
+      case 'sales_receipts':
+        return l.receipts;
+      case 'purchases_vendors':
+        return l.vendors;
+      case 'purchases_bills':
+        return l.bills;
+      case 'purchases_payments':
+        return l.payments;
+      case 'inventory_items':
+        return l.itemsAndStock;
+      case 'inventory_adjustments':
+        return l.adjustments;
+      case 'inventory_transfers':
+        return l.transfers;
+      case 'expenses_list':
+        return l.expenses;
+      case 'expenses_approvals':
+        return l.approvals;
+      case 'accounting_coa':
+        return l.chartOfAccounts;
+      case 'accounting_journals':
+        return l.journalEntries;
+      case 'banking_accounts':
+        return l.bankAccounts;
+      case 'banking_reconciliation':
+        return l.reconciliation;
+      case 'reports':
+        return l.reports;
+      case 'settings':
+        return l.settings;
+      default:
+        return label;
+    }
+  }
 }
 
 class Sidebar extends StatelessWidget {
@@ -36,6 +113,7 @@ class Sidebar extends StatelessWidget {
       title: null,
       items: [
         NavSubItem(
+          id: 'dashboard',
           label: 'Dashboard',
           route: '/dashboard',
           icon: Icons.dashboard_outlined,
@@ -45,65 +123,67 @@ class Sidebar extends StatelessWidget {
     NavSection(
       title: 'CRM',
       items: [
-        NavSubItem(label: 'Leads', route: '/crm/leads'),
-        NavSubItem(label: 'Pipeline', route: '/crm/pipeline'),
-        NavSubItem(label: 'Quotations', route: '/crm/quotations'),
+        NavSubItem(id: 'crm_leads', label: 'Leads', route: '/crm/leads'),
+        NavSubItem(id: 'crm_pipeline', label: 'Pipeline', route: '/crm/pipeline'),
+        NavSubItem(id: 'crm_quotations', label: 'Quotations', route: '/crm/quotations'),
       ],
     ),
     NavSection(
       title: 'SALES',
       items: [
-        NavSubItem(label: 'Customers', route: '/sales/customers'),
-        NavSubItem(label: 'Invoices', route: '/sales/invoices'),
-        NavSubItem(label: 'Receipts', route: '/sales/receipts/new'),
+        NavSubItem(id: 'sales_customers', label: 'Customers', route: '/sales/customers'),
+        NavSubItem(id: 'sales_invoices', label: 'Invoices', route: '/sales/invoices'),
+        NavSubItem(id: 'sales_receipts', label: 'Receipts', route: '/sales/receipts/new'),
       ],
     ),
     NavSection(
       title: 'PURCHASES',
       items: [
-        NavSubItem(label: 'Vendors', route: '/purchases/vendors'),
-        NavSubItem(label: 'Bills', route: '/purchases/bills'),
-        NavSubItem(label: 'Payments', route: '/purchases/payments/new'),
+        NavSubItem(id: 'purchases_vendors', label: 'Vendors', route: '/purchases/vendors'),
+        NavSubItem(id: 'purchases_bills', label: 'Bills', route: '/purchases/bills'),
+        NavSubItem(id: 'purchases_payments', label: 'Payments', route: '/purchases/payments/new'),
       ],
     ),
     NavSection(
       title: 'INVENTORY',
       items: [
-        NavSubItem(label: 'Items & Stock', route: '/inventory/items'),
-        NavSubItem(label: 'Adjustments', route: '/inventory/adjustments/new'),
-        NavSubItem(label: 'Transfers', route: '/inventory/transfers/new'),
+        NavSubItem(id: 'inventory_items', label: 'Items & Stock', route: '/inventory/items'),
+        NavSubItem(id: 'inventory_adjustments', label: 'Adjustments', route: '/inventory/adjustments/new'),
+        NavSubItem(id: 'inventory_transfers', label: 'Transfers', route: '/inventory/transfers/new'),
       ],
     ),
     NavSection(
       title: 'EXPENSES',
       items: [
-        NavSubItem(label: 'Expenses', route: '/expenses'),
-        NavSubItem(label: 'Approvals', route: '/expenses/approvals'),
+        NavSubItem(id: 'expenses_list', label: 'Expenses', route: '/expenses'),
+        NavSubItem(id: 'expenses_approvals', label: 'Approvals', route: '/expenses/approvals'),
       ],
     ),
     NavSection(
       title: 'ACCOUNTING',
       items: [
-        NavSubItem(label: 'Chart of Accounts', route: '/accounting/accounts'),
-        NavSubItem(label: 'Journal Entries', route: '/accounting/journals'),
+        NavSubItem(id: 'accounting_coa', label: 'Chart of Accounts', route: '/accounting/accounts'),
+        NavSubItem(id: 'accounting_journals', label: 'Journal Entries', route: '/accounting/journals'),
       ],
     ),
     NavSection(
       title: 'BANKING',
       items: [
-        NavSubItem(label: 'Bank Accounts', route: '/banking'),
-        NavSubItem(label: 'Reconciliation', route: '/banking/reconciliation'),
+        NavSubItem(id: 'banking_accounts', label: 'Bank Accounts', route: '/banking'),
+        NavSubItem(id: 'banking_reconciliation', label: 'Reconciliation', route: '/banking/reconciliation'),
       ],
     ),
     NavSection(
       title: null,
       items: [
         NavSubItem(
+          id: 'reports',
           label: 'Reports',
           route: '/reports',
           icon: Icons.bar_chart_outlined,
         ),
         NavSubItem(
+          id: 'settings',
           label: 'Settings',
           route: '/settings',
           icon: Icons.settings_outlined,
@@ -113,48 +193,48 @@ class Sidebar extends StatelessWidget {
   ];
 
   bool _isItemActive(NavSubItem item, String currentRoute) {
-    switch (item.label) {
-      case 'Dashboard':
+    switch (item.id) {
+      case 'dashboard':
         return currentRoute == '/dashboard' || currentRoute == '/';
-      case 'Leads':
+      case 'crm_leads':
         return currentRoute == '/crm/leads';
-      case 'Pipeline':
+      case 'crm_pipeline':
         return currentRoute == '/crm/pipeline' || currentRoute.startsWith('/crm/opportunities');
-      case 'Quotations':
+      case 'crm_quotations':
         return currentRoute == '/crm/quotations';
-      case 'Customers':
+      case 'sales_customers':
         return currentRoute == '/sales/customers';
-      case 'Invoices':
+      case 'sales_invoices':
         return currentRoute == '/sales/invoices' || currentRoute == '/sales/invoices/new';
-      case 'Receipts':
+      case 'sales_receipts':
         return currentRoute.startsWith('/sales/receipts');
-      case 'Vendors':
+      case 'purchases_vendors':
         return currentRoute == '/purchases/vendors';
-      case 'Bills':
+      case 'purchases_bills':
         return currentRoute == '/purchases' || currentRoute == '/purchases/bills';
-      case 'Payments':
+      case 'purchases_payments':
         return currentRoute.startsWith('/purchases/payments');
-      case 'Items & Stock':
+      case 'inventory_items':
         return currentRoute == '/inventory' || currentRoute == '/inventory/items';
-      case 'Adjustments':
+      case 'inventory_adjustments':
         return currentRoute.startsWith('/inventory/adjustments');
-      case 'Transfers':
+      case 'inventory_transfers':
         return currentRoute.startsWith('/inventory/transfers');
-      case 'Expenses':
+      case 'expenses_list':
         return currentRoute == '/expenses' || currentRoute == '/expenses/new';
-      case 'Approvals':
+      case 'expenses_approvals':
         return currentRoute == '/expenses/approvals';
-      case 'Chart of Accounts':
+      case 'accounting_coa':
         return currentRoute == '/accounting' || currentRoute == '/accounting/accounts';
-      case 'Journal Entries':
+      case 'accounting_journals':
         return currentRoute.startsWith('/accounting/journals');
-      case 'Bank Accounts':
+      case 'banking_accounts':
         return currentRoute == '/banking' || currentRoute == '/banking/accounts';
-      case 'Reconciliation':
+      case 'banking_reconciliation':
         return currentRoute.startsWith('/banking/reconciliation');
-      case 'Reports':
+      case 'reports':
         return currentRoute.startsWith('/reports');
-      case 'Settings':
+      case 'settings':
         return currentRoute.startsWith('/settings');
       default:
         return currentRoute == item.route;
@@ -163,7 +243,12 @@ class Sidebar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final currentRoute = GoRouterState.of(context).matchedLocation;
+    String currentRoute = '/';
+    try {
+      currentRoute = GoRouterState.of(context).matchedLocation;
+    } catch (_) {
+      currentRoute = '/';
+    }
     final width = isCollapsed ? 76.0 : 220.0;
 
     return AnimatedContainer(
@@ -191,7 +276,7 @@ class Sidebar extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(16, 12, 16, 4),
                       child: Text(
-                        section.title!,
+                        section.getLocalizedTitle(context) ?? section.title!,
                         style: const TextStyle(
                           fontSize: 10,
                           fontWeight: FontWeight.w700,
@@ -207,7 +292,7 @@ class Sidebar extends StatelessWidget {
             ),
           ),
 
-          // Bottom Collapse Toggle
+          // Bottom Collapse Toggle & Language Selector
           _buildFooter(context),
         ],
       ),
@@ -290,7 +375,8 @@ class Sidebar extends StatelessWidget {
 
   Widget _buildNavItem(BuildContext context, NavSubItem item, String currentRoute, bool isSubItem) {
     final isSelected = _isItemActive(item, currentRoute);
-    final isDashboard = item.label == 'Dashboard';
+    final displayLabel = item.getLocalizedLabel(context);
+    final isDashboard = item.id == 'dashboard';
 
     return Container(
       margin: EdgeInsets.symmetric(
@@ -298,7 +384,7 @@ class Sidebar extends StatelessWidget {
         vertical: 1.5,
       ),
       child: Tooltip(
-        message: isCollapsed ? item.label : '',
+        message: isCollapsed ? displayLabel : '',
         waitDuration: const Duration(milliseconds: 300),
         child: InkWell(
           onTap: () {
@@ -338,7 +424,7 @@ class Sidebar extends StatelessWidget {
                 if (!isCollapsed)
                   Expanded(
                     child: Text(
-                      item.label,
+                      displayLabel,
                       style: TextStyle(
                         fontSize: isSubItem ? 12 : 13,
                         fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
@@ -375,31 +461,39 @@ class Sidebar extends StatelessWidget {
     }
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
       decoration: const BoxDecoration(
         border: Border(top: BorderSide(color: Color(0xFF1E293B), width: 1)),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          const Flexible(
-            child: Text(
-              'FinLedger v2.0',
-              style: TextStyle(fontSize: 10, color: Color(0xFF64748B)),
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-          IconButton(
-            onPressed: onToggleCollapse,
-            tooltip: 'Collapse sidebar',
-            visualDensity: VisualDensity.compact,
-            padding: EdgeInsets.zero,
-            constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
-            icon: const Icon(
-              Icons.chevron_left_rounded,
-              color: Color(0xFF94A3B8),
-              size: 18,
-            ),
+          // Prominent segmented language switcher inside navigation drawer
+          LanguageSwitcher.drawerToggle(),
+          const SizedBox(height: 8),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Flexible(
+                child: Text(
+                  'FinLedger v2.0',
+                  style: TextStyle(fontSize: 10, color: Color(0xFF64748B)),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              IconButton(
+                onPressed: onToggleCollapse,
+                tooltip: 'Collapse sidebar',
+                visualDensity: VisualDensity.compact,
+                padding: EdgeInsets.zero,
+                constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+                icon: const Icon(
+                  Icons.chevron_left_rounded,
+                  color: Color(0xFF94A3B8),
+                  size: 18,
+                ),
+              ),
+            ],
           ),
         ],
       ),

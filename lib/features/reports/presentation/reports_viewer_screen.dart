@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/localization/locale_provider.dart';
 import '../data/models/report_models.dart';
 import '../data/services/report_service.dart';
 import 'widgets/gl_drilldown_modal.dart';
@@ -137,7 +138,7 @@ class _ReportsViewerScreenState extends State<ReportsViewerScreen> {
             Wrap(
               crossAxisAlignment: WrapCrossAlignment.center,
               children: [
-                const Text('Reports', style: TextStyle(fontSize: 12, color: AppColors.textSecondary, fontWeight: FontWeight.w500)),
+                Text(context.l10n.reports, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary, fontWeight: FontWeight.w500)),
                 const SizedBox(width: 4),
                 const Text('/', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
                 const SizedBox(width: 4),

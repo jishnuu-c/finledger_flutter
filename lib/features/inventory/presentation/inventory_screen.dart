@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/localization/locale_provider.dart';
 import '../../../shared/widgets/rounded_card.dart';
 import '../../../shared/widgets/stat_kpi_card.dart';
 
@@ -28,9 +29,9 @@ class InventoryScreen extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Inventory & Stock Valuation',
-                  style: TextStyle(
+                Text(
+                  context.l10n.inventoryTitle,
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w800,
                     color: AppColors.textPrimary,
@@ -38,9 +39,9 @@ class InventoryScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 4),
-                const Text(
-                  'Weighted Average Costing, multi-warehouse stock balances, transfers & adjustments',
-                  style: TextStyle(fontSize: 12.5, color: AppColors.textSecondary),
+                Text(
+                  context.l10n.inventorySubtitle,
+                  style: const TextStyle(fontSize: 12.5, color: AppColors.textSecondary),
                 ),
                 const SizedBox(height: 12),
                 Wrap(
@@ -50,12 +51,12 @@ class InventoryScreen extends StatelessWidget {
                     OutlinedButton.icon(
                       onPressed: () => context.go('/inventory/transfers/new'),
                       icon: const Icon(Icons.sync_alt, size: 16),
-                      label: const Text('Stock Transfer'),
+                      label: Text(context.l10n.stockTransfer),
                     ),
                     ElevatedButton.icon(
                       onPressed: () => context.go('/inventory/items'),
                       icon: const Icon(Icons.add, size: 16),
-                      label: const Text('New Item SKU'),
+                      label: Text(context.l10n.newItem),
                     ),
                   ],
                 ),
@@ -66,23 +67,23 @@ class InventoryScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Expanded(
+                Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Inventory & Stock Valuation',
-                        style: TextStyle(
+                        context.l10n.inventoryTitle,
+                        style: const TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.w800,
                           color: AppColors.textPrimary,
                           letterSpacing: -0.5,
                         ),
                       ),
-                      SizedBox(height: 4),
+                      const SizedBox(height: 4),
                       Text(
-                        'Weighted Average Costing, multi-warehouse stock balances, transfers & adjustments',
-                        style: TextStyle(fontSize: 13, color: AppColors.textSecondary),
+                        context.l10n.inventorySubtitle,
+                        style: const TextStyle(fontSize: 13, color: AppColors.textSecondary),
                       ),
                     ],
                   ),
@@ -95,12 +96,12 @@ class InventoryScreen extends StatelessWidget {
                     OutlinedButton.icon(
                       onPressed: () => context.go('/inventory/transfers/new'),
                       icon: const Icon(Icons.sync_alt, size: 16),
-                      label: const Text('Stock Transfer'),
+                      label: Text(context.l10n.stockTransfer),
                     ),
                     ElevatedButton.icon(
                       onPressed: () => context.go('/inventory/items'),
                       icon: const Icon(Icons.add, size: 16),
-                      label: const Text('New Item SKU'),
+                      label: Text(context.l10n.newItem),
                     ),
                   ],
                 ),

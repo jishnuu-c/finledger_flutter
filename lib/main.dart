@@ -6,6 +6,8 @@ import 'core/services/token_service.dart';
 import 'core/services/loading_service.dart';
 import 'core/api/dio_client.dart';
 import 'core/router/app_router.dart';
+import 'core/localization/locale_provider.dart';
+import 'l10n/app_localizations.dart';
 import 'features/auth/presentation/providers/auth_provider.dart';
 
 void main() async {
@@ -62,11 +64,19 @@ class _FinLedgerAppState extends State<FinLedgerApp> {
           tokenServiceProvider.overrideWithValue(widget.tokenService),
           dioClientProvider.overrideWithValue(widget.dioClient),
         ],
-        child: MaterialApp.router(
-          title: 'FinLedger - Double-Entry Accounting',
-          debugShowCheckedModeBanner: false,
-          theme: AppTheme.lightTheme,
-          routerConfig: _router,
+        child: Consumer(
+          builder: (context, ref, _) {
+            final activeLocale = ref.watch(localeNotifierProvider);
+            return MaterialApp.router(
+              title: 'FinLedger - Double-Entry Accounting',
+              debugShowCheckedModeBanner: false,
+              theme: AppTheme.lightTheme,
+              locale: activeLocale,
+              supportedLocales: AppLocalizations.supportedLocales,
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              routerConfig: _router,
+            );
+          },
         ),
       ),
     );

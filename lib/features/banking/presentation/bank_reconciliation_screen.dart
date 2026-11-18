@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/localization/locale_provider.dart';
 import '../data/models/banking_models.dart';
 import '../data/services/banking_service.dart';
 import 'widgets/create_bank_entry_modal.dart';
@@ -275,23 +276,23 @@ class _BankReconciliationScreenState extends State<BankReconciliationScreen> {
         Wrap(
           crossAxisAlignment: WrapCrossAlignment.center,
           children: [
-            const Text(
-              'Banking',
-              style: TextStyle(fontSize: 12, color: AppColors.textSecondary, fontWeight: FontWeight.w500),
+            Text(
+              context.l10n.banking,
+              style: const TextStyle(fontSize: 12, color: AppColors.textSecondary, fontWeight: FontWeight.w500),
             ),
             const SizedBox(width: 4),
             const Text('/', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
             const SizedBox(width: 4),
             Text(
-              'Reconciliation',
+              context.l10n.reconciliation,
               style: TextStyle(fontSize: 12, color: Colors.blue.shade700, fontWeight: FontWeight.w500),
             ),
           ],
         ),
         const SizedBox(height: 4),
-        const Text(
-          'Bank Reconciliation',
-          style: TextStyle(
+        Text(
+          context.l10n.bankReconciliation,
+          style: const TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.w800,
             color: AppColors.textPrimary,

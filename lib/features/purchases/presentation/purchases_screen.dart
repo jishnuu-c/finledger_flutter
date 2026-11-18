@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/localization/locale_provider.dart';
 import '../../../shared/widgets/rounded_card.dart';
 import '../../../shared/widgets/status_chip.dart';
 
@@ -39,43 +40,43 @@ class _PurchasesScreenState extends State<PurchasesScreen> {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Enter Vendor Bill'),
+        title: Text(context.l10n.enterVendorBill),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             TextField(
               controller: billNoController,
-              decoration: const InputDecoration(labelText: 'Bill Number', border: OutlineInputBorder()),
+              decoration: InputDecoration(labelText: context.l10n.billNumber, border: const OutlineInputBorder()),
             ),
             const SizedBox(height: 12),
             TextField(
               controller: vendorController,
-              decoration: const InputDecoration(labelText: 'Vendor Name', hintText: 'e.g. Al-Futtaim Logistics', border: OutlineInputBorder()),
+              decoration: InputDecoration(labelText: context.l10n.vendor, hintText: 'e.g. Al-Futtaim Logistics', border: const OutlineInputBorder()),
             ),
             const SizedBox(height: 12),
             TextField(
               controller: amountController,
               keyboardType: const TextInputType.numberWithOptions(decimal: true),
-              decoration: const InputDecoration(labelText: 'Total Amount (AED)', border: OutlineInputBorder()),
+              decoration: InputDecoration(labelText: '${context.l10n.totalAmount} (${context.l10n.currencyAed})', border: const OutlineInputBorder()),
             ),
           ],
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text('Cancel'),
+            child: Text(context.l10n.cancel),
           ),
           ElevatedButton(
             onPressed: () {
               Navigator.pop(ctx);
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text('Vendor Bill ${billNoController.text} recorded successfully.'),
+                  content: Text(context.l10n.vendorBillRecorded),
                   backgroundColor: AppColors.paid,
                 ),
               );
             },
-            child: const Text('Save Bill'),
+            child: Text(context.l10n.saveBill),
           ),
         ],
       ),
@@ -115,9 +116,9 @@ class _PurchasesScreenState extends State<PurchasesScreen> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Purchases & Accounts Payable',
-                  style: TextStyle(
+                Text(
+                  context.l10n.purchasesTitle,
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w800,
                     color: AppColors.textPrimary,
@@ -125,15 +126,15 @@ class _PurchasesScreenState extends State<PurchasesScreen> {
                   ),
                 ),
                 const SizedBox(height: 4),
-                const Text(
-                  'Procure-to-pay cycle: Vendor purchase bills, debit notes, and payment orders',
-                  style: TextStyle(fontSize: 12.5, color: AppColors.textSecondary),
+                Text(
+                  context.l10n.purchasesSubtitle,
+                  style: const TextStyle(fontSize: 12.5, color: AppColors.textSecondary),
                 ),
                 const SizedBox(height: 12),
                 ElevatedButton.icon(
                   onPressed: _showNewBillDialog,
                   icon: const Icon(Icons.add, size: 16),
-                  label: const Text('Enter Vendor Bill'),
+                  label: Text(context.l10n.enterVendorBill),
                 ),
               ],
             ),
@@ -142,23 +143,23 @@ class _PurchasesScreenState extends State<PurchasesScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Expanded(
+                Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Purchases & Accounts Payable',
-                        style: TextStyle(
+                        context.l10n.purchasesTitle,
+                        style: const TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.w800,
                           color: AppColors.textPrimary,
                           letterSpacing: -0.5,
                         ),
                       ),
-                      SizedBox(height: 4),
+                      const SizedBox(height: 4),
                       Text(
-                        'Procure-to-pay cycle: Vendor purchase bills, debit notes, and payment orders',
-                        style: TextStyle(fontSize: 13, color: AppColors.textSecondary),
+                        context.l10n.purchasesSubtitle,
+                        style: const TextStyle(fontSize: 13, color: AppColors.textSecondary),
                       ),
                     ],
                   ),
@@ -167,7 +168,7 @@ class _PurchasesScreenState extends State<PurchasesScreen> {
                 ElevatedButton.icon(
                   onPressed: _showNewBillDialog,
                   icon: const Icon(Icons.add, size: 16),
-                  label: const Text('Enter Vendor Bill'),
+                  label: Text(context.l10n.enterVendorBill),
                 ),
               ],
             ),
@@ -179,11 +180,11 @@ class _PurchasesScreenState extends State<PurchasesScreen> {
             scrollDirection: Axis.horizontal,
             child: Row(
               children: [
-                _buildTabButton('bills', 'Vendor Bills', Icons.receipt_long_outlined),
+                _buildTabButton('bills', context.l10n.bills, Icons.receipt_long_outlined),
                 const SizedBox(width: 8),
-                _buildTabButton('vendors', 'Vendors & Suppliers', Icons.store_mall_directory_outlined),
+                _buildTabButton('vendors', context.l10n.vendors, Icons.store_mall_directory_outlined),
                 const SizedBox(width: 8),
-                _buildTabButton('payments', 'Payment Orders', Icons.payments_outlined),
+                _buildTabButton('payments', context.l10n.payments, Icons.payments_outlined),
               ],
             ),
           ),

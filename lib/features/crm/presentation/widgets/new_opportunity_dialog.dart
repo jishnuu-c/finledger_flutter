@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/localization/locale_provider.dart';
 import '../../data/models/crm_models.dart';
 
 class NewOpportunityDialog extends StatefulWidget {
@@ -67,10 +68,10 @@ class _NewOpportunityDialogState extends State<NewOpportunityDialog> {
                 children: [
                   Row(
                     children: [
-                      const Expanded(
+                      Expanded(
                         child: Text(
-                          'Create New Opportunity',
-                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                          context.l10n.createOpportunity,
+                          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
                         ),
                       ),
                       IconButton(
@@ -84,7 +85,7 @@ class _NewOpportunityDialogState extends State<NewOpportunityDialog> {
                   const SizedBox(height: 16),
 
                 // Deal Title
-                const Text('Deal / Opportunity Title *', style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600)),
+                Text('${context.l10n.dealTitle} *', style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600)),
                 const SizedBox(height: 4),
                 TextFormField(
                   controller: _titleController,
@@ -98,7 +99,7 @@ class _NewOpportunityDialogState extends State<NewOpportunityDialog> {
                 const SizedBox(height: 12),
 
                 // Organization / Customer
-                const Text('Prospect / Customer Name *', style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600)),
+                Text('${context.l10n.prospectCustomerName} *', style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600)),
                 const SizedBox(height: 4),
                 TextFormField(
                   controller: _customerController,
@@ -113,7 +114,7 @@ class _NewOpportunityDialogState extends State<NewOpportunityDialog> {
 
                 // Expected Value & Probability
                 if (isMobile) ...[
-                  const Text('Expected Value (AED) *', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+                  Text('${context.l10n.expectedValueAed} *', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
                   const SizedBox(height: 4),
                   TextFormField(
                     controller: _valueController,
@@ -125,7 +126,7 @@ class _NewOpportunityDialogState extends State<NewOpportunityDialog> {
                     ),
                   ),
                   const SizedBox(height: 12),
-                  Text('Win Probability: $_probability%', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+                  Text('${context.l10n.winProbability}: $_probability%', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
                   Slider(
                     value: _probability.toDouble(),
                     min: 10,
@@ -135,7 +136,7 @@ class _NewOpportunityDialogState extends State<NewOpportunityDialog> {
                     onChanged: (v) => setState(() => _probability = v.round()),
                   ),
                   const SizedBox(height: 12),
-                  const Text('Initial Stage', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+                  Text(context.l10n.initialStage, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
                   const SizedBox(height: 4),
                   DropdownButtonFormField<String>(
                     isExpanded: true,
@@ -290,7 +291,7 @@ class _NewOpportunityDialogState extends State<NewOpportunityDialog> {
                   children: [
                     OutlinedButton(
                       onPressed: () => Navigator.of(context).pop(),
-                      child: const Text('Cancel'),
+                      child: Text(context.l10n.cancel),
                     ),
                     ElevatedButton(
                       onPressed: () {
@@ -315,7 +316,7 @@ class _NewOpportunityDialogState extends State<NewOpportunityDialog> {
                         foregroundColor: Colors.white,
                         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                       ),
-                      child: const Text('Create Deal'),
+                      child: Text(context.l10n.createDeal),
                     ),
                   ],
                 ),

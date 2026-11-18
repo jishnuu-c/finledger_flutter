@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/localization/locale_provider.dart';
 
 /// Stock Status Chips matching Figure 9 (Page 18)
 /// In stock = green (#16A34A / #F0FDF4)
@@ -17,19 +18,20 @@ class StockStatusChip extends StatelessWidget {
     String label;
 
     final norm = status.toUpperCase().replaceAll(' ', '_');
+    final l = context.l10n;
 
     switch (norm) {
       case 'IN_STOCK':
       case 'INSTOCK':
       case 'IN_STOCK_':
-        label = 'In stock';
+        label = l.inStock;
         textColor = const Color(0xFF16A34A);
         bgColor = const Color(0xFFF0FDF4);
         borderColor = const Color(0xFFDCFCE7);
         break;
       case 'LOW':
       case 'LOW_STOCK':
-        label = 'Low';
+        label = l.statusLow;
         textColor = const Color(0xFFD97706);
         bgColor = const Color(0xFFFFFBEB);
         borderColor = const Color(0xFFFEF3C7);
@@ -37,7 +39,7 @@ class StockStatusChip extends StatelessWidget {
       case 'OUT_OF_STOCK':
       case 'OUTOFSTOCK':
       default:
-        label = 'Out of stock';
+        label = l.outOfStock;
         textColor = const Color(0xFFDC2626);
         bgColor = const Color(0xFFFEF2F2);
         borderColor = const Color(0xFFFEE2E2);

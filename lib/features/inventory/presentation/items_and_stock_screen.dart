@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/localization/locale_provider.dart';
 import '../data/models/inventory_models.dart';
 import '../data/services/inventory_service.dart';
 import 'widgets/stock_ledger_modal.dart';
@@ -163,30 +164,30 @@ class _ItemsAndStockScreenState extends State<ItemsAndStockScreen> {
               runSpacing: 14,
               children: [
                 _buildSingleKpiCard(
-                  title: 'Total stock value',
+                  title: context.l10n.totalStockValue,
                   value: 'AED ${_compactCurrency.format(kpis.totalStockValue)}',
-                  subtitle: 'Weighted average cost',
+                  subtitle: context.l10n.weightedAverageCost,
                   valueColor: AppColors.textPrimary,
                   width: cardWidth,
                 ),
                 _buildSingleKpiCard(
-                  title: 'Active SKUs',
+                  title: context.l10n.activeSkus,
                   value: '${kpis.activeSkus}',
-                  subtitle: '${kpis.totalWarehouses} warehouses',
+                  subtitle: '${kpis.totalWarehouses} ${context.l10n.warehouses}',
                   valueColor: AppColors.textPrimary,
                   width: cardWidth,
                 ),
                 _buildSingleKpiCard(
-                  title: 'Below reorder level',
+                  title: context.l10n.belowReorderLevel,
                   value: '${kpis.belowReorderCount}',
-                  subtitle: 'Suggested PO value AED ${_compactCurrency.format(kpis.suggestedPoValue)}',
+                  subtitle: '${context.l10n.suggestedPoValue} AED ${_compactCurrency.format(kpis.suggestedPoValue)}',
                   valueColor: const Color(0xFFDC2626), // red accent in Figure 9
                   width: cardWidth,
                 ),
                 _buildSingleKpiCard(
-                  title: 'Out of stock',
+                  title: context.l10n.outOfStock,
                   value: '${kpis.outOfStockCount}',
-                  subtitle: '${kpis.openQuotationsCount} with open quotations',
+                  subtitle: '${kpis.openQuotationsCount} ${context.l10n.withOpenQuotations}',
                   valueColor: const Color(0xFFDC2626), // red accent in Figure 9
                   width: cardWidth,
                 ),

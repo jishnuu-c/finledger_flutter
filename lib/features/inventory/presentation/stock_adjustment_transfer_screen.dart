@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/localization/locale_provider.dart';
 import '../data/models/inventory_models.dart';
 import '../data/services/inventory_service.dart';
 import 'widgets/barcode_scanner_modal.dart';
@@ -397,8 +398,12 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
 
   @override
   Widget build(BuildContext context) {
-    final title = _activeTab == StockActionTab.adjustment ? 'New Stock Adjustment' : 'New Stock Transfer';
-    final breadcrumbSub = _activeTab == StockActionTab.adjustment ? 'Adjustments' : 'Transfers';
+    final title = _activeTab == StockActionTab.adjustment
+        ? context.l10n.newStockAdjustment
+        : context.l10n.newStockTransfer;
+    final breadcrumbSub = _activeTab == StockActionTab.adjustment
+        ? context.l10n.adjustments
+        : context.l10n.transfers;
 
     final isMobile = MediaQuery.of(context).size.width < 600;
 
@@ -453,12 +458,12 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
           children: [
             InkWell(
               onTap: () => context.go('/inventory/items'),
-              child: const Text('Inventory', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
+              child: Text(context.l10n.inventory, style: const TextStyle(fontSize: 12, color: AppColors.textMuted)),
             ),
             const Text('  /  ', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
             Text(breadcrumbSub, style: const TextStyle(fontSize: 12, color: AppColors.textMuted)),
             const Text('  /  ', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
-            const Text('New', style: TextStyle(fontSize: 12, color: AppColors.textSecondary, fontWeight: FontWeight.w600)),
+            Text(context.l10n.create, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary, fontWeight: FontWeight.w600)),
           ],
         ),
         const SizedBox(height: 4),
@@ -496,7 +501,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
               ),
             ),
             child: Text(
-              'Stock Adjustment',
+              context.l10n.stockAdjustment,
               style: TextStyle(
                 fontSize: 13,
                 fontWeight: FontWeight.w600,
@@ -522,7 +527,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
               ),
             ),
             child: Text(
-              'Stock Transfer',
+              context.l10n.stockTransfer,
               style: TextStyle(
                 fontSize: 13,
                 fontWeight: FontWeight.w600,

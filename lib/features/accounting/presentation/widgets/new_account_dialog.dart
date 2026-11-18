@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/localization/locale_provider.dart';
 import '../../data/models/account_model.dart';
 
 class NewAccountDialog extends StatefulWidget {
@@ -103,10 +104,10 @@ class _NewAccountDialogState extends State<NewAccountDialog> {
                   // Header
                   Row(
                     children: [
-                      const Expanded(
+                      Expanded(
                         child: Text(
-                          'New General Ledger Account',
-                          style: TextStyle(
+                          context.l10n.newGlAccount,
+                          style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w700,
                             color: Color(0xFF0F172A),
@@ -122,15 +123,15 @@ class _NewAccountDialogState extends State<NewAccountDialog> {
                     ],
                   ),
                   const SizedBox(height: 4),
-                  const Text(
-                    'Add a new group header or posting account to BSB Trading LLC chart of accounts.',
-                    style: TextStyle(fontSize: 12.5, color: Color(0xFF64748B)),
+                  Text(
+                    context.l10n.accountingSubtitle,
+                    style: const TextStyle(fontSize: 12.5, color: Color(0xFF64748B)),
                   ),
                 const SizedBox(height: 20),
 
                 // Row 1: Code and Name
                 if (isMobile) ...[
-                  const Text('Account Code *', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+                  Text('${context.l10n.accountCode} *', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
                   const SizedBox(height: 6),
                   TextFormField(
                     controller: _codeController,
@@ -283,12 +284,12 @@ class _NewAccountDialogState extends State<NewAccountDialog> {
                       onChanged: (val) => setState(() => _isGroup = val ?? false),
                     ),
                     const SizedBox(width: 4),
-                    const Expanded(
+                    Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Is Group Account', style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600)),
-                          Text('Header account used for grouping; cannot be posted to directly.', style: TextStyle(fontSize: 11, color: Color(0xFF94A3B8))),
+                          Text(context.l10n.isGroupAccount, style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600)),
+                          Text(context.l10n.groupAccountNote, style: const TextStyle(fontSize: 11, color: Color(0xFF94A3B8))),
                         ],
                       ),
                     ),
@@ -304,7 +305,7 @@ class _NewAccountDialogState extends State<NewAccountDialog> {
                   children: [
                     OutlinedButton(
                       onPressed: () => Navigator.of(context).pop(),
-                      child: const Text('Cancel'),
+                      child: Text(context.l10n.cancel),
                     ),
                     ElevatedButton(
                       onPressed: _isSaving ? null : _handleSubmit,
@@ -314,7 +315,7 @@ class _NewAccountDialogState extends State<NewAccountDialog> {
                       ),
                       child: _isSaving
                           ? const SizedBox(width: 16, height: 16, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
-                          : const Text('Save Account'),
+                          : Text(context.l10n.saveAccount),
                     ),
                   ],
                 ),

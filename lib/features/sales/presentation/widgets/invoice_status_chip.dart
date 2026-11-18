@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/localization/locale_provider.dart';
 
 class InvoiceStatusChip extends StatelessWidget {
   final String status;
@@ -11,36 +12,37 @@ class InvoiceStatusChip extends StatelessWidget {
     Color text = const Color(0xFF64748B);
     String label = status;
 
+    final l = context.l10n;
     switch (status.toUpperCase()) {
       case 'DRAFT':
         bg = const Color(0xFFF1F5F9); // Grey
         text = const Color(0xFF64748B);
-        label = 'Draft';
+        label = l.statusDraft;
         break;
       case 'SENT':
         bg = const Color(0xFFEFF6FF); // Blue
         text = const Color(0xFF2563EB);
-        label = 'Sent';
+        label = l.statusSent;
         break;
       case 'PARTIAL':
         bg = const Color(0xFFFEF3C7); // Amber
         text = const Color(0xFFD97706);
-        label = 'Partial';
+        label = l.statusPartial;
         break;
       case 'PAID':
         bg = const Color(0xFFDCFCE7); // Green
         text = const Color(0xFF16A34A);
-        label = 'Paid';
+        label = l.statusPaid;
         break;
       case 'OVERDUE':
         bg = const Color(0xFFFEE2E2); // Red
         text = const Color(0xFFDC2626);
-        label = 'Overdue';
+        label = l.statusOverdue;
         break;
       case 'VOID':
         bg = const Color(0xFFF1F5F9);
         text = const Color(0xFF94A3B8);
-        label = 'Void';
+        label = l.statusVoid;
         break;
       default:
         bg = const Color(0xFFF1F5F9);

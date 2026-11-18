@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../../../core/api/dio_client.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/localization/locale_provider.dart';
 import '../data/models/crm_models.dart';
 import '../data/services/crm_service.dart';
 import 'widgets/convert_customer_dialog.dart';
@@ -97,8 +98,8 @@ class _PipelineBoardScreenState extends State<PipelineBoardScreen> {
         // User cancelled linking customer; abort drop without changes
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Deal cannot be marked Won without an associated customer.'),
+            SnackBar(
+              content: Text(context.l10n.dealCannotBeWonWithoutCustomer),
               backgroundColor: AppColors.warning,
             ),
           );
@@ -123,8 +124,8 @@ class _PipelineBoardScreenState extends State<PipelineBoardScreen> {
       if (reason == null || reason.isEmpty) {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Deal cannot be marked Lost without a mandatory lost reason.'),
+            SnackBar(
+              content: Text(context.l10n.dealCannotBeLostWithoutReason),
               backgroundColor: AppColors.warning,
             ),
           );
@@ -237,10 +238,9 @@ class _PipelineBoardScreenState extends State<PipelineBoardScreen> {
       context: context,
       builder: (ctx) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        title: const Text('Import Leads & Deals'),
-        content: const Text(
-          'Upload a CSV file containing lead coordinates, estimated deal amounts, and sales owners. '
-          'Records will be automatically parsed and mapped into the Sales Pipeline.',
+        title: Text(context.l10n.importLeadsAndDeals),
+        content: Text(
+          context.l10n.uploadReceiptPrompt,
         ),
         actions: [
           Wrap(
@@ -248,19 +248,19 @@ class _PipelineBoardScreenState extends State<PipelineBoardScreen> {
             spacing: 8,
             runSpacing: 8,
             children: [
-              OutlinedButton(onPressed: () => Navigator.pop(ctx), child: const Text('Cancel')),
+              OutlinedButton(onPressed: () => Navigator.pop(ctx), child: Text(context.l10n.cancel)),
               ElevatedButton.icon(
                 onPressed: () {
                   Navigator.pop(ctx);
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Leads import completed. 6 new opportunities added to pipeline.'),
+                    SnackBar(
+                      content: Text(context.l10n.leadsImportSuccess),
                       backgroundColor: AppColors.success,
                     ),
                   );
                 },
                 icon: const Icon(Icons.file_upload_outlined, size: 16),
-                label: const Text('Select CSV File'),
+                label: Text(context.l10n.selectCsvFile),
               ),
             ],
           ),
@@ -336,25 +336,25 @@ class _PipelineBoardScreenState extends State<PipelineBoardScreen> {
           children: [
             InkWell(
               onTap: () => context.go('/crm/pipeline'),
-              child: const Text(
-                'CRM',
-                style: TextStyle(fontSize: 12, color: AppColors.textMuted, fontWeight: FontWeight.w500),
+              child: Text(
+                context.l10n.crm,
+                style: const TextStyle(fontSize: 12, color: AppColors.textMuted, fontWeight: FontWeight.w500),
               ),
             ),
             const Text(
               '  /  ',
               style: TextStyle(fontSize: 12, color: AppColors.textMuted),
             ),
-            const Text(
-              'Pipeline',
-              style: TextStyle(fontSize: 12, color: AppColors.textSecondary, fontWeight: FontWeight.w600),
+            Text(
+              context.l10n.pipeline,
+              style: const TextStyle(fontSize: 12, color: AppColors.textSecondary, fontWeight: FontWeight.w600),
             ),
           ],
         ),
         const SizedBox(height: 4),
-        const Text(
-          'Sales Pipeline',
-          style: TextStyle(
+        Text(
+          context.l10n.salesPipeline,
+          style: const TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.w800,
             color: AppColors.textPrimary,
@@ -386,7 +386,7 @@ class _PipelineBoardScreenState extends State<PipelineBoardScreen> {
                 controller: _searchController,
                 onSubmitted: (_) => _loadBoardData(),
                 decoration: InputDecoration(
-                  hintText: 'Search opportunity...',
+                  hintText: context.l10n.searchOpportunity,
                   hintStyle: const TextStyle(fontSize: 12.5, color: AppColors.textMuted),
                   prefixIcon: const Icon(Icons.search, size: 18, color: AppColors.textMuted),
                   filled: true,
@@ -417,11 +417,11 @@ class _PipelineBoardScreenState extends State<PipelineBoardScreen> {
                 child: DropdownButton<String>(
                   value: _selectedOwner,
                   style: const TextStyle(fontSize: 12.5, color: AppColors.textPrimary, fontWeight: FontWeight.w500),
-                  items: const [
-                    DropdownMenuItem(value: 'All', child: Text('Owner: All')),
-                    DropdownMenuItem(value: 'Raj', child: Text('Owner: Raj')),
-                    DropdownMenuItem(value: 'Sara', child: Text('Owner: Sara')),
-                    DropdownMenuItem(value: 'Ahmed', child: Text('Owner: Ahmed')),
+                  items: [
+                    DropdownMenuItem(value: 'All', child: Text('${context.l10n.filterByOwner}: ${context.l10n.all}')),
+                    DropdownMenuItem(value: 'Raj', child: Text('${context.l10n.filterByOwner}: Raj')),
+                    DropdownMenuItem(value: 'Sara', child: Text('${context.l10n.filterByOwner}: Sara')),
+                    DropdownMenuItem(value: 'Ahmed', child: Text('${context.l10n.filterByOwner}: Ahmed')),
                   ],
                   onChanged: (val) {
                     if (val != null) {
@@ -446,11 +446,11 @@ class _PipelineBoardScreenState extends State<PipelineBoardScreen> {
                 child: DropdownButton<String>(
                   value: _selectedClose,
                   style: const TextStyle(fontSize: 12.5, color: AppColors.textPrimary, fontWeight: FontWeight.w500),
-                  items: const [
-                    DropdownMenuItem(value: 'This quarter', child: Text('Close: This quarter')),
-                    DropdownMenuItem(value: 'This month', child: Text('Close: This month')),
-                    DropdownMenuItem(value: 'Next quarter', child: Text('Close: Next quarter')),
-                    DropdownMenuItem(value: 'All', child: Text('Close: All')),
+                  items: [
+                    DropdownMenuItem(value: 'This quarter', child: Text(context.l10n.closeThisQuarter)),
+                    DropdownMenuItem(value: 'This month', child: Text(context.l10n.closeThisMonth)),
+                    DropdownMenuItem(value: 'Next quarter', child: Text(context.l10n.closeNextQuarter)),
+                    DropdownMenuItem(value: 'All', child: Text(context.l10n.closeAll)),
                   ],
                   onChanged: (val) {
                     if (val != null) {
@@ -474,13 +474,13 @@ class _PipelineBoardScreenState extends State<PipelineBoardScreen> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   _buildToggleSegment(
-                    label: 'Board',
+                    label: context.l10n.boardView,
                     isSelected: _viewMode == PipelineViewMode.board,
                     onTap: () => setState(() => _viewMode = PipelineViewMode.board),
                   ),
                   Container(width: 1, height: 20, color: AppColors.border),
                   _buildToggleSegment(
-                    label: 'List',
+                    label: context.l10n.listView,
                     isSelected: _viewMode == PipelineViewMode.list,
                     onTap: () => setState(() => _viewMode = PipelineViewMode.list),
                   ),
@@ -505,7 +505,7 @@ class _PipelineBoardScreenState extends State<PipelineBoardScreen> {
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               ),
-              child: const Text('Import Leads', style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600)),
+              child: Text(context.l10n.importLeads, style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600)),
             ),
             ElevatedButton(
               onPressed: _openNewOpportunityModal,
@@ -516,7 +516,7 @@ class _PipelineBoardScreenState extends State<PipelineBoardScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
                 elevation: 0,
               ),
-              child: const Text('+ New Opportunity', style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600)),
+              child: Text('+ ${context.l10n.newOpportunity}', style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600)),
             ),
           ],
         ),
@@ -566,25 +566,25 @@ class _PipelineBoardScreenState extends State<PipelineBoardScreen> {
 
         final cards = [
           _buildKpiCard(
-            title: 'Open pipeline',
+            title: context.l10n.openPipeline,
             value: openPipeStr,
             valueColor: AppColors.textPrimary,
             width: cardWidth,
           ),
           _buildKpiCard(
-            title: 'Weighted forecast',
+            title: context.l10n.weightedForecast,
             value: weightedStr,
             valueColor: AppColors.textPrimary,
             width: cardWidth,
           ),
           _buildKpiCard(
-            title: 'Won this quarter',
+            title: context.l10n.wonThisQuarter,
             value: wonQuarterStr,
             valueColor: const Color(0xFF10B981), // Emerald green from Figure 4
             width: cardWidth,
           ),
           _buildKpiCard(
-            title: 'Win rate (90 days)',
+            title: context.l10n.winRate,
             value: winRateStr,
             valueColor: AppColors.textPrimary,
             width: cardWidth,
@@ -630,7 +630,7 @@ class _PipelineBoardScreenState extends State<PipelineBoardScreen> {
           const SizedBox(height: 6),
           FittedBox(
             fit: BoxFit.scaleDown,
-            alignment: Alignment.centerLeft,
+            alignment: AlignmentDirectional.centerStart,
             child: Text(
               value,
               maxLines: 1,

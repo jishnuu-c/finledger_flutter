@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/localization/locale_provider.dart';
 
 class LostReasonDialog extends StatefulWidget {
   final String opportunityTitle;
@@ -68,10 +69,10 @@ class _LostReasonDialogState extends State<LostReasonDialog> {
                     child: const Icon(Icons.cancel_outlined, color: AppColors.error, size: 20),
                   ),
                   const SizedBox(width: 12),
-                  const Expanded(
+                  Expanded(
                     child: Text(
-                      'Mark Opportunity as Lost',
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                      context.l10n.markOpportunityLost,
+                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
                     ),
                   ),
                   IconButton(
@@ -83,14 +84,14 @@ class _LostReasonDialogState extends State<LostReasonDialog> {
               ),
               const SizedBox(height: 12),
               Text(
-                'Please specify the reason why "${widget.opportunityTitle}" was lost. This reason is mandatory per CRM policy.',
+                '${context.l10n.lostReasonPrompt} ("${widget.opportunityTitle}")',
                 style: const TextStyle(fontSize: 13, color: AppColors.textSecondary),
               ),
               const SizedBox(height: 20),
 
-              const Text(
-                'Primary Reason *',
-                style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600, color: AppColors.textPrimary),
+              Text(
+                '${context.l10n.primaryReason} *',
+                style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600, color: AppColors.textPrimary),
               ),
               const SizedBox(height: 6),
               Container(
@@ -118,16 +119,16 @@ class _LostReasonDialogState extends State<LostReasonDialog> {
               ),
               const SizedBox(height: 16),
 
-              const Text(
-                'Additional Notes (Optional)',
-                style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600, color: AppColors.textPrimary),
+              Text(
+                context.l10n.additionalNotes,
+                style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600, color: AppColors.textPrimary),
               ),
               const SizedBox(height: 6),
               TextField(
                 controller: _notesController,
                 maxLines: 3,
                 decoration: InputDecoration(
-                  hintText: 'Enter details about competitor name, pricing gap, or client feedback...',
+                  hintText: context.l10n.lostReasonHint,
                   hintStyle: const TextStyle(fontSize: 12.5, color: AppColors.textMuted),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
@@ -149,7 +150,7 @@ class _LostReasonDialogState extends State<LostReasonDialog> {
                       padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                     ),
-                    child: const Text('Cancel'),
+                    child: Text(context.l10n.cancel),
                   ),
                   ElevatedButton(
                     onPressed: () {
@@ -165,7 +166,7 @@ class _LostReasonDialogState extends State<LostReasonDialog> {
                       padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                     ),
-                    child: const Text('Confirm & Mark Lost'),
+                    child: Text(context.l10n.confirmMarkLost),
                   ),
                 ],
               ),

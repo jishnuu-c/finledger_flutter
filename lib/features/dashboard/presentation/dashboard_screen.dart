@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/api/dio_client.dart';
+import '../../../core/localization/locale_provider.dart';
 import '../data/dashboard_models.dart';
 import '../data/dashboard_service.dart';
 
@@ -115,7 +116,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         Row(
           children: [
             Text(
-              'Home',
+              context.l10n.home,
               style: TextStyle(fontSize: 12, color: AppColors.textMuted),
             ),
             const SizedBox(width: 4),
@@ -124,16 +125,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
               style: TextStyle(fontSize: 11, color: AppColors.textMuted),
             ),
             const SizedBox(width: 4),
-            const Text(
-              'Dashboard',
-              style: TextStyle(fontSize: 12, color: Color(0xFF475569), fontWeight: FontWeight.w500),
+            Text(
+              context.l10n.dashboard,
+              style: const TextStyle(fontSize: 12, color: Color(0xFF475569), fontWeight: FontWeight.w500),
             ),
           ],
         ),
         const SizedBox(height: 4),
-        const Text(
-          'Dashboard',
-          style: TextStyle(
+        Text(
+          context.l10n.dashboard,
+          style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w700,
             color: Color(0xFF0F172A),
@@ -165,7 +166,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           children: [
             // Total Revenue (YTD)
             _buildKpiCard(
-              title: 'Total Revenue (YTD)',
+              title: context.l10n.totalRevenue,
               value: _formatCurrency(f.revenueYtd),
               trendBadge: '▲ ${f.revenueGrowth.toStringAsFixed(1)}% vs last year',
               trendIsPositive: true,
@@ -174,7 +175,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
             // Total Expenses (YTD)
             _buildKpiCard(
-              title: 'Total Expenses (YTD)',
+              title: context.l10n.ytdExpenses,
               value: _formatCurrency(f.expensesYtd),
               trendBadge: '▲ ${f.expensesGrowth.toStringAsFixed(1)}% vs last year',
               trendIsPositive: false, // In accounting/Figure 3, expense increase is red
@@ -183,17 +184,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
             // Accounts Receivable
             _buildKpiCard(
-              title: 'Accounts Receivable',
+              title: context.l10n.receivables,
               value: _formatCurrency(f.receivables),
-              subtitle: '${f.openInvoicesCount} open invoices',
+              subtitle: '${f.openInvoicesCount} ${context.l10n.openInvoices}',
               route: '/sales/invoices',
             ),
 
             // Cash & Bank
             _buildKpiCard(
-              title: 'Cash & Bank',
+              title: context.l10n.cashAndBank,
               value: _formatCurrency(f.cashAndBank),
-              subtitle: '${f.bankAccountsCount} bank accounts',
+              subtitle: '${f.bankAccountsCount} ${context.l10n.bankAccountsCount}',
               route: '/banking/accounts',
             ),
           ],
@@ -217,34 +218,34 @@ class _DashboardScreenState extends State<DashboardScreen> {
           children: [
             // Open Pipeline (CRM)
             _buildKpiCard(
-              title: 'Open Pipeline (CRM)',
+              title: context.l10n.openPipelineCrm,
               value: _formatCurrency(o.openPipelineCrm),
-              subtitle: '${o.opportunitiesCount} opportunities • ${o.weightedProbability}% weighted',
+              subtitle: '${o.opportunitiesCount} ${context.l10n.opportunities} • ${o.weightedProbability}% ${context.l10n.weightedProbability}',
               route: '/crm/pipeline',
             ),
 
             // Inventory Value with Low Stock in RED
             _buildKpiCard(
-              title: 'Inventory Value',
+              title: context.l10n.inventoryValue,
               value: _formatCurrency(o.inventoryValue),
-              subtitle: '${o.lowStockCount} items below reorder level',
+              subtitle: '${o.lowStockCount} ${context.l10n.lowStockAlert}',
               subtitleColor: const Color(0xFFDC2626), // Red per Figure 3
               route: '/inventory/items',
             ),
 
             // Expenses Awaiting Approval
             _buildKpiCard(
-              title: 'Expenses Awaiting Approval',
+              title: context.l10n.expensesAwaitingApproval,
               value: _formatCurrency(o.expensesAwaitingApproval),
-              subtitle: '${o.pendingClaimsCount} claims',
+              subtitle: '${o.pendingClaimsCount} ${context.l10n.pendingClaims}',
               route: '/expenses/approvals',
             ),
 
             // Accounts Payable
             _buildKpiCard(
-              title: 'Accounts Payable',
+              title: context.l10n.accountsPayable,
               value: _formatCurrency(o.accountsPayable),
-              subtitle: '${o.openBillsCount} open bills',
+              subtitle: '${o.openBillsCount} ${context.l10n.openBills}',
               route: '/purchases/bills',
             ),
           ],
@@ -578,11 +579,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsets.fromLTRB(20, 16, 20, 12),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 16, 20, 12),
             child: Text(
-              'Recent Transactions',
-              style: TextStyle(
+              context.l10n.recentActivity,
+              style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w700,
                 color: Color(0xFF0F172A),
@@ -601,36 +602,36 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 dataRowMaxHeight: 46,
                 horizontalMargin: 20,
                 columnSpacing: 32,
-                columns: const [
+                columns: [
                   DataColumn(
                     label: Text(
-                      'Date',
-                      style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: Color(0xFF64748B)),
+                      context.l10n.date,
+                      style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: Color(0xFF64748B)),
                     ),
                   ),
                   DataColumn(
                     label: Text(
-                      'Reference',
-                      style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: Color(0xFF64748B)),
+                      context.l10n.reference,
+                      style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: Color(0xFF64748B)),
                     ),
                   ),
                   DataColumn(
                     label: Text(
-                      'Description',
-                      style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: Color(0xFF64748B)),
+                      context.l10n.description,
+                      style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: Color(0xFF64748B)),
                     ),
                   ),
                   DataColumn(
                     label: Text(
-                      'Type',
-                      style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: Color(0xFF64748B)),
+                      context.l10n.status,
+                      style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: Color(0xFF64748B)),
                     ),
                   ),
                   DataColumn(
                     numeric: true,
                     label: Text(
-                      'Amount (AED)',
-                      style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: Color(0xFF64748B)),
+                      '${context.l10n.amount} (${context.l10n.currencyAed})',
+                      style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: Color(0xFF64748B)),
                     ),
                   ),
                 ],

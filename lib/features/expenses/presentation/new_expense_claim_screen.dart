@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/localization/locale_provider.dart';
 import '../data/models/expense_models.dart';
 import '../data/services/expense_service.dart';
 import 'widgets/expense_approval_stepper.dart';
@@ -359,20 +360,21 @@ class _NewExpenseClaimScreenState extends State<NewExpenseClaimScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
+        Wrap(
+          crossAxisAlignment: WrapCrossAlignment.center,
           children: [
             InkWell(
               onTap: () => context.go('/expenses'),
-              child: const Text('Expenses', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
+              child: Text(context.l10n.expenses, style: const TextStyle(fontSize: 12, color: AppColors.textMuted)),
             ),
             const Text('  /  ', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
-            const Text('New', style: TextStyle(fontSize: 12, color: AppColors.textSecondary, fontWeight: FontWeight.w600)),
+            Text(context.l10n.create, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary, fontWeight: FontWeight.w600)),
           ],
         ),
         const SizedBox(height: 4),
-        const Text(
-          'New Expense Claim',
-          style: TextStyle(
+        Text(
+          context.l10n.newExpenseClaim,
+          style: const TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.w800,
             color: AppColors.textPrimary,

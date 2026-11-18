@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/api/dio_client.dart';
+import '../../../../core/localization/locale_provider.dart';
 import '../data/models/account_model.dart';
 import '../data/models/journal_entry_model.dart';
 import '../data/services/accounting_service.dart';
@@ -343,24 +344,24 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
       children: [
         Wrap(
           crossAxisAlignment: WrapCrossAlignment.center,
-          children: const [
+          children: [
             Text(
-              'Accounting',
-              style: TextStyle(fontSize: 12, color: Color(0xFF94A3B8)),
+              context.l10n.accounting,
+              style: const TextStyle(fontSize: 12, color: Color(0xFF94A3B8)),
             ),
-            SizedBox(width: 4),
-            Text('/', style: TextStyle(fontSize: 11, color: Color(0xFF94A3B8))),
-            SizedBox(width: 4),
+            const SizedBox(width: 4),
+            const Text('/', style: TextStyle(fontSize: 11, color: Color(0xFF94A3B8))),
+            const SizedBox(width: 4),
             Text(
-              'Journal Entries',
-              style: TextStyle(fontSize: 12, color: Color(0xFF94A3B8)),
+              context.l10n.journalEntries,
+              style: const TextStyle(fontSize: 12, color: Color(0xFF94A3B8)),
             ),
-            SizedBox(width: 4),
-            Text('/', style: TextStyle(fontSize: 11, color: Color(0xFF94A3B8))),
-            SizedBox(width: 4),
+            const SizedBox(width: 4),
+            const Text('/', style: TextStyle(fontSize: 11, color: Color(0xFF94A3B8))),
+            const SizedBox(width: 4),
             Text(
-              'New',
-              style: TextStyle(
+              context.l10n.create,
+              style: const TextStyle(
                 fontSize: 12,
                 color: Color(0xFF475569),
                 fontWeight: FontWeight.w500,
@@ -369,9 +370,9 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
           ],
         ),
         const SizedBox(height: 4),
-        const Text(
-          'New Journal Entry',
-          style: TextStyle(
+        Text(
+          context.l10n.newJournalEntry,
+          style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w700,
             color: Color(0xFF0F172A),

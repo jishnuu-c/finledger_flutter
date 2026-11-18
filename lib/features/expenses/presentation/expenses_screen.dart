@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/localization/locale_provider.dart';
 import '../../../shared/widgets/rounded_card.dart';
 import '../../../shared/widgets/status_chip.dart';
 
@@ -27,9 +28,9 @@ class ExpensesScreen extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Expenses & Employee Claims',
-                  style: TextStyle(
+                Text(
+                  context.l10n.expensesTitle,
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w800,
                     color: AppColors.textPrimary,
@@ -37,9 +38,9 @@ class ExpensesScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 4),
-                const Text(
-                  'Track corporate spend, receipt attachments, approval workflow & employee reimbursements',
-                  style: TextStyle(fontSize: 12.5, color: AppColors.textSecondary),
+                Text(
+                  context.l10n.expensesSubtitle,
+                  style: const TextStyle(fontSize: 12.5, color: AppColors.textSecondary),
                 ),
                 const SizedBox(height: 12),
                 Wrap(
@@ -49,19 +50,19 @@ class ExpensesScreen extends StatelessWidget {
                     OutlinedButton.icon(
                       onPressed: () {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('All pending expense claims approved successfully.'),
+                          SnackBar(
+                            content: Text(context.l10n.success),
                             backgroundColor: AppColors.paid,
                           ),
                         );
                       },
                       icon: const Icon(Icons.check_circle_outline, size: 16),
-                      label: const Text('Batch Approve'),
+                      label: Text(context.l10n.batchApprove),
                     ),
                     ElevatedButton.icon(
                       onPressed: () => context.go('/expenses/new'),
                       icon: const Icon(Icons.add, size: 16),
-                      label: const Text('New Expense Claim'),
+                      label: Text(context.l10n.newExpenseClaim),
                     ),
                   ],
                 ),
@@ -72,23 +73,23 @@ class ExpensesScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Expanded(
+                Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Expenses & Employee Claims',
-                        style: TextStyle(
+                        context.l10n.expensesTitle,
+                        style: const TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.w800,
                           color: AppColors.textPrimary,
                           letterSpacing: -0.5,
                         ),
                       ),
-                      SizedBox(height: 4),
+                      const SizedBox(height: 4),
                       Text(
-                        'Track corporate spend, receipt attachments, approval workflow & employee reimbursements',
-                        style: TextStyle(fontSize: 13, color: AppColors.textSecondary),
+                        context.l10n.expensesSubtitle,
+                        style: const TextStyle(fontSize: 13, color: AppColors.textSecondary),
                       ),
                     ],
                   ),
@@ -101,19 +102,19 @@ class ExpensesScreen extends StatelessWidget {
                     OutlinedButton.icon(
                       onPressed: () {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('All pending expense claims approved successfully.'),
+                          SnackBar(
+                            content: Text(context.l10n.success),
                             backgroundColor: AppColors.paid,
                           ),
                         );
                       },
                       icon: const Icon(Icons.check_circle_outline, size: 16),
-                      label: const Text('Batch Approve'),
+                      label: Text(context.l10n.batchApprove),
                     ),
                     ElevatedButton.icon(
                       onPressed: () => context.go('/expenses/new'),
                       icon: const Icon(Icons.add, size: 16),
-                      label: const Text('New Expense Claim'),
+                      label: Text(context.l10n.newExpenseClaim),
                     ),
                   ],
                 ),

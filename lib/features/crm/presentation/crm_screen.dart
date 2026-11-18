@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/localization/locale_provider.dart';
 
 class CrmScreen extends StatelessWidget {
   const CrmScreen({super.key});
@@ -18,7 +19,7 @@ class CrmScreen extends StatelessWidget {
           const SizedBox(height: 20),
 
           // KPI Strip
-          _buildKpiStrip(),
+          _buildKpiStrip(context),
           const SizedBox(height: 24),
 
           // Kanban Board Stages
@@ -33,9 +34,9 @@ class CrmScreen extends StatelessWidget {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Sales Pipeline & CRM',
-            style: TextStyle(
+          Text(
+            context.l10n.salesPipelineCrm,
+            style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w800,
               color: AppColors.textPrimary,
@@ -43,9 +44,9 @@ class CrmScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 4),
-          const Text(
-            'Lead-to-Cash progression: Opportunity stages, deal values, and weighted forecasts',
-            style: TextStyle(fontSize: 12.5, color: AppColors.textSecondary),
+          Text(
+            context.l10n.crmSubtitle,
+            style: const TextStyle(fontSize: 12.5, color: AppColors.textSecondary),
           ),
           const SizedBox(height: 12),
           Wrap(
@@ -55,12 +56,12 @@ class CrmScreen extends StatelessWidget {
               OutlinedButton.icon(
                 onPressed: () => context.go('/crm/pipeline'),
                 icon: const Icon(Icons.file_upload_outlined, size: 16),
-                label: const Text('Import Leads'),
+                label: Text(context.l10n.importLeads),
               ),
               ElevatedButton.icon(
                 onPressed: () => context.go('/crm/pipeline'),
                 icon: const Icon(Icons.add, size: 16),
-                label: const Text('New Opportunity'),
+                label: Text(context.l10n.newOpportunity),
               ),
             ],
           ),
@@ -71,23 +72,23 @@ class CrmScreen extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const Expanded(
+        Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Sales Pipeline & CRM',
-                style: TextStyle(
+                context.l10n.salesPipelineCrm,
+                style: const TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.w800,
                   color: AppColors.textPrimary,
                   letterSpacing: -0.5,
                 ),
               ),
-              SizedBox(height: 4),
+              const SizedBox(height: 4),
               Text(
-                'Lead-to-Cash progression: Opportunity stages, deal values, and weighted forecasts',
-                style: TextStyle(fontSize: 13, color: AppColors.textSecondary),
+                context.l10n.crmSubtitle,
+                style: const TextStyle(fontSize: 13, color: AppColors.textSecondary),
               ),
             ],
           ),
@@ -100,12 +101,12 @@ class CrmScreen extends StatelessWidget {
             OutlinedButton.icon(
               onPressed: () => context.go('/crm/pipeline'),
               icon: const Icon(Icons.file_upload_outlined, size: 16),
-              label: const Text('Import Leads'),
+              label: Text(context.l10n.importLeads),
             ),
             ElevatedButton.icon(
               onPressed: () => context.go('/crm/pipeline'),
               icon: const Icon(Icons.add, size: 16),
-              label: const Text('New Opportunity'),
+              label: Text(context.l10n.newOpportunity),
             ),
           ],
         ),
@@ -113,7 +114,7 @@ class CrmScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildKpiStrip() {
+  Widget _buildKpiStrip(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -125,16 +126,16 @@ class CrmScreen extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         child: ConstrainedBox(
           constraints: const BoxConstraints(minWidth: 650),
-          child: const Row(
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _CrmKpiItem(title: 'OPEN PIPELINE', value: 'AED 640,000', subtitle: '18 active deals'),
-              _CrmDivider(),
-              _CrmKpiItem(title: 'WEIGHTED FORECAST', value: 'AED 412,500', subtitle: 'Probability-adjusted'),
-              _CrmDivider(),
-              _CrmKpiItem(title: 'WON THIS QUARTER', value: 'AED 895,000', subtitle: '12 closed deals'),
-              _CrmDivider(),
-              _CrmKpiItem(title: 'WIN RATE', value: '64.8%', subtitle: '+5.2% vs last quarter'),
+              _CrmKpiItem(title: context.l10n.openPipeline.toUpperCase(), value: 'AED 640,000', subtitle: '18 ${context.l10n.activeDealsCount}'),
+              const _CrmDivider(),
+              _CrmKpiItem(title: context.l10n.weightedForecast.toUpperCase(), value: 'AED 412,500', subtitle: context.l10n.probability),
+              const _CrmDivider(),
+              _CrmKpiItem(title: context.l10n.wonThisQuarter.toUpperCase(), value: 'AED 895,000', subtitle: '12 ${context.l10n.closedDealsCount}'),
+              const _CrmDivider(),
+              _CrmKpiItem(title: context.l10n.winRate.toUpperCase(), value: '64.8%', subtitle: '+5.2% vs last quarter'),
             ],
           ),
         ),
@@ -198,7 +199,7 @@ class CrmScreen extends StatelessWidget {
           final deals = col['deals'] as List<Map<String, String>>;
           return Container(
             width: 280,
-            margin: const EdgeInsets.only(right: 16),
+            margin: const EdgeInsetsDirectional.only(end: 16),
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
               color: const Color(0xFFF1F5F9),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/localization/locale_provider.dart';
 import '../data/models/expense_models.dart';
 import '../data/services/expense_service.dart';
 import 'widgets/expense_status_chip.dart';
@@ -197,16 +198,16 @@ class _ExpensesListScreenState extends State<ExpensesListScreen> {
           children: [
             InkWell(
               onTap: () => context.go('/expenses'),
-              child: const Text('Expenses', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
+              child: Text(context.l10n.expenses, style: const TextStyle(fontSize: 12, color: AppColors.textMuted)),
             ),
             const Text('  /  ', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
-            const Text('All Expenses', style: TextStyle(fontSize: 12, color: AppColors.textSecondary, fontWeight: FontWeight.w600)),
+            Text(context.l10n.allExpenses, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary, fontWeight: FontWeight.w600)),
           ],
         ),
         const SizedBox(height: 4),
-        const Text(
-          'Expenses',
-          style: TextStyle(
+        Text(
+          context.l10n.expenses,
+          style: const TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.w800,
             color: AppColors.textPrimary,
@@ -357,13 +358,13 @@ class _ExpensesListScreenState extends State<ExpensesListScreen> {
         final tabs = Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            _buildTabItem('All', 'all'),
+            _buildTabItem(context.l10n.all, 'all'),
             const SizedBox(width: 20),
-            _buildTabItem('My expenses', 'my'),
+            _buildTabItem(context.l10n.myExpenses, 'my'),
             const SizedBox(width: 20),
-            _buildTabItem('Awaiting my approval', 'approvals', badgeCount: 9),
+            _buildTabItem(context.l10n.awaitingMyApproval, 'approvals', badgeCount: 9),
             const SizedBox(width: 20),
-            _buildTabItem('To reimburse', 'reimburse'),
+            _buildTabItem(context.l10n.toReimburse, 'reimburse'),
           ],
         );
 
@@ -407,7 +408,7 @@ class _ExpensesListScreenState extends State<ExpensesListScreen> {
                 side: const BorderSide(color: AppColors.border),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
               ),
-              child: const Text('Export', style: TextStyle(fontSize: 12.5, color: AppColors.textPrimary)),
+              child: Text(context.l10n.export, style: const TextStyle(fontSize: 12.5, color: AppColors.textPrimary)),
             ),
 
             // + New Expense Button (Figure 11)
@@ -420,7 +421,7 @@ class _ExpensesListScreenState extends State<ExpensesListScreen> {
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
                 elevation: 0,
               ),
-              child: const Text('+ New Expense', style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.bold)),
+              child: Text('+ ${context.l10n.newExpense}', style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.bold)),
             ),
           ],
         );

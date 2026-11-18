@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/localization/locale_provider.dart';
 import '../../../shared/widgets/rounded_card.dart';
 import '../../../shared/widgets/status_chip.dart';
 
@@ -39,9 +40,9 @@ class _AccountingScreenState extends State<AccountingScreen>
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'General Ledger & Accounting',
-                  style: TextStyle(
+                Text(
+                  context.l10n.accountingTitle,
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w800,
                     color: AppColors.textPrimary,
@@ -49,9 +50,9 @@ class _AccountingScreenState extends State<AccountingScreen>
                   ),
                 ),
                 const SizedBox(height: 4),
-                const Text(
-                  'Double-entry chart of accounts, manual journals, and balance sheet integrity',
-                  style: TextStyle(
+                Text(
+                  context.l10n.accountingSubtitle,
+                  style: const TextStyle(
                     fontSize: 12.5,
                     color: AppColors.textSecondary,
                   ),
@@ -60,7 +61,7 @@ class _AccountingScreenState extends State<AccountingScreen>
                 ElevatedButton.icon(
                   onPressed: () => context.go('/accounting/journals/new'),
                   icon: const Icon(Icons.add, size: 16),
-                  label: const Text('New Journal Entry'),
+                  label: Text(context.l10n.newJournalEntry),
                 ),
               ],
             ),
@@ -69,23 +70,23 @@ class _AccountingScreenState extends State<AccountingScreen>
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Expanded(
+                Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'General Ledger & Accounting',
-                        style: TextStyle(
+                        context.l10n.accountingTitle,
+                        style: const TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.w800,
                           color: AppColors.textPrimary,
                           letterSpacing: -0.5,
                         ),
                       ),
-                      SizedBox(height: 4),
+                      const SizedBox(height: 4),
                       Text(
-                        'Double-entry chart of accounts, manual journals, and balance sheet integrity',
-                        style: TextStyle(
+                        context.l10n.accountingSubtitle,
+                        style: const TextStyle(
                           fontSize: 13,
                           color: AppColors.textSecondary,
                         ),
@@ -97,7 +98,7 @@ class _AccountingScreenState extends State<AccountingScreen>
                 ElevatedButton.icon(
                   onPressed: () => context.go('/accounting/journals/new'),
                   icon: const Icon(Icons.add, size: 16),
-                  label: const Text('New Journal Entry'),
+                  label: Text(context.l10n.newJournalEntry),
                 ),
               ],
             ),
@@ -114,10 +115,10 @@ class _AccountingScreenState extends State<AccountingScreen>
               fontWeight: FontWeight.w700,
               fontSize: 13,
             ),
-            tabs: const [
-              Tab(text: 'Chart of Accounts'),
-              Tab(text: 'Journal Entries'),
-              Tab(text: 'General Ledger Trail'),
+            tabs: [
+              Tab(text: context.l10n.chartOfAccounts),
+              Tab(text: context.l10n.journalEntries),
+              Tab(text: context.l10n.generalLedgerTrail),
             ],
           ),
           const SizedBox(height: 16),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/localization/locale_provider.dart';
 import '../../data/models/inventory_models.dart';
 import '../../data/services/inventory_service.dart';
 
@@ -113,15 +114,15 @@ class _BarcodeScannerModalState extends State<BarcodeScannerModal> with SingleTi
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Expanded(
+                    Expanded(
                       child: Row(
                         children: [
-                          Icon(Icons.qr_code_scanner, color: Color(0xFF2563EB), size: 22),
-                          SizedBox(width: 8),
+                          const Icon(Icons.qr_code_scanner, color: Color(0xFF2563EB), size: 22),
+                          const SizedBox(width: 8),
                           Expanded(
                             child: Text(
-                              'Scan Item Barcode',
-                              style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                              context.l10n.scanItemBarcode,
+                              style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),

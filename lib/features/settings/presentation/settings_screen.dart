@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/localization/locale_provider.dart';
 import '../../../shared/widgets/rounded_card.dart';
+import '../../../shared/widgets/language_switcher.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -22,21 +24,21 @@ class SettingsScreen extends StatelessWidget {
             children: [
               ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: 600),
-                child: const Column(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Company & System Settings',
-                      style: TextStyle(
+                      context.l10n.systemSettings,
+                      style: const TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.w800,
                         color: AppColors.textPrimary,
                         letterSpacing: -0.5,
                       ),
                     ),
-                    SizedBox(height: 4),
-                    Text(
-                      'Manage company profile, UAE VAT tax registration, fiscal periods, and user roles',
+                    const SizedBox(height: 4),
+                    const Text(
+                      'Manage company profile, UAE VAT tax registration, fiscal periods, language, and user roles',
                       style: TextStyle(fontSize: 13, color: AppColors.textSecondary),
                     ),
                   ],
@@ -45,17 +47,21 @@ class SettingsScreen extends StatelessWidget {
               ElevatedButton.icon(
                 onPressed: () {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Company settings saved successfully.'),
+                    SnackBar(
+                      content: Text(context.l10n.saveChanges),
                       backgroundColor: AppColors.paid,
                     ),
                   );
                 },
                 icon: const Icon(Icons.save_outlined, size: 16),
-                label: const Text('Save Changes'),
+                label: Text(context.l10n.saveChanges),
               ),
             ],
           ),
+          const SizedBox(height: 24),
+
+          // Prominent Language & Localization Switcher Card
+          LanguageSwitcher.settingsCard(),
           const SizedBox(height: 24),
 
           // Company Profile Card
