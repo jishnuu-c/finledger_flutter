@@ -1276,4 +1276,196 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get mobileReceiptCamera => 'كاميرا إيصالات الهاتف';
+
+  @override
+  String get vsLastYear => 'مقارنة بالعام الماضي';
+
+  @override
+  String get revenueVsExpenses6Months =>
+      'الإيرادات مقابل المصروفات (آخر 6 أشهر)';
+
+  @override
+  String get revenue => 'الإيرادات';
+
+  @override
+  String get receivablesAgeing => 'تقادم الذمم المدينة';
+
+  @override
+  String get ageingCurrent => 'الحالي';
+
+  @override
+  String get ageing1to30Days => '1-30 يوم';
+
+  @override
+  String get ageing31to60Days => '31-60 يوم';
+
+  @override
+  String get ageing61to90Days => '61-90 يوم';
+
+  @override
+  String get ageing90PlusDays => '+90 يوم';
+
+  @override
+  String get typeInvoice => 'فاتورة';
+
+  @override
+  String get typeReceipt => 'إيصال';
+
+  @override
+  String get typeBill => 'فاتورة شراء';
+
+  @override
+  String get statusPending => 'معلق';
+
+  @override
+  String get statusActive => 'نشط';
+
+  @override
+  String get statusMatched => 'مطابق';
+
+  @override
+  String get statusUnreconciled => 'غير مسوّى';
+
+  @override
+  String get statusInStock => 'متوفر بالمخزون';
+
+  @override
+  String get statusOutOfStock => 'نفذ من المخزون';
+
+  @override
+  String get statusOpen => 'مفتوح';
+
+  @override
+  String get statusClosed => 'مغلق';
+
+  @override
+  String get colCode => 'الرمز';
+
+  @override
+  String get colVendorName => 'اسم المورد';
+
+  @override
+  String get colTrn => 'الرقم الضريبي';
+
+  @override
+  String get colPaymentTerms => 'شروط الدفع';
+
+  @override
+  String get colOpenPayables => 'المستحقات المفتوحة';
+
+  @override
+  String get colActions => 'الإجراءات';
+
+  @override
+  String get colBillNo => 'رقم الفاتورة';
+
+  @override
+  String get colBillDate => 'تاريخ الفاتورة';
+
+  @override
+  String get colDueDate => 'تاريخ الاستحقاق';
+
+  @override
+  String get colPaymentNo => 'رقم الدفعة';
+
+  @override
+  String get colMethod => 'الطريقة';
+
+  @override
+  String get colClaimNo => 'رقم المطالبة';
+
+  @override
+  String get colCategory => 'الفئة';
+
+  @override
+  String get colReceipt => 'الإيصال';
+
+  @override
+  String get colItem => 'الصنف';
+
+  @override
+  String get colOnHand => 'في اليد';
+
+  @override
+  String get colReorderLevel => 'حد إعادة الطلب';
+
+  @override
+  String get colAccountName => 'اسم الحساب';
+
+  @override
+  String get colParent => 'الحساب الرئيسي';
+
+  @override
+  String get colBalanceAed => 'الرصيد (درهم)';
+
+  @override
+  String get searchAccount => 'البحث عن حساب...';
+
+  @override
+  String get termsDueOnReceipt => 'مستحق عند الاستلام';
+
+  @override
+  String get termsNet15 => 'صافي 15';
+
+  @override
+  String get termsNet30 => 'صافي 30';
+
+  @override
+  String get termsNet60 => 'صافي 60';
+
+  @override
+  String get previewPdf => 'معاينة PDF';
+
+  @override
+  String get saveAndSend => 'حفظ وإرسال';
+
+  @override
+  String get importAndAutoMatch => 'استيراد ومطابقة تلقائية';
+
+  @override
+  String get loadSampleCsv => 'تحميل نموذج CSV';
+
+  @override
+  String get quickQuotation => 'عرض أسعار سريع';
+
+  @override
+  String get menuTooltip => 'القائمة';
+
+  @override
+  String get exportCoaXlsxPrompt =>
+      'جارٍ تصدير شجرة الحسابات إلى Excel (.xlsx)';
+
+  @override
+  String get importCoaXlsxPrompt =>
+      'جارٍ استيراد شجرة الحسابات من قالب Excel (.xlsx)';
+
+  @override
+  String get importAction => 'استيراد';
+
+  @override
+  String get colEmployee => 'الموظف';
+
+  @override
+  String get whDubai => 'مستودع دبي';
+
+  @override
+  String get whRiyadh => 'مستودع الرياض';
+
+  @override
+  String get colAvgCost => 'متوسط التكلفة';
+
+  @override
+  String get colValueAed => 'القيمة (درهم)';
+
+  @override
+  String get newInventorySku => 'رمز صنف مخزون جديد';
+
+  @override
+  String get saveSku => 'حفظ رمز الصنف';
+
+  @override
+  String get collapseSidebar => 'طي الشريط الجانبي';
+
+  @override
+  String get expandSidebar => 'توسيع الشريط الجانبي';
 }

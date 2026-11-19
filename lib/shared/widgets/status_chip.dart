@@ -98,11 +98,24 @@ class StatusChip extends StatelessWidget {
       if (lower == 'paid' || lower == 'cleared') return l.statusPaid;
       if (lower == 'overdue') return l.statusOverdue;
       if (lower == 'void') return l.statusVoid;
-      if (lower == 'won' || lower == 'approved') return l.stageWon;
-      if (lower == 'lost' || lower == 'rejected') return l.stageLost;
-      if (lower == 'pending' || lower == 'pending approval') return l.claimsAwaitingApproval;
+      if (lower == 'won') return l.stageWon;
+      if (lower == 'lost') return l.stageLost;
+      if (lower == 'approved') return l.statusApproved;
+      if (lower == 'rejected') return l.statusRejected;
+      if (lower == 'submitted') return l.statusSubmitted;
+      if (lower == 'reimbursed') return l.statusReimbursed;
+      if (lower == 'posted') return l.statusPosted;
+      if (lower == 'unpaid') return l.statusUnpaid;
+      if (lower == 'pending' || lower == 'pending approval') return l.statusPending;
+      if (lower == 'active') return l.statusActive;
+      if (lower == 'matched') return l.statusMatched;
+      if (lower == 'unreconciled') return l.statusUnreconciled;
       if (lower == 'optimal') return l.optimalStock;
-      if (lower == 'low stock') return l.lowStock;
+      if (lower == 'low stock' || lower == 'low') return l.lowStock;
+      if (lower == 'in stock') return l.statusInStock;
+      if (lower == 'out of stock') return l.statusOutOfStock;
+      if (lower == 'open') return l.statusOpen;
+      if (lower == 'closed') return l.statusClosed;
     } catch (_) {}
     return label;
   }

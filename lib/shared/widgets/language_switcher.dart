@@ -105,7 +105,7 @@ class LanguageSwitcher extends ConsumerWidget {
       ],
       child: Builder(
         builder: (context) {
-          final isMobile = MediaQuery.of(context).size.width < 500;
+          final isMobile = MediaQuery.of(context).size.width < 768;
           return Container(
             height: 32,
             padding: EdgeInsets.symmetric(horizontal: isMobile ? 6 : 8),

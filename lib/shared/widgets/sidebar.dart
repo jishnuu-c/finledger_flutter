@@ -338,7 +338,7 @@ class Sidebar extends StatelessWidget {
             ),
             IconButton(
               onPressed: onToggleCollapse,
-              tooltip: 'Collapse sidebar',
+              tooltip: context.l10n.collapseSidebar,
               visualDensity: VisualDensity.compact,
               padding: EdgeInsets.zero,
               constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
@@ -447,7 +447,7 @@ class Sidebar extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 8),
         child: IconButton(
           onPressed: onToggleCollapse,
-          tooltip: 'Expand sidebar',
+          tooltip: context.l10n.expandSidebar,
           visualDensity: VisualDensity.compact,
           padding: EdgeInsets.zero,
           constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
@@ -483,7 +483,7 @@ class Sidebar extends StatelessWidget {
               ),
               IconButton(
                 onPressed: onToggleCollapse,
-                tooltip: 'Collapse sidebar',
+                tooltip: context.l10n.collapseSidebar,
                 visualDensity: VisualDensity.compact,
                 padding: EdgeInsets.zero,
                 constraints: const BoxConstraints(minWidth: 32, minHeight: 32),

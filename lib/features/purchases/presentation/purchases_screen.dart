@@ -202,13 +202,13 @@ class _PurchasesScreenState extends State<PurchasesScreen> {
                     headingRowHeight: 40,
                     dataRowMinHeight: 48,
                     dataRowMaxHeight: 48,
-                    columns: const [
-                      DataColumn(label: Text('CODE', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                      DataColumn(label: Text('VENDOR NAME', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                      DataColumn(label: Text('TRN', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                      DataColumn(label: Text('PAYMENT TERMS', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                      DataColumn(label: Text('OPEN PAYABLES', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                      DataColumn(label: Text('STATUS', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                    columns: [
+                      DataColumn(label: Text(context.l10n.colCode, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                      DataColumn(label: Text(context.l10n.colVendorName, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                      DataColumn(label: Text(context.l10n.colTrn, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                      DataColumn(label: Text(context.l10n.colPaymentTerms, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                      DataColumn(label: Text(context.l10n.colOpenPayables, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                      DataColumn(label: Text(context.l10n.status, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
                     ],
                     rows: vendors.map((v) {
                       return DataRow(
@@ -238,14 +238,14 @@ class _PurchasesScreenState extends State<PurchasesScreen> {
                     headingRowHeight: 40,
                     dataRowMinHeight: 48,
                     dataRowMaxHeight: 48,
-                    columns: const [
-                      DataColumn(label: Text('PAYMENT #', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                      DataColumn(label: Text('VENDOR', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                      DataColumn(label: Text('AGAINST BILL', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                      DataColumn(label: Text('DATE', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                      DataColumn(label: Text('AMOUNT', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                      DataColumn(label: Text('METHOD', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                      DataColumn(label: Text('STATUS', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                    columns: [
+                      DataColumn(label: Text(context.l10n.colPaymentNo, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                      DataColumn(label: Text(context.l10n.vendor, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                      DataColumn(label: Text(context.l10n.againstBill, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                      DataColumn(label: Text(context.l10n.date, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                      DataColumn(label: Text(context.l10n.amount, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                      DataColumn(label: Text(context.l10n.colMethod, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                      DataColumn(label: Text(context.l10n.status, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
                     ],
                     rows: payments.map((p) {
                       return DataRow(
@@ -276,14 +276,14 @@ class _PurchasesScreenState extends State<PurchasesScreen> {
                     headingRowHeight: 40,
                     dataRowMinHeight: 48,
                     dataRowMaxHeight: 48,
-                    columns: const [
-                      DataColumn(label: Text('BILL #', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                      DataColumn(label: Text('VENDOR', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                      DataColumn(label: Text('BILL DATE', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                      DataColumn(label: Text('DUE DATE', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                      DataColumn(label: Text('AMOUNT (AED)', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                      DataColumn(label: Text('STATUS', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                      DataColumn(label: Text('ACTIONS', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                    columns: [
+                      DataColumn(label: Text(context.l10n.colBillNo, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                      DataColumn(label: Text(context.l10n.vendor, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                      DataColumn(label: Text(context.l10n.colBillDate, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                      DataColumn(label: Text(context.l10n.colDueDate, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                      DataColumn(label: Text('${context.l10n.amount} (${context.l10n.currencyAed})', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                      DataColumn(label: Text(context.l10n.status, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                      DataColumn(label: Text(context.l10n.colActions, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
                     ],
                     rows: bills.map((b) {
                       return DataRow(

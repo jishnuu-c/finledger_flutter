@@ -78,7 +78,8 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
           child: LayoutBuilder(
             builder: (context, constraints) {
               final isNarrow = constraints.maxWidth < 680;
-              final isMobile = constraints.maxWidth < 500;
+              final isMobile = constraints.maxWidth < 768;
+              final isVeryNarrow = constraints.maxWidth < 380;
 
               return Container(
                 height: 56,
@@ -105,7 +106,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                                 color: Color(0xFF334155),
                                 size: 20,
                               ),
-                              tooltip: 'Menu',
+                              tooltip: context.l10n.menuTooltip,
                               visualDensity: VisualDensity.compact,
                               padding: EdgeInsets.zero,
                               constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
@@ -113,7 +114,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                             const SizedBox(width: 4),
                           ],
 
-                          // Title / Breadcrumb: Never overflows on mobile
+                          // Title / Breadcrumb: Never overflows on any screen
                           Expanded(
                             child: Align(
                               alignment: AlignmentDirectional.centerStart,
@@ -128,39 +129,36 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                                         fontWeight: FontWeight.w600,
                                       ),
                                     )
-                                  : Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Text(
-                                          context.l10n.home,
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                            color: Color(0xFF94A3B8),
-                                            fontWeight: FontWeight.w400,
+                                  : Text.rich(
+                                      TextSpan(
+                                        children: [
+                                          TextSpan(
+                                            text: context.l10n.home,
+                                            style: const TextStyle(
+                                              fontSize: 12,
+                                              color: Color(0xFF94A3B8),
+                                              fontWeight: FontWeight.w400,
+                                            ),
                                           ),
-                                        ),
-                                        const SizedBox(width: 4),
-                                        const Text(
-                                          '>',
-                                          style: TextStyle(
-                                            fontSize: 11,
-                                            color: Color(0xFF94A3B8),
+                                          const TextSpan(
+                                            text: '  >  ',
+                                            style: TextStyle(
+                                              fontSize: 11,
+                                              color: Color(0xFF94A3B8),
+                                            ),
                                           ),
-                                        ),
-                                        const SizedBox(width: 4),
-                                        Flexible(
-                                          child: Text(
-                                            pageTitle,
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 1,
+                                          TextSpan(
+                                            text: pageTitle,
                                             style: const TextStyle(
                                               fontSize: 12,
                                               color: Color(0xFF475569),
                                               fontWeight: FontWeight.w500,
                                             ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
                                     ),
                             ),
                           ),
@@ -256,7 +254,11 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                               children: [
                                 ConstrainedBox(
                                   constraints: BoxConstraints(
-                                    maxWidth: isMobile ? 65 : (constraints.maxWidth >= 900 ? 150 : 110),
+                                    maxWidth: isVeryNarrow
+                                        ? 60
+                                        : (isMobile
+                                            ? 80
+                                            : (constraints.maxWidth >= 900 ? 150 : 105)),
                                   ),
                                   child: Text(
                                     company?.name ?? 'BSB Trading LLC',
@@ -284,7 +286,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                           // Global Language Switcher: Visible on TopBar
                           const LanguageSwitcher(),
 
-                          SizedBox(width: isMobile ? 4 : 10),
+                          SizedBox(width: isMobile ? 4 : 8),
 
                           // User Avatar: Blue circular avatar with 'R' (Figure 3)
                           PopupMenuButton<String>(

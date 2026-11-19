@@ -134,16 +134,16 @@ class ExpensesScreen extends StatelessWidget {
                   headingRowHeight: 40,
                   dataRowMinHeight: 48,
                   dataRowMaxHeight: 48,
-                columns: const [
-                  DataColumn(label: Text('CLAIM #', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                  DataColumn(label: Text('EMPLOYEE', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                  DataColumn(label: Text('DESCRIPTION', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                  DataColumn(label: Text('CATEGORY', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                  DataColumn(label: Text('DATE', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                  DataColumn(label: Text('AMOUNT (AED)', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                  DataColumn(label: Text('RECEIPT', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                  DataColumn(label: Text('STATUS', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                  DataColumn(label: Text('ACTION', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                columns: [
+                  DataColumn(label: Text(context.l10n.colClaimNo, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                  DataColumn(label: Text(context.l10n.colEmployee, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                  DataColumn(label: Text(context.l10n.description, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                  DataColumn(label: Text(context.l10n.colCategory, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                  DataColumn(label: Text(context.l10n.date, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                  DataColumn(label: Text('${context.l10n.amount} (${context.l10n.currencyAed})', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                  DataColumn(label: Text(context.l10n.colReceipt, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                  DataColumn(label: Text(context.l10n.status, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                  DataColumn(label: Text(context.l10n.actions, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
                 ],
                 rows: claims.map((c) {
                   return DataRow(

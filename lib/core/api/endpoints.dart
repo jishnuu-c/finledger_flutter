@@ -1,7 +1,7 @@
 class Endpoints {
   static const String defaultBaseUrl = String.fromEnvironment(
     'API_BASE_URL',
-    defaultValue: 'http://192.168.1.201:8080/api/v1',
+    defaultValue: 'http://192.168.1.142:8080/api/v1',
   );
 
   // Auth

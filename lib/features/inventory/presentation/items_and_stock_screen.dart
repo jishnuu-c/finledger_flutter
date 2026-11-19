@@ -497,18 +497,18 @@ class _ItemsAndStockScreenState extends State<ItemsAndStockScreen> {
                             Container(
                               color: const Color(0xFFF8FAFC),
                               padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-                              child: const Row(
+                              child: Row(
                                 children: [
-                                  Expanded(flex: 3, child: Text('SKU', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
-                                  Expanded(flex: 5, child: Text('Item', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
-                                  Expanded(flex: 3, child: Text('Category', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
-                                  Expanded(flex: 2, child: Text('Dubai WH', textAlign: TextAlign.right, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
-                                  Expanded(flex: 2, child: Text('Riyadh WH', textAlign: TextAlign.right, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
-                                  Expanded(flex: 2, child: Text('On hand', textAlign: TextAlign.right, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
-                                  Expanded(flex: 2, child: Text('Reorder lvl', textAlign: TextAlign.right, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
-                                  Expanded(flex: 2, child: Text('Avg cost', textAlign: TextAlign.right, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
-                                  Expanded(flex: 3, child: Text('Value (AED)', textAlign: TextAlign.right, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
-                                  Expanded(flex: 3, child: Align(alignment: Alignment.centerRight, child: Text('Status', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary)))),
+                                  Expanded(flex: 3, child: Text(context.l10n.sku, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                                  Expanded(flex: 5, child: Text(context.l10n.colItem, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                                  Expanded(flex: 3, child: Text(context.l10n.category, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                                  Expanded(flex: 2, child: Text(context.l10n.whDubai, textAlign: TextAlign.right, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                                  Expanded(flex: 2, child: Text(context.l10n.whRiyadh, textAlign: TextAlign.right, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                                  Expanded(flex: 2, child: Text(context.l10n.colOnHand, textAlign: TextAlign.right, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                                  Expanded(flex: 2, child: Text(context.l10n.colReorderLevel, textAlign: TextAlign.right, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                                  Expanded(flex: 2, child: Text(context.l10n.colAvgCost, textAlign: TextAlign.right, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                                  Expanded(flex: 3, child: Text(context.l10n.colValueAed, textAlign: TextAlign.right, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                                  Expanded(flex: 3, child: Align(alignment: Alignment.centerRight, child: Text(context.l10n.status, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary)))),
                                 ],
                               ),
                             ),
@@ -734,7 +734,7 @@ class _ItemsAndStockScreenState extends State<ItemsAndStockScreen> {
       builder: (context) {
         return AlertDialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-          title: const Text('New Inventory SKU', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          title: Text(context.l10n.newInventorySku, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
           content: ConstrainedBox(
             constraints: BoxConstraints(
               maxWidth: 400,
@@ -777,7 +777,7 @@ class _ItemsAndStockScreenState extends State<ItemsAndStockScreen> {
               children: [
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  child: const Text('Cancel'),
+                  child: Text(context.l10n.cancel),
                 ),
                 ElevatedButton(
                   onPressed: () {
@@ -792,7 +792,7 @@ class _ItemsAndStockScreenState extends State<ItemsAndStockScreen> {
                     }
                   },
                   style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF2563EB), foregroundColor: Colors.white),
-                  child: const Text('Save SKU'),
+                  child: Text(context.l10n.saveSku),
                 ),
               ],
             ),

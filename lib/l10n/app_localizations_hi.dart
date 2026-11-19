@@ -1279,4 +1279,195 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get mobileReceiptCamera => 'मोबाइल रसीद कैमरा';
+
+  @override
+  String get vsLastYear => 'पिछले वर्ष की तुलना में';
+
+  @override
+  String get revenueVsExpenses6Months => 'राजस्व बनाम व्यय (पिछले 6 माह)';
+
+  @override
+  String get revenue => 'राजस्व';
+
+  @override
+  String get receivablesAgeing => 'प्राप्य राशियां आयु-विश्लेषण';
+
+  @override
+  String get ageingCurrent => 'वर्तमान';
+
+  @override
+  String get ageing1to30Days => '1-30 दिन';
+
+  @override
+  String get ageing31to60Days => '31-60 दिन';
+
+  @override
+  String get ageing61to90Days => '61-90 दिन';
+
+  @override
+  String get ageing90PlusDays => '90+ दिन';
+
+  @override
+  String get typeInvoice => 'चालान';
+
+  @override
+  String get typeReceipt => 'रसीद';
+
+  @override
+  String get typeBill => 'बिल';
+
+  @override
+  String get statusPending => 'लंबित';
+
+  @override
+  String get statusActive => 'सक्रिय';
+
+  @override
+  String get statusMatched => 'सुमेलित';
+
+  @override
+  String get statusUnreconciled => 'असमाधानित';
+
+  @override
+  String get statusInStock => 'स्टॉक में';
+
+  @override
+  String get statusOutOfStock => 'स्टॉक समाप्त';
+
+  @override
+  String get statusOpen => 'खुला';
+
+  @override
+  String get statusClosed => 'बंद';
+
+  @override
+  String get colCode => 'कोड';
+
+  @override
+  String get colVendorName => 'विक्रेता का नाम';
+
+  @override
+  String get colTrn => 'टीआरएन';
+
+  @override
+  String get colPaymentTerms => 'भुगतान शर्तें';
+
+  @override
+  String get colOpenPayables => 'खुली देय राशि';
+
+  @override
+  String get colActions => 'कार्रवाई';
+
+  @override
+  String get colBillNo => 'बिल सं.';
+
+  @override
+  String get colBillDate => 'बिल दिनांक';
+
+  @override
+  String get colDueDate => 'नियत दिनांक';
+
+  @override
+  String get colPaymentNo => 'भुगतान सं.';
+
+  @override
+  String get colMethod => 'विधि';
+
+  @override
+  String get colClaimNo => 'दावा सं.';
+
+  @override
+  String get colCategory => 'श्रेणी';
+
+  @override
+  String get colReceipt => 'रसीद';
+
+  @override
+  String get colItem => 'वस्तु';
+
+  @override
+  String get colOnHand => 'उपलब्ध';
+
+  @override
+  String get colReorderLevel => 'पुनःआदेश स्तर';
+
+  @override
+  String get colAccountName => 'खाते का नाम';
+
+  @override
+  String get colParent => 'मूल खाता';
+
+  @override
+  String get colBalanceAed => 'शेष राशि (AED)';
+
+  @override
+  String get searchAccount => 'खाता खोजें...';
+
+  @override
+  String get termsDueOnReceipt => 'रसीद पर देय';
+
+  @override
+  String get termsNet15 => 'नेट 15';
+
+  @override
+  String get termsNet30 => 'नेट 30';
+
+  @override
+  String get termsNet60 => 'नेट 60';
+
+  @override
+  String get previewPdf => 'पीडीएफ पूर्वावलोकन';
+
+  @override
+  String get saveAndSend => 'सहेजें और भेजें';
+
+  @override
+  String get importAndAutoMatch => 'आयात और स्वतः मिलान करें';
+
+  @override
+  String get loadSampleCsv => 'नमूना CSV लोड करें';
+
+  @override
+  String get quickQuotation => 'त्वरित कोटेशन';
+
+  @override
+  String get menuTooltip => 'मेनू';
+
+  @override
+  String get exportCoaXlsxPrompt =>
+      'खातों का चार्ट एक्सेल (.xlsx) में निर्यात किया जा रहा है';
+
+  @override
+  String get importCoaXlsxPrompt =>
+      'एक्सेल टेम्पलेट (.xlsx) से खातों का चार्ट आयात किया जा रहा है';
+
+  @override
+  String get importAction => 'आयात';
+
+  @override
+  String get colEmployee => 'कर्मचारी';
+
+  @override
+  String get whDubai => 'दुबई गोदाम';
+
+  @override
+  String get whRiyadh => 'रियाद गोदाम';
+
+  @override
+  String get colAvgCost => 'औसत लागत';
+
+  @override
+  String get colValueAed => 'मूल्य (AED)';
+
+  @override
+  String get newInventorySku => 'नया इन्वेंटरी SKU';
+
+  @override
+  String get saveSku => 'SKU सहेजें';
+
+  @override
+  String get collapseSidebar => 'साइडबार संक्षिप्त करें';
+
+  @override
+  String get expandSidebar => 'साइडबार विस्तृत करें';
 }

@@ -2595,6 +2595,384 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Mobile Receipt Camera'**
   String get mobileReceiptCamera;
+
+  /// No description provided for @vsLastYear.
+  ///
+  /// In en, this message translates to:
+  /// **'vs last year'**
+  String get vsLastYear;
+
+  /// No description provided for @revenueVsExpenses6Months.
+  ///
+  /// In en, this message translates to:
+  /// **'Revenue vs Expenses (last 6 months)'**
+  String get revenueVsExpenses6Months;
+
+  /// No description provided for @revenue.
+  ///
+  /// In en, this message translates to:
+  /// **'Revenue'**
+  String get revenue;
+
+  /// No description provided for @receivablesAgeing.
+  ///
+  /// In en, this message translates to:
+  /// **'Receivables Ageing'**
+  String get receivablesAgeing;
+
+  /// No description provided for @ageingCurrent.
+  ///
+  /// In en, this message translates to:
+  /// **'Current'**
+  String get ageingCurrent;
+
+  /// No description provided for @ageing1to30Days.
+  ///
+  /// In en, this message translates to:
+  /// **'1-30 days'**
+  String get ageing1to30Days;
+
+  /// No description provided for @ageing31to60Days.
+  ///
+  /// In en, this message translates to:
+  /// **'31-60 days'**
+  String get ageing31to60Days;
+
+  /// No description provided for @ageing61to90Days.
+  ///
+  /// In en, this message translates to:
+  /// **'61-90 days'**
+  String get ageing61to90Days;
+
+  /// No description provided for @ageing90PlusDays.
+  ///
+  /// In en, this message translates to:
+  /// **'90+ days'**
+  String get ageing90PlusDays;
+
+  /// No description provided for @typeInvoice.
+  ///
+  /// In en, this message translates to:
+  /// **'Invoice'**
+  String get typeInvoice;
+
+  /// No description provided for @typeReceipt.
+  ///
+  /// In en, this message translates to:
+  /// **'Receipt'**
+  String get typeReceipt;
+
+  /// No description provided for @typeBill.
+  ///
+  /// In en, this message translates to:
+  /// **'Bill'**
+  String get typeBill;
+
+  /// No description provided for @statusPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get statusPending;
+
+  /// No description provided for @statusActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get statusActive;
+
+  /// No description provided for @statusMatched.
+  ///
+  /// In en, this message translates to:
+  /// **'Matched'**
+  String get statusMatched;
+
+  /// No description provided for @statusUnreconciled.
+  ///
+  /// In en, this message translates to:
+  /// **'Unreconciled'**
+  String get statusUnreconciled;
+
+  /// No description provided for @statusInStock.
+  ///
+  /// In en, this message translates to:
+  /// **'In stock'**
+  String get statusInStock;
+
+  /// No description provided for @statusOutOfStock.
+  ///
+  /// In en, this message translates to:
+  /// **'Out of stock'**
+  String get statusOutOfStock;
+
+  /// No description provided for @statusOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'Open'**
+  String get statusOpen;
+
+  /// No description provided for @statusClosed.
+  ///
+  /// In en, this message translates to:
+  /// **'Closed'**
+  String get statusClosed;
+
+  /// No description provided for @colCode.
+  ///
+  /// In en, this message translates to:
+  /// **'CODE'**
+  String get colCode;
+
+  /// No description provided for @colVendorName.
+  ///
+  /// In en, this message translates to:
+  /// **'VENDOR NAME'**
+  String get colVendorName;
+
+  /// No description provided for @colTrn.
+  ///
+  /// In en, this message translates to:
+  /// **'TRN'**
+  String get colTrn;
+
+  /// No description provided for @colPaymentTerms.
+  ///
+  /// In en, this message translates to:
+  /// **'PAYMENT TERMS'**
+  String get colPaymentTerms;
+
+  /// No description provided for @colOpenPayables.
+  ///
+  /// In en, this message translates to:
+  /// **'OPEN PAYABLES'**
+  String get colOpenPayables;
+
+  /// No description provided for @colActions.
+  ///
+  /// In en, this message translates to:
+  /// **'ACTIONS'**
+  String get colActions;
+
+  /// No description provided for @colBillNo.
+  ///
+  /// In en, this message translates to:
+  /// **'BILL #'**
+  String get colBillNo;
+
+  /// No description provided for @colBillDate.
+  ///
+  /// In en, this message translates to:
+  /// **'BILL DATE'**
+  String get colBillDate;
+
+  /// No description provided for @colDueDate.
+  ///
+  /// In en, this message translates to:
+  /// **'DUE DATE'**
+  String get colDueDate;
+
+  /// No description provided for @colPaymentNo.
+  ///
+  /// In en, this message translates to:
+  /// **'PAYMENT #'**
+  String get colPaymentNo;
+
+  /// No description provided for @colMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'METHOD'**
+  String get colMethod;
+
+  /// No description provided for @colClaimNo.
+  ///
+  /// In en, this message translates to:
+  /// **'CLAIM #'**
+  String get colClaimNo;
+
+  /// No description provided for @colCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'CATEGORY'**
+  String get colCategory;
+
+  /// No description provided for @colReceipt.
+  ///
+  /// In en, this message translates to:
+  /// **'RECEIPT'**
+  String get colReceipt;
+
+  /// No description provided for @colItem.
+  ///
+  /// In en, this message translates to:
+  /// **'ITEM'**
+  String get colItem;
+
+  /// No description provided for @colOnHand.
+  ///
+  /// In en, this message translates to:
+  /// **'ON HAND'**
+  String get colOnHand;
+
+  /// No description provided for @colReorderLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'REORDER LEVEL'**
+  String get colReorderLevel;
+
+  /// No description provided for @colAccountName.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Name'**
+  String get colAccountName;
+
+  /// No description provided for @colParent.
+  ///
+  /// In en, this message translates to:
+  /// **'Parent'**
+  String get colParent;
+
+  /// No description provided for @colBalanceAed.
+  ///
+  /// In en, this message translates to:
+  /// **'Balance (AED)'**
+  String get colBalanceAed;
+
+  /// No description provided for @searchAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Search account...'**
+  String get searchAccount;
+
+  /// No description provided for @termsDueOnReceipt.
+  ///
+  /// In en, this message translates to:
+  /// **'Due on Receipt'**
+  String get termsDueOnReceipt;
+
+  /// No description provided for @termsNet15.
+  ///
+  /// In en, this message translates to:
+  /// **'Net 15'**
+  String get termsNet15;
+
+  /// No description provided for @termsNet30.
+  ///
+  /// In en, this message translates to:
+  /// **'Net 30'**
+  String get termsNet30;
+
+  /// No description provided for @termsNet60.
+  ///
+  /// In en, this message translates to:
+  /// **'Net 60'**
+  String get termsNet60;
+
+  /// No description provided for @previewPdf.
+  ///
+  /// In en, this message translates to:
+  /// **'Preview PDF'**
+  String get previewPdf;
+
+  /// No description provided for @saveAndSend.
+  ///
+  /// In en, this message translates to:
+  /// **'Save & Send'**
+  String get saveAndSend;
+
+  /// No description provided for @importAndAutoMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Import & Auto-Match'**
+  String get importAndAutoMatch;
+
+  /// No description provided for @loadSampleCsv.
+  ///
+  /// In en, this message translates to:
+  /// **'Load Sample CSV'**
+  String get loadSampleCsv;
+
+  /// No description provided for @quickQuotation.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Quotation'**
+  String get quickQuotation;
+
+  /// No description provided for @menuTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Menu'**
+  String get menuTooltip;
+
+  /// No description provided for @exportCoaXlsxPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Exporting Chart of Accounts to Excel (.xlsx)'**
+  String get exportCoaXlsxPrompt;
+
+  /// No description provided for @importCoaXlsxPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Importing Chart of Accounts from Excel template (.xlsx)'**
+  String get importCoaXlsxPrompt;
+
+  /// No description provided for @importAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Import'**
+  String get importAction;
+
+  /// No description provided for @colEmployee.
+  ///
+  /// In en, this message translates to:
+  /// **'EMPLOYEE'**
+  String get colEmployee;
+
+  /// No description provided for @whDubai.
+  ///
+  /// In en, this message translates to:
+  /// **'Dubai WH'**
+  String get whDubai;
+
+  /// No description provided for @whRiyadh.
+  ///
+  /// In en, this message translates to:
+  /// **'Riyadh WH'**
+  String get whRiyadh;
+
+  /// No description provided for @colAvgCost.
+  ///
+  /// In en, this message translates to:
+  /// **'Avg cost'**
+  String get colAvgCost;
+
+  /// No description provided for @colValueAed.
+  ///
+  /// In en, this message translates to:
+  /// **'Value (AED)'**
+  String get colValueAed;
+
+  /// No description provided for @newInventorySku.
+  ///
+  /// In en, this message translates to:
+  /// **'New Inventory SKU'**
+  String get newInventorySku;
+
+  /// No description provided for @saveSku.
+  ///
+  /// In en, this message translates to:
+  /// **'Save SKU'**
+  String get saveSku;
+
+  /// No description provided for @collapseSidebar.
+  ///
+  /// In en, this message translates to:
+  /// **'Collapse sidebar'**
+  String get collapseSidebar;
+
+  /// No description provided for @expandSidebar.
+  ///
+  /// In en, this message translates to:
+  /// **'Expand sidebar'**
+  String get expandSidebar;
 }
 
 class _AppLocalizationsDelegate

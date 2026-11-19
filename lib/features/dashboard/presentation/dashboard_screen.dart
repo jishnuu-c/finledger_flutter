@@ -155,7 +155,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return LayoutBuilder(
       builder: (context, constraints) {
         final cols = constraints.maxWidth > 1050 ? 4 : (constraints.maxWidth > 600 ? 2 : 1);
-        final ratio = cols == 4 ? 2.3 : (cols == 2 ? 2.6 : 3.2);
+        final ratio = cols == 4 ? 2.3 : (cols == 2 ? 2.6 : (constraints.maxWidth < 360 ? 2.3 : 2.8));
         return GridView.count(
           crossAxisCount: cols,
           shrinkWrap: true,
@@ -168,7 +168,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             _buildKpiCard(
               title: context.l10n.totalRevenue,
               value: _formatCurrency(f.revenueYtd),
-              trendBadge: '▲ ${f.revenueGrowth.toStringAsFixed(1)}% vs last year',
+              trendBadge: '▲ ${f.revenueGrowth.toStringAsFixed(1)}% ${context.l10n.vsLastYear}',
               trendIsPositive: true,
               route: '/sales/invoices',
             ),
@@ -177,7 +177,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             _buildKpiCard(
               title: context.l10n.ytdExpenses,
               value: _formatCurrency(f.expensesYtd),
-              trendBadge: '▲ ${f.expensesGrowth.toStringAsFixed(1)}% vs last year',
+              trendBadge: '▲ ${f.expensesGrowth.toStringAsFixed(1)}% ${context.l10n.vsLastYear}',
               trendIsPositive: false, // In accounting/Figure 3, expense increase is red
               route: '/expenses',
             ),
@@ -207,7 +207,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return LayoutBuilder(
       builder: (context, constraints) {
         final cols = constraints.maxWidth > 1050 ? 4 : (constraints.maxWidth > 600 ? 2 : 1);
-        final ratio = cols == 4 ? 2.3 : (cols == 2 ? 2.6 : 3.2);
+        final ratio = cols == 4 ? 2.3 : (cols == 2 ? 2.6 : (constraints.maxWidth < 360 ? 2.3 : 2.8));
         return GridView.count(
           crossAxisCount: cols,
           shrinkWrap: true,
@@ -264,7 +264,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     String? route,
   }) {
     final cardContent = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
@@ -368,9 +368,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Revenue vs Expenses (last 6 months)',
-            style: TextStyle(
+          Text(
+            context.l10n.revenueVsExpenses6Months,
+            style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w700,
               color: Color(0xFF0F172A),
@@ -444,16 +444,27 @@ class _DashboardScreenState extends State<DashboardScreen> {
           const SizedBox(height: 20),
 
           // Legend at bottom matching Figure 3
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+          Wrap(
+            spacing: 20,
+            runSpacing: 8,
+            crossAxisAlignment: WrapCrossAlignment.center,
             children: [
-              Container(width: 10, height: 10, color: const Color(0xFF1D4ED8)),
-              const SizedBox(width: 6),
-              const Text('Revenue', style: TextStyle(fontSize: 11.5, color: Color(0xFF475569))),
-              const SizedBox(width: 20),
-              Container(width: 10, height: 10, color: const Color(0xFF93C5FD)),
-              const SizedBox(width: 6),
-              const Text('Expenses', style: TextStyle(fontSize: 11.5, color: Color(0xFF475569))),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(width: 10, height: 10, color: const Color(0xFF1D4ED8)),
+                  const SizedBox(width: 6),
+                  Text(context.l10n.revenue, style: const TextStyle(fontSize: 11.5, color: Color(0xFF475569))),
+                ],
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(width: 10, height: 10, color: const Color(0xFF93C5FD)),
+                  const SizedBox(width: 6),
+                  Text(context.l10n.expenses, style: const TextStyle(fontSize: 11.5, color: Color(0xFF475569))),
+                ],
+              ),
             ],
           ),
         ],
@@ -473,9 +484,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Receivables Ageing',
-            style: TextStyle(
+          Text(
+            context.l10n.receivablesAgeing,
+            style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w700,
               color: Color(0xFF0F172A),
@@ -484,23 +495,23 @@ class _DashboardScreenState extends State<DashboardScreen> {
           const SizedBox(height: 18),
 
           // Current (Green bar)
-          _buildAgeingItem('Current', ageing.current, const Color(0xFF10B981), 0.95),
+          _buildAgeingItem(context.l10n.ageingCurrent, ageing.current, const Color(0xFF10B981), 0.95),
           const SizedBox(height: 12),
 
           // 1-30 days (Cyan/Blue bar)
-          _buildAgeingItem('1-30 days', ageing.days1To30, const Color(0xFF0284C7), 0.52),
+          _buildAgeingItem(context.l10n.ageing1to30Days, ageing.days1To30, const Color(0xFF0284C7), 0.52),
           const SizedBox(height: 12),
 
           // 31-60 days (Amber bar)
-          _buildAgeingItem('31-60 days', ageing.days31To60, const Color(0xFFF59E0B), 0.34),
+          _buildAgeingItem(context.l10n.ageing31to60Days, ageing.days31To60, const Color(0xFFF59E0B), 0.34),
           const SizedBox(height: 12),
 
           // 61-90 days (Orange bar)
-          _buildAgeingItem('61-90 days', ageing.days61To90, const Color(0xFFEA580C), 0.16),
+          _buildAgeingItem(context.l10n.ageing61to90Days, ageing.days61To90, const Color(0xFFEA580C), 0.16),
           const SizedBox(height: 12),
 
           // 90+ days (Red bar)
-          _buildAgeingItem('90+ days', ageing.daysOver90, const Color(0xFFDC2626), 0.08),
+          _buildAgeingItem(context.l10n.ageing90PlusDays, ageing.daysOver90, const Color(0xFFDC2626), 0.08),
         ],
       ),
     );
@@ -682,19 +693,23 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget _buildTypeChip(String type) {
     Color bg;
     Color text;
+    String displayLabel = type;
 
     switch (type.toLowerCase()) {
       case 'invoice':
         bg = const Color(0xFFEFF6FF); // Light blue
         text = const Color(0xFF2563EB); // Blue
+        displayLabel = context.l10n.typeInvoice;
         break;
       case 'receipt':
         bg = const Color(0xFFDCFCE7); // Light green
         text = const Color(0xFF16A34A); // Green
+        displayLabel = context.l10n.typeReceipt;
         break;
       case 'bill':
         bg = const Color(0xFFFEF3C7); // Light amber
         text = const Color(0xFFD97706); // Amber
+        displayLabel = context.l10n.typeBill;
         break;
       default:
         bg = const Color(0xFFF1F5F9);
@@ -708,7 +723,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         borderRadius: BorderRadius.circular(12),
       ),
       child: Text(
-        type,
+        displayLabel,
         style: TextStyle(
           fontSize: 11,
           fontWeight: FontWeight.w600,

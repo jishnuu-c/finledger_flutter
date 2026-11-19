@@ -1277,4 +1277,195 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get mobileReceiptCamera => 'Mobile Receipt Camera';
+
+  @override
+  String get vsLastYear => 'vs last year';
+
+  @override
+  String get revenueVsExpenses6Months => 'Revenue vs Expenses (last 6 months)';
+
+  @override
+  String get revenue => 'Revenue';
+
+  @override
+  String get receivablesAgeing => 'Receivables Ageing';
+
+  @override
+  String get ageingCurrent => 'Current';
+
+  @override
+  String get ageing1to30Days => '1-30 days';
+
+  @override
+  String get ageing31to60Days => '31-60 days';
+
+  @override
+  String get ageing61to90Days => '61-90 days';
+
+  @override
+  String get ageing90PlusDays => '90+ days';
+
+  @override
+  String get typeInvoice => 'Invoice';
+
+  @override
+  String get typeReceipt => 'Receipt';
+
+  @override
+  String get typeBill => 'Bill';
+
+  @override
+  String get statusPending => 'Pending';
+
+  @override
+  String get statusActive => 'Active';
+
+  @override
+  String get statusMatched => 'Matched';
+
+  @override
+  String get statusUnreconciled => 'Unreconciled';
+
+  @override
+  String get statusInStock => 'In stock';
+
+  @override
+  String get statusOutOfStock => 'Out of stock';
+
+  @override
+  String get statusOpen => 'Open';
+
+  @override
+  String get statusClosed => 'Closed';
+
+  @override
+  String get colCode => 'CODE';
+
+  @override
+  String get colVendorName => 'VENDOR NAME';
+
+  @override
+  String get colTrn => 'TRN';
+
+  @override
+  String get colPaymentTerms => 'PAYMENT TERMS';
+
+  @override
+  String get colOpenPayables => 'OPEN PAYABLES';
+
+  @override
+  String get colActions => 'ACTIONS';
+
+  @override
+  String get colBillNo => 'BILL #';
+
+  @override
+  String get colBillDate => 'BILL DATE';
+
+  @override
+  String get colDueDate => 'DUE DATE';
+
+  @override
+  String get colPaymentNo => 'PAYMENT #';
+
+  @override
+  String get colMethod => 'METHOD';
+
+  @override
+  String get colClaimNo => 'CLAIM #';
+
+  @override
+  String get colCategory => 'CATEGORY';
+
+  @override
+  String get colReceipt => 'RECEIPT';
+
+  @override
+  String get colItem => 'ITEM';
+
+  @override
+  String get colOnHand => 'ON HAND';
+
+  @override
+  String get colReorderLevel => 'REORDER LEVEL';
+
+  @override
+  String get colAccountName => 'Account Name';
+
+  @override
+  String get colParent => 'Parent';
+
+  @override
+  String get colBalanceAed => 'Balance (AED)';
+
+  @override
+  String get searchAccount => 'Search account...';
+
+  @override
+  String get termsDueOnReceipt => 'Due on Receipt';
+
+  @override
+  String get termsNet15 => 'Net 15';
+
+  @override
+  String get termsNet30 => 'Net 30';
+
+  @override
+  String get termsNet60 => 'Net 60';
+
+  @override
+  String get previewPdf => 'Preview PDF';
+
+  @override
+  String get saveAndSend => 'Save & Send';
+
+  @override
+  String get importAndAutoMatch => 'Import & Auto-Match';
+
+  @override
+  String get loadSampleCsv => 'Load Sample CSV';
+
+  @override
+  String get quickQuotation => 'Quick Quotation';
+
+  @override
+  String get menuTooltip => 'Menu';
+
+  @override
+  String get exportCoaXlsxPrompt =>
+      'Exporting Chart of Accounts to Excel (.xlsx)';
+
+  @override
+  String get importCoaXlsxPrompt =>
+      'Importing Chart of Accounts from Excel template (.xlsx)';
+
+  @override
+  String get importAction => 'Import';
+
+  @override
+  String get colEmployee => 'EMPLOYEE';
+
+  @override
+  String get whDubai => 'Dubai WH';
+
+  @override
+  String get whRiyadh => 'Riyadh WH';
+
+  @override
+  String get colAvgCost => 'Avg cost';
+
+  @override
+  String get colValueAed => 'Value (AED)';
+
+  @override
+  String get newInventorySku => 'New Inventory SKU';
+
+  @override
+  String get saveSku => 'Save SKU';
+
+  @override
+  String get collapseSidebar => 'Collapse sidebar';
+
+  @override
+  String get expandSidebar => 'Expand sidebar';
 }

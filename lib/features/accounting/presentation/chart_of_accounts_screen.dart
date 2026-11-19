@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/api/dio_client.dart';
+import '../../../../core/localization/locale_provider.dart';
 import '../data/models/account_model.dart';
 import '../data/services/accounting_service.dart';
 import 'widgets/new_account_dialog.dart';
@@ -95,18 +96,18 @@ class _ChartOfAccountsScreenState extends State<ChartOfAccountsScreen> {
       children: [
         Wrap(
           crossAxisAlignment: WrapCrossAlignment.center,
-          children: const [
-            Text('Accounting', style: TextStyle(fontSize: 12, color: Color(0xFF94A3B8))),
-            SizedBox(width: 4),
-            Text('/', style: TextStyle(fontSize: 11, color: Color(0xFF94A3B8))),
-            SizedBox(width: 4),
-            Text('Chart of Accounts', style: TextStyle(fontSize: 12, color: Color(0xFF475569), fontWeight: FontWeight.w500)),
+          children: [
+            Text(context.l10n.accounting, style: const TextStyle(fontSize: 12, color: Color(0xFF94A3B8))),
+            const SizedBox(width: 4),
+            const Text('/', style: TextStyle(fontSize: 11, color: Color(0xFF94A3B8))),
+            const SizedBox(width: 4),
+            Text(context.l10n.chartOfAccounts, style: const TextStyle(fontSize: 12, color: Color(0xFF475569), fontWeight: FontWeight.w500)),
           ],
         ),
         const SizedBox(height: 4),
-        const Text(
-          'Chart of Accounts',
-          style: TextStyle(
+        Text(
+          context.l10n.chartOfAccounts,
+          style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w700,
             color: Color(0xFF0F172A),
@@ -142,7 +143,7 @@ class _ChartOfAccountsScreenState extends State<ChartOfAccountsScreen> {
                     style: const TextStyle(fontSize: 12.5),
                     onChanged: (_) => _loadAccounts(),
                     decoration: InputDecoration(
-                      hintText: 'Search account...',
+                      hintText: context.l10n.searchAccount,
                       hintStyle: const TextStyle(fontSize: 12, color: Color(0xFF94A3B8)),
                       contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
                       fillColor: Colors.white,
@@ -218,7 +219,7 @@ class _ChartOfAccountsScreenState extends State<ChartOfAccountsScreen> {
                 OutlinedButton(
                   onPressed: () {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Importing Chart of Accounts from Excel template (.xlsx)'), duration: Duration(seconds: 2)),
+                      SnackBar(content: Text(context.l10n.importCoaXlsxPrompt), duration: const Duration(seconds: 2)),
                     );
                   },
                   style: OutlinedButton.styleFrom(
@@ -228,12 +229,12 @@ class _ChartOfAccountsScreenState extends State<ChartOfAccountsScreen> {
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
                     padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                   ),
-                  child: const Text('Import', style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w500)),
+                  child: Text(context.l10n.importAction, style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.w500)),
                 ),
                 OutlinedButton(
                   onPressed: () {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Exporting Chart of Accounts to Excel (.xlsx)'), duration: Duration(seconds: 2)),
+                      SnackBar(content: Text(context.l10n.exportCoaXlsxPrompt), duration: const Duration(seconds: 2)),
                     );
                   },
                   style: OutlinedButton.styleFrom(
@@ -243,7 +244,7 @@ class _ChartOfAccountsScreenState extends State<ChartOfAccountsScreen> {
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
                     padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                   ),
-                  child: const Text('Export', style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w500)),
+                  child: Text(context.l10n.export, style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.w500)),
                 ),
                 ElevatedButton(
                   onPressed: _openNewAccountModal,
@@ -283,7 +284,7 @@ class _ChartOfAccountsScreenState extends State<ChartOfAccountsScreen> {
             )
           : LayoutBuilder(
               builder: (context, constraints) {
-                final effectiveWidth = constraints.maxWidth > 1100 ? constraints.maxWidth : 1100.0;
+                final effectiveWidth = constraints.maxWidth > 1200 ? constraints.maxWidth : 1200.0;
                 return SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: SizedBox(
@@ -293,29 +294,29 @@ class _ChartOfAccountsScreenState extends State<ChartOfAccountsScreen> {
                   dataRowMinHeight: 46,
                   dataRowMaxHeight: 46,
                   horizontalMargin: 20,
-                  columnSpacing: 28,
-                  columns: const [
+                  columnSpacing: 20,
+                  columns: [
                     DataColumn(
-                      label: Text('Code', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: Color(0xFF64748B))),
+                      label: Text(context.l10n.colCode, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: Color(0xFF64748B))),
                     ),
                     DataColumn(
-                      label: Text('Account Name', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: Color(0xFF64748B))),
+                      label: Text(context.l10n.colAccountName, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: Color(0xFF64748B))),
                     ),
                     DataColumn(
-                      label: Text('Type', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: Color(0xFF64748B))),
+                      label: Text(context.l10n.accountType, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: Color(0xFF64748B))),
                     ),
                     DataColumn(
-                      label: Text('Parent', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: Color(0xFF64748B))),
+                      label: Text(context.l10n.colParent, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: Color(0xFF64748B))),
                     ),
                     DataColumn(
                       numeric: true,
-                      label: Text('Balance (AED)', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: Color(0xFF64748B))),
+                      label: Text(context.l10n.colBalanceAed, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: Color(0xFF64748B))),
                     ),
                     DataColumn(
-                      label: Text('Status', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: Color(0xFF64748B))),
+                      label: Text(context.l10n.status, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: Color(0xFF64748B))),
                     ),
                     DataColumn(
-                      label: Text('Actions', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: Color(0xFF64748B))),
+                      label: Text(context.l10n.actions, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: Color(0xFF64748B))),
                     ),
                   ],
                   rows: _accounts.map((acc) {
