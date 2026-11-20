@@ -33,17 +33,17 @@ class StatKpiCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(18),
+    Widget cardContent = Container(
+      padding: const EdgeInsetsDirectional.all(18),
       decoration: BoxDecoration(
         color: AppColors.cardBackground,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.border),
+        border: Border.all(color: AppColors.border, width: 1),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.02),
-            blurRadius: 4,
-            offset: const Offset(0, 1),
+            color: const Color(0xFF0F172A).withValues(alpha: 0.025),
+            blurRadius: 6,
+            offset: const Offset(0, 2),
           ),
         ],
       ),
@@ -67,11 +67,15 @@ class StatKpiCard extends StatelessWidget {
                 ),
               ),
               Container(
-                width: 36,
-                height: 36,
+                width: 38,
+                height: 38,
                 decoration: BoxDecoration(
                   color: iconBgColor,
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(9),
+                  border: Border.all(
+                    color: iconColor.withValues(alpha: 0.12),
+                    width: 1,
+                  ),
                 ),
                 child: Icon(icon, color: iconColor, size: 18),
               ),
@@ -80,7 +84,7 @@ class StatKpiCard extends StatelessWidget {
           const SizedBox(height: 12),
           FittedBox(
             fit: BoxFit.scaleDown,
-            alignment: Alignment.centerLeft,
+            alignment: AlignmentDirectional.centerStart,
             child: Text(
               value,
               maxLines: 1,
@@ -96,27 +100,39 @@ class StatKpiCard extends StatelessWidget {
           Row(
             children: [
               if (trendText != null) ...[
-                Icon(
-                  isPositiveTrend == true
-                      ? Icons.arrow_upward_rounded
-                      : Icons.arrow_downward_rounded,
-                  size: 14,
-                  color: isPositiveTrend == true ? AppColors.success : AppColors.error,
-                ),
-                const SizedBox(width: 3),
-                Text(
-                  trendText!,
-                  style: TextStyle(
-                    fontSize: 11.5,
-                    fontWeight: FontWeight.w600,
-                    color: isPositiveTrend == true ? AppColors.success : AppColors.error,
+                Container(
+                  padding: const EdgeInsetsDirectional.symmetric(horizontal: 5, vertical: 2),
+                  decoration: BoxDecoration(
+                    color: (isPositiveTrend == true ? AppColors.success : AppColors.error).withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        isPositiveTrend == true
+                            ? Icons.arrow_upward_rounded
+                            : Icons.arrow_downward_rounded,
+                        size: 13,
+                        color: isPositiveTrend == true ? AppColors.success : AppColors.error,
+                      ),
+                      const SizedBox(width: 2),
+                      Text(
+                        trendText!,
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w700,
+                          color: isPositiveTrend == true ? AppColors.success : AppColors.error,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 const SizedBox(width: 8),
               ],
               if (badgeText != null) ...[
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                  padding: const EdgeInsetsDirectional.symmetric(horizontal: 6, vertical: 2.5),
                   decoration: BoxDecoration(
                     color: badgeColor ?? AppColors.sentBg,
                     borderRadius: BorderRadius.circular(4),
@@ -148,5 +164,18 @@ class StatKpiCard extends StatelessWidget {
         ],
       ),
     );
+
+    if (onTap != null) {
+      return Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(12),
+          child: cardContent,
+        ),
+      );
+    }
+
+    return cardContent;
   }
 }

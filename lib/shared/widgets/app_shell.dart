@@ -30,12 +30,15 @@ class _AppShellState extends State<AppShell> {
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: AppColors.contentBackground,
+      drawerScrimColor: Colors.black.withValues(alpha: 0.45),
       // Drawer on tablet / mobile devices
       drawer: isDesktop
           ? null
           : Drawer(
-              width: 260,
+              width: 268,
               backgroundColor: AppColors.sidebarBackground,
+              elevation: 8,
+              shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
               child: SafeArea(
                 child: Sidebar(
                   isCollapsed: false,
@@ -63,7 +66,7 @@ class _AppShellState extends State<AppShell> {
                 ),
                 Expanded(
                   child: Container(
-                    color: AppColors.contentBackground, // #F8FAFC
+                    color: AppColors.contentBackground,
                     child: widget.child,
                   ),
                 ),

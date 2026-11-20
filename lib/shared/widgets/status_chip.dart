@@ -124,30 +124,34 @@ class StatusChip extends StatelessWidget {
   Widget build(BuildContext context) {
     final displayLabel = _getLocalizedLabel(context);
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 4),
+      padding: const EdgeInsetsDirectional.symmetric(horizontal: 8, vertical: 3.5),
       decoration: BoxDecoration(
         color: _bgColor,
         borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: _textColor.withValues(alpha: 0.2),
+          width: 1,
+        ),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            width: 6,
-            height: 6,
+            width: 5.5,
+            height: 5.5,
             decoration: BoxDecoration(
               color: _textColor,
               shape: BoxShape.circle,
             ),
           ),
-          const SizedBox(width: 6),
+          const SizedBox(width: 5),
           Text(
             displayLabel,
             style: TextStyle(
               fontSize: 11.5,
               fontWeight: FontWeight.w600,
               color: _textColor,
-              letterSpacing: 0.1,
+              letterSpacing: 0.15,
             ),
           ),
         ],

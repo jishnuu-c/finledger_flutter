@@ -58,7 +58,7 @@ class LanguageSwitcher extends ConsumerWidget {
       offset: const Offset(0, 42),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
-        side: const BorderSide(color: Color(0xFFE2E8F0)),
+        side: const BorderSide(color: AppColors.border),
       ),
       onSelected: (code) {
         ref.read(localeNotifierProvider.notifier).setLanguageCode(code);
@@ -108,11 +108,11 @@ class LanguageSwitcher extends ConsumerWidget {
           final isMobile = MediaQuery.of(context).size.width < 768;
           return Container(
             height: 32,
-            padding: EdgeInsets.symmetric(horizontal: isMobile ? 6 : 8),
+            padding: EdgeInsetsDirectional.symmetric(horizontal: isMobile ? 6 : 8),
             decoration: BoxDecoration(
-              color: const Color(0xFFF1F5F9),
+              color: const Color(0xFFF8FAFC),
               borderRadius: BorderRadius.circular(6),
-              border: Border.all(color: const Color(0xFFCBD5E1)),
+              border: Border.all(color: AppColors.border),
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
@@ -166,11 +166,11 @@ class _DrawerLanguageToggle extends ConsumerWidget {
     final activeCode = currentLocale.languageCode;
 
     return Container(
-      padding: const EdgeInsets.all(4),
+      padding: const EdgeInsets.all(3.5),
       decoration: BoxDecoration(
-        color: const Color(0xFF0D172A), // Dark contrast within drawer
+        color: const Color(0xFF0D172A),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: const Color(0xFF1E293B)),
+        border: Border.all(color: AppColors.sidebarDivider),
       ),
       child: Row(
         children: [
@@ -191,7 +191,8 @@ class _DrawerLanguageToggle extends ConsumerWidget {
                   }
                 },
                 borderRadius: BorderRadius.circular(6),
-                child: Container(
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 150),
                   padding: const EdgeInsets.symmetric(vertical: 6),
                   decoration: BoxDecoration(
                     color: activeCode == lang.code
@@ -211,7 +212,7 @@ class _DrawerLanguageToggle extends ConsumerWidget {
                             : FontWeight.w500,
                         color: activeCode == lang.code
                             ? Colors.white
-                            : const Color(0xFF94A3B8),
+                            : AppColors.sidebarText,
                       ),
                     ),
                   ),
@@ -234,11 +235,11 @@ class _SettingsLanguageCard extends ConsumerWidget {
     final activeCode = currentLocale.languageCode;
 
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsetsDirectional.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.cardBackground,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
+        border: Border.all(color: AppColors.border),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -248,12 +249,12 @@ class _SettingsLanguageCard extends ConsumerWidget {
               Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFEFF6FF),
+                  color: AppColors.primarySurface,
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: const Icon(
                   Icons.translate_rounded,
-                  color: Color(0xFF2563EB),
+                  color: AppColors.primaryLight,
                   size: 20,
                 ),
               ),
@@ -267,7 +268,7 @@ class _SettingsLanguageCard extends ConsumerWidget {
                       style: const TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w700,
-                        color: Color(0xFF0F172A),
+                        color: AppColors.textPrimary,
                       ),
                     ),
                     const SizedBox(height: 2),
@@ -275,7 +276,7 @@ class _SettingsLanguageCard extends ConsumerWidget {
                       context.l10n.systemSettings,
                       style: const TextStyle(
                         fontSize: 12,
-                        color: Color(0xFF64748B),
+                        color: AppColors.sidebarGroupLabel,
                       ),
                     ),
                   ],
@@ -302,19 +303,19 @@ class _SettingsLanguageCard extends ConsumerWidget {
                   borderRadius: BorderRadius.circular(8),
                   child: Container(
                     margin: const EdgeInsets.only(bottom: 10),
-                    padding: const EdgeInsets.symmetric(
+                    padding: const EdgeInsetsDirectional.symmetric(
                       horizontal: 14,
                       vertical: 12,
                     ),
                     decoration: BoxDecoration(
                       color: activeCode == lang.code
-                          ? const Color(0xFFEFF6FF)
+                          ? AppColors.primarySurface
                           : const Color(0xFFF8FAFC),
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(
                         color: activeCode == lang.code
                             ? const Color(0xFF2563EB)
-                            : const Color(0xFFE2E8F0),
+                            : AppColors.border,
                         width: activeCode == lang.code ? 1.5 : 1,
                       ),
                     ),
@@ -332,8 +333,8 @@ class _SettingsLanguageCard extends ConsumerWidget {
                                   fontSize: 13.5,
                                   fontWeight: FontWeight.w600,
                                   color: activeCode == lang.code
-                                      ? const Color(0xFF1E3A8A)
-                                      : const Color(0xFF1E293B),
+                                      ? AppColors.primaryDark
+                                      : AppColors.textPrimary,
                                 ),
                               ),
                               const SizedBox(height: 2),
@@ -343,7 +344,7 @@ class _SettingsLanguageCard extends ConsumerWidget {
                                     : 'Left-to-Right Layout (LTR)',
                                 style: const TextStyle(
                                   fontSize: 11,
-                                  color: Color(0xFF64748B),
+                                  color: AppColors.sidebarGroupLabel,
                                 ),
                               ),
                             ],
@@ -357,7 +358,7 @@ class _SettingsLanguageCard extends ConsumerWidget {
                             border: Border.all(
                               color: activeCode == lang.code
                                   ? const Color(0xFF2563EB)
-                                  : const Color(0xFF94A3B8),
+                                  : AppColors.textMuted,
                               width: activeCode == lang.code ? 6.5 : 2,
                             ),
                             color: Colors.white,

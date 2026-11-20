@@ -70,7 +70,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
         statusBarBrightness: Brightness.light,
       ),
       child: Container(
-        color: Colors.white,
+        color: AppColors.topBarBackground,
         child: SafeArea(
           bottom: false,
           left: false,
@@ -84,15 +84,15 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
               return Container(
                 height: 56,
                 decoration: const BoxDecoration(
-                  color: Colors.white,
+                  color: AppColors.topBarBackground,
                   border: Border(
-                    bottom: BorderSide(color: Color(0xFFE2E8F0), width: 1),
+                    bottom: BorderSide(color: AppColors.border, width: 1),
                   ),
                 ),
                 child: Stack(
                   children: [
                     Padding(
-                      padding: EdgeInsets.symmetric(
+                      padding: EdgeInsetsDirectional.symmetric(
                         horizontal: isMobile ? 8 : 16,
                       ),
                       child: Row(
@@ -102,7 +102,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                             IconButton(
                               onPressed: onMobileMenuToggle,
                               icon: const Icon(
-                                Icons.menu,
+                                Icons.menu_rounded,
                                 color: Color(0xFF334155),
                                 size: 20,
                               ),
@@ -125,7 +125,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                                       maxLines: 1,
                                       style: const TextStyle(
                                         fontSize: 13,
-                                        color: Color(0xFF1E293B),
+                                        color: AppColors.textPrimary,
                                         fontWeight: FontWeight.w600,
                                       ),
                                     )
@@ -136,7 +136,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                                             text: context.l10n.home,
                                             style: const TextStyle(
                                               fontSize: 12,
-                                              color: Color(0xFF94A3B8),
+                                              color: AppColors.textMuted,
                                               fontWeight: FontWeight.w400,
                                             ),
                                           ),
@@ -144,15 +144,15 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                                             text: '  >  ',
                                             style: TextStyle(
                                               fontSize: 11,
-                                              color: Color(0xFF94A3B8),
+                                              color: AppColors.textMuted,
                                             ),
                                           ),
                                           TextSpan(
                                             text: pageTitle,
                                             style: const TextStyle(
-                                              fontSize: 12,
-                                              color: Color(0xFF475569),
-                                              fontWeight: FontWeight.w500,
+                                              fontSize: 12.5,
+                                              color: AppColors.textSecondary,
+                                              fontWeight: FontWeight.w600,
                                             ),
                                           ),
                                         ],
@@ -165,7 +165,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
 
                           const SizedBox(width: 4),
 
-                          // Search box: Search... (Figure 3) - Adaptive on wider screens
+                          // Search box: Adaptive on wider screens
                           if (!isNarrow) ...[
                             ConstrainedBox(
                               constraints: BoxConstraints(
@@ -177,13 +177,22 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                               child: TextField(
                                 style: const TextStyle(fontSize: 12.5),
                                 decoration: InputDecoration(
+                                  prefixIcon: const Icon(
+                                    Icons.search_rounded,
+                                    size: 16,
+                                    color: AppColors.textMuted,
+                                  ),
+                                  prefixIconConstraints: const BoxConstraints(
+                                    minWidth: 30,
+                                    minHeight: 30,
+                                  ),
                                   hintText: context.l10n.searchPlaceholder,
                                   hintStyle: const TextStyle(
                                     fontSize: 12,
-                                    color: Color(0xFF94A3B8),
+                                    color: AppColors.textMuted,
                                   ),
                                   contentPadding: const EdgeInsets.symmetric(
-                                    horizontal: 12,
+                                    horizontal: 10,
                                     vertical: 0,
                                   ),
                                   fillColor: const Color(0xFFF8FAFC),
@@ -191,19 +200,19 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(6),
                                     borderSide: const BorderSide(
-                                      color: Color(0xFFE2E8F0),
+                                      color: AppColors.border,
                                     ),
                                   ),
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(6),
                                     borderSide: const BorderSide(
-                                      color: Color(0xFFE2E8F0),
+                                      color: AppColors.border,
                                     ),
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(6),
                                     borderSide: const BorderSide(
-                                      color: Color(0xFF2563EB),
+                                      color: AppColors.primaryLight,
                                     ),
                                   ),
                                 ),
@@ -212,13 +221,13 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                             const SizedBox(width: 8),
                           ],
 
-                          // Company Switcher: BSB Trading LLC ▾ (Figure 3)
+                          // Company Switcher
                           PopupMenuButton<String>(
                             tooltip: context.l10n.switchCompany,
                             offset: const Offset(0, 40),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
-                              side: const BorderSide(color: Color(0xFFE2E8F0)),
+                              side: const BorderSide(color: AppColors.border),
                             ),
                             itemBuilder: (context) => [
                               const PopupMenuItem<String>(
@@ -249,35 +258,38 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                                 ),
                               ),
                             ],
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                ConstrainedBox(
-                                  constraints: BoxConstraints(
-                                    maxWidth: isVeryNarrow
-                                        ? 60
-                                        : (isMobile
-                                            ? 80
-                                            : (constraints.maxWidth >= 900 ? 150 : 105)),
-                                  ),
-                                  child: Text(
-                                    company?.name ?? 'BSB Trading LLC',
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      fontSize: isMobile ? 12 : 13,
-                                      fontWeight: FontWeight.w500,
-                                      color: const Color(0xFF334155),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 4),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  ConstrainedBox(
+                                    constraints: BoxConstraints(
+                                      maxWidth: isVeryNarrow
+                                          ? 60
+                                          : (isMobile
+                                              ? 80
+                                              : (constraints.maxWidth >= 900 ? 150 : 105)),
+                                    ),
+                                    child: Text(
+                                      company?.name ?? 'BSB Trading LLC',
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        fontSize: isMobile ? 12 : 13,
+                                        fontWeight: FontWeight.w500,
+                                        color: const Color(0xFF334155),
+                                      ),
                                     ),
                                   ),
-                                ),
-                                const SizedBox(width: 2),
-                                const Icon(
-                                  Icons.keyboard_arrow_down_rounded,
-                                  size: 15,
-                                  color: Color(0xFF64748B),
-                                ),
-                              ],
+                                  const SizedBox(width: 2),
+                                  const Icon(
+                                    Icons.keyboard_arrow_down_rounded,
+                                    size: 15,
+                                    color: Color(0xFF64748B),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
 
@@ -288,12 +300,12 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
 
                           SizedBox(width: isMobile ? 4 : 8),
 
-                          // User Avatar: Blue circular avatar with 'R' (Figure 3)
+                          // User Avatar: Blue circular avatar with 'R'
                           PopupMenuButton<String>(
                             offset: const Offset(0, 42),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
-                              side: const BorderSide(color: Color(0xFFE2E8F0)),
+                              side: const BorderSide(color: AppColors.border),
                             ),
                             onSelected: (val) async {
                               if (val == 'logout') {
@@ -314,14 +326,23 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                                       style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 13,
-                                        color: Color(0xFF0F172A),
+                                        color: AppColors.textPrimary,
                                       ),
                                     ),
-                                    Text(
-                                      user?.role ?? 'Financial Controller',
-                                      style: const TextStyle(
-                                        fontSize: 11,
-                                        color: Color(0xFF64748B),
+                                    const SizedBox(height: 2),
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                      decoration: BoxDecoration(
+                                        color: AppColors.primarySurface,
+                                        borderRadius: BorderRadius.circular(4),
+                                      ),
+                                      child: Text(
+                                        user?.role ?? 'Financial Controller',
+                                        style: const TextStyle(
+                                          fontSize: 10.5,
+                                          fontWeight: FontWeight.w600,
+                                          color: AppColors.primary,
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -343,6 +364,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                                       style: const TextStyle(
                                         color: AppColors.error,
                                         fontSize: 12.5,
+                                        fontWeight: FontWeight.w500,
                                       ),
                                     ),
                                   ],
@@ -352,11 +374,16 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                             child: Container(
                               width: isMobile ? 28 : 32,
                               height: isMobile ? 28 : 32,
-                              decoration: const BoxDecoration(
-                                color: Color(
-                                  0xFF2563EB,
-                                ), // Blue circle matching Figure 3
+                              decoration: BoxDecoration(
+                                color: const Color(0xFF2563EB),
                                 shape: BoxShape.circle,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: const Color(0xFF2563EB).withValues(alpha: 0.25),
+                                    blurRadius: 4,
+                                    offset: const Offset(0, 1),
+                                  ),
+                                ],
                               ),
                               child: Center(
                                 child: Text(

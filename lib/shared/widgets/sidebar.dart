@@ -249,16 +249,16 @@ class Sidebar extends StatelessWidget {
     } catch (_) {
       currentRoute = '/';
     }
-    final width = isCollapsed ? 76.0 : 220.0;
+    final width = isCollapsed ? 72.0 : 224.0;
 
     return AnimatedContainer(
-      duration: const Duration(milliseconds: 200),
-      curve: Curves.easeInOut,
+      duration: const Duration(milliseconds: 220),
+      curve: Curves.fastOutSlowIn,
       width: width,
       decoration: const BoxDecoration(
-        color: AppColors.sidebarBackground, // #0F1B33 from spec & Figure 3
-        border: Border(
-          right: BorderSide(color: Color(0xFF1E293B), width: 1),
+        color: AppColors.sidebarBackground,
+        border: BorderDirectional(
+          end: BorderSide(color: AppColors.sidebarDivider, width: 1),
         ),
       ),
       child: Column(
@@ -269,19 +269,19 @@ class Sidebar extends StatelessWidget {
           // Scrollable Navigation Items
           Expanded(
             child: ListView(
-              padding: const EdgeInsets.symmetric(vertical: 8),
+              padding: const EdgeInsetsDirectional.symmetric(vertical: 8),
               children: [
                 for (final section in sections) ...[
                   if (section.title != null && !isCollapsed)
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 12, 16, 4),
+                      padding: const EdgeInsetsDirectional.fromSTEB(16, 14, 16, 5),
                       child: Text(
                         section.getLocalizedTitle(context) ?? section.title!,
                         style: const TextStyle(
-                          fontSize: 10,
+                          fontSize: 10.5,
                           fontWeight: FontWeight.w700,
-                          color: Color(0xFF64748B),
-                          letterSpacing: 0.8,
+                          color: AppColors.sidebarGroupLabel,
+                          letterSpacing: 0.9,
                         ),
                       ),
                     ),
@@ -301,8 +301,15 @@ class Sidebar extends StatelessWidget {
 
   Widget _buildHeader(BuildContext context) {
     return Container(
-      height: 58,
-      padding: EdgeInsets.symmetric(horizontal: isCollapsed ? 10 : 14),
+      height: 56,
+      padding: EdgeInsetsDirectional.symmetric(
+        horizontal: isCollapsed ? 12 : 14,
+      ),
+      decoration: const BoxDecoration(
+        border: Border(
+          bottom: BorderSide(color: AppColors.sidebarDivider, width: 1),
+        ),
+      ),
       child: Row(
         mainAxisAlignment:
             isCollapsed ? MainAxisAlignment.center : MainAxisAlignment.spaceBetween,
@@ -312,14 +319,33 @@ class Sidebar extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  Container(
+                    width: 26,
+                    height: 26,
+                    margin: const EdgeInsetsDirectional.only(end: 8),
+                    decoration: BoxDecoration(
+                      color: AppColors.primaryLight,
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    child: const Center(
+                      child: Text(
+                        'F',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w800,
+                          fontSize: 15,
+                        ),
+                      ),
+                    ),
+                  ),
                   const Flexible(
                     child: Text(
                       'FinLedger',
                       style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w800,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w700,
                         color: Colors.white,
-                        letterSpacing: -0.4,
+                        letterSpacing: -0.3,
                       ),
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -344,25 +370,37 @@ class Sidebar extends StatelessWidget {
               constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
               icon: const Icon(
                 Icons.menu_open_rounded,
-                color: Color(0xFF94A3B8),
-                size: 18,
+                color: AppColors.sidebarText,
+                size: 19,
               ),
             ),
           ] else ...[
             InkWell(
               onTap: onToggleCollapse,
-              borderRadius: BorderRadius.circular(6),
+              borderRadius: BorderRadius.circular(8),
               child: Container(
-                width: 32,
-                height: 32,
+                width: 36,
+                height: 36,
                 decoration: BoxDecoration(
-                  color: const Color(0xFF2563EB),
-                  borderRadius: BorderRadius.circular(6),
+                  color: AppColors.primaryLight,
+                  borderRadius: BorderRadius.circular(8),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.primaryLight.withValues(alpha: 0.3),
+                      blurRadius: 6,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
                 ),
                 child: const Center(
                   child: Text(
                     'F',
-                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w800,
+                      fontSize: 17,
+                      letterSpacing: -0.5,
+                    ),
                   ),
                 ),
               ),
@@ -379,8 +417,8 @@ class Sidebar extends StatelessWidget {
     final isDashboard = item.id == 'dashboard';
 
     return Container(
-      margin: EdgeInsets.symmetric(
-        horizontal: isCollapsed ? 10 : (isDashboard ? 10 : 12),
+      margin: EdgeInsetsDirectional.symmetric(
+        horizontal: isCollapsed ? 8 : (isDashboard ? 10 : 12),
         vertical: 1.5,
       ),
       child: Tooltip(
@@ -396,17 +434,16 @@ class Sidebar extends StatelessWidget {
               context.go(item.route);
             }
           },
+          hoverColor: AppColors.sidebarHover,
+          splashColor: AppColors.sidebarActive,
           borderRadius: BorderRadius.circular(6),
           child: Container(
-            padding: EdgeInsets.symmetric(
+            padding: EdgeInsetsDirectional.symmetric(
               horizontal: isCollapsed ? 0 : 12,
               vertical: isSubItem ? 6.5 : 8,
             ),
             decoration: BoxDecoration(
-              // Active highlight matching Figures 3, 13, and 14 (vivid blue #2563EB)
-              color: isSelected
-                  ? const Color(0xFF2563EB)
-                  : Colors.transparent,
+              color: isSelected ? const Color(0xFF2563EB) : Colors.transparent,
               borderRadius: BorderRadius.circular(6),
             ),
             child: Row(
@@ -417,7 +454,7 @@ class Sidebar extends StatelessWidget {
                   Icon(
                     item.icon,
                     size: 16,
-                    color: isSelected ? Colors.white : const Color(0xFF94A3B8),
+                    color: isSelected ? Colors.white : AppColors.sidebarText,
                   ),
                   if (!isCollapsed) const SizedBox(width: 10),
                 ],
@@ -428,7 +465,7 @@ class Sidebar extends StatelessWidget {
                       style: TextStyle(
                         fontSize: isSubItem ? 12 : 13,
                         fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-                        color: isSelected ? Colors.white : const Color(0xFF94A3B8),
+                        color: isSelected ? Colors.white : AppColors.sidebarText,
                       ),
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -442,18 +479,20 @@ class Sidebar extends StatelessWidget {
   }
 
   Widget _buildFooter(BuildContext context) {
+    final isRtl = Directionality.of(context) == TextDirection.rtl;
+
     if (isCollapsed) {
       return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8),
+        padding: const EdgeInsetsDirectional.symmetric(vertical: 8),
         child: IconButton(
           onPressed: onToggleCollapse,
           tooltip: context.l10n.expandSidebar,
           visualDensity: VisualDensity.compact,
           padding: EdgeInsets.zero,
           constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
-          icon: const Icon(
-            Icons.chevron_right_rounded,
-            color: Color(0xFF94A3B8),
+          icon: Icon(
+            isRtl ? Icons.chevron_left_rounded : Icons.chevron_right_rounded,
+            color: AppColors.sidebarText,
             size: 20,
           ),
         ),
@@ -461,14 +500,14 @@ class Sidebar extends StatelessWidget {
     }
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+      padding: const EdgeInsetsDirectional.symmetric(horizontal: 14, vertical: 10),
       decoration: const BoxDecoration(
-        border: Border(top: BorderSide(color: Color(0xFF1E293B), width: 1)),
+        border: Border(top: BorderSide(color: AppColors.sidebarDivider, width: 1)),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          // Prominent segmented language switcher inside navigation drawer
+          // Segmented language switcher inside navigation drawer
           LanguageSwitcher.drawerToggle(),
           const SizedBox(height: 8),
           Row(
@@ -477,7 +516,7 @@ class Sidebar extends StatelessWidget {
               const Flexible(
                 child: Text(
                   'FinLedger v2.0',
-                  style: TextStyle(fontSize: 10, color: Color(0xFF64748B)),
+                  style: TextStyle(fontSize: 10, color: AppColors.sidebarGroupLabel),
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
@@ -487,9 +526,9 @@ class Sidebar extends StatelessWidget {
                 visualDensity: VisualDensity.compact,
                 padding: EdgeInsets.zero,
                 constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
-                icon: const Icon(
-                  Icons.chevron_left_rounded,
-                  color: Color(0xFF94A3B8),
+                icon: Icon(
+                  isRtl ? Icons.chevron_right_rounded : Icons.chevron_left_rounded,
+                  color: AppColors.sidebarText,
                   size: 18,
                 ),
               ),

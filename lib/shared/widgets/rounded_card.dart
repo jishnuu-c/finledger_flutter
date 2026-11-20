@@ -47,7 +47,7 @@ class RoundedCard extends StatelessWidget {
                     Text(
                       title!,
                       style: const TextStyle(
-                        fontSize: 16,
+                        fontSize: 15.5,
                         fontWeight: FontWeight.w700,
                         color: AppColors.textPrimary,
                         letterSpacing: -0.2,
@@ -69,8 +69,8 @@ class RoundedCard extends StatelessWidget {
               ?trailing,
             ],
           ),
-          const SizedBox(height: 14),
-          const Divider(height: 1, color: AppColors.borderSubtle),
+          const SizedBox(height: 12),
+          const Divider(height: 1, thickness: 1, color: AppColors.borderSubtle),
           const SizedBox(height: 14),
           child,
         ],
@@ -80,7 +80,7 @@ class RoundedCard extends StatelessWidget {
     Widget card = Container(
       width: width,
       height: height,
-      padding: padding ?? const EdgeInsets.all(20),
+      padding: padding ?? const EdgeInsetsDirectional.all(18),
       decoration: BoxDecoration(
         color: backgroundColor ?? AppColors.cardBackground,
         borderRadius: BorderRadius.circular(12),
@@ -90,8 +90,8 @@ class RoundedCard extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.02),
-            blurRadius: 6,
+            color: const Color(0xFF0F172A).withValues(alpha: 0.025),
+            blurRadius: 8,
             offset: const Offset(0, 2),
           ),
         ],
@@ -100,10 +100,13 @@ class RoundedCard extends StatelessWidget {
     );
 
     if (onTap != null) {
-      return InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(12),
-        child: card,
+      return Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(12),
+          child: card,
+        ),
       );
     }
 

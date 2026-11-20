@@ -54,7 +54,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       color: AppColors.primary,
       child: SingleChildScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+        padding: const EdgeInsetsDirectional.symmetric(horizontal: 24, vertical: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -117,7 +117,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           children: [
             Text(
               context.l10n.home,
-              style: TextStyle(fontSize: 12, color: AppColors.textMuted),
+              style: const TextStyle(fontSize: 12, color: AppColors.textMuted),
             ),
             const SizedBox(width: 4),
             const Text(
@@ -127,7 +127,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
             const SizedBox(width: 4),
             Text(
               context.l10n.dashboard,
-              style: const TextStyle(fontSize: 12, color: Color(0xFF475569), fontWeight: FontWeight.w500),
+              style: const TextStyle(
+                fontSize: 12,
+                color: AppColors.textSecondary,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ],
         ),
@@ -137,7 +141,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w700,
-            color: Color(0xFF0F172A),
+            color: AppColors.textPrimary,
             letterSpacing: -0.4,
           ),
         ),
@@ -155,7 +159,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return LayoutBuilder(
       builder: (context, constraints) {
         final cols = constraints.maxWidth > 1050 ? 4 : (constraints.maxWidth > 600 ? 2 : 1);
-        final ratio = cols == 4 ? 2.3 : (cols == 2 ? 2.6 : (constraints.maxWidth < 360 ? 2.3 : 2.8));
+        final ratio = cols == 4
+            ? 2.3
+            : (cols == 2
+                ? 2.6
+                : (constraints.maxWidth < 360 ? 2.3 : 2.8));
         return GridView.count(
           crossAxisCount: cols,
           shrinkWrap: true,
@@ -207,7 +215,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return LayoutBuilder(
       builder: (context, constraints) {
         final cols = constraints.maxWidth > 1050 ? 4 : (constraints.maxWidth > 600 ? 2 : 1);
-        final ratio = cols == 4 ? 2.3 : (cols == 2 ? 2.6 : (constraints.maxWidth < 360 ? 2.3 : 2.8));
+        final ratio = cols == 4
+            ? 2.3
+            : (cols == 2
+                ? 2.6
+                : (constraints.maxWidth < 360 ? 2.3 : 2.8));
         return GridView.count(
           crossAxisCount: cols,
           shrinkWrap: true,
@@ -229,7 +241,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               title: context.l10n.inventoryValue,
               value: _formatCurrency(o.inventoryValue),
               subtitle: '${o.lowStockCount} ${context.l10n.lowStockAlert}',
-              subtitleColor: const Color(0xFFDC2626), // Red per Figure 3
+              subtitleColor: AppColors.error,
               route: '/inventory/items',
             ),
 
@@ -264,16 +276,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
     String? route,
   }) {
     final cardContent = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      padding: const EdgeInsetsDirectional.symmetric(horizontal: 16, vertical: 10),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.cardBackground,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
+        border: Border.all(color: AppColors.border, width: 1),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.02),
-            blurRadius: 4,
-            offset: const Offset(0, 1),
+            color: const Color(0xFF0F172A).withValues(alpha: 0.025),
+            blurRadius: 5,
+            offset: const Offset(0, 1.5),
           ),
         ],
       ),
@@ -288,19 +300,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
             style: const TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w500,
-              color: Color(0xFF64748B),
+              color: AppColors.textSecondary,
             ),
           ),
           FittedBox(
             fit: BoxFit.scaleDown,
-            alignment: Alignment.centerLeft,
+            alignment: AlignmentDirectional.centerStart,
             child: Text(
               value,
               maxLines: 1,
               style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w700,
-                color: Color(0xFF0F172A),
+                color: AppColors.textPrimary,
                 letterSpacing: -0.4,
               ),
             ),
@@ -317,8 +329,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       fontSize: 11,
                       fontWeight: FontWeight.w600,
                       color: trendIsPositive == true
-                          ? const Color(0xFF16A34A) // Green
-                          : const Color(0xFFDC2626), // Red
+                          ? AppColors.success
+                          : AppColors.error,
                     ),
                   ),
                 ),
@@ -331,7 +343,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 fontSize: 11,
-                color: subtitleColor ?? const Color(0xFF94A3B8),
+                color: subtitleColor ?? AppColors.textMuted,
                 fontWeight: subtitleColor != null ? FontWeight.w600 : FontWeight.w400,
               ),
             )
@@ -359,11 +371,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
     const double maxChartValue = 400000;
 
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsetsDirectional.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.cardBackground,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
+        border: Border.all(color: AppColors.border, width: 1),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF0F172A).withValues(alpha: 0.025),
+            blurRadius: 6,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -373,7 +392,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w700,
-              color: Color(0xFF0F172A),
+              color: AppColors.textPrimary,
             ),
           ),
           const SizedBox(height: 24),
@@ -407,7 +426,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   width: 14,
                                   height: revHeight,
                                   decoration: const BoxDecoration(
-                                    color: Color(0xFF1D4ED8), // Royal Blue
+                                    color: Color(0xFF1D4ED8),
                                     borderRadius: BorderRadius.vertical(top: Radius.circular(2)),
                                   ),
                                 ),
@@ -417,7 +436,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   width: 14,
                                   height: expHeight,
                                   decoration: const BoxDecoration(
-                                    color: Color(0xFF93C5FD), // Light Sky Blue
+                                    color: Color(0xFF93C5FD),
                                     borderRadius: BorderRadius.vertical(top: Radius.circular(2)),
                                   ),
                                 ),
@@ -428,7 +447,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               d.month,
                               style: const TextStyle(
                                 fontSize: 11,
-                                color: Color(0xFF64748B),
+                                color: AppColors.textSecondary,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -454,7 +473,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 children: [
                   Container(width: 10, height: 10, color: const Color(0xFF1D4ED8)),
                   const SizedBox(width: 6),
-                  Text(context.l10n.revenue, style: const TextStyle(fontSize: 11.5, color: Color(0xFF475569))),
+                  Text(
+                    context.l10n.revenue,
+                    style: const TextStyle(fontSize: 11.5, color: AppColors.textSecondary),
+                  ),
                 ],
               ),
               Row(
@@ -462,7 +484,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 children: [
                   Container(width: 10, height: 10, color: const Color(0xFF93C5FD)),
                   const SizedBox(width: 6),
-                  Text(context.l10n.expenses, style: const TextStyle(fontSize: 11.5, color: Color(0xFF475569))),
+                  Text(
+                    context.l10n.expenses,
+                    style: const TextStyle(fontSize: 11.5, color: AppColors.textSecondary),
+                  ),
                 ],
               ),
             ],
@@ -475,11 +500,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
   // Row 3 Right: Receivables Ageing progress bars
   Widget _buildReceivablesAgeingCard(ReceivablesAgeingData ageing) {
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsetsDirectional.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.cardBackground,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
+        border: Border.all(color: AppColors.border, width: 1),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF0F172A).withValues(alpha: 0.025),
+            blurRadius: 6,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -489,7 +521,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w700,
-              color: Color(0xFF0F172A),
+              color: AppColors.textPrimary,
             ),
           ),
           const SizedBox(height: 18),
@@ -511,7 +543,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           const SizedBox(height: 12),
 
           // 90+ days (Red bar)
-          _buildAgeingItem(context.l10n.ageing90PlusDays, ageing.daysOver90, const Color(0xFFDC2626), 0.08),
+          _buildAgeingItem(context.l10n.ageing90PlusDays, ageing.daysOver90, AppColors.error, 0.08),
         ],
       ),
     );
@@ -523,13 +555,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Row(
       children: [
         SizedBox(
-          width: 75,
+          width: 78,
           child: Text(
             label,
             style: const TextStyle(
               fontSize: 11.5,
               fontWeight: FontWeight.w500,
-              color: Color(0xFF475569),
+              color: AppColors.textSecondary,
             ),
           ),
         ),
@@ -561,14 +593,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
           constraints: const BoxConstraints(minWidth: 85),
           child: FittedBox(
             fit: BoxFit.scaleDown,
-            alignment: Alignment.centerRight,
+            alignment: AlignmentDirectional.centerEnd,
             child: Text(
               'AED ${formatter.format(amount)}',
-              textAlign: TextAlign.right,
+              textAlign: TextAlign.end,
               style: const TextStyle(
                 fontSize: 11.5,
                 fontWeight: FontWeight.w600,
-                color: Color(0xFF0F172A),
+                color: AppColors.textPrimary,
               ),
             ),
           ),
@@ -583,66 +615,94 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.cardBackground,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
+        border: Border.all(color: AppColors.border, width: 1),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF0F172A).withValues(alpha: 0.025),
+            blurRadius: 6,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(20, 16, 20, 12),
+            padding: const EdgeInsetsDirectional.fromSTEB(20, 16, 20, 12),
             child: Text(
               context.l10n.recentActivity,
               style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w700,
-                color: Color(0xFF0F172A),
+                color: AppColors.textPrimary,
               ),
             ),
           ),
-          const Divider(height: 1, color: Color(0xFFE2E8F0)),
+          const Divider(height: 1, thickness: 1, color: AppColors.border),
 
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: ConstrainedBox(
               constraints: const BoxConstraints(minWidth: 800),
               child: DataTable(
-                headingRowHeight: 38,
-                dataRowMinHeight: 46,
-                dataRowMaxHeight: 46,
+                headingRowHeight: 40,
+                dataRowMinHeight: 48,
+                dataRowMaxHeight: 48,
                 horizontalMargin: 20,
                 columnSpacing: 32,
+                headingRowColor: WidgetStateProperty.all(const Color(0xFFF8FAFC)),
                 columns: [
                   DataColumn(
                     label: Text(
                       context.l10n.date,
-                      style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: Color(0xFF64748B)),
+                      style: const TextStyle(
+                        fontSize: 11.5,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.textSecondary,
+                      ),
                     ),
                   ),
                   DataColumn(
                     label: Text(
                       context.l10n.reference,
-                      style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: Color(0xFF64748B)),
+                      style: const TextStyle(
+                        fontSize: 11.5,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.textSecondary,
+                      ),
                     ),
                   ),
                   DataColumn(
                     label: Text(
                       context.l10n.description,
-                      style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: Color(0xFF64748B)),
+                      style: const TextStyle(
+                        fontSize: 11.5,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.textSecondary,
+                      ),
                     ),
                   ),
                   DataColumn(
                     label: Text(
                       context.l10n.status,
-                      style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: Color(0xFF64748B)),
+                      style: const TextStyle(
+                        fontSize: 11.5,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.textSecondary,
+                      ),
                     ),
                   ),
                   DataColumn(
                     numeric: true,
                     label: Text(
                       '${context.l10n.amount} (${context.l10n.currencyAed})',
-                      style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: Color(0xFF64748B)),
+                      style: const TextStyle(
+                        fontSize: 11.5,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.textSecondary,
+                      ),
                     ),
                   ),
                 ],
@@ -652,19 +712,23 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       DataCell(
                         Text(
                           tx.date,
-                          style: const TextStyle(fontSize: 12, color: Color(0xFF334155)),
+                          style: const TextStyle(fontSize: 12, color: AppColors.textSecondary),
                         ),
                       ),
                       DataCell(
                         Text(
                           tx.reference,
-                          style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Color(0xFF0F172A)),
+                          style: const TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.textPrimary,
+                          ),
                         ),
                       ),
                       DataCell(
                         Text(
                           tx.description,
-                          style: const TextStyle(fontSize: 12, color: Color(0xFF334155)),
+                          style: const TextStyle(fontSize: 12, color: AppColors.textSecondary),
                         ),
                       ),
                       DataCell(_buildTypeChip(tx.type)),
@@ -673,8 +737,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           currencyFormatter.format(tx.amount),
                           style: const TextStyle(
                             fontSize: 12.5,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xFF0F172A),
+                            fontWeight: FontWeight.w700,
+                            color: AppColors.textPrimary,
                           ),
                         ),
                       ),
@@ -697,30 +761,34 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
     switch (type.toLowerCase()) {
       case 'invoice':
-        bg = const Color(0xFFEFF6FF); // Light blue
-        text = const Color(0xFF2563EB); // Blue
+        bg = AppColors.sentBg;
+        text = AppColors.sent;
         displayLabel = context.l10n.typeInvoice;
         break;
       case 'receipt':
-        bg = const Color(0xFFDCFCE7); // Light green
-        text = const Color(0xFF16A34A); // Green
+        bg = AppColors.paidBg;
+        text = AppColors.paid;
         displayLabel = context.l10n.typeReceipt;
         break;
       case 'bill':
-        bg = const Color(0xFFFEF3C7); // Light amber
-        text = const Color(0xFFD97706); // Amber
+        bg = AppColors.partialBg;
+        text = AppColors.partial;
         displayLabel = context.l10n.typeBill;
         break;
       default:
-        bg = const Color(0xFFF1F5F9);
-        text = const Color(0xFF475569);
+        bg = AppColors.draftBg;
+        text = AppColors.draft;
     }
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+      padding: const EdgeInsetsDirectional.symmetric(horizontal: 10, vertical: 3.5),
       decoration: BoxDecoration(
         color: bg,
         borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: text.withValues(alpha: 0.2),
+          width: 1,
+        ),
       ),
       child: Text(
         displayLabel,
