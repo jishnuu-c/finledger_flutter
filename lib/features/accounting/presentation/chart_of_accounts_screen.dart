@@ -70,8 +70,12 @@ class _ChartOfAccountsScreenState extends State<ChartOfAccountsScreen> {
   @override
   Widget build(BuildContext context) {
     final isMobile = MediaQuery.of(context).size.width < 768;
+
     return SingleChildScrollView(
-      padding: EdgeInsets.symmetric(horizontal: isMobile ? 16 : 24, vertical: 20),
+      padding: EdgeInsetsDirectional.symmetric(
+        horizontal: isMobile ? 16 : 24,
+        vertical: 20,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -97,11 +101,21 @@ class _ChartOfAccountsScreenState extends State<ChartOfAccountsScreen> {
         Wrap(
           crossAxisAlignment: WrapCrossAlignment.center,
           children: [
-            Text(context.l10n.accounting, style: const TextStyle(fontSize: 12, color: Color(0xFF94A3B8))),
+            Text(
+              context.l10n.accounting,
+              style: const TextStyle(fontSize: 12, color: AppColors.textMuted),
+            ),
             const SizedBox(width: 4),
-            const Text('/', style: TextStyle(fontSize: 11, color: Color(0xFF94A3B8))),
+            const Text('/', style: TextStyle(fontSize: 11, color: AppColors.textMuted)),
             const SizedBox(width: 4),
-            Text(context.l10n.chartOfAccounts, style: const TextStyle(fontSize: 12, color: Color(0xFF475569), fontWeight: FontWeight.w500)),
+            Text(
+              context.l10n.chartOfAccounts,
+              style: const TextStyle(
+                fontSize: 12,
+                color: AppColors.textSecondary,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
           ],
         ),
         const SizedBox(height: 4),
@@ -110,7 +124,7 @@ class _ChartOfAccountsScreenState extends State<ChartOfAccountsScreen> {
           style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w700,
-            color: Color(0xFF0F172A),
+            color: AppColors.textPrimary,
             letterSpacing: -0.4,
           ),
         ),
@@ -143,18 +157,28 @@ class _ChartOfAccountsScreenState extends State<ChartOfAccountsScreen> {
                     style: const TextStyle(fontSize: 12.5),
                     onChanged: (_) => _loadAccounts(),
                     decoration: InputDecoration(
+                      prefixIcon: const Icon(
+                        Icons.search_rounded,
+                        size: 16,
+                        color: AppColors.textMuted,
+                      ),
+                      prefixIconConstraints: const BoxConstraints(minWidth: 32, minHeight: 32),
                       hintText: context.l10n.searchAccount,
-                      hintStyle: const TextStyle(fontSize: 12, color: Color(0xFF94A3B8)),
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
+                      hintStyle: const TextStyle(fontSize: 12, color: AppColors.textMuted),
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
                       fillColor: Colors.white,
                       filled: true,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(6),
-                        borderSide: const BorderSide(color: Color(0xFFCBD5E1)),
+                        borderSide: const BorderSide(color: AppColors.border),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(6),
-                        borderSide: const BorderSide(color: Color(0xFFCBD5E1)),
+                        borderSide: const BorderSide(color: AppColors.border),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(6),
+                        borderSide: const BorderSide(color: AppColors.primaryLight, width: 1.5),
                       ),
                     ),
                   ),
@@ -165,12 +189,12 @@ class _ChartOfAccountsScreenState extends State<ChartOfAccountsScreen> {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(6),
-                    border: Border.all(color: const Color(0xFFCBD5E1)),
+                    border: Border.all(color: AppColors.border),
                   ),
                   child: DropdownButtonHideUnderline(
                     child: DropdownButton<String>(
                       value: _selectedType,
-                      style: const TextStyle(fontSize: 12.5, color: Color(0xFF334155)),
+                      style: const TextStyle(fontSize: 12.5, color: AppColors.textPrimary),
                       icon: const Icon(Icons.arrow_drop_down, size: 18, color: Color(0xFF64748B)),
                       items: ['All Types', 'Asset', 'Liability', 'Equity', 'Income', 'Expense']
                           .map((t) => DropdownMenuItem(value: t, child: Text(t)))
@@ -190,12 +214,12 @@ class _ChartOfAccountsScreenState extends State<ChartOfAccountsScreen> {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(6),
-                    border: Border.all(color: const Color(0xFFCBD5E1)),
+                    border: Border.all(color: AppColors.border),
                   ),
                   child: DropdownButtonHideUnderline(
                     child: DropdownButton<String>(
                       value: _selectedStatus,
-                      style: const TextStyle(fontSize: 12.5, color: Color(0xFF334155)),
+                      style: const TextStyle(fontSize: 12.5, color: AppColors.textPrimary),
                       icon: const Icon(Icons.arrow_drop_down, size: 18, color: Color(0xFF64748B)),
                       items: ['All', 'Active', 'Inactive']
                           .map((s) => DropdownMenuItem(value: s, child: Text(s)))
@@ -224,8 +248,8 @@ class _ChartOfAccountsScreenState extends State<ChartOfAccountsScreen> {
                   },
                   style: OutlinedButton.styleFrom(
                     backgroundColor: Colors.white,
-                    foregroundColor: const Color(0xFF334155),
-                    side: const BorderSide(color: Color(0xFFCBD5E1)),
+                    foregroundColor: AppColors.textSecondary,
+                    side: const BorderSide(color: AppColors.border),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
                     padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                   ),
@@ -239,8 +263,8 @@ class _ChartOfAccountsScreenState extends State<ChartOfAccountsScreen> {
                   },
                   style: OutlinedButton.styleFrom(
                     backgroundColor: Colors.white,
-                    foregroundColor: const Color(0xFF334155),
-                    side: const BorderSide(color: Color(0xFFCBD5E1)),
+                    foregroundColor: AppColors.textSecondary,
+                    side: const BorderSide(color: AppColors.border),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
                     padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                   ),
@@ -249,7 +273,7 @@ class _ChartOfAccountsScreenState extends State<ChartOfAccountsScreen> {
                 ElevatedButton(
                   onPressed: _openNewAccountModal,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF1D4ED8),
+                    backgroundColor: AppColors.primary,
                     foregroundColor: Colors.white,
                     elevation: 0,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
@@ -273,9 +297,16 @@ class _ChartOfAccountsScreenState extends State<ChartOfAccountsScreen> {
 
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.cardBackground,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
+        border: Border.all(color: AppColors.border, width: 1),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF0F172A).withValues(alpha: 0.025),
+            blurRadius: 6,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: _isLoading
           ? const Padding(
@@ -290,185 +321,219 @@ class _ChartOfAccountsScreenState extends State<ChartOfAccountsScreen> {
                   child: SizedBox(
                     width: effectiveWidth,
                     child: DataTable(
-                  headingRowHeight: 40,
-                  dataRowMinHeight: 46,
-                  dataRowMaxHeight: 46,
-                  horizontalMargin: 20,
-                  columnSpacing: 20,
-                  columns: [
-                    DataColumn(
-                      label: Text(context.l10n.colCode, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: Color(0xFF64748B))),
-                    ),
-                    DataColumn(
-                      label: Text(context.l10n.colAccountName, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: Color(0xFF64748B))),
-                    ),
-                    DataColumn(
-                      label: Text(context.l10n.accountType, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: Color(0xFF64748B))),
-                    ),
-                    DataColumn(
-                      label: Text(context.l10n.colParent, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: Color(0xFF64748B))),
-                    ),
-                    DataColumn(
-                      numeric: true,
-                      label: Text(context.l10n.colBalanceAed, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: Color(0xFF64748B))),
-                    ),
-                    DataColumn(
-                      label: Text(context.l10n.status, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: Color(0xFF64748B))),
-                    ),
-                    DataColumn(
-                      label: Text(context.l10n.actions, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: Color(0xFF64748B))),
-                    ),
-                  ],
-                  rows: _accounts.map((acc) {
-                    final isGroup = acc.isGroup;
-                    final indent = acc.level * 18.0;
-
-                    return DataRow(
-                      cells: [
-                        // Code
-                        DataCell(
-                          Text(
-                            acc.code,
-                            style: TextStyle(
-                              fontSize: 12.5,
-                              fontWeight: isGroup ? FontWeight.w700 : FontWeight.w400,
-                              color: const Color(0xFF0F172A),
-                            ),
+                      headingRowHeight: 40,
+                      dataRowMinHeight: 46,
+                      dataRowMaxHeight: 46,
+                      horizontalMargin: 20,
+                      columnSpacing: 20,
+                      headingRowColor: WidgetStateProperty.all(const Color(0xFFF8FAFC)),
+                      columns: [
+                        DataColumn(
+                          label: Text(
+                            context.l10n.colCode,
+                            style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: AppColors.textSecondary),
                           ),
                         ),
-
-                        // Account Name with Hierarchical Indentation
-                        DataCell(
-                          Padding(
-                            padding: EdgeInsets.only(left: indent),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                if (acc.level > 0) ...[
-                                  Container(
-                                    width: 4,
-                                    height: 4,
-                                    margin: const EdgeInsets.only(right: 8),
-                                    decoration: BoxDecoration(
-                                      color: isGroup ? const Color(0xFF64748B) : const Color(0xFF94A3B8),
-                                      shape: BoxShape.circle,
-                                    ),
-                                  ),
-                                ],
-                                Flexible(
-                                  child: Text(
-                                    acc.name,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      fontSize: 12.5,
-                                      fontWeight: isGroup ? FontWeight.w700 : FontWeight.w400,
-                                      color: isGroup ? const Color(0xFF0F172A) : const Color(0xFF334155),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                        DataColumn(
+                          label: Text(
+                            context.l10n.colAccountName,
+                            style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: AppColors.textSecondary),
                           ),
                         ),
-
-                        // Type Chip (Grey pill matching Figure 13)
-                        DataCell(
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2.5),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFF1F5F9),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Text(
-                              acc.accountType.label,
-                              style: const TextStyle(
-                                fontSize: 11,
-                                fontWeight: FontWeight.w500,
-                                color: Color(0xFF475569),
-                              ),
-                            ),
+                        DataColumn(
+                          label: Text(
+                            context.l10n.accountType,
+                            style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: AppColors.textSecondary),
                           ),
                         ),
-
-                        // Parent Code
-                        DataCell(
-                          Text(
-                            acc.parentCode ?? '—',
-                            style: const TextStyle(fontSize: 12, color: Color(0xFF64748B)),
+                        DataColumn(
+                          label: Text(
+                            context.l10n.colParent,
+                            style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: AppColors.textSecondary),
                           ),
                         ),
-
-                        // Balance (AED)
-                        DataCell(
-                          Text(
-                            currencyFormat.format(acc.currentBalance),
-                            style: TextStyle(
-                              fontSize: 12.5,
-                              fontWeight: isGroup ? FontWeight.w700 : FontWeight.w500,
-                              color: const Color(0xFF0F172A),
-                            ),
+                        DataColumn(
+                          numeric: true,
+                          label: Text(
+                            context.l10n.colBalanceAed,
+                            style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: AppColors.textSecondary),
                           ),
                         ),
-
-                        // Status Chip (Green Active matching Figure 13)
-                        DataCell(
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2.5),
-                            decoration: BoxDecoration(
-                              color: acc.isActive ? const Color(0xFFDCFCE7) : const Color(0xFFF1F5F9),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Text(
-                              acc.isActive ? 'Active' : 'Inactive',
-                              style: TextStyle(
-                                fontSize: 11,
-                                fontWeight: FontWeight.w600,
-                                color: acc.isActive ? const Color(0xFF16A34A) : const Color(0xFF64748B),
-                              ),
-                            ),
+                        DataColumn(
+                          label: Text(
+                            context.l10n.status,
+                            style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: AppColors.textSecondary),
                           ),
                         ),
-
-                        // Actions: Edit · Ledger matching Figure 13
-                        DataCell(
-                          FittedBox(
-                            fit: BoxFit.scaleDown,
-                            alignment: Alignment.centerLeft,
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                InkWell(
-                                  onTap: () => _openEditAccountModal(acc),
-                                  child: const Text(
-                                    'Edit',
-                                    style: TextStyle(fontSize: 12, color: Color(0xFF2563EB), fontWeight: FontWeight.w500),
-                                  ),
-                                ),
-                                const Text(' · ', style: TextStyle(color: Color(0xFF94A3B8))),
-                                InkWell(
-                                  onTap: () {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(content: Text('Opening General Ledger trail for ${acc.code} - ${acc.name}')),
-                                    );
-                                  },
-                                  child: const Text(
-                                    'Ledger',
-                                    style: TextStyle(fontSize: 12, color: Color(0xFF2563EB), fontWeight: FontWeight.w500),
-                                  ),
-                                ),
-                              ],
-                            ),
+                        DataColumn(
+                          label: Text(
+                            context.l10n.actions,
+                            style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: AppColors.textSecondary),
                           ),
                         ),
                       ],
-                    );
-                  }).toList(),
-                ),
-              ),
-            );
-          },
-        ),
+                      rows: _accounts.map((acc) {
+                        final isGroup = acc.isGroup;
+                        final indent = acc.level * 18.0;
+
+                        return DataRow(
+                          cells: [
+                            // Code
+                            DataCell(
+                              Text(
+                                acc.code,
+                                style: TextStyle(
+                                  fontSize: 12.5,
+                                  fontWeight: isGroup ? FontWeight.w700 : FontWeight.w400,
+                                  color: AppColors.textPrimary,
+                                ),
+                              ),
+                            ),
+
+                            // Account Name with Hierarchical Indentation (Directional)
+                            DataCell(
+                              Padding(
+                                padding: EdgeInsetsDirectional.only(start: indent),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    if (acc.level > 0) ...[
+                                      Container(
+                                        width: 4,
+                                        height: 4,
+                                        margin: const EdgeInsetsDirectional.only(end: 8),
+                                        decoration: BoxDecoration(
+                                          color: isGroup ? AppColors.sidebarGroupLabel : AppColors.textMuted,
+                                          shape: BoxShape.circle,
+                                        ),
+                                      ),
+                                    ],
+                                    Flexible(
+                                      child: Text(
+                                        acc.name,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          fontSize: 12.5,
+                                          fontWeight: isGroup ? FontWeight.w700 : FontWeight.w500,
+                                          color: isGroup ? AppColors.textPrimary : AppColors.textSecondary,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+
+                            // Type Chip
+                            DataCell(
+                              Container(
+                                padding: const EdgeInsetsDirectional.symmetric(horizontal: 8, vertical: 2.5),
+                                decoration: BoxDecoration(
+                                  color: AppColors.borderSubtle,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Text(
+                                  acc.accountType.label,
+                                  style: const TextStyle(
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.w500,
+                                    color: AppColors.textSecondary,
+                                  ),
+                                ),
+                              ),
+                            ),
+
+                            // Parent Code
+                            DataCell(
+                              Text(
+                                acc.parentCode ?? '—',
+                                style: const TextStyle(fontSize: 12, color: AppColors.sidebarGroupLabel),
+                              ),
+                            ),
+
+                            // Balance (AED)
+                            DataCell(
+                              Text(
+                                currencyFormat.format(acc.currentBalance),
+                                style: TextStyle(
+                                  fontSize: 12.5,
+                                  fontWeight: isGroup ? FontWeight.w700 : FontWeight.w600,
+                                  color: AppColors.textPrimary,
+                                ),
+                              ),
+                            ),
+
+                            // Status Chip
+                            DataCell(
+                              Container(
+                                padding: const EdgeInsetsDirectional.symmetric(horizontal: 8, vertical: 2.5),
+                                decoration: BoxDecoration(
+                                  color: acc.isActive ? AppColors.paidBg : AppColors.draftBg,
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(
+                                    color: (acc.isActive ? AppColors.paid : AppColors.draft).withValues(alpha: 0.2),
+                                    width: 1,
+                                  ),
+                                ),
+                                child: Text(
+                                  acc.isActive ? 'Active' : 'Inactive',
+                                  style: TextStyle(
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.w600,
+                                    color: acc.isActive ? AppColors.paid : AppColors.draft,
+                                  ),
+                                ),
+                              ),
+                            ),
+
+                            // Actions: Edit · Ledger
+                            DataCell(
+                              FittedBox(
+                                fit: BoxFit.scaleDown,
+                                alignment: AlignmentDirectional.centerStart,
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    InkWell(
+                                      onTap: () => _openEditAccountModal(acc),
+                                      child: const Text(
+                                        'Edit',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: AppColors.primaryLight,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ),
+                                    const Text(' · ', style: TextStyle(color: AppColors.textMuted)),
+                                    InkWell(
+                                      onTap: () {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(content: Text('Opening General Ledger trail for ${acc.code} - ${acc.name}')),
+                                        );
+                                      },
+                                      child: const Text(
+                                        'Ledger',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: AppColors.primaryLight,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                );
+              },
+            ),
     );
   }
 

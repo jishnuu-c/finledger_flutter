@@ -93,7 +93,7 @@ class _NewAccountDialogState extends State<NewAccountDialog> {
       child: ConstrainedBox(
         constraints: BoxConstraints(maxWidth: 520, maxHeight: screenHeight * 0.9),
         child: Padding(
-          padding: EdgeInsets.all(isMobile ? 16 : 24),
+          padding: EdgeInsetsDirectional.all(isMobile ? 16 : 24),
           child: SingleChildScrollView(
             child: Form(
               key: _formKey,
@@ -110,13 +110,13 @@ class _NewAccountDialogState extends State<NewAccountDialog> {
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w700,
-                            color: Color(0xFF0F172A),
+                            color: AppColors.textPrimary,
                           ),
                         ),
                       ),
                       IconButton(
                         onPressed: () => Navigator.of(context).pop(),
-                        icon: const Icon(Icons.close, size: 20, color: Color(0xFF64748B)),
+                        icon: const Icon(Icons.close_rounded, size: 20, color: Color(0xFF64748B)),
                         padding: EdgeInsets.zero,
                         constraints: const BoxConstraints(),
                       ),
@@ -125,206 +125,215 @@ class _NewAccountDialogState extends State<NewAccountDialog> {
                   const SizedBox(height: 4),
                   Text(
                     context.l10n.accountingSubtitle,
-                    style: const TextStyle(fontSize: 12.5, color: Color(0xFF64748B)),
+                    style: const TextStyle(fontSize: 12.5, color: AppColors.textSecondary),
                   ),
-                const SizedBox(height: 20),
+                  const SizedBox(height: 16),
+                  const Divider(height: 1, color: AppColors.border),
+                  const SizedBox(height: 16),
 
-                // Row 1: Code and Name
-                if (isMobile) ...[
-                  Text('${context.l10n.accountCode} *', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
-                  const SizedBox(height: 6),
-                  TextFormField(
-                    controller: _codeController,
-                    decoration: const InputDecoration(hintText: 'e.g. 5230', isDense: true),
-                    validator: (val) => val == null || val.trim().isEmpty ? 'Required' : null,
-                  ),
-                  const SizedBox(height: 14),
-                  Text('${context.l10n.accountName} *', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
-                  const SizedBox(height: 6),
-                  TextFormField(
-                    controller: _nameController,
-                    decoration: const InputDecoration(hintText: 'e.g. Software Licenses', isDense: true),
-                    validator: (val) => val == null || val.trim().isEmpty ? 'Required' : null,
-                  ),
-                  const SizedBox(height: 14),
-                  Text('${context.l10n.accountTypeLabel} *', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
-                  const SizedBox(height: 6),
-                  DropdownButtonFormField<AccountType>(
-                    isExpanded: true,
-                    initialValue: _selectedType,
-                    isDense: true,
-                    decoration: const InputDecoration(contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 10)),
-                    items: AccountType.values.map((t) => DropdownMenuItem(value: t, child: Text(t.label, style: const TextStyle(fontSize: 13), overflow: TextOverflow.ellipsis))).toList(),
-                    onChanged: (val) {
-                      if (val != null) setState(() => _selectedType = val);
-                    },
-                  ),
-                  const SizedBox(height: 14),
-                  Text(context.l10n.subTypeOptional, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
-                  const SizedBox(height: 6),
-                  TextFormField(
-                    controller: _subTypeController,
-                    decoration: const InputDecoration(hintText: 'e.g. BANK, EXPENSE', isDense: true),
-                  ),
-                ] else ...[
-                  Row(
+                  // Row 1: Code and Name
+                  if (isMobile) ...[
+                    Text('${context.l10n.accountCode} *', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
+                    const SizedBox(height: 6),
+                    TextFormField(
+                      controller: _codeController,
+                      style: const TextStyle(fontSize: 13),
+                      decoration: const InputDecoration(hintText: 'e.g. 5230', isDense: true),
+                      validator: (val) => val == null || val.trim().isEmpty ? 'Required' : null,
+                    ),
+                    const SizedBox(height: 14),
+                    Text('${context.l10n.accountName} *', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
+                    const SizedBox(height: 6),
+                    TextFormField(
+                      controller: _nameController,
+                      style: const TextStyle(fontSize: 13),
+                      decoration: const InputDecoration(hintText: 'e.g. Software Licenses', isDense: true),
+                      validator: (val) => val == null || val.trim().isEmpty ? 'Required' : null,
+                    ),
+                    const SizedBox(height: 14),
+                    Text('${context.l10n.accountTypeLabel} *', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
+                    const SizedBox(height: 6),
+                    DropdownButtonFormField<AccountType>(
+                      isExpanded: true,
+                      initialValue: _selectedType,
+                      isDense: true,
+                      decoration: const InputDecoration(contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 10)),
+                      items: AccountType.values.map((t) => DropdownMenuItem(value: t, child: Text(t.label, style: const TextStyle(fontSize: 13), overflow: TextOverflow.ellipsis))).toList(),
+                      onChanged: (val) {
+                        if (val != null) setState(() => _selectedType = val);
+                      },
+                    ),
+                    const SizedBox(height: 14),
+                    Text(context.l10n.subTypeOptional, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
+                    const SizedBox(height: 6),
+                    TextFormField(
+                      controller: _subTypeController,
+                      style: const TextStyle(fontSize: 13),
+                      decoration: const InputDecoration(hintText: 'e.g. BANK, EXPENSE', isDense: true),
+                    ),
+                  ] else ...[
+                    Row(
+                      children: [
+                        Expanded(
+                          flex: 4,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text('Account Code *', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
+                              const SizedBox(height: 6),
+                              TextFormField(
+                                controller: _codeController,
+                                style: const TextStyle(fontSize: 13),
+                                decoration: const InputDecoration(hintText: 'e.g. 5230', isDense: true),
+                                validator: (val) => val == null || val.trim().isEmpty ? 'Required' : null,
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 14),
+                        Expanded(
+                          flex: 7,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('${context.l10n.accountName} *', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
+                              const SizedBox(height: 6),
+                              TextFormField(
+                                controller: _nameController,
+                                style: const TextStyle(fontSize: 13),
+                                decoration: const InputDecoration(hintText: 'e.g. Software Licenses', isDense: true),
+                                validator: (val) => val == null || val.trim().isEmpty ? 'Required' : null,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+
+                    // Row 2: Account Type and Sub-type
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('${context.l10n.accountTypeLabel} *', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
+                              const SizedBox(height: 6),
+                              DropdownButtonFormField<AccountType>(
+                                isExpanded: true,
+                                initialValue: _selectedType,
+                                isDense: true,
+                                decoration: const InputDecoration(contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 10)),
+                                items: AccountType.values.map((t) => DropdownMenuItem(value: t, child: Text(t.label, style: const TextStyle(fontSize: 13), overflow: TextOverflow.ellipsis))).toList(),
+                                onChanged: (val) {
+                                  if (val != null) setState(() => _selectedType = val);
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 14),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(context.l10n.subTypeOptional, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
+                              const SizedBox(height: 6),
+                              TextFormField(
+                                controller: _subTypeController,
+                                style: const TextStyle(fontSize: 13),
+                                decoration: const InputDecoration(hintText: 'e.g. BANK, EXPENSE', isDense: true),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                  const SizedBox(height: 16),
+
+                  // Row 3: Parent Account
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                        flex: 4,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text('Account Code *', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
-                            const SizedBox(height: 6),
-                            TextFormField(
-                              controller: _codeController,
-                              decoration: const InputDecoration(hintText: 'e.g. 5230', isDense: true),
-                              validator: (val) => val == null || val.trim().isEmpty ? 'Required' : null,
+                      Text(context.l10n.parentAccount, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
+                      const SizedBox(height: 6),
+                      DropdownButtonFormField<int?>(
+                        isExpanded: true,
+                        initialValue: _selectedParentId,
+                        isDense: true,
+                        decoration: const InputDecoration(contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 10)),
+                        items: [
+                          DropdownMenuItem<int?>(
+                            value: null,
+                            child: Text(context.l10n.topLevelGroup, style: const TextStyle(fontSize: 13, color: AppColors.sidebarGroupLabel), overflow: TextOverflow.ellipsis),
+                          ),
+                          ...widget.groupAccounts.map(
+                            (a) => DropdownMenuItem<int?>(
+                              value: a.id,
+                              child: Text('${a.code} - ${a.name} (${a.accountType.label})', style: const TextStyle(fontSize: 13), overflow: TextOverflow.ellipsis),
                             ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(width: 14),
-                      Expanded(
-                        flex: 7,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('${context.l10n.accountName} *', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
-                            const SizedBox(height: 6),
-                            TextFormField(
-                              controller: _nameController,
-                              decoration: const InputDecoration(hintText: 'e.g. Software Licenses', isDense: true),
-                              validator: (val) => val == null || val.trim().isEmpty ? 'Required' : null,
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
+                        onChanged: (val) => setState(() => _selectedParentId = val),
                       ),
                     ],
                   ),
                   const SizedBox(height: 16),
 
-                  // Row 2: Account Type and Sub-type
+                  // Group toggle
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('${context.l10n.accountTypeLabel} *', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
-                            const SizedBox(height: 6),
-                            DropdownButtonFormField<AccountType>(
-                              isExpanded: true,
-                              initialValue: _selectedType,
-                              isDense: true,
-                              decoration: const InputDecoration(contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 10)),
-                              items: AccountType.values.map((t) => DropdownMenuItem(value: t, child: Text(t.label, style: const TextStyle(fontSize: 13), overflow: TextOverflow.ellipsis))).toList(),
-                              onChanged: (val) {
-                                if (val != null) setState(() => _selectedType = val);
-                              },
-                            ),
-                          ],
-                        ),
+                      Checkbox(
+                        value: _isGroup,
+                        activeColor: AppColors.primary,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+                        onChanged: (val) => setState(() => _isGroup = val ?? false),
                       ),
-                      const SizedBox(width: 14),
+                      const SizedBox(width: 4),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(context.l10n.subTypeOptional, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
-                            const SizedBox(height: 6),
-                            TextFormField(
-                              controller: _subTypeController,
-                              decoration: const InputDecoration(hintText: 'e.g. BANK, EXPENSE', isDense: true),
-                            ),
+                            Text(context.l10n.isGroupAccount, style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
+                            Text(context.l10n.groupAccountNote, style: const TextStyle(fontSize: 11, color: AppColors.textMuted)),
                           ],
                         ),
                       ),
                     ],
                   ),
+                  const SizedBox(height: 24),
+
+                  // Actions
+                  Wrap(
+                    alignment: WrapAlignment.end,
+                    spacing: 12,
+                    runSpacing: 8,
+                    children: [
+                      OutlinedButton(
+                        onPressed: () => Navigator.of(context).pop(),
+                        child: Text(context.l10n.cancel),
+                      ),
+                      ElevatedButton(
+                        onPressed: _isSaving ? null : _handleSubmit,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.primary,
+                          foregroundColor: Colors.white,
+                        ),
+                        child: _isSaving
+                            ? const SizedBox(width: 16, height: 16, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
+                            : Text(context.l10n.saveAccount),
+                      ),
+                    ],
+                  ),
                 ],
-                const SizedBox(height: 16),
-
-                // Row 3: Parent Account
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(context.l10n.parentAccount, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
-                    const SizedBox(height: 6),
-                    DropdownButtonFormField<int?>(
-                      isExpanded: true,
-                      initialValue: _selectedParentId,
-                      isDense: true,
-                      decoration: const InputDecoration(contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 10)),
-                      items: [
-                        DropdownMenuItem<int?>(
-                          value: null,
-                          child: Text(context.l10n.topLevelGroup, style: const TextStyle(fontSize: 13, color: Color(0xFF64748B)), overflow: TextOverflow.ellipsis),
-                        ),
-                        ...widget.groupAccounts.map(
-                          (a) => DropdownMenuItem<int?>(
-                            value: a.id,
-                            child: Text('${a.code} - ${a.name} (${a.accountType.label})', style: const TextStyle(fontSize: 13), overflow: TextOverflow.ellipsis),
-                          ),
-                        ),
-                      ],
-                      onChanged: (val) => setState(() => _selectedParentId = val),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-
-                // Group toggle & Opening Balance
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Checkbox(
-                      value: _isGroup,
-                      activeColor: const Color(0xFF2563EB),
-                      onChanged: (val) => setState(() => _isGroup = val ?? false),
-                    ),
-                    const SizedBox(width: 4),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(context.l10n.isGroupAccount, style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600)),
-                          Text(context.l10n.groupAccountNote, style: const TextStyle(fontSize: 11, color: Color(0xFF94A3B8))),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 24),
-
-                // Actions
-                Wrap(
-                  alignment: WrapAlignment.end,
-                  spacing: 12,
-                  runSpacing: 8,
-                  children: [
-                    OutlinedButton(
-                      onPressed: () => Navigator.of(context).pop(),
-                      child: Text(context.l10n.cancel),
-                    ),
-                    ElevatedButton(
-                      onPressed: _isSaving ? null : _handleSubmit,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF1D4ED8),
-                        foregroundColor: Colors.white,
-                      ),
-                      child: _isSaving
-                          ? const SizedBox(width: 16, height: 16, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
-                          : Text(context.l10n.saveAccount),
-                    ),
-                  ],
-                ),
-              ],
+              ),
             ),
           ),
         ),
       ),
-    ),
-  );
+    );
   }
 }

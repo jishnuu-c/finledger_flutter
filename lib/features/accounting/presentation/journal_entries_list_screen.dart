@@ -43,11 +43,10 @@ class _JournalEntriesListScreenState extends State<JournalEntriesListScreen> {
   @override
   Widget build(BuildContext context) {
     final currencyFormatter = NumberFormat('#,##0.00', 'en_US');
-
     final isMobile = MediaQuery.of(context).size.width < 768;
 
     return SingleChildScrollView(
-      padding: EdgeInsets.symmetric(
+      padding: EdgeInsetsDirectional.symmetric(
         horizontal: isMobile ? 16 : 24,
         vertical: 20,
       ),
@@ -64,14 +63,14 @@ class _JournalEntriesListScreenState extends State<JournalEntriesListScreen> {
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w700,
-                    color: Color(0xFF0F172A),
+                    color: AppColors.textPrimary,
                     letterSpacing: -0.4,
                   ),
                 ),
                 const SizedBox(height: 4),
                 const Text(
                   'Manual journal vouchers, automated invoice & bill postings, and general ledger audit log',
-                  style: TextStyle(fontSize: 12.5, color: Color(0xFF64748B)),
+                  style: TextStyle(fontSize: 12.5, color: AppColors.textSecondary),
                 ),
                 const SizedBox(height: 12),
                 ElevatedButton.icon(
@@ -79,11 +78,11 @@ class _JournalEntriesListScreenState extends State<JournalEntriesListScreen> {
                   icon: const Icon(Icons.add, size: 16),
                   label: Text(context.l10n.newJournalEntry),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF1D4ED8),
+                    backgroundColor: AppColors.primary,
                     foregroundColor: Colors.white,
                     elevation: 0,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(6),
+                      borderRadius: BorderRadius.circular(8),
                     ),
                     padding: const EdgeInsets.symmetric(
                       horizontal: 16,
@@ -105,9 +104,9 @@ class _JournalEntriesListScreenState extends State<JournalEntriesListScreen> {
                       Text(
                         'Journal Entries',
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 22,
                           fontWeight: FontWeight.w700,
-                          color: Color(0xFF0F172A),
+                          color: AppColors.textPrimary,
                           letterSpacing: -0.4,
                         ),
                       ),
@@ -115,8 +114,8 @@ class _JournalEntriesListScreenState extends State<JournalEntriesListScreen> {
                       Text(
                         'Manual journal vouchers, automated invoice & bill postings, and general ledger audit log',
                         style: TextStyle(
-                          fontSize: 12.5,
-                          color: Color(0xFF64748B),
+                          fontSize: 13,
+                          color: AppColors.textSecondary,
                         ),
                       ),
                     ],
@@ -128,11 +127,11 @@ class _JournalEntriesListScreenState extends State<JournalEntriesListScreen> {
                   icon: const Icon(Icons.add, size: 16),
                   label: Text(context.l10n.newJournalEntry),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF1D4ED8),
+                    backgroundColor: AppColors.primary,
                     foregroundColor: Colors.white,
                     elevation: 0,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(6),
+                      borderRadius: BorderRadius.circular(8),
                     ),
                     padding: const EdgeInsets.symmetric(
                       horizontal: 16,
@@ -148,9 +147,16 @@ class _JournalEntriesListScreenState extends State<JournalEntriesListScreen> {
           // Entries Card
           Container(
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: AppColors.cardBackground,
               borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: const Color(0xFFE2E8F0)),
+              border: Border.all(color: AppColors.border, width: 1),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xFF0F172A).withValues(alpha: 0.025),
+                  blurRadius: 6,
+                  offset: const Offset(0, 2),
+                ),
+              ],
             ),
             child: _isLoading
                 ? const Padding(
@@ -171,6 +177,7 @@ class _JournalEntriesListScreenState extends State<JournalEntriesListScreen> {
                         dataRowMaxHeight: 48,
                         horizontalMargin: 20,
                         columnSpacing: 28,
+                        headingRowColor: WidgetStateProperty.all(const Color(0xFFF8FAFC)),
                         columns: const [
                           DataColumn(
                             label: Text(
@@ -178,7 +185,7 @@ class _JournalEntriesListScreenState extends State<JournalEntriesListScreen> {
                               style: TextStyle(
                                 fontSize: 11.5,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF64748B),
+                                color: AppColors.textSecondary,
                               ),
                             ),
                           ),
@@ -188,7 +195,7 @@ class _JournalEntriesListScreenState extends State<JournalEntriesListScreen> {
                               style: TextStyle(
                                 fontSize: 11.5,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF64748B),
+                                color: AppColors.textSecondary,
                               ),
                             ),
                           ),
@@ -198,7 +205,7 @@ class _JournalEntriesListScreenState extends State<JournalEntriesListScreen> {
                               style: TextStyle(
                                 fontSize: 11.5,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF64748B),
+                                color: AppColors.textSecondary,
                               ),
                             ),
                           ),
@@ -208,7 +215,7 @@ class _JournalEntriesListScreenState extends State<JournalEntriesListScreen> {
                               style: TextStyle(
                                 fontSize: 11.5,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF64748B),
+                                color: AppColors.textSecondary,
                               ),
                             ),
                           ),
@@ -219,7 +226,7 @@ class _JournalEntriesListScreenState extends State<JournalEntriesListScreen> {
                               style: TextStyle(
                                 fontSize: 11.5,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF64748B),
+                                color: AppColors.textSecondary,
                               ),
                             ),
                           ),
@@ -230,7 +237,7 @@ class _JournalEntriesListScreenState extends State<JournalEntriesListScreen> {
                               style: TextStyle(
                                 fontSize: 11.5,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF64748B),
+                                color: AppColors.textSecondary,
                               ),
                             ),
                           ),
@@ -240,7 +247,7 @@ class _JournalEntriesListScreenState extends State<JournalEntriesListScreen> {
                               style: TextStyle(
                                 fontSize: 11.5,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF64748B),
+                                color: AppColors.textSecondary,
                               ),
                             ),
                           ),
@@ -254,8 +261,8 @@ class _JournalEntriesListScreenState extends State<JournalEntriesListScreen> {
                                 Text(
                                   j.entryNo,
                                   style: const TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    color: Color(0xFF2563EB),
+                                    fontWeight: FontWeight.w700,
+                                    color: AppColors.primaryLight,
                                     fontSize: 12.5,
                                   ),
                                 ),
@@ -265,7 +272,7 @@ class _JournalEntriesListScreenState extends State<JournalEntriesListScreen> {
                                   j.entryDate,
                                   style: const TextStyle(
                                     fontSize: 12,
-                                    color: Color(0xFF475569),
+                                    color: AppColors.textSecondary,
                                   ),
                                 ),
                               ),
@@ -275,6 +282,7 @@ class _JournalEntriesListScreenState extends State<JournalEntriesListScreen> {
                                   style: const TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w500,
+                                    color: AppColors.textPrimary,
                                   ),
                                 ),
                               ),
@@ -289,7 +297,7 @@ class _JournalEntriesListScreenState extends State<JournalEntriesListScreen> {
                                     overflow: TextOverflow.ellipsis,
                                     style: const TextStyle(
                                       fontSize: 12,
-                                      color: Color(0xFF64748B),
+                                      color: AppColors.textSecondary,
                                     ),
                                   ),
                                 ),
@@ -299,7 +307,8 @@ class _JournalEntriesListScreenState extends State<JournalEntriesListScreen> {
                                   currencyFormatter.format(j.totalDebit),
                                   style: const TextStyle(
                                     fontSize: 12.5,
-                                    fontWeight: FontWeight.w600,
+                                    fontWeight: FontWeight.w700,
+                                    color: AppColors.textPrimary,
                                   ),
                                 ),
                               ),
@@ -308,21 +317,26 @@ class _JournalEntriesListScreenState extends State<JournalEntriesListScreen> {
                                   currencyFormatter.format(j.totalCredit),
                                   style: const TextStyle(
                                     fontSize: 12.5,
-                                    fontWeight: FontWeight.w600,
+                                    fontWeight: FontWeight.w700,
+                                    color: AppColors.textPrimary,
                                   ),
                                 ),
                               ),
                               DataCell(
                                 Container(
-                                  padding: const EdgeInsets.symmetric(
+                                  padding: const EdgeInsetsDirectional.symmetric(
                                     horizontal: 8,
                                     vertical: 2.5,
                                   ),
                                   decoration: BoxDecoration(
                                     color: isPosted
-                                        ? const Color(0xFFDCFCE7)
-                                        : const Color(0xFFF1F5F9),
+                                        ? AppColors.paidBg
+                                        : AppColors.draftBg,
                                     borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(
+                                      color: (isPosted ? AppColors.paid : AppColors.draft).withValues(alpha: 0.2),
+                                      width: 1,
+                                    ),
                                   ),
                                   child: Text(
                                     j.status,
@@ -330,8 +344,8 @@ class _JournalEntriesListScreenState extends State<JournalEntriesListScreen> {
                                       fontSize: 11,
                                       fontWeight: FontWeight.w600,
                                       color: isPosted
-                                          ? const Color(0xFF16A34A)
-                                          : const Color(0xFF64748B),
+                                          ? AppColors.paid
+                                          : AppColors.draft,
                                     ),
                                   ),
                                 ),

@@ -31,8 +31,9 @@ class _AccountingScreenState extends State<AccountingScreen>
   @override
   Widget build(BuildContext context) {
     final isMobile = MediaQuery.of(context).size.width < 768;
+
     return Padding(
-      padding: EdgeInsets.all(isMobile ? 16 : 24),
+      padding: EdgeInsetsDirectional.all(isMobile ? 16 : 24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -44,9 +45,9 @@ class _AccountingScreenState extends State<AccountingScreen>
                   context.l10n.accountingTitle,
                   style: const TextStyle(
                     fontSize: 20,
-                    fontWeight: FontWeight.w800,
+                    fontWeight: FontWeight.w700,
                     color: AppColors.textPrimary,
-                    letterSpacing: -0.5,
+                    letterSpacing: -0.4,
                   ),
                 ),
                 const SizedBox(height: 4),
@@ -62,6 +63,14 @@ class _AccountingScreenState extends State<AccountingScreen>
                   onPressed: () => context.go('/accounting/journals/new'),
                   icon: const Icon(Icons.add, size: 16),
                   label: Text(context.l10n.newJournalEntry),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primary,
+                    foregroundColor: Colors.white,
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -78,9 +87,9 @@ class _AccountingScreenState extends State<AccountingScreen>
                         context.l10n.accountingTitle,
                         style: const TextStyle(
                           fontSize: 22,
-                          fontWeight: FontWeight.w800,
+                          fontWeight: FontWeight.w700,
                           color: AppColors.textPrimary,
-                          letterSpacing: -0.5,
+                          letterSpacing: -0.4,
                         ),
                       ),
                       const SizedBox(height: 4),
@@ -99,6 +108,14 @@ class _AccountingScreenState extends State<AccountingScreen>
                   onPressed: () => context.go('/accounting/journals/new'),
                   icon: const Icon(Icons.add, size: 16),
                   label: Text(context.l10n.newJournalEntry),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primary,
+                    foregroundColor: Colors.white,
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -111,6 +128,8 @@ class _AccountingScreenState extends State<AccountingScreen>
             labelColor: AppColors.primary,
             unselectedLabelColor: AppColors.textMuted,
             indicatorColor: AppColors.primary,
+            indicatorWeight: 2.5,
+            dividerColor: AppColors.border,
             labelStyle: const TextStyle(
               fontWeight: FontWeight.w700,
               fontSize: 13,
@@ -198,39 +217,39 @@ class _AccountingScreenState extends State<AccountingScreen>
 
     return SingleChildScrollView(
       child: RoundedCard(
-        padding: EdgeInsets.all(isMobile ? 12 : 20),
+        padding: EdgeInsetsDirectional.all(isMobile ? 12 : 20),
         title: 'Chart of Accounts Hierarchy',
-        subtitle:
-            'Standardized accounting structure with live account balances',
+        subtitle: 'Standardized accounting structure with live account balances',
         child: ListView.separated(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemCount: accounts.length,
-          separatorBuilder: (_, _) => const Divider(height: 1),
+          separatorBuilder: (_, _) => const Divider(height: 1, color: AppColors.borderSubtle),
           itemBuilder: (context, index) {
             final a = accounts[index];
             return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
+              padding: const EdgeInsetsDirectional.symmetric(vertical: 8),
               child: Row(
                 children: [
                   Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 6,
-                      vertical: 3,
+                    padding: const EdgeInsetsDirectional.symmetric(
+                      horizontal: 8,
+                      vertical: 3.5,
                     ),
                     decoration: BoxDecoration(
-                      color: AppColors.borderSubtle,
+                      color: AppColors.primarySurface,
                       borderRadius: BorderRadius.circular(4),
                     ),
                     child: Text(
                       a['code']!,
                       style: const TextStyle(
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w700,
                         fontSize: 11,
+                        color: AppColors.primary,
                       ),
                     ),
                   ),
-                  const SizedBox(width: 8),
+                  const SizedBox(width: 10),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -240,6 +259,7 @@ class _AccountingScreenState extends State<AccountingScreen>
                           style: const TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 13,
+                            color: AppColors.textPrimary,
                           ),
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
@@ -254,12 +274,13 @@ class _AccountingScreenState extends State<AccountingScreen>
                       ],
                     ),
                   ),
-                  const SizedBox(width: 8),
+                  const SizedBox(width: 10),
                   Text(
                     a['balance']!,
                     style: const TextStyle(
                       fontWeight: FontWeight.w700,
-                      fontSize: 12,
+                      fontSize: 12.5,
+                      color: AppColors.textPrimary,
                     ),
                   ),
                 ],
@@ -276,8 +297,7 @@ class _AccountingScreenState extends State<AccountingScreen>
       {
         'id': 'JRN-2026-0412',
         'date': '29-Oct-2026',
-        'narration':
-            'Monthly asset depreciation for office IT and vehicle fleet',
+        'narration': 'Monthly asset depreciation for office IT and vehicle fleet',
         'debit': 'AED 12,400.00',
         'credit': 'AED 12,400.00',
         'status': 'Posted',
@@ -311,24 +331,23 @@ class _AccountingScreenState extends State<AccountingScreen>
     return SingleChildScrollView(
       child: RoundedCard(
         title: 'Manual Journal Entries',
-        subtitle:
-            'Enforces balanced lines validator: Sum(Debits) == Sum(Credits)',
+        subtitle: 'Enforces balanced lines validator: Sum(Debits) == Sum(Credits)',
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: ConstrainedBox(
-            constraints: const BoxConstraints(minWidth: 600),
+            constraints: const BoxConstraints(minWidth: 620),
             child: Column(
               children: [
                 for (int i = 0; i < journals.length; i++) ...[
-                  if (i > 0) const Divider(height: 1),
+                  if (i > 0) const Divider(height: 1, color: AppColors.borderSubtle),
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    padding: const EdgeInsetsDirectional.symmetric(vertical: 10),
                     child: Row(
                       children: [
                         Text(
                           journals[i]['id']!,
                           style: const TextStyle(
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w700,
                             color: AppColors.primary,
                             fontSize: 13,
                           ),
@@ -344,6 +363,7 @@ class _AccountingScreenState extends State<AccountingScreen>
                                 style: const TextStyle(
                                   fontWeight: FontWeight.w500,
                                   fontSize: 13,
+                                  color: AppColors.textPrimary,
                                 ),
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
@@ -365,21 +385,22 @@ class _AccountingScreenState extends State<AccountingScreen>
                             Text(
                               'DR: ${journals[i]['debit']!}',
                               style: const TextStyle(
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w700,
                                 fontSize: 12,
+                                color: AppColors.textPrimary,
                               ),
                             ),
                             Text(
                               'CR: ${journals[i]['credit']!}',
                               style: const TextStyle(
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w600,
                                 fontSize: 12,
                                 color: AppColors.textSecondary,
                               ),
                             ),
                           ],
                         ),
-                        const SizedBox(width: 12),
+                        const SizedBox(width: 14),
                         StatusChip.fromStatusString(journals[i]['status']!),
                       ],
                     ),
@@ -397,8 +418,7 @@ class _AccountingScreenState extends State<AccountingScreen>
     return const SingleChildScrollView(
       child: RoundedCard(
         title: 'Audit Trail & General Ledger Export',
-        subtitle:
-            'Every ledger movement traces directly back to source documents',
+        subtitle: 'Every ledger movement traces directly back to source documents',
         child: Center(
           child: Padding(
             padding: EdgeInsets.all(32),
@@ -412,7 +432,11 @@ class _AccountingScreenState extends State<AccountingScreen>
                 SizedBox(height: 12),
                 Text(
                   'Complete General Ledger Active',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 15,
+                    color: AppColors.textPrimary,
+                  ),
                 ),
                 SizedBox(height: 6),
                 Text(

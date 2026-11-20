@@ -309,7 +309,7 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
     final currencyFormatter = NumberFormat('#,##0.00', 'en_US');
 
     return SingleChildScrollView(
-      padding: EdgeInsets.symmetric(
+      padding: EdgeInsetsDirectional.symmetric(
         horizontal: isMobile ? 16 : 24,
         vertical: 20,
       ),
@@ -347,23 +347,23 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
           children: [
             Text(
               context.l10n.accounting,
-              style: const TextStyle(fontSize: 12, color: Color(0xFF94A3B8)),
+              style: const TextStyle(fontSize: 12, color: AppColors.textMuted),
             ),
             const SizedBox(width: 4),
-            const Text('/', style: TextStyle(fontSize: 11, color: Color(0xFF94A3B8))),
+            const Text('/', style: TextStyle(fontSize: 11, color: AppColors.textMuted)),
             const SizedBox(width: 4),
             Text(
               context.l10n.journalEntries,
-              style: const TextStyle(fontSize: 12, color: Color(0xFF94A3B8)),
+              style: const TextStyle(fontSize: 12, color: AppColors.textMuted),
             ),
             const SizedBox(width: 4),
-            const Text('/', style: TextStyle(fontSize: 11, color: Color(0xFF94A3B8))),
+            const Text('/', style: TextStyle(fontSize: 11, color: AppColors.textMuted)),
             const SizedBox(width: 4),
             Text(
               context.l10n.create,
               style: const TextStyle(
                 fontSize: 12,
-                color: Color(0xFF475569),
+                color: AppColors.textSecondary,
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -375,7 +375,7 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
           style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w700,
-            color: Color(0xFF0F172A),
+            color: AppColors.textPrimary,
             letterSpacing: -0.4,
           ),
         ),
@@ -387,11 +387,18 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
     final dateFormat = DateFormat('dd-MMM-yyyy');
 
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsetsDirectional.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.cardBackground,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
+        border: Border.all(color: AppColors.border, width: 1),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF0F172A).withValues(alpha: 0.025),
+            blurRadius: 6,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -456,7 +463,7 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w600,
-              color: Color(0xFF334155),
+              color: AppColors.textPrimary,
             ),
           ),
           const SizedBox(height: 6),
@@ -475,11 +482,15 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
               ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(6),
-                borderSide: const BorderSide(color: Color(0xFFCBD5E1)),
+                borderSide: const BorderSide(color: AppColors.border),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(6),
-                borderSide: const BorderSide(color: Color(0xFFCBD5E1)),
+                borderSide: const BorderSide(color: AppColors.border),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(6),
+                borderSide: const BorderSide(color: AppColors.primaryLight, width: 1.5),
               ),
             ),
           ),
@@ -497,22 +508,22 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
           style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w600,
-            color: Color(0xFF334155),
+            color: AppColors.textPrimary,
           ),
         ),
         const SizedBox(height: 6),
         Container(
           height: 38,
-          padding: const EdgeInsets.symmetric(horizontal: 12),
-          alignment: Alignment.centerLeft,
+          padding: const EdgeInsetsDirectional.symmetric(horizontal: 12),
+          alignment: AlignmentDirectional.centerStart,
           decoration: BoxDecoration(
             color: const Color(0xFFF1F5F9),
             borderRadius: BorderRadius.circular(6),
-            border: Border.all(color: const Color(0xFFCBD5E1)),
+            border: Border.all(color: AppColors.border),
           ),
           child: Text(
             '$_entryNo (auto)',
-            style: const TextStyle(fontSize: 12.5, color: Color(0xFF64748B)),
+            style: const TextStyle(fontSize: 12.5, color: AppColors.sidebarGroupLabel),
           ),
         ),
       ],
@@ -528,7 +539,7 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
           style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w600,
-            color: Color(0xFF334155),
+            color: AppColors.textPrimary,
           ),
         ),
         const SizedBox(height: 6),
@@ -544,11 +555,11 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
           },
           child: Container(
             height: 38,
-            padding: const EdgeInsets.symmetric(horizontal: 12),
+            padding: const EdgeInsetsDirectional.symmetric(horizontal: 12),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(6),
-              border: Border.all(color: const Color(0xFFCBD5E1)),
+              border: Border.all(color: AppColors.border),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -557,7 +568,7 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
                   dateFormat.format(_entryDate),
                   style: const TextStyle(
                     fontSize: 12.5,
-                    color: Color(0xFF0F172A),
+                    color: AppColors.textPrimary,
                   ),
                 ),
                 const Icon(
@@ -582,7 +593,7 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
           style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w600,
-            color: Color(0xFF334155),
+            color: AppColors.textPrimary,
           ),
         ),
         const SizedBox(height: 6),
@@ -601,11 +612,15 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
               filled: true,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(6),
-                borderSide: const BorderSide(color: Color(0xFFCBD5E1)),
+                borderSide: const BorderSide(color: AppColors.border),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(6),
-                borderSide: const BorderSide(color: Color(0xFFCBD5E1)),
+                borderSide: const BorderSide(color: AppColors.border),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(6),
+                borderSide: const BorderSide(color: AppColors.primaryLight, width: 1.5),
               ),
             ),
           ),
@@ -623,24 +638,24 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
           style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w600,
-            color: Color(0xFF334155),
+            color: AppColors.textPrimary,
           ),
         ),
         const SizedBox(height: 6),
         Container(
           height: 38,
-          padding: const EdgeInsets.symmetric(horizontal: 12),
+          padding: const EdgeInsetsDirectional.symmetric(horizontal: 12),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(6),
-            border: Border.all(color: const Color(0xFFCBD5E1)),
+            border: Border.all(color: AppColors.border),
           ),
           child: DropdownButtonHideUnderline(
             child: DropdownButton<String>(
               value: _selectedCurrency,
               style: const TextStyle(
                 fontSize: 12.5,
-                color: Color(0xFF0F172A),
+                color: AppColors.textPrimary,
                 fontWeight: FontWeight.w500,
               ),
               isExpanded: true,
@@ -674,15 +689,22 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
 
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.cardBackground,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
+        border: Border.all(color: AppColors.border, width: 1),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF0F172A).withValues(alpha: 0.025),
+            blurRadius: 6,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: LayoutBuilder(
         builder: (context, constraints) {
-          final effectiveWidth = constraints.maxWidth > 780
+          final effectiveWidth = constraints.maxWidth > 800
               ? constraints.maxWidth
-              : 780.0;
+              : 800.0;
           return SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: SizedBox(
@@ -692,7 +714,7 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
                 children: [
                   // Table Header
                   Container(
-                    padding: const EdgeInsets.symmetric(
+                    padding: const EdgeInsetsDirectional.symmetric(
                       horizontal: 16,
                       vertical: 10,
                     ),
@@ -702,7 +724,7 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
                         top: Radius.circular(9),
                       ),
                       border: Border(
-                        bottom: BorderSide(color: Color(0xFFE2E8F0)),
+                        bottom: BorderSide(color: AppColors.border),
                       ),
                     ),
                     child: const Row(
@@ -714,7 +736,7 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
                             style: TextStyle(
                               fontSize: 11.5,
                               fontWeight: FontWeight.w600,
-                              color: Color(0xFF64748B),
+                              color: AppColors.textSecondary,
                             ),
                           ),
                         ),
@@ -725,7 +747,7 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
                             style: TextStyle(
                               fontSize: 11.5,
                               fontWeight: FontWeight.w600,
-                              color: Color(0xFF64748B),
+                              color: AppColors.textSecondary,
                             ),
                           ),
                         ),
@@ -737,7 +759,7 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
                             style: TextStyle(
                               fontSize: 11.5,
                               fontWeight: FontWeight.w600,
-                              color: Color(0xFF64748B),
+                              color: AppColors.textSecondary,
                             ),
                           ),
                         ),
@@ -749,7 +771,7 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
                             style: TextStyle(
                               fontSize: 11.5,
                               fontWeight: FontWeight.w600,
-                              color: Color(0xFF64748B),
+                              color: AppColors.textSecondary,
                             ),
                           ),
                         ),
@@ -762,7 +784,7 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
                             style: TextStyle(
                               fontSize: 11.5,
                               fontWeight: FontWeight.w600,
-                              color: Color(0xFF64748B),
+                              color: AppColors.textSecondary,
                             ),
                           ),
                         ),
@@ -775,7 +797,7 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
                             style: TextStyle(
                               fontSize: 11.5,
                               fontWeight: FontWeight.w600,
-                              color: Color(0xFF64748B),
+                              color: AppColors.textSecondary,
                             ),
                           ),
                         ),
@@ -790,11 +812,11 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: _lines.length,
                     separatorBuilder: (_, _) =>
-                        const Divider(height: 1, color: Color(0xFFF1F5F9)),
+                        const Divider(height: 1, color: AppColors.borderSubtle),
                     itemBuilder: (context, index) {
                       final line = _lines[index];
                       return Padding(
-                        padding: const EdgeInsets.symmetric(
+                        padding: const EdgeInsetsDirectional.symmetric(
                           horizontal: 16,
                           vertical: 8,
                         ),
@@ -807,7 +829,7 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
                                 '${line.lineNo}',
                                 style: const TextStyle(
                                   fontSize: 12.5,
-                                  color: Color(0xFF64748B),
+                                  color: AppColors.sidebarGroupLabel,
                                 ),
                               ),
                             ),
@@ -824,7 +846,7 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(6),
                                   border: Border.all(
-                                    color: const Color(0xFFCBD5E1),
+                                    color: AppColors.border,
                                   ),
                                 ),
                                 child: DropdownButtonHideUnderline(
@@ -833,13 +855,13 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
                                     isExpanded: true,
                                     style: const TextStyle(
                                       fontSize: 12.5,
-                                      color: Color(0xFF0F172A),
+                                      color: AppColors.textPrimary,
                                     ),
                                     hint: const Text(
                                       'Select Account',
                                       style: TextStyle(
                                         fontSize: 12,
-                                        color: Color(0xFF94A3B8),
+                                        color: AppColors.textMuted,
                                       ),
                                     ),
                                     icon: const Icon(
@@ -895,13 +917,20 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(6),
                                       borderSide: const BorderSide(
-                                        color: Color(0xFFCBD5E1),
+                                        color: AppColors.border,
                                       ),
                                     ),
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(6),
                                       borderSide: const BorderSide(
-                                        color: Color(0xFFCBD5E1),
+                                        color: AppColors.border,
+                                      ),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(6),
+                                      borderSide: const BorderSide(
+                                        color: AppColors.primaryLight,
+                                        width: 1.5,
                                       ),
                                     ),
                                   ),
@@ -929,13 +958,20 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(6),
                                       borderSide: const BorderSide(
-                                        color: Color(0xFFCBD5E1),
+                                        color: AppColors.border,
                                       ),
                                     ),
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(6),
                                       borderSide: const BorderSide(
-                                        color: Color(0xFFCBD5E1),
+                                        color: AppColors.border,
+                                      ),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(6),
+                                      borderSide: const BorderSide(
+                                        color: AppColors.primaryLight,
+                                        width: 1.5,
                                       ),
                                     ),
                                   ),
@@ -972,13 +1008,20 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(6),
                                     borderSide: const BorderSide(
-                                      color: Color(0xFFCBD5E1),
+                                      color: AppColors.border,
                                     ),
                                   ),
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(6),
                                     borderSide: const BorderSide(
-                                      color: Color(0xFFCBD5E1),
+                                      color: AppColors.border,
+                                    ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(6),
+                                    borderSide: const BorderSide(
+                                      color: AppColors.primaryLight,
+                                      width: 1.5,
                                     ),
                                   ),
                                 ),
@@ -1025,13 +1068,20 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(6),
                                     borderSide: const BorderSide(
-                                      color: Color(0xFFCBD5E1),
+                                      color: AppColors.border,
                                     ),
                                   ),
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(6),
                                     borderSide: const BorderSide(
-                                      color: Color(0xFFCBD5E1),
+                                      color: AppColors.border,
+                                    ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(6),
+                                    borderSide: const BorderSide(
+                                      color: AppColors.primaryLight,
+                                      width: 1.5,
                                     ),
                                   ),
                                 ),
@@ -1053,9 +1103,9 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
                             // Delete line action
                             IconButton(
                               icon: const Icon(
-                                Icons.close,
+                                Icons.close_rounded,
                                 size: 16,
-                                color: Color(0xFFEF4444),
+                                color: AppColors.error,
                               ),
                               tooltip: 'Remove line',
                               onPressed: () => _removeLine(index),
@@ -1068,7 +1118,7 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
 
                   // Add Line Action Link matching Figure 14
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
+                    padding: const EdgeInsetsDirectional.fromSTEB(16, 8, 16, 12),
                     child: InkWell(
                       onTap: _addLine,
                       borderRadius: BorderRadius.circular(4),
@@ -1080,14 +1130,14 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(Icons.add, size: 16, color: Color(0xFF2563EB)),
+                            Icon(Icons.add_rounded, size: 16, color: AppColors.primaryLight),
                             SizedBox(width: 4),
                             Text(
                               '+ Add line',
                               style: TextStyle(
                                 fontSize: 13,
                                 fontWeight: FontWeight.w600,
-                                color: Color(0xFF2563EB),
+                                color: AppColors.primaryLight,
                               ),
                             ),
                           ],
@@ -1096,11 +1146,11 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
                     ),
                   ),
 
-                  const Divider(height: 1, color: Color(0xFFE2E8F0)),
+                  const Divider(height: 1, color: AppColors.border),
 
                   // Totals Row matching Figure 14
                   Container(
-                    padding: const EdgeInsets.symmetric(
+                    padding: const EdgeInsetsDirectional.symmetric(
                       horizontal: 16,
                       vertical: 12,
                     ),
@@ -1113,7 +1163,7 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
                           style: TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.w700,
-                            color: Color(0xFF0F172A),
+                            color: AppColors.textPrimary,
                           ),
                         ),
                         const SizedBox(width: 40),
@@ -1125,7 +1175,7 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
                             style: const TextStyle(
                               fontSize: 13.5,
                               fontWeight: FontWeight.w800,
-                              color: Color(0xFF0F172A),
+                              color: AppColors.textPrimary,
                             ),
                           ),
                         ),
@@ -1138,7 +1188,7 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
                             style: const TextStyle(
                               fontSize: 13.5,
                               fontWeight: FontWeight.w800,
-                              color: Color(0xFF0F172A),
+                              color: AppColors.textPrimary,
                             ),
                           ),
                         ),
@@ -1169,28 +1219,29 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
             // Balance Status Badge matching Figure 14
             if (_isBalanced)
               Container(
-                padding: const EdgeInsets.symmetric(
+                padding: const EdgeInsetsDirectional.symmetric(
                   horizontal: 12,
                   vertical: 6,
                 ),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFDCFCE7), // Light green
+                  color: AppColors.paidBg,
                   borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: AppColors.paid.withValues(alpha: 0.2), width: 1),
                 ),
                 child: const FittedBox(
                   fit: BoxFit.scaleDown,
-                  alignment: Alignment.centerLeft,
+                  alignment: AlignmentDirectional.centerStart,
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(Icons.check, size: 15, color: Color(0xFF16A34A)),
+                      Icon(Icons.check_rounded, size: 15, color: AppColors.paid),
                       SizedBox(width: 6),
                       Text(
                         '✓ Balanced — Debits equal Credits',
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
-                          color: Color(0xFF16A34A),
+                          color: AppColors.paid,
                         ),
                       ),
                     ],
@@ -1199,24 +1250,25 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
               )
             else if (_totalDebit > 0 || _totalCredit > 0)
               Container(
-                padding: const EdgeInsets.symmetric(
+                padding: const EdgeInsetsDirectional.symmetric(
                   horizontal: 12,
                   vertical: 6,
                 ),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFFEE2E2), // Light red
+                  color: AppColors.overdueBg,
                   borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: AppColors.overdue.withValues(alpha: 0.2), width: 1),
                 ),
                 child: FittedBox(
                   fit: BoxFit.scaleDown,
-                  alignment: Alignment.centerLeft,
+                  alignment: AlignmentDirectional.centerStart,
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       const Icon(
-                        Icons.close,
+                        Icons.close_rounded,
                         size: 15,
-                        color: Color(0xFFDC2626),
+                        color: AppColors.overdue,
                       ),
                       const SizedBox(width: 6),
                       Text(
@@ -1224,7 +1276,7 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
                         style: const TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
-                          color: Color(0xFFDC2626),
+                          color: AppColors.overdue,
                         ),
                       ),
                     ],
@@ -1233,17 +1285,18 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
               )
             else
               Container(
-                padding: const EdgeInsets.symmetric(
+                padding: const EdgeInsetsDirectional.symmetric(
                   horizontal: 12,
                   vertical: 6,
                 ),
                 decoration: BoxDecoration(
                   color: const Color(0xFFF1F5F9),
                   borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: AppColors.border, width: 1),
                 ),
                 child: const Text(
                   'Enter Debit and Credit amounts',
-                  style: TextStyle(fontSize: 12, color: Color(0xFF64748B)),
+                  style: TextStyle(fontSize: 12, color: AppColors.sidebarGroupLabel),
                 ),
               ),
 
@@ -1256,8 +1309,8 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
                   onPressed: () => context.go('/accounting/journals'),
                   style: OutlinedButton.styleFrom(
                     backgroundColor: Colors.white,
-                    foregroundColor: const Color(0xFF334155),
-                    side: const BorderSide(color: Color(0xFFCBD5E1)),
+                    foregroundColor: AppColors.textPrimary,
+                    side: const BorderSide(color: AppColors.border),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(6),
                     ),
@@ -1278,8 +1331,8 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
                   onPressed: _isPosting ? null : _handleSaveDraft,
                   style: OutlinedButton.styleFrom(
                     backgroundColor: Colors.white,
-                    foregroundColor: const Color(0xFF334155),
-                    side: const BorderSide(color: Color(0xFFCBD5E1)),
+                    foregroundColor: AppColors.textPrimary,
+                    side: const BorderSide(color: AppColors.border),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(6),
                     ),
@@ -1301,7 +1354,7 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
                       ? _handlePostEntry
                       : null,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF1D4ED8),
+                    backgroundColor: AppColors.primary,
                     disabledBackgroundColor: const Color(0xFF93C5FD),
                     foregroundColor: Colors.white,
                     elevation: 0,
