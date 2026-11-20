@@ -278,7 +278,7 @@ class _SalesInvoicesListScreenState extends State<SalesInvoicesListScreen> {
                 controller: _searchController,
                 onSubmitted: (_) => _loadData(),
                 decoration: InputDecoration(
-                  hintText: 'Search invoice / customer...',
+                  hintText: context.l10n.searchInvoiceCustomer,
                   hintStyle: const TextStyle(fontSize: 12.5, color: AppColors.textMuted),
                   prefixIcon: const Icon(Icons.search, size: 18, color: AppColors.textMuted),
                   filled: true,
@@ -309,13 +309,13 @@ class _SalesInvoicesListScreenState extends State<SalesInvoicesListScreen> {
                 child: DropdownButton<String>(
                   value: _selectedStatus,
                   style: const TextStyle(fontSize: 12.5, color: AppColors.textPrimary, fontWeight: FontWeight.w500),
-                  items: const [
-                    DropdownMenuItem(value: 'All Status', child: Text('All Status')),
-                    DropdownMenuItem(value: 'Draft', child: Text('Draft')),
-                    DropdownMenuItem(value: 'Sent', child: Text('Sent')),
-                    DropdownMenuItem(value: 'Partial', child: Text('Partial')),
-                    DropdownMenuItem(value: 'Paid', child: Text('Paid')),
-                    DropdownMenuItem(value: 'Overdue', child: Text('Overdue')),
+                  items: [
+                    DropdownMenuItem(value: 'All Status', child: Text(context.l10n.allStatus)),
+                    DropdownMenuItem(value: 'Draft', child: Text(context.l10n.statusDraft)),
+                    DropdownMenuItem(value: 'Sent', child: Text(context.l10n.statusSent)),
+                    DropdownMenuItem(value: 'Partial', child: Text(context.l10n.statusPartial)),
+                    DropdownMenuItem(value: 'Paid', child: Text(context.l10n.statusPaid)),
+                    DropdownMenuItem(value: 'Overdue', child: Text(context.l10n.statusOverdue)),
                   ],
                   onChanged: (val) {
                     if (val != null) {
@@ -367,7 +367,7 @@ class _SalesInvoicesListScreenState extends State<SalesInvoicesListScreen> {
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               ),
-              child: const Text('Export', style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600)),
+              child: Text(context.l10n.export, style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600)),
             ),
             ElevatedButton(
               onPressed: () => context.go('/sales/invoices/new'),
@@ -378,7 +378,7 @@ class _SalesInvoicesListScreenState extends State<SalesInvoicesListScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
                 elevation: 0,
               ),
-              child: const Text('+ New Invoice', style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600)),
+              child: Text('+ ${context.l10n.newInvoice}', style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600)),
             ),
           ],
         ),
@@ -435,10 +435,10 @@ class _SalesInvoicesListScreenState extends State<SalesInvoicesListScreen> {
                               child: Center(child: CircularProgressIndicator()),
                             )
                           else if (_invoices.isEmpty)
-                            const Padding(
-                              padding: EdgeInsets.all(40),
+                            Padding(
+                              padding: const EdgeInsets.all(40),
                               child: Center(
-                                child: Text('No invoices found matching criteria', style: TextStyle(color: AppColors.textMuted)),
+                                child: Text(context.l10n.noInvoicesFound, style: const TextStyle(color: AppColors.textMuted)),
                               ),
                             )
                           else

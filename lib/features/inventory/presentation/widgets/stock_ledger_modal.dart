@@ -258,7 +258,7 @@ class _StockLedgerModalState extends State<StockLedgerModal> {
                           children: [
                             Icon(Icons.history_outlined, size: 48, color: Colors.grey.shade400),
                             const SizedBox(height: 8),
-                            const Text('No stock movements recorded for this filter.', style: TextStyle(color: AppColors.textSecondary)),
+                            Text(context.l10n.noStockMovementsRecorded, style: const TextStyle(color: AppColors.textSecondary)),
                           ],
                         ),
                       );
@@ -403,7 +403,7 @@ class _StockLedgerModalState extends State<StockLedgerModal> {
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
                   ),
-                  child: const Text('Close', style: TextStyle(color: AppColors.textPrimary, fontSize: 13)),
+                  child: Text(context.l10n.close, style: const TextStyle(color: AppColors.textPrimary, fontSize: 13)),
                 ),
               ),
             ],

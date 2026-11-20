@@ -281,14 +281,14 @@ class _CreateTaxInvoiceScreenState extends State<CreateTaxInvoiceScreen> {
   Future<void> _submitInvoice({required bool send}) async {
     if (_selectedCustomer == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please select a customer'), backgroundColor: AppColors.error),
+        SnackBar(content: Text(context.l10n.pleaseSelectCustomer), backgroundColor: AppColors.error),
       );
       return;
     }
 
     if (_lines.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please add at least one line item'), backgroundColor: AppColors.error),
+        SnackBar(content: Text(context.l10n.pleaseAddLineItem), backgroundColor: AppColors.error),
       );
       return;
     }
@@ -473,7 +473,7 @@ class _CreateTaxInvoiceScreenState extends State<CreateTaxInvoiceScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Customer *', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+        Text('${context.l10n.customer} *', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
         const SizedBox(height: 6),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -511,7 +511,7 @@ class _CreateTaxInvoiceScreenState extends State<CreateTaxInvoiceScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Invoice No.', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+        Text(context.l10n.invoiceNo, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
         const SizedBox(height: 6),
         TextField(
           controller: _invoiceNoController,
@@ -535,7 +535,7 @@ class _CreateTaxInvoiceScreenState extends State<CreateTaxInvoiceScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Invoice Date *', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+        Text('${context.l10n.invoiceDate} *', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
         const SizedBox(height: 6),
         TextField(
           controller: _invoiceDateController,
@@ -556,7 +556,7 @@ class _CreateTaxInvoiceScreenState extends State<CreateTaxInvoiceScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Payment Terms', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+        Text(context.l10n.paymentTerms, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
         const SizedBox(height: 6),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -569,11 +569,11 @@ class _CreateTaxInvoiceScreenState extends State<CreateTaxInvoiceScreen> {
             child: DropdownButton<String>(
               value: _paymentTerms,
               isExpanded: true,
-              items: const [
-                DropdownMenuItem(value: 'Due on Receipt', child: Text('Due on Receipt')),
-                DropdownMenuItem(value: 'Net 15', child: Text('Net 15')),
-                DropdownMenuItem(value: 'Net 30', child: Text('Net 30')),
-                DropdownMenuItem(value: 'Net 60', child: Text('Net 60')),
+              items: [
+                DropdownMenuItem(value: 'Due on Receipt', child: Text(context.l10n.dueOnReceipt)),
+                DropdownMenuItem(value: 'Net 15', child: Text(context.l10n.net15)),
+                DropdownMenuItem(value: 'Net 30', child: Text(context.l10n.net30)),
+                DropdownMenuItem(value: 'Net 60', child: Text(context.l10n.net60)),
               ],
               onChanged: _onPaymentTermsChanged,
             ),
@@ -587,7 +587,7 @@ class _CreateTaxInvoiceScreenState extends State<CreateTaxInvoiceScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Due Date', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+        Text(context.l10n.dueDate, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
         const SizedBox(height: 6),
         TextField(
           controller: _dueDateController,
@@ -629,21 +629,21 @@ class _CreateTaxInvoiceScreenState extends State<CreateTaxInvoiceScreen> {
                       decoration: const BoxDecoration(
                         border: Border(bottom: BorderSide(color: AppColors.border)),
                       ),
-                      child: const Row(
+                      child: Row(
                         children: [
-                          Expanded(flex: 2, child: Text('Item', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textMuted))),
+                          Expanded(flex: 2, child: Text(context.l10n.colItem, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textMuted))),
                           SizedBox(width: 12),
-                          Expanded(flex: 4, child: Text('Description', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textMuted))),
+                          Expanded(flex: 4, child: Text(context.l10n.description, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textMuted))),
                           SizedBox(width: 12),
-                          Expanded(flex: 1, child: Text('Qty', textAlign: TextAlign.right, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textMuted))),
+                          Expanded(flex: 1, child: Text(context.l10n.quantity, textAlign: TextAlign.right, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textMuted))),
                           SizedBox(width: 12),
-                          Expanded(flex: 2, child: Text('Unit Price', textAlign: TextAlign.right, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textMuted))),
+                          Expanded(flex: 2, child: Text(context.l10n.unitPrice, textAlign: TextAlign.right, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textMuted))),
                           SizedBox(width: 12),
-                          Expanded(flex: 1, child: Text('Disc %', textAlign: TextAlign.right, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textMuted))),
+                          Expanded(flex: 1, child: Text(context.l10n.discPct, textAlign: TextAlign.right, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textMuted))),
                           SizedBox(width: 12),
-                          Expanded(flex: 1, child: Text('Tax', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textMuted))),
+                          Expanded(flex: 1, child: Text(context.l10n.tax, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textMuted))),
                           SizedBox(width: 12),
-                          Expanded(flex: 2, child: Text('Amount', textAlign: TextAlign.right, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textMuted))),
+                          Expanded(flex: 2, child: Text(context.l10n.amount, textAlign: TextAlign.right, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textMuted))),
                           SizedBox(width: 36),
                         ],
                       ),
@@ -822,9 +822,9 @@ class _CreateTaxInvoiceScreenState extends State<CreateTaxInvoiceScreen> {
                   child: DropdownButton<double>(
                     value: row.taxRatePct,
                     isExpanded: true,
-                    items: const [
-                      DropdownMenuItem(value: 5.0, child: Text('VAT 5%', style: TextStyle(fontSize: 12))),
-                      DropdownMenuItem(value: 0.0, child: Text('VAT 0%', style: TextStyle(fontSize: 12))),
+                    items: [
+                      DropdownMenuItem(value: 5.0, child: Text(context.l10n.vat5Pct, style: const TextStyle(fontSize: 12))),
+                      DropdownMenuItem(value: 0.0, child: Text(context.l10n.vat0Pct, style: const TextStyle(fontSize: 12))),
                     ],
                     onChanged: (val) {
                       if (val != null) setState(() => row.taxRatePct = val);
@@ -849,7 +849,7 @@ class _CreateTaxInvoiceScreenState extends State<CreateTaxInvoiceScreen> {
             IconButton(
               icon: const Icon(Icons.delete_outline, size: 18, color: AppColors.textMuted),
               onPressed: _lines.length > 1 ? () => _removeLineItem(index) : null,
-              tooltip: 'Delete line',
+              tooltip: context.l10n.deleteLineTooltip,
             ),
           ],
         ),
@@ -901,7 +901,7 @@ class _CreateTaxInvoiceScreenState extends State<CreateTaxInvoiceScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Notes to customer', style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+              Text(context.l10n.notesToCustomer, style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
               const SizedBox(height: 8),
               TextField(
                 controller: _notesController,
@@ -1013,7 +1013,7 @@ class _CreateTaxInvoiceScreenState extends State<CreateTaxInvoiceScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
           ),
-          child: const Text('Cancel'),
+          child: Text(context.l10n.cancel),
         ),
         OutlinedButton(
           onPressed: () => _submitInvoice(send: false),
@@ -1021,7 +1021,7 @@ class _CreateTaxInvoiceScreenState extends State<CreateTaxInvoiceScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
           ),
-          child: const Text('Save Draft'),
+          child: Text(context.l10n.saveDraft),
         ),
         OutlinedButton(
           onPressed: _openPdfPreview,
@@ -1029,7 +1029,7 @@ class _CreateTaxInvoiceScreenState extends State<CreateTaxInvoiceScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
           ),
-          child: const Text('Preview PDF'),
+          child: Text(context.l10n.previewPdf),
         ),
         ElevatedButton(
           onPressed: () => _submitInvoice(send: true),
@@ -1040,7 +1040,7 @@ class _CreateTaxInvoiceScreenState extends State<CreateTaxInvoiceScreen> {
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
             elevation: 0,
           ),
-          child: const Text('Save & Send', style: TextStyle(fontWeight: FontWeight.bold)),
+          child: Text(context.l10n.saveAndSend, style: const TextStyle(fontWeight: FontWeight.bold)),
         ),
       ],
     );

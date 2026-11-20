@@ -116,7 +116,7 @@
   "stageLost": "Lost",
   "convertCustomer": "Convert to Customer Account",
   "markWon": "Mark as Won",
-  "markLost": "Mark as Lost",
+  "markLost": "Mark Lost",
   "opportunityDetails": "Opportunity Details",
   "expectedClose": "Expected Close",
   "probability": "Probability",
@@ -133,7 +133,7 @@
   "dueDate": "Due Date",
   "issueDate": "Issue Date",
   "subtotal": "Subtotal",
-  "vat": "VAT (5%)",
+  "vat": "VAT",
   "totalAmount": "Total Amount",
   "paidAmount": "Paid Amount",
   "balanceDue": "Balance Due",
@@ -162,7 +162,7 @@
   "category": "Category",
   "unitCost": "Unit Cost",
   "sellingPrice": "Selling Price",
-  "onHand": "On Hand",
+  "onHand": "ON HAND",
   "reorderPoint": "Reorder Point",
   "warehouse": "Warehouse",
   "stockAdjustment": "Stock Adjustment",
@@ -280,10 +280,10 @@
   "invoiceExportSuccess": "Invoices exported to CSV successfully.",
   "paymentTerms": "Payment Terms",
   "dueOnReceipt": "Due on Receipt",
-  "net15": "Net 15 Days",
-  "net30": "Net 30 Days",
-  "net60": "Net 60 Days",
-  "itemDescription": "Description",
+  "net15": "Net 15",
+  "net30": "Net 30",
+  "net60": "Net 60",
+  "itemDescription": "Item / Description",
   "taxRate": "Tax Rate",
   "discount": "Discount",
   "discountPct": "Disc %",
@@ -346,7 +346,7 @@
   "parentAccount": "Parent Account",
   "isGroupAccount": "Header / Group Account",
   "groupAccountNote": "Header account used for grouping; cannot be posted to directly.",
-  "costCenter": "Cost Center",
+  "costCenter": "Cost center",
   "narration": "Narration / Memo",
   "entryNumber": "Entry Number",
   "minTwoLinesRequired": "A double-entry journal entry requires a minimum of 2 lines.",
@@ -370,7 +370,7 @@
   "compareYear": "Compare: Prior Year",
   "allCostCenters": "All Cost Centers",
   "companyProfileTitle": "Company Profile & Legal Entity",
-  "companyProfileSubtitle": "Primary trading entity for invoice headers and official tax documentation",
+  "companyProfileSubtitle": "Primary trading entity information for official invoice headers, receipts, and UAE tax reports",
   "trnNumberLabel": "Tax Registration Number (TRN)",
   "lockBooksPriorTo": "Books Locked Prior to:",
   "saveSettingsSuccess": "Settings updated successfully",
@@ -379,7 +379,7 @@
   "saveBill": "Save Bill",
   "saveAccount": "Save Account",
   "optimalStock": "Optimal",
-  "lowStock": "Low Stock",
+  "lowStock": "Low",
   "generalLedgerTrail": "General Ledger Trail",
   "selectCsvFile": "Select CSV File",
   "uploadReceiptPrompt": "Upload a CSV file containing lead coordinates, estimated deal amounts, and sales owners. Records will be automatically parsed and mapped into the Sales Pipeline.",
@@ -450,7 +450,7 @@
   "colClaimNo": "CLAIM #",
   "colCategory": "CATEGORY",
   "colReceipt": "RECEIPT",
-  "colItem": "ITEM",
+  "colItem": "Item",
   "colOnHand": "ON HAND",
   "colReorderLevel": "REORDER LEVEL",
   "colAccountName": "Account Name",
@@ -478,5 +478,545 @@
   "newInventorySku": "New Inventory SKU",
   "saveSku": "Save SKU",
   "collapseSidebar": "Collapse sidebar",
-  "expandSidebar": "Expand sidebar"
+  "expandSidebar": "Expand sidebar",
+  "languageAndRegion": "Language & Region",
+  "usersAndRoles": "Users & Roles",
+  "companyAndSystemSettings": "Company & System Settings",
+  "companyProfileUpdated": "Company profile updated successfully",
+  "companyLogoUploaded": "Company logo uploaded successfully",
+  "companyLogoRemoved": "Company logo removed",
+  "uploadNewLogo": "Upload New Logo",
+  "removeLogo": "Remove Logo",
+  "reset": "Reset",
+  "validationRequired": "Required",
+  "validationTrn15Digits": "UAE TRN must be 15 digits",
+  "emirateDubai": "Dubai",
+  "emirateAbuDhabi": "Abu Dhabi",
+  "emirateSharjah": "Sharjah",
+  "emirateAjman": "Ajman",
+  "emirateRasAlKhaimah": "Ras Al Khaimah",
+  "emirateFujairah": "Fujairah",
+  "emirateUmmAlQuwain": "Umm Al Quwain",
+  "currencyAedFull": "AED - United Arab Emirates Dirham",
+  "currencyUsdFull": "USD - US Dollar",
+  "currencyAedParen": "AED (UAE Dirham)",
+  "currencySarParen": "SAR (Saudi Riyal)",
+  "currencyUsdParen": "USD (US Dollar)",
+  "fiscalYearsAndLocking": "Fiscal Years & Period Locking",
+  "fiscalYearsSubtitle": "Configure accounting financial periods and book closure cutoffs",
+  "fiscalYear": "Fiscal Year",
+  "startDate": "Start Date",
+  "endDate": "End Date",
+  "uaeVatRatesRegs": "UAE FTA VAT Rates & Regulations",
+  "uaeVatSubtitle": "Federal Tax Authority (FTA) statutory rates for VAT 201 return reporting",
+  "currenciesAndRates": "Currencies & Exchange Rates",
+  "currenciesSubtitle": "Multi-currency conversion rates with AED functional base currency",
+  "updateRates": "Update Rates",
+  "ratesSynced": "Central Bank of the UAE exchange rates synced",
+  "rateToAed": "Rate (to 1.00 AED)",
+  "docNumberSeries": "Document Number Series",
+  "docNumberSeriesSubtitle": "Sequential numbering patterns and prefixes across all modules",
+  "docType": "Document Type",
+  "prefix": "Prefix",
+  "nextSequential": "Next Sequential",
+  "sampleDocNumber": "Sample Document Number",
+  "usersAndPermissions": "Users & Role-Based Permissions",
+  "usersAndPermissionsSubtitle": "Manage authorized users, segregation of duties, and module rights",
+  "inviteUserBtn": "+ Invite User",
+  "inviteTeamMember": "Invite Team Member",
+  "fullName": "Full Name",
+  "emailAddress": "Email Address",
+  "roleDirective": "Role Directive",
+  "roleAccountant": "Accountant",
+  "roleSalesRepresentative": "Sales Representative",
+  "roleWarehouseManager": "Warehouse Manager",
+  "roleController": "Controller",
+  "sendInvite": "Send Invite",
+  "securityAuditTrail": "Security & Audit Log Trail",
+  "securityAuditSubtitle": "Immutable chronological trace of user operations and system posts",
+  "colTimestamp": "Timestamp",
+  "colUser": "User",
+  "colAction": "Action",
+  "colDetails": "Details",
+  "colIpAddress": "IP Address",
+  "adjustmentNo": "Adjustment No.",
+  "reasonLabel": "Reason",
+  "reasonStockCount": "Stock count",
+  "reasonDamagedGoods": "Damaged goods",
+  "reasonSurplus": "Surplus",
+  "reasonWriteOff": "Write-off",
+  "reasonInternalConsumption": "Internal consumption",
+  "reasonTheftLoss": "Theft / Loss",
+  "physicalInventoryCount": "Physical Inventory Count (Load All)",
+  "pleaseAddLineItem": "Please add at least one line item.",
+  "warehousesCannotBeIdentical": "From and To warehouse cannot be identical.",
+  "fromWarehouse": "From Warehouse",
+  "toWarehouse": "To Warehouse",
+  "transferNo": "Transfer No.",
+  "dispatchTransfer": "Dispatch Transfer",
+  "saveProgress": "Save Progress",
+  "scanBarcode": "Scan Barcode",
+  "addLineItem": "Add Line Item",
+  "systemQty": "System Qty",
+  "countedQty": "Counted Qty",
+  "totalTransferValue": "Total transfer value",
+  "netValueImpact": "Net value impact",
+  "searchSkuBarcode": "Search SKU / name / barcode...",
+  "allWarehouses": "All warehouses",
+  "allCategories": "All categories",
+  "allStatus": "All Status",
+  "quickTestBarcodes": "Quick Test Barcodes:",
+  "enterBarcodeSku": "Enter barcode or SKU (e.g. 629104800130)",
+  "scanBtn": "Scan",
+  "noInventoryItemsFound": "No inventory items found matching filters.",
+  "noStockMovementsRecorded": "No stock movements recorded for this filter.",
+  "exportStockSummaryExcel": "Exporting stock summary to Excel/CSV...",
+  "adjustmentAccount": "Adjustment Account",
+  "balanceQty": "Balance Qty",
+  "transferQty": "Transfer Qty",
+  "claimApproved": "Expense claim approved.",
+  "claimReimbursedPayroll": "Expense reimbursed via payroll / bank transfer.",
+  "rejectExpenseClaim": "Reject Expense Claim",
+  "enterRejectionReason": "Enter rejection reason for the employee:",
+  "postToGl": "Post to General Ledger",
+  "selectReceiptDocument": "Select Receipt Document:",
+  "tapToCaptureAttach": "Tap to capture & attach",
+  "noExpensesFoundTab": "No expenses found for this tab.",
+  "exportingExpensesExcel": "Exporting expenses to Excel...",
+  "employeePayee": "Employee / Payee",
+  "paidBy": "Paid by",
+  "purpose": "Purpose",
+  "receiptDate": "Receipt Date",
+  "submitForApproval": "Submit for Approval",
+  "expenseAccount": "Expense Account",
+  "expenseNo": "Expense No.",
+  "pleaseSelectCustomer": "Please select a customer",
+  "exportingInvoicesCsv": "Exporting invoices to CSV...",
+  "noInvoicesFound": "No invoices found matching criteria",
+  "noOpenInvoicesCustomer": "No open invoices found for this customer.",
+  "searchInvoiceCustomer": "Search invoice / customer...",
+  "amountReceivedGreaterZero": "Amount received must be greater than zero",
+  "appliedExceedsReceived": "Total applied exceeds amount received.",
+  "depositTo": "Deposit To",
+  "amountReceived": "Amount Received",
+  "referenceChequeNo": "Reference / Cheque No.",
+  "invoiceDate": "Invoice Date",
+  "notesToCustomer": "Notes to customer",
+  "discPct": "Disc %",
+  "vatRate": "VAT %",
+  "lineTotal": "Total",
+  "taxInvoiceTitle": "TAX INVOICE",
+  "invoiceTo": "BILL TO:",
+  "notesAndBankDetails": "Notes & Bank Details:",
+  "paymentTermsHeader": "PAYMENT TERMS:",
+  "stageChangedTo": "Stage changed to",
+  "oppMarkedLost": "Opportunity marked as Lost",
+  "logCallMeetingNote": "Log a call, meeting or note...",
+  "noQuotationsGenerated": "No quotations generated yet.",
+  "noPrimaryContactLinked": "No primary contact linked.",
+  "createQuotation": "+ Quotation",
+  "winProbabilityLabel": "Win Probability",
+  "journalReference": "Journal Reference",
+  "noJournalTransactionsFound": "No journal transactions found for this account.",
+  "reconciliationComplete": "Reconciliation Complete",
+  "reconciliationProgressSaved": "Reconciliation progress saved successfully",
+  "postAndClearEntry": "Post & Clear Entry",
+  "card": "Card",
+  "topLevelGroup": "— None (Top-level Group) —",
+  "accountTypeLabel": "Account Type",
+  "selectPeriod": "Select Period",
+  "periodYtd": "Year to Date (01-Jan to 31-Oct 2026)",
+  "periodThisMonth": "This Month (October 2026)",
+  "periodQ3": "Q3 2026 (01-Jul to 30-Sep 2026)",
+  "comparePriorYear": "Compare: Prior Year",
+  "comparePriorPeriod": "Compare: Prior Period",
+  "compareBudget": "Compare: Budget",
+  "compareNone": "Compare: None",
+  "costCenterSales": "Sales",
+  "costCenterOperations": "Operations",
+  "costCenterAdmin": "Admin",
+  "run": "Run",
+  "colAccount": "Account",
+  "colChangePct": "Change %",
+  "entryNo": "Entry #",
+  "boardPackSuccess": "Board Pack PDF generated and downloaded successfully.",
+  "financialStatements": "Financial Statements",
+  "taxCompliance": "Tax & Compliance",
+  "pnlDesc": "Trading revenue, cost of goods sold (COGS), operating expenses, and net profit margins",
+  "balanceSheetDesc": "Assets, liabilities, and retained earnings equity summary",
+  "trialBalanceDesc": "Complete listing of all debit and credit account balances verifying ledger equilibrium",
+  "vatReturnDesc": "Box-by-box breakdown of 5% standard rated sales, zero rated supplies, and recoverable input VAT",
+  "bankStatementImportedSuccess": "Bank statement imported successfully.",
+  "@companyProfileTitle": {
+    "description": "Localization key for companyProfileTitle"
+  },
+  "@companyProfileSubtitle": {
+    "description": "Localization key for companyProfileSubtitle"
+  },
+  "companyLegalName": "Company Legal Name *",
+  "@companyLegalName": {
+    "description": "Localization key for companyLegalName"
+  },
+  "taxRegistrationNumberTrn": "Tax Registration Number (TRN) *",
+  "@taxRegistrationNumberTrn": {
+    "description": "Localization key for taxRegistrationNumberTrn"
+  },
+  "tradeLicenseCommercialReg": "Trade License / Commercial Reg *",
+  "@tradeLicenseCommercialReg": {
+    "description": "Localization key for tradeLicenseCommercialReg"
+  },
+  "corporateTaxTrn": "Corporate Tax TRN",
+  "@corporateTaxTrn": {
+    "description": "Localization key for corporateTaxTrn"
+  },
+  "registeredAddress": "Registered Address *",
+  "@registeredAddress": {
+    "description": "Localization key for registeredAddress"
+  },
+  "emirateLabel": "Emirate *",
+  "@emirateLabel": {
+    "description": "Localization key for emirateLabel"
+  },
+  "primaryEmailLabel": "Primary Email *",
+  "@primaryEmailLabel": {
+    "description": "Localization key for primaryEmailLabel"
+  },
+  "validEmailRequired": "Valid email required",
+  "@validEmailRequired": {
+    "description": "Localization key for validEmailRequired"
+  },
+  "phoneNumberLabel": "Phone Number *",
+  "@phoneNumberLabel": {
+    "description": "Localization key for phoneNumberLabel"
+  },
+  "websiteLabel": "Website",
+  "@websiteLabel": {
+    "description": "Localization key for websiteLabel"
+  },
+  "functionalBaseCurrency": "Functional Base Currency *",
+  "@functionalBaseCurrency": {
+    "description": "Localization key for functionalBaseCurrency"
+  },
+  "companyLogo": "Company Logo",
+  "@companyLogo": {
+    "description": "Localization key for companyLogo"
+  },
+  "companyLogoHint": "Displayed on printed tax invoices, quotations, customer receipts, and financial reports. Recommended size: 300x100px. PNG, JPG or SVG format.",
+  "@companyLogoHint": {
+    "description": "Localization key for companyLogoHint"
+  },
+  "ftaActive": "FTA Active",
+  "@ftaActive": {
+    "description": "Localization key for ftaActive"
+  },
+  "booksLockedPriorTo": "Books Locked Prior to: 31-Dec-2025",
+  "@booksLockedPriorTo": {
+    "description": "Localization key for booksLockedPriorTo"
+  },
+  "booksLockedDesc": "General Ledger journal vouchers and invoices dated on or prior to this date cannot be modified or deleted without financial controller clearance.",
+  "@booksLockedDesc": {
+    "description": "Localization key for booksLockedDesc"
+  },
+  "openCurrentStatus": "Open (Current)",
+  "@openCurrentStatus": {
+    "description": "Localization key for openCurrentStatus"
+  },
+  "activeRate": "Active Rate",
+  "@activeRate": {
+    "description": "Localization key for activeRate"
+  },
+  "baseCurrency": "Base Currency",
+  "@baseCurrency": {
+    "description": "Localization key for baseCurrency"
+  },
+  "colRateAed": "Rate (to 1.00 AED)",
+  "@colRateAed": {
+    "description": "Localization key for colRateAed"
+  },
+  "invitationSent": "Invitation sent to",
+  "@invitationSent": {
+    "description": "Localization key for invitationSent"
+  },
+  "asRole": "as",
+  "@asRole": {
+    "description": "Localization key for asRole"
+  },
+  "immutableAuditTrace": "Immutable chronological trace of user operations and system posts",
+  "@immutableAuditTrace": {
+    "description": "Localization key for immutableAuditTrace"
+  },
+  "currency": "Currency",
+  "@currency": {
+    "description": "Localization key for currency"
+  },
+  "currencyName": "Name",
+  "@currencyName": {
+    "description": "Localization key for currencyName"
+  },
+  "colCurrency": "Currency",
+  "@colCurrency": {
+    "description": "Localization key for colCurrency"
+  },
+  "colCurrencyName": "Name",
+  "@colCurrencyName": {
+    "description": "Localization key for colCurrencyName"
+  },
+  "reasonExpired": "Expired",
+  "@reasonExpired": {
+    "description": "Localization key for reasonExpired"
+  },
+  "reasonOpeningBalance": "Opening balance",
+  "@reasonOpeningBalance": {
+    "description": "Localization key for reasonOpeningBalance"
+  },
+  "reasonOther": "Other",
+  "@reasonOther": {
+    "description": "Localization key for reasonOther"
+  },
+  "@colItem": {
+    "description": "Localization key for colItem"
+  },
+  "valueImpactAed": "Value impact (AED)",
+  "@valueImpactAed": {
+    "description": "Localization key for valueImpactAed"
+  },
+  "removeLineTooltip": "Remove line",
+  "@removeLineTooltip": {
+    "description": "Localization key for removeLineTooltip"
+  },
+  "deleteLineTooltip": "Delete line",
+  "@deleteLineTooltip": {
+    "description": "Localization key for deleteLineTooltip"
+  },
+  "journalPreviewOnPost": "Journal preview (on post)",
+  "@journalPreviewOnPost": {
+    "description": "Localization key for journalPreviewOnPost"
+  },
+  "stockEffect": "Stock effect",
+  "@stockEffect": {
+    "description": "Localization key for stockEffect"
+  },
+  "availableQty": "Available Qty",
+  "@availableQty": {
+    "description": "Localization key for availableQty"
+  },
+  "@unitCost": {
+    "description": "Localization key for unitCost"
+  },
+  "transferValueAed": "Transfer Value (AED)",
+  "@transferValueAed": {
+    "description": "Localization key for transferValueAed"
+  },
+  "stockTransferImpact": "Stock Transfer Impact",
+  "@stockTransferImpact": {
+    "description": "Localization key for stockTransferImpact"
+  },
+  "@costCenter": {
+    "description": "Localization key for costCenter"
+  },
+  "billableTo": "Billable to",
+  "@billableTo": {
+    "description": "Localization key for billableTo"
+  },
+  "totalAed": "Total (AED)",
+  "@totalAed": {
+    "description": "Localization key for totalAed"
+  },
+  "receipt": "Receipt",
+  "@receipt": {
+    "description": "Localization key for receipt"
+  },
+  "@receipts": {
+    "description": "Localization key for receipts"
+  },
+  "expenseNumber": "Expense #",
+  "@expenseNumber": {
+    "description": "Localization key for expenseNumber"
+  },
+  "net": "Net",
+  "@net": {
+    "description": "Localization key for net"
+  },
+  "@vat": {
+    "description": "Localization key for vat"
+  },
+  "@itemDescription": {
+    "description": "Localization key for itemDescription"
+  },
+  "@unitPrice": {
+    "description": "Localization key for unitPrice"
+  },
+  "amountAed": "Amount (AED)",
+  "@amountAed": {
+    "description": "Localization key for amountAed"
+  },
+  "@paymentTerms": {
+    "description": "Localization key for paymentTerms"
+  },
+  "@dueOnReceipt": {
+    "description": "Localization key for dueOnReceipt"
+  },
+  "@net15": {
+    "description": "Localization key for net15"
+  },
+  "@net30": {
+    "description": "Localization key for net30"
+  },
+  "@net60": {
+    "description": "Localization key for net60"
+  },
+  "vat5Pct": "VAT 5%",
+  "@vat5Pct": {
+    "description": "Localization key for vat5Pct"
+  },
+  "vat0Pct": "VAT 0%",
+  "@vat0Pct": {
+    "description": "Localization key for vat0Pct"
+  },
+  "@saveAndSend": {
+    "description": "Localization key for saveAndSend"
+  },
+  "@cheque": {
+    "description": "Localization key for cheque"
+  },
+  "@cash": {
+    "description": "Localization key for cash"
+  },
+  "outstanding": "Outstanding",
+  "@outstanding": {
+    "description": "Localization key for outstanding"
+  },
+  "payment": "Payment",
+  "@payment": {
+    "description": "Localization key for payment"
+  },
+  "@markLost": {
+    "description": "Localization key for markLost"
+  },
+  "convertToCustomer": "Convert to Customer",
+  "@convertToCustomer": {
+    "description": "Localization key for convertToCustomer"
+  },
+  "@initialStage": {
+    "description": "Localization key for initialStage"
+  },
+  "@salesOwner": {
+    "description": "Localization key for salesOwner"
+  },
+  "allTasksCompleted": "All tasks completed! Great job.",
+  "@allTasksCompleted": {
+    "description": "Localization key for allTasksCompleted"
+  },
+  "@inStock": {
+    "description": "Localization key for inStock"
+  },
+  "@lowStock": {
+    "description": "Localization key for lowStock"
+  },
+  "@outOfStock": {
+    "description": "Localization key for outOfStock"
+  },
+  "standardAvgCostAed": "Standard / Avg Cost (AED) *",
+  "@standardAvgCostAed": {
+    "description": "Localization key for standardAvgCostAed"
+  },
+  "reorderLevelLabel": "Reorder Level *",
+  "@reorderLevelLabel": {
+    "description": "Localization key for reorderLevelLabel"
+  },
+  "subTypeOptional": "Sub-Type (Optional)",
+  "@subTypeOptional": {
+    "description": "Localization key for subTypeOptional"
+  },
+  "@allCostCenters": {
+    "description": "Localization key for allCostCenters"
+  },
+  "operations": "Operations",
+  "@operations": {
+    "description": "Localization key for operations"
+  },
+  "admin": "Admin",
+  "@admin": {
+    "description": "Localization key for admin"
+  },
+  "@recordPayment": {
+    "description": "Localization key for recordPayment"
+  },
+  "@loadSampleCsv": {
+    "description": "Localization key for loadSampleCsv"
+  },
+  "@importAndAutoMatch": {
+    "description": "Localization key for importAndAutoMatch"
+  },
+  "invoiceNo": "Invoice No.",
+  "@invoiceNo": {
+    "description": "Localization key for invoiceNo"
+  },
+  "tax": "Tax",
+  "@tax": {
+    "description": "Localization key for tax"
+  },
+  "statementDate": "Statement Date",
+  "@statementDate": {
+    "description": "Localization key for statementDate"
+  },
+  "statementEndingBalance": "Statement Ending Balance",
+  "@statementEndingBalance": {
+    "description": "Localization key for statementEndingBalance"
+  },
+  "importStatementCsv": "Import Statement (CSV)",
+  "@importStatementCsv": {
+    "description": "Localization key for importStatementCsv"
+  },
+  "@finishReconciliation": {
+    "description": "Localization key for finishReconciliation"
+  },
+  "@match": {
+    "description": "Localization key for match"
+  },
+  "bankAccount": "Bank Account",
+  "@bankAccount": {
+    "description": "Localization key for bankAccount"
+  },
+  "balanceAed": "Balance (AED)",
+  "@balanceAed": {
+    "description": "Localization key for balanceAed"
+  },
+  "qtyInOut": "Qty In/Out",
+  "@qtyInOut": {
+    "description": "Localization key for qtyInOut"
+  },
+  "totalCostAed": "Total Cost (AED)",
+  "@totalCostAed": {
+    "description": "Localization key for totalCostAed"
+  },
+  "balance": "Balance",
+  "@balance": {
+    "description": "Localization key for balance"
+  },
+  "@onHand": {
+    "description": "Localization key for onHand"
+  },
+  "reorderLevel": "REORDER LEVEL",
+  "@reorderLevel": {
+    "description": "Localization key for reorderLevel"
+  },
+  "weightedAvgCost": "WEIGHTED AVG COST",
+  "@weightedAvgCost": {
+    "description": "Localization key for weightedAvgCost"
+  },
+  "@newJournalEntry": {
+    "description": "Localization key for newJournalEntry"
+  },
+  "type": "Type",
+  "@type": {
+    "description": "Localization key for type"
+  },
+  "@close": {
+    "description": "Localization key for close"
+  },
+  "stockStatus": "Stock status",
+  "@stockStatus": {
+    "description": "Localization key for stockStatus"
+  }
 }

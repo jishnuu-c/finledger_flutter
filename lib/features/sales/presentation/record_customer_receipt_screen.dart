@@ -192,7 +192,7 @@ class _RecordCustomerReceiptScreenState extends State<RecordCustomerReceiptScree
   Future<void> _submitReceipt() async {
     if (_selectedCustomer == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please select a customer'), backgroundColor: AppColors.error),
+        SnackBar(content: Text(context.l10n.pleaseSelectCustomer), backgroundColor: AppColors.error),
       );
       return;
     }
@@ -200,7 +200,7 @@ class _RecordCustomerReceiptScreenState extends State<RecordCustomerReceiptScree
     final amount = _parsedAmountReceived;
     if (amount <= 0) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Amount received must be greater than zero'), backgroundColor: AppColors.error),
+        SnackBar(content: Text(context.l10n.amountReceivedGreaterZero), backgroundColor: AppColors.error),
       );
       return;
     }
@@ -352,7 +352,7 @@ class _RecordCustomerReceiptScreenState extends State<RecordCustomerReceiptScree
           Widget customerField = Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Customer *', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+              Text('${context.l10n.customer} *', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
               const SizedBox(height: 6),
               Container(
                 height: 40,
@@ -381,7 +381,7 @@ class _RecordCustomerReceiptScreenState extends State<RecordCustomerReceiptScree
           Widget receiptDateField = Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Receipt Date *', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+              Text('${context.l10n.receiptDate} *', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
               const SizedBox(height: 6),
               SizedBox(
                 height: 40,
@@ -403,7 +403,7 @@ class _RecordCustomerReceiptScreenState extends State<RecordCustomerReceiptScree
           Widget depositToField = Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Deposit To *', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+              Text('${context.l10n.depositTo} *', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
               const SizedBox(height: 6),
               Container(
                 height: 40,
@@ -433,7 +433,7 @@ class _RecordCustomerReceiptScreenState extends State<RecordCustomerReceiptScree
           Widget paymentMethodField = Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Payment Method', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+              Text(context.l10n.paymentMethod, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
               const SizedBox(height: 6),
               Container(
                 height: 40,
@@ -446,11 +446,11 @@ class _RecordCustomerReceiptScreenState extends State<RecordCustomerReceiptScree
                   child: DropdownButton<String>(
                     value: _paymentMethod,
                     isExpanded: true,
-                    items: const [
-                      DropdownMenuItem(value: 'Bank Transfer', child: Text('Bank Transfer', style: TextStyle(fontSize: 13))),
-                      DropdownMenuItem(value: 'Cheque', child: Text('Cheque', style: TextStyle(fontSize: 13))),
-                      DropdownMenuItem(value: 'Cash', child: Text('Cash', style: TextStyle(fontSize: 13))),
-                      DropdownMenuItem(value: 'Card', child: Text('Card', style: TextStyle(fontSize: 13))),
+                    items: [
+                      DropdownMenuItem(value: 'Bank Transfer', child: Text(context.l10n.bankTransfer, style: const TextStyle(fontSize: 13))),
+                      DropdownMenuItem(value: 'Cheque', child: Text(context.l10n.cheque, style: const TextStyle(fontSize: 13))),
+                      DropdownMenuItem(value: 'Cash', child: Text(context.l10n.cash, style: const TextStyle(fontSize: 13))),
+                      DropdownMenuItem(value: 'Card', child: Text(context.l10n.card, style: const TextStyle(fontSize: 13))),
                     ],
                     onChanged: (val) {
                       if (val != null) setState(() => _paymentMethod = val);
@@ -464,7 +464,7 @@ class _RecordCustomerReceiptScreenState extends State<RecordCustomerReceiptScree
           Widget amountReceivedField = Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Amount Received *', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+              Text('${context.l10n.amountReceived} *', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
               const SizedBox(height: 6),
               SizedBox(
                 height: 40,
@@ -487,7 +487,7 @@ class _RecordCustomerReceiptScreenState extends State<RecordCustomerReceiptScree
           Widget referenceField = Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Reference / Cheque No.', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+              Text(context.l10n.referenceChequeNo, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
               const SizedBox(height: 6),
               SizedBox(
                 height: 40,
@@ -572,10 +572,10 @@ class _RecordCustomerReceiptScreenState extends State<RecordCustomerReceiptScree
               if (_isLoading)
                 const Center(child: Padding(padding: EdgeInsets.all(24), child: CircularProgressIndicator()))
               else if (_openInvoiceRows.isEmpty)
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 24),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 24),
                   child: Center(
-                    child: Text('No open invoices found for this customer.', style: TextStyle(color: AppColors.textMuted)),
+                    child: Text(context.l10n.noOpenInvoicesCustomer, style: const TextStyle(color: AppColors.textMuted)),
                   ),
                 )
               else
@@ -596,15 +596,15 @@ class _RecordCustomerReceiptScreenState extends State<RecordCustomerReceiptScree
                             Container(
                               color: const Color(0xFFF8FAFC),
                               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 9),
-                              child: const Row(
+                              child: Row(
                                 children: [
-                                  SizedBox(width: 32), // checkbox space
-                                  Expanded(flex: 3, child: Text('Invoice #', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textMuted))),
-                                  Expanded(flex: 3, child: Text('Date', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textMuted))),
-                                  Expanded(flex: 3, child: Text('Total', textAlign: TextAlign.right, style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textMuted))),
-                                  Expanded(flex: 3, child: Text('Outstanding', textAlign: TextAlign.right, style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textMuted))),
+                                  const SizedBox(width: 32), // checkbox space
+                                  Expanded(flex: 3, child: Text(context.l10n.invoiceNo, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textMuted))),
+                                  Expanded(flex: 3, child: Text(context.l10n.date, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textMuted))),
+                                  Expanded(flex: 3, child: Text(context.l10n.lineTotal, textAlign: TextAlign.right, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textMuted))),
+                                  Expanded(flex: 3, child: Text(context.l10n.outstanding, textAlign: TextAlign.right, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textMuted))),
                                   SizedBox(width: 14),
-                                  SizedBox(width: 95, child: Text('Payment', textAlign: TextAlign.right, style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textMuted))),
+                                  SizedBox(width: 95, child: Text(context.l10n.payment, textAlign: TextAlign.right, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textMuted))),
                                 ],
                               ),
                             ),

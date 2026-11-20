@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../shared/widgets/language_switcher.dart';
+import '../../../core/localization/locale_provider.dart';
 import '../data/models/settings_models.dart';
 import '../data/services/settings_service.dart';
 
@@ -40,15 +41,15 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
 
   final _formKey = GlobalKey<FormState>();
 
-  final List<Map<String, dynamic>> _tabs = [
-    {'id': 'profile', 'label': 'Company Profile', 'icon': Icons.business_outlined},
-    {'id': 'language', 'label': 'Language & Region', 'icon': Icons.translate_rounded},
-    {'id': 'fiscal_years', 'label': 'Fiscal Years', 'icon': Icons.calendar_month_outlined},
-    {'id': 'tax_rates', 'label': 'Tax Rates', 'icon': Icons.percent_outlined},
-    {'id': 'currencies', 'label': 'Currencies', 'icon': Icons.monetization_on_outlined},
-    {'id': 'number_series', 'label': 'Number Series', 'icon': Icons.pin_outlined},
-    {'id': 'users_roles', 'label': 'Users & Roles', 'icon': Icons.people_alt_outlined},
-    {'id': 'audit_log', 'label': 'Audit Log', 'icon': Icons.history_outlined},
+  List<Map<String, dynamic>> _getTabs(BuildContext context) => [
+    {'id': 'profile', 'label': context.l10n.companyProfile, 'icon': Icons.business_outlined},
+    {'id': 'language', 'label': context.l10n.languageAndRegion, 'icon': Icons.translate_rounded},
+    {'id': 'fiscal_years', 'label': context.l10n.fiscalYears, 'icon': Icons.calendar_month_outlined},
+    {'id': 'tax_rates', 'label': context.l10n.taxRates, 'icon': Icons.percent_outlined},
+    {'id': 'currencies', 'label': context.l10n.currencies, 'icon': Icons.monetization_on_outlined},
+    {'id': 'number_series', 'label': context.l10n.numberSeries, 'icon': Icons.pin_outlined},
+    {'id': 'users_roles', 'label': context.l10n.usersAndRoles, 'icon': Icons.people_alt_outlined},
+    {'id': 'audit_log', 'label': context.l10n.auditLog, 'icon': Icons.history_outlined},
   ];
 
   @override
@@ -116,9 +117,9 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Company profile updated successfully'),
-            backgroundColor: Color(0xFF16A34A),
+          SnackBar(
+            content: Text(context.l10n.companyProfileUpdated),
+            backgroundColor: const Color(0xFF16A34A),
           ),
         );
       }
@@ -130,10 +131,10 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
       _logoUrl = 'https://finledger.com/logos/bsb_custom_${DateTime.now().millisecondsSinceEpoch}.png';
     });
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Company logo uploaded successfully'),
-        backgroundColor: Color(0xFF16A34A),
-        duration: Duration(seconds: 2),
+      SnackBar(
+        content: Text(context.l10n.companyLogoUploaded),
+        backgroundColor: const Color(0xFF16A34A),
+        duration: const Duration(seconds: 2),
       ),
     );
   }
@@ -143,10 +144,10 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
       _logoUrl = null;
     });
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Company logo removed'),
-        backgroundColor: Color(0xFF64748B),
-        duration: Duration(seconds: 2),
+      SnackBar(
+        content: Text(context.l10n.companyLogoRemoved),
+        backgroundColor: const Color(0xFF64748B),
+        duration: const Duration(seconds: 2),
       ),
     );
   }
@@ -157,9 +158,10 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
       return const Center(child: CircularProgressIndicator());
     }
 
-    final activeTabObj = _tabs.firstWhere(
+    final tabs = _getTabs(context);
+    final activeTabObj = tabs.firstWhere(
       (t) => t['id'] == _activeTab,
-      orElse: () => _tabs.first,
+      orElse: () => tabs.first,
     );
 
     final isMobile = MediaQuery.of(context).size.width < 768;
@@ -182,7 +184,7 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
                   Wrap(
                     crossAxisAlignment: WrapCrossAlignment.center,
                     children: [
-                      const Text('Settings', style: TextStyle(fontSize: 12, color: AppColors.textSecondary, fontWeight: FontWeight.w500)),
+                      Text(context.l10n.settings, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary, fontWeight: FontWeight.w500)),
                       const SizedBox(width: 4),
                       const Text('/', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
                       const SizedBox(width: 4),
@@ -193,8 +195,8 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
                     ],
                   ),
                   const SizedBox(height: 4),
-                  const Text(
-                    'Company & System Settings',
+                  Text(
+                    context.l10n.companyAndSystemSettings,
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.w800,
@@ -208,7 +210,7 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
                 ElevatedButton.icon(
                   onPressed: _saveProfile,
                   icon: const Icon(Icons.save_outlined, size: 16),
-                  label: const Text('Save Changes'),
+                  label: Text(context.l10n.saveChanges),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF2563EB),
                     padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
@@ -228,7 +230,7 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
                   children: [
                     SizedBox(
                       width: 230,
-                      child: _buildVerticalSubNav(),
+                      child: _buildVerticalSubNav(context),
                     ),
                     const SizedBox(width: 20),
                     Expanded(
@@ -242,7 +244,7 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
-                        children: _tabs.map((tab) {
+                        children: tabs.map((tab) {
                           final isSelected = tab['id'] == _activeTab;
                           return Padding(
                             padding: const EdgeInsets.only(right: 8),
@@ -272,7 +274,8 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
     );
   }
 
-  Widget _buildVerticalSubNav() {
+  Widget _buildVerticalSubNav(BuildContext context) {
+    final tabs = _getTabs(context);
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -281,7 +284,7 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
       ),
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Column(
-        children: _tabs.map((tab) {
+        children: tabs.map((tab) {
           final isSelected = tab['id'] == _activeTab;
           return Container(
             margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
@@ -363,13 +366,13 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Company Profile & Legal Entity',
+            Text(
+              context.l10n.companyProfileTitle,
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
             ),
             const SizedBox(height: 4),
-            const Text(
-              'Primary trading entity information for official invoice headers, receipts, and UAE tax reports',
+            Text(
+              context.l10n.companyProfileSubtitle,
               style: TextStyle(fontSize: 12.5, color: AppColors.textSecondary),
             ),
             const SizedBox(height: 20),
@@ -389,22 +392,22 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
                 final leftColumn = Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _buildFieldLabel('Company Legal Name *'),
+                    _buildFieldLabel(context.l10n.companyLegalName),
                     TextFormField(
                       controller: _nameController,
-                      validator: (v) => (v == null || v.trim().isEmpty) ? 'Required' : null,
+                      validator: (v) => (v == null || v.trim().isEmpty) ? context.l10n.validationRequired : null,
                     ),
                     const SizedBox(height: 16),
 
-                    _buildFieldLabel('Tax Registration Number (TRN) *'),
+                    _buildFieldLabel(context.l10n.taxRegistrationNumberTrn),
                     Row(
                       children: [
                         Expanded(
                           child: TextFormField(
                             controller: _trnController,
                             validator: (v) {
-                              if (v == null || v.trim().isEmpty) return 'Required';
-                              if (v.trim().length != 15) return 'UAE TRN must be 15 digits';
+                              if (v == null || v.trim().isEmpty) return context.l10n.validationRequired;
+                              if (v.trim().length != 15) return context.l10n.validationTrn15Digits;
                               return null;
                             },
                           ),
@@ -416,12 +419,12 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
                             color: const Color(0xFFDCFCE7),
                             borderRadius: BorderRadius.circular(6),
                           ),
-                          child: const Row(
+                          child: Row(
                             children: [
-                              Icon(Icons.verified, size: 14, color: Color(0xFF166534)),
-                              SizedBox(width: 4),
+                              const Icon(Icons.verified, size: 14, color: Color(0xFF166534)),
+                              const SizedBox(width: 4),
                               Text(
-                                'FTA Active',
+                                context.l10n.ftaActive,
                                 style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Color(0xFF166534)),
                               ),
                             ],
@@ -431,19 +434,19 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
                     ),
                     const SizedBox(height: 16),
 
-                    _buildFieldLabel('Trade License / Commercial Reg *'),
+                    _buildFieldLabel(context.l10n.tradeLicenseCommercialReg),
                     TextFormField(controller: _tradeLicenseController),
                     const SizedBox(height: 16),
 
-                    _buildFieldLabel('Corporate Tax TRN'),
+                    _buildFieldLabel(context.l10n.corporateTaxTrn),
                     TextFormField(controller: _corporateTaxTrnController),
                     const SizedBox(height: 16),
 
-                    _buildFieldLabel('Registered Address *'),
+                    _buildFieldLabel(context.l10n.registeredAddress),
                     TextFormField(
                       controller: _addressController,
                       maxLines: 2,
-                      validator: (v) => (v == null || v.trim().isEmpty) ? 'Required' : null,
+                      validator: (v) => (v == null || v.trim().isEmpty) ? context.l10n.validationRequired : null,
                     ),
                   ],
                 );
@@ -451,18 +454,18 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
                 final rightColumn = Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _buildFieldLabel('Emirate *'),
+                    _buildFieldLabel(context.l10n.emirateLabel),
                     DropdownButtonFormField<String>(
                       initialValue: _selectedEmirate,
                       isExpanded: true,
-                      items: const [
-                        DropdownMenuItem(value: 'Dubai', child: Text('Dubai')),
-                        DropdownMenuItem(value: 'Abu Dhabi', child: Text('Abu Dhabi')),
-                        DropdownMenuItem(value: 'Sharjah', child: Text('Sharjah')),
-                        DropdownMenuItem(value: 'Ajman', child: Text('Ajman')),
-                        DropdownMenuItem(value: 'Ras Al Khaimah', child: Text('Ras Al Khaimah')),
-                        DropdownMenuItem(value: 'Fujairah', child: Text('Fujairah')),
-                        DropdownMenuItem(value: 'Umm Al Quwain', child: Text('Umm Al Quwain')),
+                      items: [
+                        DropdownMenuItem(value: 'Dubai', child: Text(context.l10n.emirateDubai)),
+                        DropdownMenuItem(value: 'Abu Dhabi', child: Text(context.l10n.emirateAbuDhabi)),
+                        DropdownMenuItem(value: 'Sharjah', child: Text(context.l10n.emirateSharjah)),
+                        DropdownMenuItem(value: 'Ajman', child: Text(context.l10n.emirateAjman)),
+                        DropdownMenuItem(value: 'Ras Al Khaimah', child: Text(context.l10n.emirateRasAlKhaimah)),
+                        DropdownMenuItem(value: 'Fujairah', child: Text(context.l10n.emirateFujairah)),
+                        DropdownMenuItem(value: 'Umm Al Quwain', child: Text(context.l10n.emirateUmmAlQuwain)),
                       ],
                       onChanged: (val) {
                         if (val != null) setState(() => _selectedEmirate = val);
@@ -470,33 +473,33 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
                     ),
                     const SizedBox(height: 16),
 
-                    _buildFieldLabel('Primary Email *'),
+                    _buildFieldLabel(context.l10n.primaryEmailLabel),
                     TextFormField(
                       controller: _emailController,
-                      validator: (v) => (v == null || !v.contains('@')) ? 'Valid email required' : null,
+                      validator: (v) => (v == null || !v.contains('@')) ? context.l10n.validEmailRequired : null,
                     ),
                     const SizedBox(height: 16),
 
-                    _buildFieldLabel('Phone Number *'),
+                    _buildFieldLabel(context.l10n.phoneNumberLabel),
                     TextFormField(controller: _phoneController),
                     const SizedBox(height: 16),
 
-                    _buildFieldLabel('Website'),
+                    _buildFieldLabel(context.l10n.websiteLabel),
                     TextFormField(controller: _websiteController),
                     const SizedBox(height: 16),
 
-                    _buildFieldLabel('Functional Base Currency *'),
+                    _buildFieldLabel(context.l10n.functionalBaseCurrency),
                     DropdownButtonFormField<String>(
                       initialValue: _selectedCurrency,
                       isExpanded: true,
-                      items: const [
+                      items: [
                         DropdownMenuItem(
                           value: 'AED - United Arab Emirates Dirham',
-                          child: Text('AED - United Arab Emirates Dirham'),
+                          child: Text(context.l10n.currencyAedFull),
                         ),
                         DropdownMenuItem(
                           value: 'USD - US Dollar',
-                          child: Text('USD - US Dollar'),
+                          child: Text(context.l10n.currencyUsdFull),
                         ),
                       ],
                       onChanged: (val) {
@@ -537,7 +540,7 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
               children: [
                 OutlinedButton(
                   onPressed: _loadProfile,
-                  child: const Text('Reset'),
+                  child: Text(context.l10n.reset),
                 ),
                 ElevatedButton(
                   onPressed: _saveProfile,
@@ -545,7 +548,7 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
                     backgroundColor: const Color(0xFF2563EB),
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                   ),
-                  child: const Text('Save Changes'),
+                  child: Text(context.l10n.saveChanges),
                 ),
               ],
             ),
@@ -591,13 +594,13 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
         final logoInfo = Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Company Logo',
+            Text(
+              context.l10n.companyLogo,
               style: TextStyle(fontSize: 13.5, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
             ),
             const SizedBox(height: 2),
-            const Text(
-              'Displayed on printed tax invoices, quotations, customer receipts, and financial reports. Recommended size: 300x100px. PNG, JPG or SVG format.',
+            Text(
+              context.l10n.companyLogoHint,
               style: TextStyle(fontSize: 11.5, color: AppColors.textSecondary),
             ),
             const SizedBox(height: 8),
@@ -609,7 +612,7 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
                 OutlinedButton.icon(
                   onPressed: _handleUploadLogo,
                   icon: const Icon(Icons.cloud_upload_outlined, size: 14),
-                  label: const Text('Upload New Logo', style: TextStyle(fontSize: 12)),
+                  label: Text(context.l10n.uploadNewLogo, style: const TextStyle(fontSize: 12)),
                   style: OutlinedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                     minimumSize: Size.zero,
@@ -623,7 +626,7 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
                       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                       minimumSize: Size.zero,
                     ),
-                    child: const Text('Remove Logo', style: TextStyle(fontSize: 12)),
+                    child: Text(context.l10n.removeLogo, style: const TextStyle(fontSize: 12)),
                   ),
               ],
             ),
@@ -676,9 +679,9 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Fiscal Years & Period Locking', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          Text(context.l10n.fiscalYearsAndLocking, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
           const SizedBox(height: 4),
-          const Text('Configure accounting financial periods and book closure cutoffs', style: TextStyle(fontSize: 12.5, color: AppColors.textSecondary)),
+          Text(context.l10n.fiscalYearsSubtitle, style: const TextStyle(fontSize: 12.5, color: AppColors.textSecondary)),
           const SizedBox(height: 20),
           const Divider(height: 1),
           const SizedBox(height: 16),
@@ -691,21 +694,21 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(color: const Color(0xFFFDE68A)),
             ),
-            child: const Row(
+            child: Row(
               children: [
-                Icon(Icons.lock_outline, color: Color(0xFFB45309), size: 20),
-                SizedBox(width: 12),
+                const Icon(Icons.lock_outline, color: Color(0xFFB45309), size: 20),
+                const SizedBox(width: 12),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Books Locked Prior to: 31-Dec-2025',
+                        context.l10n.booksLockedPriorTo,
                         style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Color(0xFF92400E)),
                       ),
                       Text(
-                        'General Ledger journal vouchers and invoices dated on or prior to this date cannot be modified or deleted without financial controller clearance.',
-                        style: TextStyle(fontSize: 11.5, color: Color(0xFF92400E)),
+                        context.l10n.booksLockedDesc,
+                        style: const TextStyle(fontSize: 11.5, color: Color(0xFF92400E)),
                       ),
                     ],
                   ),
@@ -750,7 +753,7 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               child: Text(
-                                y.isOpen ? 'Open' : 'Closed',
+                                y.isOpen ? context.l10n.statusOpen : context.l10n.statusClosed,
                                 style: TextStyle(
                                   fontSize: 11,
                                   fontWeight: FontWeight.bold,
@@ -778,13 +781,13 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
                       3: FlexColumnWidth(1.2),
                     },
                     children: [
-                      const TableRow(
-                        decoration: BoxDecoration(color: Color(0xFFF8FAFC)),
+                      TableRow(
+                        decoration: const BoxDecoration(color: Color(0xFFF8FAFC)),
                         children: [
-                          Padding(padding: EdgeInsets.all(10), child: Text('Fiscal Year', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
-                          Padding(padding: EdgeInsets.all(10), child: Text('Start Date', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
-                          Padding(padding: EdgeInsets.all(10), child: Text('End Date', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
-                          Padding(padding: EdgeInsets.all(10), child: Text('Status', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
+                          Padding(padding: const EdgeInsets.all(10), child: Text(context.l10n.fiscalYear, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
+                          Padding(padding: const EdgeInsets.all(10), child: Text(context.l10n.startDate, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
+                          Padding(padding: const EdgeInsets.all(10), child: Text(context.l10n.endDate, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
+                          Padding(padding: const EdgeInsets.all(10), child: Text(context.l10n.status, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
                         ],
                       ),
                       for (final y in years)
@@ -804,7 +807,7 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
                                       borderRadius: BorderRadius.circular(4),
                                     ),
                                     child: Text(
-                                      y.isOpen ? 'Open (Current)' : 'Closed',
+                                      y.isOpen ? context.l10n.openCurrentStatus : context.l10n.statusClosed,
                                       style: TextStyle(
                                         fontSize: 11,
                                         fontWeight: FontWeight.bold,
@@ -841,9 +844,9 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('UAE FTA VAT Rates & Regulations', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          Text(context.l10n.uaeVatRatesRegs, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
           const SizedBox(height: 4),
-          const Text('Federal Tax Authority (FTA) statutory rates for VAT 201 return reporting', style: TextStyle(fontSize: 12.5, color: AppColors.textSecondary)),
+          Text(context.l10n.uaeVatSubtitle, style: const TextStyle(fontSize: 12.5, color: AppColors.textSecondary)),
           const SizedBox(height: 20),
           const Divider(height: 1),
           const SizedBox(height: 16),
@@ -953,10 +956,10 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Currencies & Exchange Rates', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                    Text(context.l10n.currenciesAndRates, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                     const SizedBox(height: 4),
-                    const Text(
-                      'Multi-currency conversion rates with AED functional base currency',
+                    Text(
+                      context.l10n.currenciesSubtitle,
                       style: TextStyle(fontSize: 12.5, color: AppColors.textSecondary),
                     ),
                     const SizedBox(height: 12),
@@ -970,7 +973,7 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
                         );
                       },
                       icon: const Icon(Icons.sync, size: 14),
-                      label: const Text('Update Rates'),
+                      label: Text(context.l10n.updateRates),
                     ),
                   ],
                 );
@@ -978,13 +981,13 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Expanded(
+                  Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Currencies & Exchange Rates', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                        SizedBox(height: 4),
-                        Text('Multi-currency conversion rates with AED functional base currency', style: TextStyle(fontSize: 12.5, color: AppColors.textSecondary)),
+                        Text(context.l10n.currenciesAndRates, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                        const SizedBox(height: 4),
+                        Text(context.l10n.currenciesSubtitle, style: const TextStyle(fontSize: 12.5, color: AppColors.textSecondary)),
                       ],
                     ),
                   ),
@@ -992,14 +995,14 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
                   ElevatedButton.icon(
                     onPressed: () {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Central Bank of the UAE exchange rates synced'),
-                          backgroundColor: Color(0xFF16A34A),
+                        SnackBar(
+                          content: Text(context.l10n.ratesSynced),
+                          backgroundColor: const Color(0xFF16A34A),
                         ),
                       );
                     },
                     icon: const Icon(Icons.sync, size: 14),
-                    label: const Text('Update Rates'),
+                    label: Text(context.l10n.updateRates),
                   ),
                 ],
               );
@@ -1075,7 +1078,7 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
                                     borderRadius: BorderRadius.circular(4),
                                   ),
                                   child: Text(
-                                    c.isBase ? 'Base' : 'Active',
+                                    c.isBase ? context.l10n.baseCurrency : context.l10n.statusActive,
                                     style: TextStyle(
                                       fontSize: 10,
                                       fontWeight: FontWeight.bold,
@@ -1105,13 +1108,13 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
                       3: FlexColumnWidth(1.2),
                     },
                     children: [
-                      const TableRow(
-                        decoration: BoxDecoration(color: Color(0xFFF8FAFC)),
+                      TableRow(
+                        decoration: const BoxDecoration(color: Color(0xFFF8FAFC)),
                         children: [
-                          Padding(padding: EdgeInsets.all(10), child: Text('Currency', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
-                          Padding(padding: EdgeInsets.all(10), child: Text('Name', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
-                          Padding(padding: EdgeInsets.all(10), child: Text('Rate (to 1.00 AED)', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
-                          Padding(padding: EdgeInsets.all(10), child: Text('Status', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
+                          Padding(padding: const EdgeInsets.all(10), child: Text(context.l10n.colCurrency, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
+                          Padding(padding: const EdgeInsets.all(10), child: Text(context.l10n.colCurrencyName, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
+                          Padding(padding: const EdgeInsets.all(10), child: Text(context.l10n.rateToAed, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
+                          Padding(padding: const EdgeInsets.all(10), child: Text(context.l10n.status, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
                         ],
                       ),
                       for (final c in currencies)
@@ -1131,7 +1134,7 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
                                       borderRadius: BorderRadius.circular(4),
                                     ),
                                     child: Text(
-                                      c.isBase ? 'Base Currency' : 'Active Rate',
+                                      c.isBase ? context.l10n.baseCurrency : context.l10n.activeRate,
                                       style: TextStyle(
                                         fontSize: 11,
                                         fontWeight: FontWeight.bold,
@@ -1168,9 +1171,9 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Document Number Series', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          Text(context.l10n.docNumberSeries, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
           const SizedBox(height: 4),
-          const Text('Sequential numbering patterns and prefixes across all modules', style: TextStyle(fontSize: 12.5, color: AppColors.textSecondary)),
+          Text(context.l10n.docNumberSeriesSubtitle, style: const TextStyle(fontSize: 12.5, color: AppColors.textSecondary)),
           const SizedBox(height: 20),
           const Divider(height: 1),
           const SizedBox(height: 16),
@@ -1231,13 +1234,13 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
                       3: FlexColumnWidth(1.8),
                     },
                     children: [
-                      const TableRow(
-                        decoration: BoxDecoration(color: Color(0xFFF8FAFC)),
+                      TableRow(
+                        decoration: const BoxDecoration(color: Color(0xFFF8FAFC)),
                         children: [
-                          Padding(padding: EdgeInsets.all(10), child: Text('Document Type', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
-                          Padding(padding: EdgeInsets.all(10), child: Text('Prefix', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
-                          Padding(padding: EdgeInsets.all(10), child: Text('Next Sequential', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
-                          Padding(padding: EdgeInsets.all(10), child: Text('Sample Document Number', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
+                          Padding(padding: const EdgeInsets.all(10), child: Text(context.l10n.docType, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
+                          Padding(padding: const EdgeInsets.all(10), child: Text(context.l10n.prefix, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
+                          Padding(padding: const EdgeInsets.all(10), child: Text(context.l10n.nextSequential, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
+                          Padding(padding: const EdgeInsets.all(10), child: Text(context.l10n.sampleDocNumber, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
                         ],
                       ),
                       for (final s in series)
@@ -1279,23 +1282,23 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
       context: context,
       builder: (ctx) => StatefulBuilder(
         builder: (context, setModalState) => AlertDialog(
-          title: const Text('Invite Team Member'),
+          title: Text(context.l10n.inviteTeamMember),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
                 controller: nameController,
-                decoration: const InputDecoration(labelText: 'Full Name', border: OutlineInputBorder()),
+                decoration: InputDecoration(labelText: context.l10n.fullName, border: const OutlineInputBorder()),
               ),
               const SizedBox(height: 12),
               TextField(
                 controller: emailController,
-                decoration: const InputDecoration(labelText: 'Email Address', border: OutlineInputBorder()),
+                decoration: InputDecoration(labelText: context.l10n.emailAddress, border: const OutlineInputBorder()),
               ),
               const SizedBox(height: 12),
               DropdownButtonFormField<String>(
                 initialValue: selectedRole,
-                decoration: const InputDecoration(labelText: 'Role Directive', border: OutlineInputBorder()),
+                decoration: InputDecoration(labelText: context.l10n.roleDirective, border: const OutlineInputBorder()),
                 items: const [
                   DropdownMenuItem(value: 'Accountant', child: Text('Accountant')),
                   DropdownMenuItem(value: 'Sales Representative', child: Text('Sales Representative')),
@@ -1311,19 +1314,19 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(ctx),
-              child: const Text('Cancel'),
+              child: Text(context.l10n.cancel),
             ),
             ElevatedButton(
               onPressed: () {
                 Navigator.pop(ctx);
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: Text('Invitation sent to ${emailController.text} as $selectedRole.'),
+                    content: Text('${context.l10n.invitationSent} ${emailController.text} ${context.l10n.asRole} $selectedRole.'),
                     backgroundColor: AppColors.paid,
                   ),
                 );
               },
-              child: const Text('Send Invite'),
+              child: Text(context.l10n.sendInvite),
             ),
           ],
         ),
@@ -1351,17 +1354,17 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Users & Role-Based Permissions', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                    Text(context.l10n.usersAndPermissions, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                     const SizedBox(height: 4),
-                    const Text(
-                      'Manage authorized users, segregation of duties, and module rights',
+                    Text(
+                      context.l10n.usersAndPermissionsSubtitle,
                       style: TextStyle(fontSize: 12.5, color: AppColors.textSecondary),
                     ),
                     const SizedBox(height: 12),
                     ElevatedButton.icon(
                       onPressed: _showInviteUserDialog,
                       icon: const Icon(Icons.person_add_outlined, size: 14),
-                      label: const Text('+ Invite User'),
+                      label: Text(context.l10n.inviteUserBtn),
                     ),
                   ],
                 );
@@ -1369,13 +1372,13 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Expanded(
+                  Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Users & Role-Based Permissions', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                        SizedBox(height: 4),
-                        Text('Manage authorized users, segregation of duties, and module rights', style: TextStyle(fontSize: 12.5, color: AppColors.textSecondary)),
+                        Text(context.l10n.usersAndPermissions, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                        const SizedBox(height: 4),
+                        Text(context.l10n.usersAndPermissionsSubtitle, style: const TextStyle(fontSize: 12.5, color: AppColors.textSecondary)),
                       ],
                     ),
                   ),
@@ -1383,7 +1386,7 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
                   ElevatedButton.icon(
                     onPressed: _showInviteUserDialog,
                     icon: const Icon(Icons.person_add_outlined, size: 14),
-                    label: const Text('+ Invite User'),
+                    label: Text(context.l10n.inviteUserBtn),
                   ),
                 ],
               );
@@ -1438,7 +1441,7 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
                                               color: const Color(0xFFDCFCE7),
                                               borderRadius: BorderRadius.circular(4),
                                             ),
-                                            child: const Text('Active', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Color(0xFF166534))),
+                                            child: Text(context.l10n.statusActive, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Color(0xFF166534))),
                                           ),
                                         ],
                                       ),
@@ -1490,7 +1493,7 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
                                   child: Text(u.role, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: Color(0xFF334155))),
                                 ),
                                 const SizedBox(width: 12),
-                                const Text('Active', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: Color(0xFF166534))),
+                                Text(context.l10n.statusActive, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: Color(0xFF166534))),
                               ],
                             ),
                     ),
@@ -1516,9 +1519,9 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Security & Audit Log Trail', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          Text(context.l10n.securityAuditTrail, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
           const SizedBox(height: 4),
-          const Text('Immutable chronological trace of user operations and system posts', style: TextStyle(fontSize: 12.5, color: AppColors.textSecondary)),
+          Text(context.l10n.securityAuditSubtitle, style: const TextStyle(fontSize: 12.5, color: AppColors.textSecondary)),
           const SizedBox(height: 20),
           const Divider(height: 1),
           const SizedBox(height: 16),
@@ -1571,14 +1574,14 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
                   child: Table(
                     border: TableBorder.all(color: AppColors.border),
                     children: [
-                      const TableRow(
-                        decoration: BoxDecoration(color: Color(0xFFF8FAFC)),
+                      TableRow(
+                        decoration: const BoxDecoration(color: Color(0xFFF8FAFC)),
                         children: [
-                          Padding(padding: EdgeInsets.all(10), child: Text('Timestamp', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
-                          Padding(padding: EdgeInsets.all(10), child: Text('User', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
-                          Padding(padding: EdgeInsets.all(10), child: Text('Action', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
-                          Padding(padding: EdgeInsets.all(10), child: Text('Details', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
-                          Padding(padding: EdgeInsets.all(10), child: Text('IP Address', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
+                          Padding(padding: const EdgeInsets.all(10), child: Text(context.l10n.colTimestamp, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
+                          Padding(padding: const EdgeInsets.all(10), child: Text(context.l10n.colUser, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
+                          Padding(padding: const EdgeInsets.all(10), child: Text(context.l10n.colAction, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
+                          Padding(padding: const EdgeInsets.all(10), child: Text(context.l10n.colDetails, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
+                          Padding(padding: const EdgeInsets.all(10), child: Text(context.l10n.colIpAddress, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12))),
                         ],
                       ),
                       for (final log in logs)

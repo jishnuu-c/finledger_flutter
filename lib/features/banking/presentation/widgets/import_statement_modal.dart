@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/localization/locale_provider.dart';
 import '../../../../core/theme/app_colors.dart';
 
 class ImportStatementModal extends StatefulWidget {
@@ -130,7 +131,7 @@ class _ImportStatementModalState extends State<ImportStatementModal> {
                       child: TextButton.icon(
                         onPressed: _loadSampleData,
                         icon: const Icon(Icons.add, size: 14),
-                        label: const Text('Load Sample CSV', style: TextStyle(fontSize: 11)),
+                        label: Text(context.l10n.loadSampleCsv, style: const TextStyle(fontSize: 11)),
                         style: TextButton.styleFrom(
                           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                           minimumSize: Size.zero,
@@ -166,7 +167,7 @@ class _ImportStatementModalState extends State<ImportStatementModal> {
                 children: [
                   OutlinedButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    child: const Text('Cancel'),
+                    child: Text(context.l10n.cancel),
                   ),
                   ElevatedButton.icon(
                     onPressed: () {
@@ -177,7 +178,7 @@ class _ImportStatementModalState extends State<ImportStatementModal> {
                       }
                     },
                     icon: const Icon(Icons.file_download_done, size: 16),
-                    label: const Text('Import & Auto-Match'),
+                    label: Text(context.l10n.importAndAutoMatch),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF2563EB),
                       foregroundColor: Colors.white,

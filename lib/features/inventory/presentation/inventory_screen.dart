@@ -173,14 +173,14 @@ class InventoryScreen extends StatelessWidget {
                   headingRowHeight: 40,
                   dataRowMinHeight: 48,
                   dataRowMaxHeight: 48,
-                  columns: const [
-                    DataColumn(label: Text('SKU CODE', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                    DataColumn(label: Text('ITEM NAME', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                    DataColumn(label: Text('CATEGORY', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                    DataColumn(label: Text('ON HAND', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                    DataColumn(label: Text('REORDER LEVEL', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                    DataColumn(label: Text('WEIGHTED AVG COST', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                    DataColumn(label: Text('STATUS', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                  columns: [
+                    DataColumn(label: Text(context.l10n.sku, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                    DataColumn(label: Text(context.l10n.itemName, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                    DataColumn(label: Text(context.l10n.category, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                    DataColumn(label: Text(context.l10n.onHand, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                    DataColumn(label: Text(context.l10n.reorderLevel, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                    DataColumn(label: Text(context.l10n.weightedAvgCost, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                    DataColumn(label: Text(context.l10n.status, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
                   ],
                   rows: items.map((it) {
                     final isLow = it['status'] == 'Low Stock';

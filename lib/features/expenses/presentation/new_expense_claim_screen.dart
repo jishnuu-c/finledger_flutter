@@ -260,7 +260,7 @@ class _NewExpenseClaimScreenState extends State<NewExpenseClaimScreen> {
   Future<void> _submitClaim({required bool submitForApproval}) async {
     if (_lines.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please add at least one line item.'), backgroundColor: Color(0xFFDC2626)),
+        SnackBar(content: Text(context.l10n.pleaseAddLineItem), backgroundColor: const Color(0xFFDC2626)),
       );
       return;
     }
@@ -482,7 +482,7 @@ class _NewExpenseClaimScreenState extends State<NewExpenseClaimScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Paid by *', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+        Text('${context.l10n.paidBy} *', style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
         const SizedBox(height: 6),
         Container(
           height: 40,
@@ -607,7 +607,7 @@ class _NewExpenseClaimScreenState extends State<NewExpenseClaimScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Expense No.', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+        Text(context.l10n.expenseNo, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
         const SizedBox(height: 6),
         Container(
           height: 40,
@@ -631,7 +631,7 @@ class _NewExpenseClaimScreenState extends State<NewExpenseClaimScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Date *', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+        Text('${context.l10n.date} *', style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
         const SizedBox(height: 6),
         SizedBox(
           height: 40,
@@ -655,7 +655,7 @@ class _NewExpenseClaimScreenState extends State<NewExpenseClaimScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Currency', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+        Text(context.l10n.currency, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
         const SizedBox(height: 6),
         Container(
           height: 40,
@@ -689,7 +689,7 @@ class _NewExpenseClaimScreenState extends State<NewExpenseClaimScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Purpose', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+        Text(context.l10n.purpose, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
         const SizedBox(height: 6),
         SizedBox(
           height: 40,
@@ -737,16 +737,16 @@ class _NewExpenseClaimScreenState extends State<NewExpenseClaimScreen> {
                       Container(
                         color: const Color(0xFFF8FAFC),
                         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                        child: const Row(
+                        child: Row(
                           children: [
-                            Expanded(flex: 3, child: Text('Category *', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
-                            Expanded(flex: 5, child: Text('Description', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
-                            Expanded(flex: 2, child: Text('Cost center', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
-                            Expanded(flex: 2, child: Text('Billable to', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
-                            Expanded(flex: 2, child: Text('Net', textAlign: TextAlign.right, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
-                            Expanded(flex: 2, child: Text('VAT', textAlign: TextAlign.center, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
-                            Expanded(flex: 2, child: Text('Total', textAlign: TextAlign.right, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
-                            SizedBox(width: 85, child: Center(child: Text('Receipt', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary)))),
+                            Expanded(flex: 3, child: Text('${context.l10n.category} *', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                            Expanded(flex: 5, child: Text(context.l10n.description, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                            Expanded(flex: 2, child: Text(context.l10n.costCenter, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                            Expanded(flex: 2, child: Text(context.l10n.billableTo, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                            Expanded(flex: 2, child: Text(context.l10n.net, textAlign: TextAlign.right, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                            Expanded(flex: 2, child: Text(context.l10n.vat, textAlign: TextAlign.center, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                            Expanded(flex: 2, child: Text(context.l10n.lineTotal, textAlign: TextAlign.right, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                            SizedBox(width: 85, child: Center(child: Text(context.l10n.receipt, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary)))),
                             SizedBox(width: 24),
                           ],
                         ),
@@ -962,7 +962,7 @@ class _NewExpenseClaimScreenState extends State<NewExpenseClaimScreen> {
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Text('Net', style: TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                    Text(context.l10n.net, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
                     const SizedBox(width: 8),
                     Text(_currencyFormat.format(_subtotalNet), style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
                   ],
@@ -970,7 +970,7 @@ class _NewExpenseClaimScreenState extends State<NewExpenseClaimScreen> {
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Text('VAT', style: TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                    Text(context.l10n.vat, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
                     const SizedBox(width: 8),
                     Text(_currencyFormat.format(_taxTotal), style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
                   ],
@@ -978,7 +978,7 @@ class _NewExpenseClaimScreenState extends State<NewExpenseClaimScreen> {
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Text('Total (AED)', style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+                    Text(context.l10n.totalAed, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
                     const SizedBox(width: 10),
                     Text(
                       _currencyFormat.format(_grandTotal),
@@ -1006,7 +1006,7 @@ class _NewExpenseClaimScreenState extends State<NewExpenseClaimScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
                   ),
-                  child: const Text('Cancel', style: TextStyle(fontSize: 12.5, color: AppColors.textPrimary)),
+                  child: Text(context.l10n.cancel, style: const TextStyle(fontSize: 12.5, color: AppColors.textPrimary)),
                 ),
                 OutlinedButton(
                   onPressed: () => _submitClaim(submitForApproval: false),
@@ -1015,7 +1015,7 @@ class _NewExpenseClaimScreenState extends State<NewExpenseClaimScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
                   ),
-                  child: const Text('Save Draft', style: TextStyle(fontSize: 12.5, color: AppColors.textPrimary)),
+                  child: Text(context.l10n.saveDraft, style: const TextStyle(fontSize: 12.5, color: AppColors.textPrimary)),
                 ),
                 ElevatedButton(
                   onPressed: () => _submitClaim(submitForApproval: true),
@@ -1026,7 +1026,7 @@ class _NewExpenseClaimScreenState extends State<NewExpenseClaimScreen> {
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
                     elevation: 0,
                   ),
-                  child: const Text('Submit for Approval', style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.bold)),
+                  child: Text(context.l10n.submitForApproval, style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.bold)),
                 ),
               ],
             ),
@@ -1068,7 +1068,7 @@ class _NewExpenseClaimScreenState extends State<NewExpenseClaimScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Receipts', style: TextStyle(fontSize: 13.5, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+          Text(context.l10n.receipts, style: const TextStyle(fontSize: 13.5, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
           const SizedBox(height: 12),
 
           // Drop / Camera click container

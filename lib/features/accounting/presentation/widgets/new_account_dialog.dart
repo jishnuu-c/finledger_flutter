@@ -139,7 +139,7 @@ class _NewAccountDialogState extends State<NewAccountDialog> {
                     validator: (val) => val == null || val.trim().isEmpty ? 'Required' : null,
                   ),
                   const SizedBox(height: 14),
-                  const Text('Account Name *', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+                  Text('${context.l10n.accountName} *', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
                   const SizedBox(height: 6),
                   TextFormField(
                     controller: _nameController,
@@ -147,7 +147,7 @@ class _NewAccountDialogState extends State<NewAccountDialog> {
                     validator: (val) => val == null || val.trim().isEmpty ? 'Required' : null,
                   ),
                   const SizedBox(height: 14),
-                  const Text('Account Type *', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+                  Text('${context.l10n.accountTypeLabel} *', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
                   const SizedBox(height: 6),
                   DropdownButtonFormField<AccountType>(
                     isExpanded: true,
@@ -160,7 +160,7 @@ class _NewAccountDialogState extends State<NewAccountDialog> {
                     },
                   ),
                   const SizedBox(height: 14),
-                  const Text('Sub-Type (Optional)', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+                  Text(context.l10n.subTypeOptional, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
                   const SizedBox(height: 6),
                   TextFormField(
                     controller: _subTypeController,
@@ -190,7 +190,7 @@ class _NewAccountDialogState extends State<NewAccountDialog> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text('Account Name *', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+                            Text('${context.l10n.accountName} *', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
                             const SizedBox(height: 6),
                             TextFormField(
                               controller: _nameController,
@@ -211,7 +211,7 @@ class _NewAccountDialogState extends State<NewAccountDialog> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text('Account Type *', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+                            Text('${context.l10n.accountTypeLabel} *', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
                             const SizedBox(height: 6),
                             DropdownButtonFormField<AccountType>(
                               isExpanded: true,
@@ -231,7 +231,7 @@ class _NewAccountDialogState extends State<NewAccountDialog> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text('Sub-Type (Optional)', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+                            Text(context.l10n.subTypeOptional, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
                             const SizedBox(height: 6),
                             TextFormField(
                               controller: _subTypeController,
@@ -249,7 +249,7 @@ class _NewAccountDialogState extends State<NewAccountDialog> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Parent Account', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+                    Text(context.l10n.parentAccount, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
                     const SizedBox(height: 6),
                     DropdownButtonFormField<int?>(
                       isExpanded: true,
@@ -257,9 +257,9 @@ class _NewAccountDialogState extends State<NewAccountDialog> {
                       isDense: true,
                       decoration: const InputDecoration(contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 10)),
                       items: [
-                        const DropdownMenuItem<int?>(
+                        DropdownMenuItem<int?>(
                           value: null,
-                          child: Text('— None (Top-level Group) —', style: TextStyle(fontSize: 13, color: Color(0xFF64748B)), overflow: TextOverflow.ellipsis),
+                          child: Text(context.l10n.topLevelGroup, style: const TextStyle(fontSize: 13, color: Color(0xFF64748B)), overflow: TextOverflow.ellipsis),
                         ),
                         ...widget.groupAccounts.map(
                           (a) => DropdownMenuItem<int?>(

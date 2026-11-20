@@ -114,7 +114,7 @@ class _GlDrilldownModalState extends State<GlDrilldownModal> {
                   }
                   final txs = snapshot.data ?? [];
                   if (txs.isEmpty) {
-                    return const Center(child: Text('No journal transactions found for this account.'));
+                    return Center(child: Text(context.l10n.noJournalTransactionsFound));
                   }
 
                   return Container(

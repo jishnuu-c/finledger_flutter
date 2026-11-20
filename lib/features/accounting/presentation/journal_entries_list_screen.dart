@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/localization/locale_provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -76,7 +77,7 @@ class _JournalEntriesListScreenState extends State<JournalEntriesListScreen> {
                 ElevatedButton.icon(
                   onPressed: () => context.go('/accounting/journals/new'),
                   icon: const Icon(Icons.add, size: 16),
-                  label: const Text('New Journal Entry'),
+                  label: Text(context.l10n.newJournalEntry),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF1D4ED8),
                     foregroundColor: Colors.white,
@@ -125,7 +126,7 @@ class _JournalEntriesListScreenState extends State<JournalEntriesListScreen> {
                 ElevatedButton.icon(
                   onPressed: () => context.go('/accounting/journals/new'),
                   icon: const Icon(Icons.add, size: 16),
-                  label: const Text('New Journal Entry'),
+                  label: Text(context.l10n.newJournalEntry),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF1D4ED8),
                     foregroundColor: Colors.white,

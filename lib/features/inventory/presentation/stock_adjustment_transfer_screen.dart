@@ -306,7 +306,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
   Future<void> _submitAdjustment({required bool post}) async {
     if (_adjLines.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please add at least one line item.'), backgroundColor: Color(0xFFDC2626)),
+        SnackBar(content: Text(context.l10n.pleaseAddLineItem), backgroundColor: const Color(0xFFDC2626)),
       );
       return;
     }
@@ -350,13 +350,13 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
   Future<void> _submitTransfer({required bool dispatch}) async {
     if (_trfLines.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please add at least one line item.'), backgroundColor: Color(0xFFDC2626)),
+        SnackBar(content: Text(context.l10n.pleaseAddLineItem), backgroundColor: const Color(0xFFDC2626)),
       );
       return;
     }
     if (_trfFromWarehouseCode == _trfToWarehouseCode) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('From and To warehouse cannot be identical.'), backgroundColor: Color(0xFFDC2626)),
+        SnackBar(content: Text(context.l10n.warehousesCannotBeIdentical), backgroundColor: const Color(0xFFDC2626)),
       );
       return;
     }
@@ -603,7 +603,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
           const SizedBox(height: 14),
 
           // Notes Row
-          const Text('Notes', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w500, color: AppColors.textSecondary)),
+          Text(context.l10n.notes, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w500, color: AppColors.textSecondary)),
           const SizedBox(height: 4),
           SizedBox(
             height: 38,
@@ -628,7 +628,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Adjustment No.', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w500, color: AppColors.textSecondary)),
+        Text(context.l10n.adjustmentNo, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w500, color: AppColors.textSecondary)),
         const SizedBox(height: 4),
         Container(
           height: 38,
@@ -652,7 +652,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Date *', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w500, color: AppColors.textSecondary)),
+        Text('${context.l10n.date} *', style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w500, color: AppColors.textSecondary)),
         const SizedBox(height: 4),
         SizedBox(
           height: 38,
@@ -676,7 +676,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Warehouse *', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w500, color: AppColors.textSecondary)),
+        Text('${context.l10n.warehouse} *', style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w500, color: AppColors.textSecondary)),
         const SizedBox(height: 4),
         Container(
           height: 38,
@@ -710,7 +710,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Reason *', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w500, color: AppColors.textSecondary)),
+        Text('${context.l10n.reasonLabel} *', style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w500, color: AppColors.textSecondary)),
         const SizedBox(height: 4),
         Container(
           height: 38,
@@ -725,13 +725,13 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
               value: _adjReason,
               isExpanded: true,
               style: const TextStyle(fontSize: 12.5, color: AppColors.textPrimary),
-              items: const [
-                DropdownMenuItem(value: 'Stock count', child: Text('Stock count')),
-                DropdownMenuItem(value: 'Damaged goods', child: Text('Damaged goods')),
-                DropdownMenuItem(value: 'Expired', child: Text('Expired')),
-                DropdownMenuItem(value: 'Theft / Loss', child: Text('Theft / Loss')),
-                DropdownMenuItem(value: 'Opening balance', child: Text('Opening balance')),
-                DropdownMenuItem(value: 'Other', child: Text('Other')),
+              items: [
+                DropdownMenuItem(value: 'Stock count', child: Text(context.l10n.reasonStockCount)),
+                DropdownMenuItem(value: 'Damaged goods', child: Text(context.l10n.reasonDamagedGoods)),
+                DropdownMenuItem(value: 'Expired', child: Text(context.l10n.reasonExpired)),
+                DropdownMenuItem(value: 'Theft / Loss', child: Text(context.l10n.reasonTheftLoss)),
+                DropdownMenuItem(value: 'Opening balance', child: Text(context.l10n.reasonOpeningBalance)),
+                DropdownMenuItem(value: 'Other', child: Text(context.l10n.reasonOther)),
               ],
               onChanged: (val) {
                 if (val != null) setState(() => _adjReason = val);
@@ -747,7 +747,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Adjustment Account *', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w500, color: AppColors.textSecondary)),
+        Text('${context.l10n.adjustmentAccount} *', style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w500, color: AppColors.textSecondary)),
         const SizedBox(height: 4),
         Container(
           height: 38,
@@ -803,15 +803,15 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
                       Container(
                         color: const Color(0xFFF8FAFC),
                         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                        child: const Row(
+                        child: Row(
                           children: [
-                            Expanded(flex: 3, child: Text('Item *', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
-                            Expanded(flex: 6, child: Text('Description', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
-                            Expanded(flex: 2, child: Text('System qty', textAlign: TextAlign.right, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
-                            Expanded(flex: 2, child: Text('Counted qty', textAlign: TextAlign.right, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
-                            Expanded(flex: 2, child: Text('Difference', textAlign: TextAlign.right, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
-                            Expanded(flex: 2, child: Text('Avg cost', textAlign: TextAlign.right, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
-                            Expanded(flex: 3, child: Text('Value impact (AED)', textAlign: TextAlign.right, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                            Expanded(flex: 3, child: Text('${context.l10n.colItem} *', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                            Expanded(flex: 6, child: Text(context.l10n.description, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                            Expanded(flex: 2, child: Text(context.l10n.systemQty, textAlign: TextAlign.right, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                            Expanded(flex: 2, child: Text(context.l10n.countedQty, textAlign: TextAlign.right, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                            Expanded(flex: 2, child: Text(context.l10n.difference, textAlign: TextAlign.right, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                            Expanded(flex: 2, child: Text(context.l10n.colAvgCost, textAlign: TextAlign.right, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                            Expanded(flex: 3, child: Text(context.l10n.valueImpactAed, textAlign: TextAlign.right, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
                             SizedBox(width: 32),
                           ],
                         ),
@@ -966,7 +966,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
                                     onPressed: () {
                                       setState(() => _adjLines.removeAt(index));
                                     },
-                                    tooltip: 'Remove line',
+                                    tooltip: context.l10n.removeLineTooltip,
                                   ),
                                 ),
                               ],
@@ -1029,7 +1029,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
                   runSpacing: 4,
                   crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
-                    const Text('Net value impact', style: TextStyle(fontSize: 13.5, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+                    Text(context.l10n.netValueImpact, style: const TextStyle(fontSize: 13.5, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
                     Text(
                       _currencyFormat.format(_adjNetValueImpact),
                       style: TextStyle(
@@ -1071,7 +1071,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Journal preview (on post)', style: TextStyle(fontSize: 13.5, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+              Text(context.l10n.journalPreviewOnPost, style: const TextStyle(fontSize: 13.5, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
               const SizedBox(height: 12),
               Container(
                 decoration: BoxDecoration(
@@ -1084,11 +1084,11 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
                     Container(
                       color: const Color(0xFFF8FAFC),
                       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                      child: const Row(
+                      child: Row(
                         children: [
-                          Expanded(flex: 5, child: Text('Account', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
-                          Expanded(flex: 3, child: Text('Debit', textAlign: TextAlign.right, style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
-                          Expanded(flex: 3, child: Text('Credit', textAlign: TextAlign.right, style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                          Expanded(flex: 5, child: Text(context.l10n.colAccount, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                          Expanded(flex: 3, child: Text(context.l10n.debit, textAlign: TextAlign.right, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                          Expanded(flex: 3, child: Text(context.l10n.credit, textAlign: TextAlign.right, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
                         ],
                       ),
                     ),
@@ -1159,7 +1159,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Stock effect', style: TextStyle(fontSize: 13.5, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+              Text(context.l10n.stockEffect, style: const TextStyle(fontSize: 13.5, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
               const SizedBox(height: 12),
               Text(
                 '${_adjLines.length} lines · $itemsChangedCount items changed',
@@ -1190,7 +1190,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
                       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
                     ),
-                    child: const Text('Save Draft', style: TextStyle(fontSize: 12.5, color: AppColors.textPrimary)),
+                    child: Text(context.l10n.saveDraft, style: const TextStyle(fontSize: 12.5, color: AppColors.textPrimary)),
                   ),
                   ElevatedButton(
                     onPressed: () => _submitAdjustment(post: true),
@@ -1201,7 +1201,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
                       elevation: 0,
                     ),
-                    child: const Text('Post Adjustment', style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.bold)),
+                    child: Text(context.l10n.postAdjustment, style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.bold)),
                   ),
                 ],
               ),
@@ -1289,7 +1289,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
           const SizedBox(height: 14),
 
           // Notes
-          const Text('Notes', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w500, color: AppColors.textSecondary)),
+          Text(context.l10n.notes, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w500, color: AppColors.textSecondary)),
           const SizedBox(height: 4),
           SizedBox(
             height: 38,
@@ -1314,7 +1314,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Transfer No.', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w500, color: AppColors.textSecondary)),
+        Text(context.l10n.transferNo, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w500, color: AppColors.textSecondary)),
         const SizedBox(height: 4),
         Container(
           height: 38,
@@ -1335,7 +1335,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Date *', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w500, color: AppColors.textSecondary)),
+        Text('${context.l10n.date} *', style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w500, color: AppColors.textSecondary)),
         const SizedBox(height: 4),
         SizedBox(
           height: 38,
@@ -1359,7 +1359,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('From Warehouse *', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w500, color: AppColors.textSecondary)),
+        Text('${context.l10n.fromWarehouse} *', style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w500, color: AppColors.textSecondary)),
         const SizedBox(height: 4),
         Container(
           height: 38,
@@ -1391,7 +1391,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('To Warehouse *', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w500, color: AppColors.textSecondary)),
+        Text('${context.l10n.toWarehouse} *', style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w500, color: AppColors.textSecondary)),
         const SizedBox(height: 4),
         Container(
           height: 38,
@@ -1445,14 +1445,14 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
                       Container(
                         color: const Color(0xFFF8FAFC),
                         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                        child: const Row(
+                        child: Row(
                           children: [
-                            Expanded(flex: 3, child: Text('Item *', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
-                            Expanded(flex: 6, child: Text('Description', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
-                            Expanded(flex: 2, child: Text('Available Qty', textAlign: TextAlign.right, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
-                            Expanded(flex: 2, child: Text('Transfer Qty', textAlign: TextAlign.right, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
-                            Expanded(flex: 2, child: Text('Unit Cost', textAlign: TextAlign.right, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
-                            Expanded(flex: 3, child: Text('Transfer Value (AED)', textAlign: TextAlign.right, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                            Expanded(flex: 3, child: Text('${context.l10n.colItem} *', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                            Expanded(flex: 6, child: Text(context.l10n.description, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                            Expanded(flex: 2, child: Text(context.l10n.availableQty, textAlign: TextAlign.right, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                            Expanded(flex: 2, child: Text(context.l10n.transferQty, textAlign: TextAlign.right, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                            Expanded(flex: 2, child: Text(context.l10n.unitCost, textAlign: TextAlign.right, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                            Expanded(flex: 3, child: Text(context.l10n.transferValueAed, textAlign: TextAlign.right, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
                             SizedBox(width: 32),
                           ],
                         ),
@@ -1614,12 +1614,12 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
                   children: [
                     InkWell(
                       onTap: _onAddItemToTransfer,
-                      child: const Text('+ Add item', style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Color(0xFF2563EB))),
+                      child: Text(context.l10n.addItem, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Color(0xFF2563EB))),
                     ),
                     const Text('·', style: TextStyle(color: AppColors.textMuted)),
                     InkWell(
                       onTap: _onScanBarcode,
-                      child: const Text('Scan barcode', style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Color(0xFF2563EB))),
+                      child: Text(context.l10n.scanBarcode, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Color(0xFF2563EB))),
                     ),
                   ],
                 ),
@@ -1628,7 +1628,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
                   runSpacing: 4,
                   crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
-                    const Text('Total transfer value', style: TextStyle(fontSize: 13.5, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+                    Text(context.l10n.totalTransferValue, style: const TextStyle(fontSize: 13.5, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
                     Text(
                       'AED ${_currencyFormat.format(_trfTotalValue)}',
                       style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w800, color: Color(0xFF2563EB)),
@@ -1655,10 +1655,10 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
         builder: (context, constraints) {
           final isStacked = constraints.maxWidth < 750;
 
-          const info = Column(
+          final info = Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Stock Transfer Impact', style: TextStyle(fontSize: 13.5, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+              Text(context.l10n.stockTransferImpact, style: const TextStyle(fontSize: 13.5, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
               SizedBox(height: 4),
               Text(
                 'Creates TRANSFER_OUT from source warehouse and TRANSFER_IN to destination warehouse.',
@@ -1683,7 +1683,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
                 ),
-                child: const Text('Save Draft', style: TextStyle(fontSize: 12.5, color: AppColors.textPrimary)),
+                child: Text(context.l10n.saveDraft, style: const TextStyle(fontSize: 12.5, color: AppColors.textPrimary)),
               ),
               ElevatedButton(
                 onPressed: () => _submitTransfer(dispatch: true),
@@ -1694,7 +1694,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
                   elevation: 0,
                 ),
-                child: const Text('Dispatch Transfer', style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.bold)),
+                child: Text(context.l10n.dispatchTransfer, style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.bold)),
               ),
             ],
           );
@@ -1713,7 +1713,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
           return Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Expanded(child: info),
+              Expanded(child: info),
               const SizedBox(width: 16),
               actions,
             ],

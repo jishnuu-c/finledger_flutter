@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/localization/locale_provider.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../data/models/banking_models.dart';
 
@@ -146,7 +147,7 @@ class _CreateBankEntryModalState extends State<CreateBankEntryModal> {
                 const SizedBox(height: 16),
 
                 // Account picker
-                const Text('Expense Account *', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+                Text('${context.l10n.expenseAccount} *', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
                 const SizedBox(height: 6),
                 DropdownButtonFormField<String>(
                   isExpanded: true,
@@ -184,7 +185,7 @@ class _CreateBankEntryModalState extends State<CreateBankEntryModal> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('Cost Center', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+                          Text(context.l10n.costCenter, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
                           const SizedBox(height: 6),
                           DropdownButtonFormField<String>(
                             isExpanded: true,
@@ -192,10 +193,10 @@ class _CreateBankEntryModalState extends State<CreateBankEntryModal> {
                             decoration: const InputDecoration(
                               contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                             ),
-                            items: const [
-                              DropdownMenuItem(value: 'Admin', child: Text('Admin', style: TextStyle(fontSize: 13))),
-                              DropdownMenuItem(value: 'Sales', child: Text('Sales', style: TextStyle(fontSize: 13))),
-                            DropdownMenuItem(value: 'Operations', child: Text('Operations', style: TextStyle(fontSize: 13))),
+                            items: [
+                              DropdownMenuItem(value: 'Admin', child: Text(context.l10n.costCenterAdmin, style: const TextStyle(fontSize: 13))),
+                              DropdownMenuItem(value: 'Sales', child: Text(context.l10n.costCenterSales, style: const TextStyle(fontSize: 13))),
+                            DropdownMenuItem(value: 'Operations', child: Text(context.l10n.costCenterOperations, style: const TextStyle(fontSize: 13))),
                           ],
                           onChanged: (val) {
                             if (val != null) setState(() => _costCenter = val);
@@ -209,7 +210,7 @@ class _CreateBankEntryModalState extends State<CreateBankEntryModal> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text('Amount (AED) *', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+                        Text('${context.l10n.amountAed} *', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
                         const SizedBox(height: 6),
                         TextFormField(
                           controller: _amountController,
@@ -227,7 +228,7 @@ class _CreateBankEntryModalState extends State<CreateBankEntryModal> {
               const SizedBox(height: 14),
 
               // Reference
-              const Text('Journal Reference *', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+              Text('${context.l10n.journalReference} *', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
               const SizedBox(height: 6),
               TextFormField(
                 controller: _refController,
@@ -239,7 +240,7 @@ class _CreateBankEntryModalState extends State<CreateBankEntryModal> {
               const SizedBox(height: 14),
 
               // Narration
-              const Text('Narration', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+              Text(context.l10n.narration, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
               const SizedBox(height: 6),
               TextFormField(
                 controller: _narrationController,
@@ -279,7 +280,7 @@ class _CreateBankEntryModalState extends State<CreateBankEntryModal> {
                 children: [
                   OutlinedButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    child: const Text('Cancel'),
+                    child: Text(context.l10n.cancel),
                   ),
                   ElevatedButton(
                     onPressed: () {
@@ -299,7 +300,7 @@ class _CreateBankEntryModalState extends State<CreateBankEntryModal> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF2563EB),
                     ),
-                    child: const Text('Post & Clear Entry'),
+                    child: Text(context.l10n.postAndClearEntry),
                   ),
                 ],
               ),

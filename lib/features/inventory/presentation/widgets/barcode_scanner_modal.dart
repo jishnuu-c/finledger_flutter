@@ -204,7 +204,7 @@ class _BarcodeScannerModalState extends State<BarcodeScannerModal> with SingleTi
                       controller: _barcodeController,
                       style: const TextStyle(fontSize: 13),
                       decoration: InputDecoration(
-                        hintText: 'Enter barcode or SKU (e.g. 629104800130)',
+                        hintText: context.l10n.enterBarcodeSku,
                         hintStyle: const TextStyle(fontSize: 12, color: AppColors.textMuted),
                         contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                         border: OutlineInputBorder(
@@ -227,7 +227,7 @@ class _BarcodeScannerModalState extends State<BarcodeScannerModal> with SingleTi
                     ),
                     child: _isSearching
                         ? const SizedBox(width: 14, height: 14, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
-                        : const Text('Scan', style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
+                        : Text(context.l10n.scanBtn, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
                   ),
                 ],
               ),
@@ -241,7 +241,7 @@ class _BarcodeScannerModalState extends State<BarcodeScannerModal> with SingleTi
               ],
 
               const SizedBox(height: 16),
-              const Text('Quick Test Barcodes:', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textSecondary)),
+              Text(context.l10n.quickTestBarcodes, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textSecondary)),
               const SizedBox(height: 8),
 
               Wrap(

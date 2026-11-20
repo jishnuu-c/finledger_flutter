@@ -359,7 +359,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get markWon => 'Mark as Won';
 
   @override
-  String get markLost => 'Mark as Lost';
+  String get markLost => 'Mark Lost';
 
   @override
   String get opportunityDetails => 'Opportunity Details';
@@ -410,7 +410,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get subtotal => 'Subtotal';
 
   @override
-  String get vat => 'VAT (5%)';
+  String get vat => 'VAT';
 
   @override
   String get totalAmount => 'Total Amount';
@@ -497,7 +497,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sellingPrice => 'Selling Price';
 
   @override
-  String get onHand => 'On Hand';
+  String get onHand => 'ON HAND';
 
   @override
   String get reorderPoint => 'Reorder Point';
@@ -858,16 +858,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dueOnReceipt => 'Due on Receipt';
 
   @override
-  String get net15 => 'Net 15 Days';
+  String get net15 => 'Net 15';
 
   @override
-  String get net30 => 'Net 30 Days';
+  String get net30 => 'Net 30';
 
   @override
-  String get net60 => 'Net 60 Days';
+  String get net60 => 'Net 60';
 
   @override
-  String get itemDescription => 'Description';
+  String get itemDescription => 'Item / Description';
 
   @override
   String get taxRate => 'Tax Rate';
@@ -1063,7 +1063,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Header account used for grouping; cannot be posted to directly.';
 
   @override
-  String get costCenter => 'Cost Center';
+  String get costCenter => 'Cost center';
 
   @override
   String get narration => 'Narration / Memo';
@@ -1140,7 +1140,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get companyProfileSubtitle =>
-      'Primary trading entity for invoice headers and official tax documentation';
+      'Primary trading entity information for official invoice headers, receipts, and UAE tax reports';
 
   @override
   String get trnNumberLabel => 'Tax Registration Number (TRN)';
@@ -1167,7 +1167,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get optimalStock => 'Optimal';
 
   @override
-  String get lowStock => 'Low Stock';
+  String get lowStock => 'Low';
 
   @override
   String get generalLedgerTrail => 'General Ledger Trail';
@@ -1381,7 +1381,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get colReceipt => 'RECEIPT';
 
   @override
-  String get colItem => 'ITEM';
+  String get colItem => 'Item';
 
   @override
   String get colOnHand => 'ON HAND';
@@ -1468,4 +1468,739 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get expandSidebar => 'Expand sidebar';
+
+  @override
+  String get languageAndRegion => 'Language & Region';
+
+  @override
+  String get usersAndRoles => 'Users & Roles';
+
+  @override
+  String get companyAndSystemSettings => 'Company & System Settings';
+
+  @override
+  String get companyProfileUpdated => 'Company profile updated successfully';
+
+  @override
+  String get companyLogoUploaded => 'Company logo uploaded successfully';
+
+  @override
+  String get companyLogoRemoved => 'Company logo removed';
+
+  @override
+  String get uploadNewLogo => 'Upload New Logo';
+
+  @override
+  String get removeLogo => 'Remove Logo';
+
+  @override
+  String get reset => 'Reset';
+
+  @override
+  String get validationRequired => 'Required';
+
+  @override
+  String get validationTrn15Digits => 'UAE TRN must be 15 digits';
+
+  @override
+  String get emirateDubai => 'Dubai';
+
+  @override
+  String get emirateAbuDhabi => 'Abu Dhabi';
+
+  @override
+  String get emirateSharjah => 'Sharjah';
+
+  @override
+  String get emirateAjman => 'Ajman';
+
+  @override
+  String get emirateRasAlKhaimah => 'Ras Al Khaimah';
+
+  @override
+  String get emirateFujairah => 'Fujairah';
+
+  @override
+  String get emirateUmmAlQuwain => 'Umm Al Quwain';
+
+  @override
+  String get currencyAedFull => 'AED - United Arab Emirates Dirham';
+
+  @override
+  String get currencyUsdFull => 'USD - US Dollar';
+
+  @override
+  String get currencyAedParen => 'AED (UAE Dirham)';
+
+  @override
+  String get currencySarParen => 'SAR (Saudi Riyal)';
+
+  @override
+  String get currencyUsdParen => 'USD (US Dollar)';
+
+  @override
+  String get fiscalYearsAndLocking => 'Fiscal Years & Period Locking';
+
+  @override
+  String get fiscalYearsSubtitle =>
+      'Configure accounting financial periods and book closure cutoffs';
+
+  @override
+  String get fiscalYear => 'Fiscal Year';
+
+  @override
+  String get startDate => 'Start Date';
+
+  @override
+  String get endDate => 'End Date';
+
+  @override
+  String get uaeVatRatesRegs => 'UAE FTA VAT Rates & Regulations';
+
+  @override
+  String get uaeVatSubtitle =>
+      'Federal Tax Authority (FTA) statutory rates for VAT 201 return reporting';
+
+  @override
+  String get currenciesAndRates => 'Currencies & Exchange Rates';
+
+  @override
+  String get currenciesSubtitle =>
+      'Multi-currency conversion rates with AED functional base currency';
+
+  @override
+  String get updateRates => 'Update Rates';
+
+  @override
+  String get ratesSynced => 'Central Bank of the UAE exchange rates synced';
+
+  @override
+  String get rateToAed => 'Rate (to 1.00 AED)';
+
+  @override
+  String get docNumberSeries => 'Document Number Series';
+
+  @override
+  String get docNumberSeriesSubtitle =>
+      'Sequential numbering patterns and prefixes across all modules';
+
+  @override
+  String get docType => 'Document Type';
+
+  @override
+  String get prefix => 'Prefix';
+
+  @override
+  String get nextSequential => 'Next Sequential';
+
+  @override
+  String get sampleDocNumber => 'Sample Document Number';
+
+  @override
+  String get usersAndPermissions => 'Users & Role-Based Permissions';
+
+  @override
+  String get usersAndPermissionsSubtitle =>
+      'Manage authorized users, segregation of duties, and module rights';
+
+  @override
+  String get inviteUserBtn => '+ Invite User';
+
+  @override
+  String get inviteTeamMember => 'Invite Team Member';
+
+  @override
+  String get fullName => 'Full Name';
+
+  @override
+  String get emailAddress => 'Email Address';
+
+  @override
+  String get roleDirective => 'Role Directive';
+
+  @override
+  String get roleAccountant => 'Accountant';
+
+  @override
+  String get roleSalesRepresentative => 'Sales Representative';
+
+  @override
+  String get roleWarehouseManager => 'Warehouse Manager';
+
+  @override
+  String get roleController => 'Controller';
+
+  @override
+  String get sendInvite => 'Send Invite';
+
+  @override
+  String get securityAuditTrail => 'Security & Audit Log Trail';
+
+  @override
+  String get securityAuditSubtitle =>
+      'Immutable chronological trace of user operations and system posts';
+
+  @override
+  String get colTimestamp => 'Timestamp';
+
+  @override
+  String get colUser => 'User';
+
+  @override
+  String get colAction => 'Action';
+
+  @override
+  String get colDetails => 'Details';
+
+  @override
+  String get colIpAddress => 'IP Address';
+
+  @override
+  String get adjustmentNo => 'Adjustment No.';
+
+  @override
+  String get reasonLabel => 'Reason';
+
+  @override
+  String get reasonStockCount => 'Stock count';
+
+  @override
+  String get reasonDamagedGoods => 'Damaged goods';
+
+  @override
+  String get reasonSurplus => 'Surplus';
+
+  @override
+  String get reasonWriteOff => 'Write-off';
+
+  @override
+  String get reasonInternalConsumption => 'Internal consumption';
+
+  @override
+  String get reasonTheftLoss => 'Theft / Loss';
+
+  @override
+  String get physicalInventoryCount => 'Physical Inventory Count (Load All)';
+
+  @override
+  String get pleaseAddLineItem => 'Please add at least one line item.';
+
+  @override
+  String get warehousesCannotBeIdentical =>
+      'From and To warehouse cannot be identical.';
+
+  @override
+  String get fromWarehouse => 'From Warehouse';
+
+  @override
+  String get toWarehouse => 'To Warehouse';
+
+  @override
+  String get transferNo => 'Transfer No.';
+
+  @override
+  String get dispatchTransfer => 'Dispatch Transfer';
+
+  @override
+  String get saveProgress => 'Save Progress';
+
+  @override
+  String get scanBarcode => 'Scan Barcode';
+
+  @override
+  String get addLineItem => 'Add Line Item';
+
+  @override
+  String get systemQty => 'System Qty';
+
+  @override
+  String get countedQty => 'Counted Qty';
+
+  @override
+  String get totalTransferValue => 'Total transfer value';
+
+  @override
+  String get netValueImpact => 'Net value impact';
+
+  @override
+  String get searchSkuBarcode => 'Search SKU / name / barcode...';
+
+  @override
+  String get allWarehouses => 'All warehouses';
+
+  @override
+  String get allCategories => 'All categories';
+
+  @override
+  String get allStatus => 'All Status';
+
+  @override
+  String get quickTestBarcodes => 'Quick Test Barcodes:';
+
+  @override
+  String get enterBarcodeSku => 'Enter barcode or SKU (e.g. 629104800130)';
+
+  @override
+  String get scanBtn => 'Scan';
+
+  @override
+  String get noInventoryItemsFound =>
+      'No inventory items found matching filters.';
+
+  @override
+  String get noStockMovementsRecorded =>
+      'No stock movements recorded for this filter.';
+
+  @override
+  String get exportStockSummaryExcel =>
+      'Exporting stock summary to Excel/CSV...';
+
+  @override
+  String get adjustmentAccount => 'Adjustment Account';
+
+  @override
+  String get balanceQty => 'Balance Qty';
+
+  @override
+  String get transferQty => 'Transfer Qty';
+
+  @override
+  String get claimApproved => 'Expense claim approved.';
+
+  @override
+  String get claimReimbursedPayroll =>
+      'Expense reimbursed via payroll / bank transfer.';
+
+  @override
+  String get rejectExpenseClaim => 'Reject Expense Claim';
+
+  @override
+  String get enterRejectionReason => 'Enter rejection reason for the employee:';
+
+  @override
+  String get postToGl => 'Post to General Ledger';
+
+  @override
+  String get selectReceiptDocument => 'Select Receipt Document:';
+
+  @override
+  String get tapToCaptureAttach => 'Tap to capture & attach';
+
+  @override
+  String get noExpensesFoundTab => 'No expenses found for this tab.';
+
+  @override
+  String get exportingExpensesExcel => 'Exporting expenses to Excel...';
+
+  @override
+  String get employeePayee => 'Employee / Payee';
+
+  @override
+  String get paidBy => 'Paid by';
+
+  @override
+  String get purpose => 'Purpose';
+
+  @override
+  String get receiptDate => 'Receipt Date';
+
+  @override
+  String get submitForApproval => 'Submit for Approval';
+
+  @override
+  String get expenseAccount => 'Expense Account';
+
+  @override
+  String get expenseNo => 'Expense No.';
+
+  @override
+  String get pleaseSelectCustomer => 'Please select a customer';
+
+  @override
+  String get exportingInvoicesCsv => 'Exporting invoices to CSV...';
+
+  @override
+  String get noInvoicesFound => 'No invoices found matching criteria';
+
+  @override
+  String get noOpenInvoicesCustomer =>
+      'No open invoices found for this customer.';
+
+  @override
+  String get searchInvoiceCustomer => 'Search invoice / customer...';
+
+  @override
+  String get amountReceivedGreaterZero =>
+      'Amount received must be greater than zero';
+
+  @override
+  String get appliedExceedsReceived => 'Total applied exceeds amount received.';
+
+  @override
+  String get depositTo => 'Deposit To';
+
+  @override
+  String get amountReceived => 'Amount Received';
+
+  @override
+  String get referenceChequeNo => 'Reference / Cheque No.';
+
+  @override
+  String get invoiceDate => 'Invoice Date';
+
+  @override
+  String get notesToCustomer => 'Notes to customer';
+
+  @override
+  String get discPct => 'Disc %';
+
+  @override
+  String get vatRate => 'VAT %';
+
+  @override
+  String get lineTotal => 'Total';
+
+  @override
+  String get taxInvoiceTitle => 'TAX INVOICE';
+
+  @override
+  String get invoiceTo => 'BILL TO:';
+
+  @override
+  String get notesAndBankDetails => 'Notes & Bank Details:';
+
+  @override
+  String get paymentTermsHeader => 'PAYMENT TERMS:';
+
+  @override
+  String get stageChangedTo => 'Stage changed to';
+
+  @override
+  String get oppMarkedLost => 'Opportunity marked as Lost';
+
+  @override
+  String get logCallMeetingNote => 'Log a call, meeting or note...';
+
+  @override
+  String get noQuotationsGenerated => 'No quotations generated yet.';
+
+  @override
+  String get noPrimaryContactLinked => 'No primary contact linked.';
+
+  @override
+  String get createQuotation => '+ Quotation';
+
+  @override
+  String get winProbabilityLabel => 'Win Probability';
+
+  @override
+  String get journalReference => 'Journal Reference';
+
+  @override
+  String get noJournalTransactionsFound =>
+      'No journal transactions found for this account.';
+
+  @override
+  String get reconciliationComplete => 'Reconciliation Complete';
+
+  @override
+  String get reconciliationProgressSaved =>
+      'Reconciliation progress saved successfully';
+
+  @override
+  String get postAndClearEntry => 'Post & Clear Entry';
+
+  @override
+  String get card => 'Card';
+
+  @override
+  String get topLevelGroup => '— None (Top-level Group) —';
+
+  @override
+  String get accountTypeLabel => 'Account Type';
+
+  @override
+  String get selectPeriod => 'Select Period';
+
+  @override
+  String get periodYtd => 'Year to Date (01-Jan to 31-Oct 2026)';
+
+  @override
+  String get periodThisMonth => 'This Month (October 2026)';
+
+  @override
+  String get periodQ3 => 'Q3 2026 (01-Jul to 30-Sep 2026)';
+
+  @override
+  String get comparePriorYear => 'Compare: Prior Year';
+
+  @override
+  String get comparePriorPeriod => 'Compare: Prior Period';
+
+  @override
+  String get compareBudget => 'Compare: Budget';
+
+  @override
+  String get compareNone => 'Compare: None';
+
+  @override
+  String get costCenterSales => 'Sales';
+
+  @override
+  String get costCenterOperations => 'Operations';
+
+  @override
+  String get costCenterAdmin => 'Admin';
+
+  @override
+  String get run => 'Run';
+
+  @override
+  String get colAccount => 'Account';
+
+  @override
+  String get colChangePct => 'Change %';
+
+  @override
+  String get entryNo => 'Entry #';
+
+  @override
+  String get boardPackSuccess =>
+      'Board Pack PDF generated and downloaded successfully.';
+
+  @override
+  String get financialStatements => 'Financial Statements';
+
+  @override
+  String get taxCompliance => 'Tax & Compliance';
+
+  @override
+  String get pnlDesc =>
+      'Trading revenue, cost of goods sold (COGS), operating expenses, and net profit margins';
+
+  @override
+  String get balanceSheetDesc =>
+      'Assets, liabilities, and retained earnings equity summary';
+
+  @override
+  String get trialBalanceDesc =>
+      'Complete listing of all debit and credit account balances verifying ledger equilibrium';
+
+  @override
+  String get vatReturnDesc =>
+      'Box-by-box breakdown of 5% standard rated sales, zero rated supplies, and recoverable input VAT';
+
+  @override
+  String get bankStatementImportedSuccess =>
+      'Bank statement imported successfully.';
+
+  @override
+  String get companyLegalName => 'Company Legal Name *';
+
+  @override
+  String get taxRegistrationNumberTrn => 'Tax Registration Number (TRN) *';
+
+  @override
+  String get tradeLicenseCommercialReg => 'Trade License / Commercial Reg *';
+
+  @override
+  String get corporateTaxTrn => 'Corporate Tax TRN';
+
+  @override
+  String get registeredAddress => 'Registered Address *';
+
+  @override
+  String get emirateLabel => 'Emirate *';
+
+  @override
+  String get primaryEmailLabel => 'Primary Email *';
+
+  @override
+  String get validEmailRequired => 'Valid email required';
+
+  @override
+  String get phoneNumberLabel => 'Phone Number *';
+
+  @override
+  String get websiteLabel => 'Website';
+
+  @override
+  String get functionalBaseCurrency => 'Functional Base Currency *';
+
+  @override
+  String get companyLogo => 'Company Logo';
+
+  @override
+  String get companyLogoHint =>
+      'Displayed on printed tax invoices, quotations, customer receipts, and financial reports. Recommended size: 300x100px. PNG, JPG or SVG format.';
+
+  @override
+  String get ftaActive => 'FTA Active';
+
+  @override
+  String get booksLockedPriorTo => 'Books Locked Prior to: 31-Dec-2025';
+
+  @override
+  String get booksLockedDesc =>
+      'General Ledger journal vouchers and invoices dated on or prior to this date cannot be modified or deleted without financial controller clearance.';
+
+  @override
+  String get openCurrentStatus => 'Open (Current)';
+
+  @override
+  String get activeRate => 'Active Rate';
+
+  @override
+  String get baseCurrency => 'Base Currency';
+
+  @override
+  String get colRateAed => 'Rate (to 1.00 AED)';
+
+  @override
+  String get invitationSent => 'Invitation sent to';
+
+  @override
+  String get asRole => 'as';
+
+  @override
+  String get immutableAuditTrace =>
+      'Immutable chronological trace of user operations and system posts';
+
+  @override
+  String get currency => 'Currency';
+
+  @override
+  String get currencyName => 'Name';
+
+  @override
+  String get colCurrency => 'Currency';
+
+  @override
+  String get colCurrencyName => 'Name';
+
+  @override
+  String get reasonExpired => 'Expired';
+
+  @override
+  String get reasonOpeningBalance => 'Opening balance';
+
+  @override
+  String get reasonOther => 'Other';
+
+  @override
+  String get valueImpactAed => 'Value impact (AED)';
+
+  @override
+  String get removeLineTooltip => 'Remove line';
+
+  @override
+  String get deleteLineTooltip => 'Delete line';
+
+  @override
+  String get journalPreviewOnPost => 'Journal preview (on post)';
+
+  @override
+  String get stockEffect => 'Stock effect';
+
+  @override
+  String get availableQty => 'Available Qty';
+
+  @override
+  String get transferValueAed => 'Transfer Value (AED)';
+
+  @override
+  String get stockTransferImpact => 'Stock Transfer Impact';
+
+  @override
+  String get billableTo => 'Billable to';
+
+  @override
+  String get totalAed => 'Total (AED)';
+
+  @override
+  String get receipt => 'Receipt';
+
+  @override
+  String get expenseNumber => 'Expense #';
+
+  @override
+  String get net => 'Net';
+
+  @override
+  String get amountAed => 'Amount (AED)';
+
+  @override
+  String get vat5Pct => 'VAT 5%';
+
+  @override
+  String get vat0Pct => 'VAT 0%';
+
+  @override
+  String get outstanding => 'Outstanding';
+
+  @override
+  String get payment => 'Payment';
+
+  @override
+  String get convertToCustomer => 'Convert to Customer';
+
+  @override
+  String get allTasksCompleted => 'All tasks completed! Great job.';
+
+  @override
+  String get standardAvgCostAed => 'Standard / Avg Cost (AED) *';
+
+  @override
+  String get reorderLevelLabel => 'Reorder Level *';
+
+  @override
+  String get subTypeOptional => 'Sub-Type (Optional)';
+
+  @override
+  String get operations => 'Operations';
+
+  @override
+  String get admin => 'Admin';
+
+  @override
+  String get invoiceNo => 'Invoice No.';
+
+  @override
+  String get tax => 'Tax';
+
+  @override
+  String get statementDate => 'Statement Date';
+
+  @override
+  String get statementEndingBalance => 'Statement Ending Balance';
+
+  @override
+  String get importStatementCsv => 'Import Statement (CSV)';
+
+  @override
+  String get bankAccount => 'Bank Account';
+
+  @override
+  String get balanceAed => 'Balance (AED)';
+
+  @override
+  String get qtyInOut => 'Qty In/Out';
+
+  @override
+  String get totalCostAed => 'Total Cost (AED)';
+
+  @override
+  String get balance => 'Balance';
+
+  @override
+  String get reorderLevel => 'REORDER LEVEL';
+
+  @override
+  String get weightedAvgCost => 'WEIGHTED AVG COST';
+
+  @override
+  String get type => 'Type';
+
+  @override
+  String get stockStatus => 'Stock status';
 }

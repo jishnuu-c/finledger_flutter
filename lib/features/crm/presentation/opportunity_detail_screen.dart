@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/localization/locale_provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -485,7 +486,7 @@ class _OpportunityDetailScreenState extends State<OpportunityDetailScreen> {
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
                     padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 9),
                   ),
-                  child: const Text('Mark Lost', style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600)),
+                  child: Text(context.l10n.markLost, style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600)),
                 ),
                 OutlinedButton(
                   onPressed: _handleAddQuotation,
@@ -496,7 +497,7 @@ class _OpportunityDetailScreenState extends State<OpportunityDetailScreen> {
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
                     padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 9),
                   ),
-                  child: const Text('+ Quotation', style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600)),
+                  child: Text(context.l10n.createQuotation, style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600)),
                 ),
                 ElevatedButton(
                   onPressed: _handleConvertToCustomer,
@@ -507,7 +508,7 @@ class _OpportunityDetailScreenState extends State<OpportunityDetailScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 9),
                     elevation: 0,
                   ),
-                  child: const Text('Convert to Customer', style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600)),
+                  child: Text(context.l10n.convertToCustomer, style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600)),
                 ),
               ],
             ),
@@ -592,7 +593,7 @@ class _OpportunityDetailScreenState extends State<OpportunityDetailScreen> {
         _buildCardContainer(
           title: 'Contact',
           child: contact == null
-              ? const Text('No primary contact linked.', style: TextStyle(fontSize: 12, color: AppColors.textMuted))
+              ? Text(context.l10n.noPrimaryContactLinked, style: const TextStyle(fontSize: 12, color: AppColors.textMuted))
               : Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -648,7 +649,7 @@ class _OpportunityDetailScreenState extends State<OpportunityDetailScreen> {
         _buildCardContainer(
           title: 'Quotations',
           child: _detail!.quotations.isEmpty
-              ? const Text('No quotations generated yet.', style: TextStyle(fontSize: 12, color: AppColors.textMuted))
+              ? Text(context.l10n.noQuotationsGenerated, style: const TextStyle(fontSize: 12, color: AppColors.textMuted))
               : Column(
                   children: _detail!.quotations.map((q) {
                     return Container(
@@ -784,8 +785,8 @@ class _OpportunityDetailScreenState extends State<OpportunityDetailScreen> {
                     children: [
                       TextField(
                         controller: _quickLogController,
-                        decoration: const InputDecoration(
-                          hintText: 'Log a call, meeting or note...',
+                        decoration: InputDecoration(
+                          hintText: context.l10n.logCallMeetingNote,
                           hintStyle: TextStyle(fontSize: 12.5, color: AppColors.textMuted),
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.symmetric(horizontal: 10),
@@ -821,8 +822,8 @@ class _OpportunityDetailScreenState extends State<OpportunityDetailScreen> {
                     Expanded(
                       child: TextField(
                         controller: _quickLogController,
-                        decoration: const InputDecoration(
-                          hintText: 'Log a call, meeting or note...',
+                        decoration: InputDecoration(
+                          hintText: context.l10n.logCallMeetingNote,
                           hintStyle: TextStyle(fontSize: 12.5, color: AppColors.textMuted),
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.symmetric(horizontal: 10),
@@ -1031,7 +1032,7 @@ class _OpportunityDetailScreenState extends State<OpportunityDetailScreen> {
         _buildCardContainer(
           title: 'Open tasks',
           child: _detail!.openTasks.isEmpty
-              ? const Text('All tasks completed! Great job.', style: TextStyle(fontSize: 12, color: AppColors.textMuted))
+              ? Text(context.l10n.allTasksCompleted, style: const TextStyle(fontSize: 12, color: AppColors.textMuted))
               : Column(
                   children: _detail!.openTasks.map((task) {
                     Color badgeBg = const Color(0xFFF1F5F9);

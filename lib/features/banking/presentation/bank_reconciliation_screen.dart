@@ -160,8 +160,8 @@ class _BankReconciliationScreenState extends State<BankReconciliationScreen> {
     await _service.saveProgress(_session!);
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Reconciliation progress saved successfully'),
+        SnackBar(
+          content: Text(context.l10n.reconciliationProgressSaved),
           backgroundColor: Color(0xFF2563EB),
         ),
       );
@@ -188,12 +188,12 @@ class _BankReconciliationScreenState extends State<BankReconciliationScreen> {
         context: context,
         builder: (ctx) => AlertDialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-          title: const Row(
+          title: Row(
             children: [
-              Icon(Icons.check_circle, color: Color(0xFF16A34A), size: 24),
-              SizedBox(width: 8),
+              const Icon(Icons.check_circle, color: Color(0xFF16A34A), size: 24),
+              const SizedBox(width: 8),
               Expanded(
-                child: Text('Reconciliation Complete'),
+                child: Text(context.l10n.reconciliationComplete),
               ),
             ],
           ),
@@ -349,7 +349,7 @@ class _BankReconciliationScreenState extends State<BankReconciliationScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Bank Account', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.textSecondary)),
+        Text(context.l10n.bankAccount, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.textSecondary)),
         const SizedBox(height: 6),
         DropdownButtonFormField<int>(
           initialValue: _selectedBankAccountId,
@@ -380,7 +380,7 @@ class _BankReconciliationScreenState extends State<BankReconciliationScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Statement Date', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.textSecondary)),
+        Text(context.l10n.statementDate, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.textSecondary)),
         const SizedBox(height: 6),
         TextFormField(
           controller: _dateController,
@@ -397,7 +397,7 @@ class _BankReconciliationScreenState extends State<BankReconciliationScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Statement Ending Balance', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.textSecondary)),
+        Text(context.l10n.statementEndingBalance, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.textSecondary)),
         const SizedBox(height: 6),
         TextFormField(
           controller: _statementEndingBalanceController,
@@ -416,7 +416,7 @@ class _BankReconciliationScreenState extends State<BankReconciliationScreen> {
     return OutlinedButton.icon(
       onPressed: _openImportCsvModal,
       icon: const Icon(Icons.upload_file_outlined, size: 16),
-      label: const Text('Import Statement (CSV)', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
+      label: Text(context.l10n.importStatementCsv, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
       style: OutlinedButton.styleFrom(
         foregroundColor: AppColors.textPrimary,
         side: const BorderSide(color: AppColors.border),
@@ -823,7 +823,7 @@ class _BankReconciliationScreenState extends State<BankReconciliationScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
           ),
-          child: const Text('Save Progress', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
+          child: Text(context.l10n.saveProgress, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
         ),
         Tooltip(
           message: isDifferenceZero
@@ -839,7 +839,7 @@ class _BankReconciliationScreenState extends State<BankReconciliationScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
             ),
-            child: const Text('Finish Reconciliation', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
+            child: Text(context.l10n.finishReconciliation, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
           ),
         ),
       ],

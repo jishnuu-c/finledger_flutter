@@ -187,7 +187,7 @@ class InvoicePdfPreviewDialog extends StatelessWidget {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text('BILL TO:', style: TextStyle(fontSize: 10.5, fontWeight: FontWeight.bold, color: AppColors.textMuted)),
+                              Text(context.l10n.invoiceTo, style: const TextStyle(fontSize: 10.5, fontWeight: FontWeight.bold, color: AppColors.textMuted)),
                               const SizedBox(height: 4),
                               Text(invoice.customerName, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700)),
                               if (invoice.customerTrn != null)
@@ -195,7 +195,7 @@ class InvoicePdfPreviewDialog extends StatelessWidget {
                               if (invoice.customerAddress != null)
                                 Text(invoice.customerAddress!, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
                               const SizedBox(height: 12),
-                              const Text('PAYMENT TERMS:', style: TextStyle(fontSize: 10.5, fontWeight: FontWeight.bold, color: AppColors.textMuted)),
+                              Text(context.l10n.paymentTermsHeader, style: const TextStyle(fontSize: 10.5, fontWeight: FontWeight.bold, color: AppColors.textMuted)),
                               const SizedBox(height: 4),
                               Text(invoice.paymentTerms, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
                               Text('Currency: ${invoice.currencyCode}', style: const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
@@ -209,7 +209,7 @@ class InvoicePdfPreviewDialog extends StatelessWidget {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const Text('BILL TO:', style: TextStyle(fontSize: 10.5, fontWeight: FontWeight.bold, color: AppColors.textMuted)),
+                                  Text(context.l10n.invoiceTo, style: const TextStyle(fontSize: 10.5, fontWeight: FontWeight.bold, color: AppColors.textMuted)),
                                   const SizedBox(height: 4),
                                   Text(invoice.customerName, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700)),
                                   if (invoice.customerTrn != null)
@@ -221,7 +221,7 @@ class InvoicePdfPreviewDialog extends StatelessWidget {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
-                                  const Text('PAYMENT TERMS:', style: TextStyle(fontSize: 10.5, fontWeight: FontWeight.bold, color: AppColors.textMuted)),
+                                  Text(context.l10n.paymentTermsHeader, style: const TextStyle(fontSize: 10.5, fontWeight: FontWeight.bold, color: AppColors.textMuted)),
                                   const SizedBox(height: 4),
                                   Text(invoice.paymentTerms, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
                                   Text('Currency: ${invoice.currencyCode}', style: const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
@@ -255,14 +255,14 @@ class InvoicePdfPreviewDialog extends StatelessWidget {
                                       Container(
                                         color: const Color(0xFFF8FAFC),
                                         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                                        child: const Row(
+                                        child: Row(
                                           children: [
-                                            Expanded(flex: 3, child: Text('Item / Description', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11.5))),
-                                            Expanded(flex: 1, child: Text('Qty', textAlign: TextAlign.right, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11.5))),
-                                            Expanded(flex: 2, child: Text('Unit Price', textAlign: TextAlign.right, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11.5))),
-                                            Expanded(flex: 1, child: Text('Disc %', textAlign: TextAlign.right, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11.5))),
-                                            Expanded(flex: 1, child: Text('Tax', textAlign: TextAlign.right, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11.5))),
-                                            Expanded(flex: 2, child: Text('Amount (AED)', textAlign: TextAlign.right, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11.5))),
+                                            Expanded(flex: 3, child: Text(context.l10n.itemDescription, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11.5))),
+                                            Expanded(flex: 1, child: Text(context.l10n.quantity, textAlign: TextAlign.right, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11.5))),
+                                            Expanded(flex: 2, child: Text(context.l10n.unitPrice, textAlign: TextAlign.right, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11.5))),
+                                            Expanded(flex: 1, child: Text(context.l10n.discPct, textAlign: TextAlign.right, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11.5))),
+                                            Expanded(flex: 1, child: Text(context.l10n.tax, textAlign: TextAlign.right, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11.5))),
+                                            Expanded(flex: 2, child: Text(context.l10n.amountAed, textAlign: TextAlign.right, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11.5))),
                                           ],
                                         ),
                                       ),
@@ -316,7 +316,7 @@ class InvoicePdfPreviewDialog extends StatelessWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Text('Notes & Bank Details:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11.5)),
+                                    Text(context.l10n.notesAndBankDetails, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11.5)),
                                     const SizedBox(height: 4),
                                     Text(
                                       invoice.notes ?? 'Thank you for your business. Bank: Emirates NBD, IBAN AE07 0260 ...',
@@ -353,7 +353,7 @@ class InvoicePdfPreviewDialog extends StatelessWidget {
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      const Text('Notes & Bank Details:', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11.5)),
+                                      Text(context.l10n.notesAndBankDetails, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11.5)),
                                       const SizedBox(height: 4),
                                       Text(
                                         invoice.notes ?? 'Thank you for your business. Bank: Emirates NBD, IBAN AE07 0260 ...',
@@ -392,7 +392,7 @@ class InvoicePdfPreviewDialog extends StatelessWidget {
                 children: [
                   OutlinedButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    child: const Text('Close Preview'),
+                    child: Text(context.l10n.closePreview),
                   ),
                 ],
               ),

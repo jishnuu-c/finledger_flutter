@@ -263,7 +263,7 @@ class _ReportsViewerScreenState extends State<ReportsViewerScreen> {
         showDialog(
           context: context,
           builder: (ctx) => SimpleDialog(
-            title: const Text('Select Period', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+            title: Text(context.l10n.selectPeriod, style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
             children: [
               SimpleDialogOption(
                 onPressed: () {
@@ -271,7 +271,7 @@ class _ReportsViewerScreenState extends State<ReportsViewerScreen> {
                   Navigator.pop(ctx);
                   _runReport();
                 },
-                child: const Text('Year to Date (01-Jan to 31-Oct 2026)'),
+                child: Text(context.l10n.periodYtd),
               ),
               SimpleDialogOption(
                 onPressed: () {
@@ -279,7 +279,7 @@ class _ReportsViewerScreenState extends State<ReportsViewerScreen> {
                   Navigator.pop(ctx);
                   _runReport();
                 },
-                child: const Text('This Month (October 2026)'),
+                child: Text(context.l10n.periodThisMonth),
               ),
               SimpleDialogOption(
                 onPressed: () {
@@ -287,7 +287,7 @@ class _ReportsViewerScreenState extends State<ReportsViewerScreen> {
                   Navigator.pop(ctx);
                   _runReport();
                 },
-                child: const Text('Q3 2026 (01-Jul to 30-Sep 2026)'),
+                child: Text(context.l10n.periodQ3),
               ),
             ],
           ),
@@ -333,11 +333,11 @@ class _ReportsViewerScreenState extends State<ReportsViewerScreen> {
           child: DropdownButton<String>(
             value: _compareOption,
             style: const TextStyle(fontSize: 12.5, color: AppColors.textPrimary, fontWeight: FontWeight.w500),
-            items: const [
-              DropdownMenuItem(value: 'Prior Year', child: Text('Compare: Prior Year')),
-              DropdownMenuItem(value: 'Prior Period', child: Text('Compare: Prior Period')),
-              DropdownMenuItem(value: 'Budget', child: Text('Compare: Budget')),
-              DropdownMenuItem(value: 'None', child: Text('Compare: None')),
+            items: [
+              DropdownMenuItem(value: 'Prior Year', child: Text(context.l10n.comparePriorYear)),
+              DropdownMenuItem(value: 'Prior Period', child: Text(context.l10n.comparePriorPeriod)),
+              DropdownMenuItem(value: 'Budget', child: Text(context.l10n.compareBudget)),
+              DropdownMenuItem(value: 'None', child: Text(context.l10n.compareNone)),
             ],
             onChanged: (val) {
               if (val != null) {
@@ -365,11 +365,11 @@ class _ReportsViewerScreenState extends State<ReportsViewerScreen> {
           child: DropdownButton<String>(
             value: _costCenter,
             style: const TextStyle(fontSize: 12.5, color: AppColors.textPrimary, fontWeight: FontWeight.w500),
-            items: const [
-              DropdownMenuItem(value: 'All Cost Centers', child: Text('All Cost Centers')),
-              DropdownMenuItem(value: 'Sales', child: Text('Sales')),
-              DropdownMenuItem(value: 'Operations', child: Text('Operations')),
-              DropdownMenuItem(value: 'Admin', child: Text('Admin')),
+            items: [
+              DropdownMenuItem(value: 'All Cost Centers', child: Text(context.l10n.allCostCenters)),
+              DropdownMenuItem(value: 'Sales', child: Text(context.l10n.costCenterSales)),
+              DropdownMenuItem(value: 'Operations', child: Text(context.l10n.costCenterOperations)),
+              DropdownMenuItem(value: 'Admin', child: Text(context.l10n.costCenterAdmin)),
             ],
             onChanged: (val) {
               if (val != null) {
@@ -391,7 +391,7 @@ class _ReportsViewerScreenState extends State<ReportsViewerScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
       ),
-      child: const Text('Run', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
+      child: Text(context.l10n.run, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
     );
   }
 

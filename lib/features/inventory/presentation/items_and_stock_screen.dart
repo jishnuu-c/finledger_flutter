@@ -272,7 +272,7 @@ class _ItemsAndStockScreenState extends State<ItemsAndStockScreen> {
                   onChanged: (_) => _filterItems(),
                   style: const TextStyle(fontSize: 12.5),
                   decoration: InputDecoration(
-                    hintText: 'Search SKU / name / barcode...',
+                    hintText: context.l10n.searchSkuBarcode,
                     hintStyle: const TextStyle(fontSize: 12, color: AppColors.textMuted),
                     prefixIcon: const Icon(Icons.search, size: 16, color: AppColors.textMuted),
                     contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
@@ -299,7 +299,7 @@ class _ItemsAndStockScreenState extends State<ItemsAndStockScreen> {
                     value: _selectedCategory,
                     style: const TextStyle(fontSize: 12.5, color: AppColors.textPrimary),
                     items: [
-                      const DropdownMenuItem(value: 'All categories', child: Text('All categories')),
+                      DropdownMenuItem(value: 'All categories', child: Text(context.l10n.allCategories)),
                       ...categories.map((c) => DropdownMenuItem(value: c.name, child: Text(c.name))),
                     ],
                     onChanged: (val) {
@@ -327,7 +327,7 @@ class _ItemsAndStockScreenState extends State<ItemsAndStockScreen> {
                     value: _selectedWarehouse,
                     style: const TextStyle(fontSize: 12.5, color: AppColors.textPrimary),
                     items: [
-                      const DropdownMenuItem(value: 'All warehouses', child: Text('All warehouses')),
+                      DropdownMenuItem(value: 'All warehouses', child: Text(context.l10n.allWarehouses)),
                       ...warehouses.map((w) => DropdownMenuItem(
                             value: w.code == 'DXB-WH' ? 'Dubai WH' : 'Riyadh WH',
                             child: Text(w.code == 'DXB-WH' ? 'Dubai WH' : 'Riyadh WH'),
@@ -357,11 +357,11 @@ class _ItemsAndStockScreenState extends State<ItemsAndStockScreen> {
                   child: DropdownButton<String>(
                     value: _selectedStatus,
                     style: const TextStyle(fontSize: 12.5, color: AppColors.textPrimary),
-                    items: const [
-                      DropdownMenuItem(value: 'Stock status', child: Text('Stock status')),
-                      DropdownMenuItem(value: 'In stock', child: Text('In stock')),
-                      DropdownMenuItem(value: 'Low', child: Text('Low')),
-                      DropdownMenuItem(value: 'Out of stock', child: Text('Out of stock')),
+                    items: [
+                      DropdownMenuItem(value: 'Stock status', child: Text(context.l10n.stockStatus)),
+                      DropdownMenuItem(value: 'In stock', child: Text(context.l10n.inStock)),
+                      DropdownMenuItem(value: 'Low', child: Text(context.l10n.lowStock)),
+                      DropdownMenuItem(value: 'Out of stock', child: Text(context.l10n.outOfStock)),
                     ],
                     onChanged: (val) {
                       if (val != null) {
@@ -516,10 +516,10 @@ class _ItemsAndStockScreenState extends State<ItemsAndStockScreen> {
 
                             // Rows (Figure 9)
                             if (items.isEmpty)
-                              const Padding(
-                                padding: EdgeInsets.all(40),
+                              Padding(
+                                padding: const EdgeInsets.all(40),
                                 child: Center(
-                                  child: Text('No inventory items found matching filters.', style: TextStyle(color: AppColors.textSecondary)),
+                                  child: Text(context.l10n.noInventoryItemsFound, style: const TextStyle(color: AppColors.textSecondary)),
                                 ),
                               )
                             else

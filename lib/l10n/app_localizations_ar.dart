@@ -138,7 +138,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get invoices => 'الفواتير الضريبية';
 
   @override
-  String get receipts => 'إيصالات القبض';
+  String get receipts => 'الإيصالات';
 
   @override
   String get purchases => 'المشتريات';
@@ -359,7 +359,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get markWon => 'تحديد كناجحة';
 
   @override
-  String get markLost => 'تحديد كخاسرة';
+  String get markLost => 'تحديد كمفقود';
 
   @override
   String get opportunityDetails => 'تفاصيل الفرصة';
@@ -410,7 +410,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get subtotal => 'المجموع الفرعي';
 
   @override
-  String get vat => 'ضريبة القيمة المضافة (5%)';
+  String get vat => 'ضريبة القيمة المضافة';
 
   @override
   String get totalAmount => 'المبلغ الإجمالي';
@@ -473,7 +473,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get vendorPayments => 'مدفوعات الموردين';
 
   @override
-  String get recordPayment => 'تسجيل سند صرف';
+  String get recordPayment => 'تسجيل الدفعة';
 
   @override
   String get itemsStock => 'الأصناف والمخزون';
@@ -497,7 +497,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get sellingPrice => 'سعر البيع';
 
   @override
-  String get onHand => 'الكمية المتوفرة';
+  String get onHand => 'المتوفر';
 
   @override
   String get reorderPoint => 'نقطة إعادة الطلب';
@@ -608,7 +608,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get importCsv => 'استيراد كشف حساب (CSV)';
 
   @override
-  String get finishReconciliation => 'إنهاء التسوية البنكية';
+  String get finishReconciliation => 'إنهاء التسوية';
 
   @override
   String get financialReports => 'التقارير المالية';
@@ -857,16 +857,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get dueOnReceipt => 'مستحق عند الاستلام';
 
   @override
-  String get net15 => 'صافي 15 يومًا';
+  String get net15 => 'صافي 15 يوماً';
 
   @override
-  String get net30 => 'صافي 30 يومًا';
+  String get net30 => 'صافي 30 يوماً';
 
   @override
-  String get net60 => 'صافي 60 يومًا';
+  String get net60 => 'صافي 60 يوماً';
 
   @override
-  String get itemDescription => 'الوصف';
+  String get itemDescription => 'الصنف / الوصف';
 
   @override
   String get taxRate => 'نسبة الضريبة';
@@ -896,7 +896,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get bankTransfer => 'تحويل بنكي';
 
   @override
-  String get cash => 'نقدًا';
+  String get cash => 'نقداً';
 
   @override
   String get cheque => 'شيك';
@@ -1135,11 +1135,11 @@ class AppLocalizationsAr extends AppLocalizations {
   String get allCostCenters => 'جميع مراكز التكلفة';
 
   @override
-  String get companyProfileTitle => 'ملف الشركة والكيان القانوني';
+  String get companyProfileTitle => 'الملف التعريفي للشركة والكيان القانوني';
 
   @override
   String get companyProfileSubtitle =>
-      'بيانات الكيان التجاري لفواتير الضرائب والوثائق الرسمية';
+      'معلومات الكيان التجاري الرئيسي لترويسات الفواتير الرسمية والإيصالات والتقارير الضريبية الإماراتية';
 
   @override
   String get trnNumberLabel => 'رقم التسجيل الضريبي (TRN)';
@@ -1166,7 +1166,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get optimalStock => 'مثالي';
 
   @override
-  String get lowStock => 'نقص المخزون';
+  String get lowStock => 'منخفض';
 
   @override
   String get generalLedgerTrail => 'مسار دفتر الأستاذ العام';
@@ -1179,10 +1179,10 @@ class AppLocalizationsAr extends AppLocalizations {
       'قم برفع ملف CSV يحتوي على بيانات العملاء وقيم الصفقات المتوقعة ليتم استيرادها تلقائيًا.';
 
   @override
-  String get inStock => 'متوفر في المخزون';
+  String get inStock => 'متوفر بالمخزون';
 
   @override
-  String get outOfStock => 'نفد من المخزون';
+  String get outOfStock => 'نفد المخزون';
 
   @override
   String get statusSubmitted => 'تم التقديم';
@@ -1468,4 +1468,739 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get expandSidebar => 'توسيع الشريط الجانبي';
+
+  @override
+  String get languageAndRegion => 'اللغة والمنطقة';
+
+  @override
+  String get usersAndRoles => 'المستخدمون والأدوار';
+
+  @override
+  String get companyAndSystemSettings => 'إعدادات الشركة والنظام';
+
+  @override
+  String get companyProfileUpdated => 'تم تحديث ملف تعريف الشركة بنجاح';
+
+  @override
+  String get companyLogoUploaded => 'تم تحميل شعار الشركة بنجاح';
+
+  @override
+  String get companyLogoRemoved => 'تمت إزالة شعار الشركة';
+
+  @override
+  String get uploadNewLogo => 'تحميل شعار جديد';
+
+  @override
+  String get removeLogo => 'إزالة الشعار';
+
+  @override
+  String get reset => 'إعادة ضبط';
+
+  @override
+  String get validationRequired => 'مطلوب';
+
+  @override
+  String get validationTrn15Digits =>
+      'يجب أن يتكون الرقم الضريبي الإماراتي من 15 رقماً';
+
+  @override
+  String get emirateDubai => 'دبي';
+
+  @override
+  String get emirateAbuDhabi => 'أبو ظبي';
+
+  @override
+  String get emirateSharjah => 'الشارقة';
+
+  @override
+  String get emirateAjman => 'عجمان';
+
+  @override
+  String get emirateRasAlKhaimah => 'رأس الخيمة';
+
+  @override
+  String get emirateFujairah => 'الفجيرة';
+
+  @override
+  String get emirateUmmAlQuwain => 'أم القيوين';
+
+  @override
+  String get currencyAedFull => 'درهم - درهم الإمارات العربية المتحدة';
+
+  @override
+  String get currencyUsdFull => 'دولار - دولار أمريكي';
+
+  @override
+  String get currencyAedParen => 'درهم (درهم إماراتي)';
+
+  @override
+  String get currencySarParen => 'ريال (ريال سعودي)';
+
+  @override
+  String get currencyUsdParen => 'دولار (دولار أمريكي)';
+
+  @override
+  String get fiscalYearsAndLocking => 'السنوات المالية وإغلاق الفترات';
+
+  @override
+  String get fiscalYearsSubtitle =>
+      'تهيئة الفترات المالية المحاسبية ومواعيد إقفال الدفاتر';
+
+  @override
+  String get fiscalYear => 'السنة المالية';
+
+  @override
+  String get startDate => 'تاريخ البدء';
+
+  @override
+  String get endDate => 'تاريخ الانتهاء';
+
+  @override
+  String get uaeVatRatesRegs =>
+      'نسب ولوائح ضريبة القيمة المضافة للهيئة الاتحادية للضرائب';
+
+  @override
+  String get uaeVatSubtitle =>
+      'النسب القانونية للهيئة الاتحادية للضرائب لتقديم إقرار ضريبة القيمة المضافة 201';
+
+  @override
+  String get currenciesAndRates => 'العملات وأسعار الصرف';
+
+  @override
+  String get currenciesSubtitle =>
+      'أسعار تحويل العملات المتعددة مع الدرهم كعملة أساسية';
+
+  @override
+  String get updateRates => 'تحديث الأسعار';
+
+  @override
+  String get ratesSynced => 'تمت مزامنة أسعار صرف مصرف الإمارات المركزي';
+
+  @override
+  String get rateToAed => 'السعر (مقابل 1.00 درهم)';
+
+  @override
+  String get docNumberSeries => 'سلاسل أرقام المستندات';
+
+  @override
+  String get docNumberSeriesSubtitle =>
+      'أنماط الترقيم التسلسلي والبادئات عبر جميع الوحدات';
+
+  @override
+  String get docType => 'نوع المستند';
+
+  @override
+  String get prefix => 'البادئة';
+
+  @override
+  String get nextSequential => 'التسلسل التالي';
+
+  @override
+  String get sampleDocNumber => 'رقم مستند تجريبي';
+
+  @override
+  String get usersAndPermissions => 'المستخدمون والأذونات المستندة إلى الأدوار';
+
+  @override
+  String get usersAndPermissionsSubtitle =>
+      'إدارة المستخدمين المصرح لهم، الفصل بين المهام، وحقوق الوحدات';
+
+  @override
+  String get inviteUserBtn => '+ دعوة مستخدم';
+
+  @override
+  String get inviteTeamMember => 'دعوة عضو فريق';
+
+  @override
+  String get fullName => 'الاسم الكامل';
+
+  @override
+  String get emailAddress => 'عنوان البريد الإلكتروني';
+
+  @override
+  String get roleDirective => 'توجيه الدور';
+
+  @override
+  String get roleAccountant => 'محاسب';
+
+  @override
+  String get roleSalesRepresentative => 'مندوب مبيعات';
+
+  @override
+  String get roleWarehouseManager => 'مدير مستودع';
+
+  @override
+  String get roleController => 'المراقب المالي';
+
+  @override
+  String get sendInvite => 'إرسال الدعوة';
+
+  @override
+  String get securityAuditTrail => 'سجل التدقيق والأمان';
+
+  @override
+  String get securityAuditSubtitle =>
+      'تتبع زمني غير قابل للتعديل لعمليات المستخدم وترحيل النظام';
+
+  @override
+  String get colTimestamp => 'الطابع الزمني';
+
+  @override
+  String get colUser => 'المستخدم';
+
+  @override
+  String get colAction => 'الإجراء';
+
+  @override
+  String get colDetails => 'التفاصيل';
+
+  @override
+  String get colIpAddress => 'عنوان IP';
+
+  @override
+  String get adjustmentNo => 'رقم التسوية';
+
+  @override
+  String get reasonLabel => 'السبب';
+
+  @override
+  String get reasonStockCount => 'جرد المخزون';
+
+  @override
+  String get reasonDamagedGoods => 'بضائع تالفة';
+
+  @override
+  String get reasonSurplus => 'فائض';
+
+  @override
+  String get reasonWriteOff => 'شطب';
+
+  @override
+  String get reasonInternalConsumption => 'استهلاك داخلي';
+
+  @override
+  String get reasonTheftLoss => 'سرقة / خسارة';
+
+  @override
+  String get physicalInventoryCount => 'جرد المخزون الفعلي (تحميل الكل)';
+
+  @override
+  String get pleaseAddLineItem => 'يرجى إضافة بند واحد على الأقل.';
+
+  @override
+  String get warehousesCannotBeIdentical =>
+      'لا يمكن أن يكون مستودع المصدر ومستودع الوجهة متطابقين.';
+
+  @override
+  String get fromWarehouse => 'من مستودع';
+
+  @override
+  String get toWarehouse => 'إلى مستودع';
+
+  @override
+  String get transferNo => 'رقم التحويل';
+
+  @override
+  String get dispatchTransfer => 'إرسال التحويل';
+
+  @override
+  String get saveProgress => 'حفظ التقدم';
+
+  @override
+  String get scanBarcode => 'مسح الباركود';
+
+  @override
+  String get addLineItem => 'إضافة بند';
+
+  @override
+  String get systemQty => 'الكمية بالدفاتر';
+
+  @override
+  String get countedQty => 'الكمية الفعلية';
+
+  @override
+  String get totalTransferValue => 'إجمالي قيمة التحويل';
+
+  @override
+  String get netValueImpact => 'أثر القيمة الصافي';
+
+  @override
+  String get searchSkuBarcode => 'البحث عن الرمز / الاسم / الباركود...';
+
+  @override
+  String get allWarehouses => 'جميع المستودعات';
+
+  @override
+  String get allCategories => 'جميع الفئات';
+
+  @override
+  String get allStatus => 'جميع الحالات';
+
+  @override
+  String get quickTestBarcodes => 'باركود للاختبار السريع:';
+
+  @override
+  String get enterBarcodeSku => 'أدخل الباركود أو الرمز (مثال 629104800130)';
+
+  @override
+  String get scanBtn => 'مسح';
+
+  @override
+  String get noInventoryItemsFound => 'لم يتم العثور على أصناف تطابق الفلاتر.';
+
+  @override
+  String get noStockMovementsRecorded => 'لم تسجل حركات مخزون لهذا الفلتر.';
+
+  @override
+  String get exportStockSummaryExcel =>
+      'جارٍ تصدير ملخص المخزون إلى Excel/CSV...';
+
+  @override
+  String get adjustmentAccount => 'حساب التسوية';
+
+  @override
+  String get balanceQty => 'كمية الرصيد';
+
+  @override
+  String get transferQty => 'كمية التحويل';
+
+  @override
+  String get claimApproved => 'تمت الموافقة على مطالبة المصروفات.';
+
+  @override
+  String get claimReimbursedPayroll =>
+      'تم صرف المصروف عبر مسير الرواتب / التحويل البنكي.';
+
+  @override
+  String get rejectExpenseClaim => 'رفض مطالبة المصروفات';
+
+  @override
+  String get enterRejectionReason => 'أدخل سبب الرفض للموظف:';
+
+  @override
+  String get postToGl => 'ترحيل إلى دفتر الأستاذ العام';
+
+  @override
+  String get selectReceiptDocument => 'حدد وثيقة الإيصال:';
+
+  @override
+  String get tapToCaptureAttach => 'انقر للالتقاط والإرفاق';
+
+  @override
+  String get noExpensesFoundTab => 'لا توجد مصروفات في هذا التبويب.';
+
+  @override
+  String get exportingExpensesExcel => 'جارٍ تصدير المصروفات إلى Excel...';
+
+  @override
+  String get employeePayee => 'الموظف / المستفيد';
+
+  @override
+  String get paidBy => 'مدفوع من قبل';
+
+  @override
+  String get purpose => 'الغرض';
+
+  @override
+  String get receiptDate => 'تاريخ الإيصال';
+
+  @override
+  String get submitForApproval => 'إرسال للاعتماد';
+
+  @override
+  String get expenseAccount => 'حساب المصروفات';
+
+  @override
+  String get expenseNo => 'رقم المصروف';
+
+  @override
+  String get pleaseSelectCustomer => 'يرجى تحديد عميل';
+
+  @override
+  String get exportingInvoicesCsv => 'جارٍ تصدير الفواتير إلى CSV...';
+
+  @override
+  String get noInvoicesFound => 'لم يتم العثور على فواتير تطابق المعايير';
+
+  @override
+  String get noOpenInvoicesCustomer => 'لا توجد فواتير مفتوحة لهذا العميل.';
+
+  @override
+  String get searchInvoiceCustomer => 'البحث عن فاتورة / عميل...';
+
+  @override
+  String get amountReceivedGreaterZero =>
+      'يجب أن يكون المبلغ المستلم أكبر من الصفر';
+
+  @override
+  String get appliedExceedsReceived =>
+      'إجمالي المبلغ المطبق يتجاوز المبلغ المستلم.';
+
+  @override
+  String get depositTo => 'إيداع في';
+
+  @override
+  String get amountReceived => 'المبلغ المستلم';
+
+  @override
+  String get referenceChequeNo => 'رقم المرجع / الشيك';
+
+  @override
+  String get invoiceDate => 'تاريخ الفاتورة';
+
+  @override
+  String get notesToCustomer => 'ملاحظات للعميل';
+
+  @override
+  String get discPct => 'خصم %';
+
+  @override
+  String get vatRate => 'ض.ق.م %';
+
+  @override
+  String get lineTotal => 'الإجمالي';
+
+  @override
+  String get taxInvoiceTitle => 'فاتورة ضريبية';
+
+  @override
+  String get invoiceTo => 'فاتورة إلى:';
+
+  @override
+  String get notesAndBankDetails => 'الملاحظات وتفاصيل الحساب البنكي:';
+
+  @override
+  String get paymentTermsHeader => 'شروط الدفع:';
+
+  @override
+  String get stageChangedTo => 'تم تغيير المرحلة إلى';
+
+  @override
+  String get oppMarkedLost => 'تم تحديد الفرصة كخاسرة';
+
+  @override
+  String get logCallMeetingNote => 'تسجيل مكالمة، اجتماع أو ملاحظة...';
+
+  @override
+  String get noQuotationsGenerated => 'لم يتم إنشاء أي عروض أسعار بعد.';
+
+  @override
+  String get noPrimaryContactLinked => 'لا يوجد جهة اتصال رئيسية مرتبطة.';
+
+  @override
+  String get createQuotation => '+ عرض أسعار';
+
+  @override
+  String get winProbabilityLabel => 'احتمالية الفوز';
+
+  @override
+  String get journalReference => 'مرجع اليومية';
+
+  @override
+  String get noJournalTransactionsFound =>
+      'لم يتم العثور على حركات يومية لهذا الحساب.';
+
+  @override
+  String get reconciliationComplete => 'اكتملت التسوية البنكية';
+
+  @override
+  String get reconciliationProgressSaved => 'تم حفظ تقدم التسوية بنجاح';
+
+  @override
+  String get postAndClearEntry => 'ترحيل وتصفية القيد';
+
+  @override
+  String get card => 'بطاقة';
+
+  @override
+  String get topLevelGroup => '— لا يوجد (مجموعة رئيسية) —';
+
+  @override
+  String get accountTypeLabel => 'نوع الحساب';
+
+  @override
+  String get selectPeriod => 'تحديد الفترة';
+
+  @override
+  String get periodYtd =>
+      'من بداية العام حتى تاريخه (01-يناير إلى 31-أكتوبر 2026)';
+
+  @override
+  String get periodThisMonth => 'هذا الشهر (أكتوبر 2026)';
+
+  @override
+  String get periodQ3 => 'الربع الثالث 2026 (01-يوليو إلى 30-سبتمبر 2026)';
+
+  @override
+  String get comparePriorYear => 'مقارنة: العام السابق';
+
+  @override
+  String get comparePriorPeriod => 'مقارنة: الفترة السابقة';
+
+  @override
+  String get compareBudget => 'مقارنة: الميزانية';
+
+  @override
+  String get compareNone => 'مقارنة: لا شيء';
+
+  @override
+  String get costCenterSales => 'المبيعات';
+
+  @override
+  String get costCenterOperations => 'العمليات';
+
+  @override
+  String get costCenterAdmin => 'الإدارة';
+
+  @override
+  String get run => 'تشغيل';
+
+  @override
+  String get colAccount => 'الحساب';
+
+  @override
+  String get colChangePct => 'نسبة التغير %';
+
+  @override
+  String get entryNo => 'رقم القيد';
+
+  @override
+  String get boardPackSuccess =>
+      'تم إنشاء وتحميل ملف PDF لحزمة مجلس الإدارة بنجاح.';
+
+  @override
+  String get financialStatements => 'القوائم المالية';
+
+  @override
+  String get taxCompliance => 'الضرائب والامتثال';
+
+  @override
+  String get pnlDesc =>
+      'إيرادات التداول، تكلفة البضائع المباعة (COGS)، المصروفات التشغيلية، وهامش صافي الربح';
+
+  @override
+  String get balanceSheetDesc =>
+      'الأصول والخصوم وملخص حقوق الملكية للأرباح المحتجزة';
+
+  @override
+  String get trialBalanceDesc =>
+      'قائمة كاملة بجميع أرصدة الحسابات المدينة والدائنة للتحقق من توازن دفتر الأستاذ';
+
+  @override
+  String get vatReturnDesc =>
+      'تفصيل خانة بخانة للمبيعات بنسبة 5% القياسية، التوريدات الصفرية، وضريبة القيمة المضافة القابلة للاسترداد';
+
+  @override
+  String get bankStatementImportedSuccess =>
+      'تم استيراد كشف الحساب البنكي بنجاح.';
+
+  @override
+  String get companyLegalName => 'الاسم القانوني للشركة *';
+
+  @override
+  String get taxRegistrationNumberTrn => 'رقم التسجيل الضريبي (TRN) *';
+
+  @override
+  String get tradeLicenseCommercialReg => 'الرخصة التجارية / السجل التجاري *';
+
+  @override
+  String get corporateTaxTrn => 'الرقم الضريبي لضريبة الشركات';
+
+  @override
+  String get registeredAddress => 'العنوان المسجل *';
+
+  @override
+  String get emirateLabel => 'الإمارة *';
+
+  @override
+  String get primaryEmailLabel => 'البريد الإلكتروني الرئيسي *';
+
+  @override
+  String get validEmailRequired => 'مطلوب بريد إلكتروني صالح';
+
+  @override
+  String get phoneNumberLabel => 'رقم الهاتف *';
+
+  @override
+  String get websiteLabel => 'الموقع الإلكتروني';
+
+  @override
+  String get functionalBaseCurrency => 'العملة الوظيفية الأساسية *';
+
+  @override
+  String get companyLogo => 'شعار الشركة';
+
+  @override
+  String get companyLogoHint =>
+      'يُعرض على الفواتير الضريبية المطبوعة وعروض الأسعار وإيصالات العملاء والتقارير المالية. الحجم الموصى به: 300×100 بكسل. تنسيق PNG أو JPG أو SVG.';
+
+  @override
+  String get ftaActive => 'نشط في الهيئة الاتحادية للضرائب';
+
+  @override
+  String get booksLockedPriorTo => 'الدفاتر مقفلة قبل: 31-ديسمبر-2025';
+
+  @override
+  String get booksLockedDesc =>
+      'لا يمكن تعديل أو حذف سندات قيد دفتر الأستاذ العام والفواتير المؤرخة في هذا التاريخ أو قبله دون إذن المراقب المالي.';
+
+  @override
+  String get openCurrentStatus => 'مفتوح (الحالي)';
+
+  @override
+  String get activeRate => 'سعر نشط';
+
+  @override
+  String get baseCurrency => 'العملة الأساسية';
+
+  @override
+  String get colRateAed => 'السعر (إلى 1.00 درهم)';
+
+  @override
+  String get invitationSent => 'تم إرسال الدعوة إلى';
+
+  @override
+  String get asRole => 'بصفة';
+
+  @override
+  String get immutableAuditTrace =>
+      'تتبع زمني غير قابل للتغيير لعمليات المستخدم ونظام القيود';
+
+  @override
+  String get currency => 'العملة';
+
+  @override
+  String get currencyName => 'الاسم';
+
+  @override
+  String get colCurrency => 'العملة';
+
+  @override
+  String get colCurrencyName => 'الاسم';
+
+  @override
+  String get reasonExpired => 'منتهي الصلاحية';
+
+  @override
+  String get reasonOpeningBalance => 'الرصيد الافتتاحي';
+
+  @override
+  String get reasonOther => 'أخرى';
+
+  @override
+  String get valueImpactAed => 'تأثير القيمة (درهم)';
+
+  @override
+  String get removeLineTooltip => 'حذف البند';
+
+  @override
+  String get deleteLineTooltip => 'حذف البند';
+
+  @override
+  String get journalPreviewOnPost => 'معاينة القيد (عند الترحيل)';
+
+  @override
+  String get stockEffect => 'تأثير المخزون';
+
+  @override
+  String get availableQty => 'الكمية المتاحة';
+
+  @override
+  String get transferValueAed => 'قيمة التحويل (درهم)';
+
+  @override
+  String get stockTransferImpact => 'تأثير تحويل المخزون';
+
+  @override
+  String get billableTo => 'قابل للفوترة إلى';
+
+  @override
+  String get totalAed => 'الإجمالي (درهم)';
+
+  @override
+  String get receipt => 'الإيصال';
+
+  @override
+  String get expenseNumber => 'رقم المصروف #';
+
+  @override
+  String get net => 'الصافي';
+
+  @override
+  String get amountAed => 'المبلغ (درهم)';
+
+  @override
+  String get vat5Pct => 'ضريبة 5%';
+
+  @override
+  String get vat0Pct => 'ضريبة 0%';
+
+  @override
+  String get outstanding => 'المتبقي';
+
+  @override
+  String get payment => 'الدفعة';
+
+  @override
+  String get convertToCustomer => 'تحويل إلى عميل';
+
+  @override
+  String get allTasksCompleted => 'تم إكمال جميع المهام! عمل رائع.';
+
+  @override
+  String get standardAvgCostAed => 'التكلفة القياسية / المتوسطة (درهم) *';
+
+  @override
+  String get reorderLevelLabel => 'مستوى إعادة الطلب *';
+
+  @override
+  String get subTypeOptional => 'النوع الفرعي (اختياري)';
+
+  @override
+  String get operations => 'العمليات';
+
+  @override
+  String get admin => 'الإدارة';
+
+  @override
+  String get invoiceNo => 'رقم الفاتورة';
+
+  @override
+  String get tax => 'الضريبة';
+
+  @override
+  String get statementDate => 'تاريخ الكشف';
+
+  @override
+  String get statementEndingBalance => 'الرصيد الختامي للكشف';
+
+  @override
+  String get importStatementCsv => 'استيراد كشف الحساب (CSV)';
+
+  @override
+  String get bankAccount => 'حساب بنكي';
+
+  @override
+  String get balanceAed => 'الرصيد (درهم)';
+
+  @override
+  String get qtyInOut => 'الكمية وارد/صادر';
+
+  @override
+  String get totalCostAed => 'التكلفة الإجمالية (درهم)';
+
+  @override
+  String get balance => 'الرصيد';
+
+  @override
+  String get reorderLevel => 'مستوى إعادة الطلب';
+
+  @override
+  String get weightedAvgCost => 'متوسط التكلفة المرجح';
+
+  @override
+  String get type => 'النوع';
+
+  @override
+  String get stockStatus => 'حالة المخزون';
 }

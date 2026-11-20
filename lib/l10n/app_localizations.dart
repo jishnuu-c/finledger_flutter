@@ -244,7 +244,7 @@ abstract class AppLocalizations {
   /// **'Refresh'**
   String get refresh;
 
-  /// No description provided for @close.
+  /// Localization key for close
   ///
   /// In en, this message translates to:
   /// **'Close'**
@@ -358,7 +358,7 @@ abstract class AppLocalizations {
   /// **'Invoices'**
   String get invoices;
 
-  /// No description provided for @receipts.
+  /// Localization key for receipts
   ///
   /// In en, this message translates to:
   /// **'Receipts'**
@@ -796,10 +796,10 @@ abstract class AppLocalizations {
   /// **'Mark as Won'**
   String get markWon;
 
-  /// No description provided for @markLost.
+  /// Localization key for markLost
   ///
   /// In en, this message translates to:
-  /// **'Mark as Lost'**
+  /// **'Mark Lost'**
   String get markLost;
 
   /// No description provided for @opportunityDetails.
@@ -898,10 +898,10 @@ abstract class AppLocalizations {
   /// **'Subtotal'**
   String get subtotal;
 
-  /// No description provided for @vat.
+  /// Localization key for vat
   ///
   /// In en, this message translates to:
-  /// **'VAT (5%)'**
+  /// **'VAT'**
   String get vat;
 
   /// No description provided for @totalAmount.
@@ -982,7 +982,7 @@ abstract class AppLocalizations {
   /// **'Add Item'**
   String get addItem;
 
-  /// No description provided for @unitPrice.
+  /// Localization key for unitPrice
   ///
   /// In en, this message translates to:
   /// **'Unit Price'**
@@ -1024,7 +1024,7 @@ abstract class AppLocalizations {
   /// **'Vendor Payments'**
   String get vendorPayments;
 
-  /// No description provided for @recordPayment.
+  /// Localization key for recordPayment
   ///
   /// In en, this message translates to:
   /// **'Record Payment'**
@@ -1060,7 +1060,7 @@ abstract class AppLocalizations {
   /// **'Category'**
   String get category;
 
-  /// No description provided for @unitCost.
+  /// Localization key for unitCost
   ///
   /// In en, this message translates to:
   /// **'Unit Cost'**
@@ -1072,10 +1072,10 @@ abstract class AppLocalizations {
   /// **'Selling Price'**
   String get sellingPrice;
 
-  /// No description provided for @onHand.
+  /// Localization key for onHand
   ///
   /// In en, this message translates to:
-  /// **'On Hand'**
+  /// **'ON HAND'**
   String get onHand;
 
   /// No description provided for @reorderPoint.
@@ -1282,7 +1282,7 @@ abstract class AppLocalizations {
   /// **'Unreconciled'**
   String get unreconciled;
 
-  /// No description provided for @match.
+  /// Localization key for match
   ///
   /// In en, this message translates to:
   /// **'Match'**
@@ -1294,7 +1294,7 @@ abstract class AppLocalizations {
   /// **'Import Statement (CSV)'**
   String get importCsv;
 
-  /// No description provided for @finishReconciliation.
+  /// Localization key for finishReconciliation
   ///
   /// In en, this message translates to:
   /// **'Finish Reconciliation'**
@@ -1564,7 +1564,7 @@ abstract class AppLocalizations {
   /// **'Prospect / Customer Name'**
   String get prospectCustomerName;
 
-  /// No description provided for @salesOwner.
+  /// Localization key for salesOwner
   ///
   /// In en, this message translates to:
   /// **'Sales Owner'**
@@ -1582,7 +1582,7 @@ abstract class AppLocalizations {
   /// **'Win Probability'**
   String get winProbability;
 
-  /// No description provided for @initialStage.
+  /// Localization key for initialStage
   ///
   /// In en, this message translates to:
   /// **'Initial Stage'**
@@ -1768,40 +1768,40 @@ abstract class AppLocalizations {
   /// **'Invoices exported to CSV successfully.'**
   String get invoiceExportSuccess;
 
-  /// No description provided for @paymentTerms.
+  /// Localization key for paymentTerms
   ///
   /// In en, this message translates to:
   /// **'Payment Terms'**
   String get paymentTerms;
 
-  /// No description provided for @dueOnReceipt.
+  /// Localization key for dueOnReceipt
   ///
   /// In en, this message translates to:
   /// **'Due on Receipt'**
   String get dueOnReceipt;
 
-  /// No description provided for @net15.
+  /// Localization key for net15
   ///
   /// In en, this message translates to:
-  /// **'Net 15 Days'**
+  /// **'Net 15'**
   String get net15;
 
-  /// No description provided for @net30.
+  /// Localization key for net30
   ///
   /// In en, this message translates to:
-  /// **'Net 30 Days'**
+  /// **'Net 30'**
   String get net30;
 
-  /// No description provided for @net60.
+  /// Localization key for net60
   ///
   /// In en, this message translates to:
-  /// **'Net 60 Days'**
+  /// **'Net 60'**
   String get net60;
 
-  /// No description provided for @itemDescription.
+  /// Localization key for itemDescription
   ///
   /// In en, this message translates to:
-  /// **'Description'**
+  /// **'Item / Description'**
   String get itemDescription;
 
   /// No description provided for @taxRate.
@@ -1858,13 +1858,13 @@ abstract class AppLocalizations {
   /// **'Bank Transfer'**
   String get bankTransfer;
 
-  /// No description provided for @cash.
+  /// Localization key for cash
   ///
   /// In en, this message translates to:
   /// **'Cash'**
   String get cash;
 
-  /// No description provided for @cheque.
+  /// Localization key for cheque
   ///
   /// In en, this message translates to:
   /// **'Cheque'**
@@ -2146,7 +2146,7 @@ abstract class AppLocalizations {
   /// **'Chart of accounts hierarchy, manual journal vouchers, and audit trails'**
   String get accountingSubtitle;
 
-  /// No description provided for @newJournalEntry.
+  /// Localization key for newJournalEntry
   ///
   /// In en, this message translates to:
   /// **'New Journal Entry'**
@@ -2176,10 +2176,10 @@ abstract class AppLocalizations {
   /// **'Header account used for grouping; cannot be posted to directly.'**
   String get groupAccountNote;
 
-  /// No description provided for @costCenter.
+  /// Localization key for costCenter
   ///
   /// In en, this message translates to:
-  /// **'Cost Center'**
+  /// **'Cost center'**
   String get costCenter;
 
   /// No description provided for @narration.
@@ -2308,22 +2308,22 @@ abstract class AppLocalizations {
   /// **'Compare: Prior Year'**
   String get compareYear;
 
-  /// No description provided for @allCostCenters.
+  /// Localization key for allCostCenters
   ///
   /// In en, this message translates to:
   /// **'All Cost Centers'**
   String get allCostCenters;
 
-  /// No description provided for @companyProfileTitle.
+  /// Localization key for companyProfileTitle
   ///
   /// In en, this message translates to:
   /// **'Company Profile & Legal Entity'**
   String get companyProfileTitle;
 
-  /// No description provided for @companyProfileSubtitle.
+  /// Localization key for companyProfileSubtitle
   ///
   /// In en, this message translates to:
-  /// **'Primary trading entity for invoice headers and official tax documentation'**
+  /// **'Primary trading entity information for official invoice headers, receipts, and UAE tax reports'**
   String get companyProfileSubtitle;
 
   /// No description provided for @trnNumberLabel.
@@ -2374,10 +2374,10 @@ abstract class AppLocalizations {
   /// **'Optimal'**
   String get optimalStock;
 
-  /// No description provided for @lowStock.
+  /// Localization key for lowStock
   ///
   /// In en, this message translates to:
-  /// **'Low Stock'**
+  /// **'Low'**
   String get lowStock;
 
   /// No description provided for @generalLedgerTrail.
@@ -2398,13 +2398,13 @@ abstract class AppLocalizations {
   /// **'Upload a CSV file containing lead coordinates, estimated deal amounts, and sales owners. Records will be automatically parsed and mapped into the Sales Pipeline.'**
   String get uploadReceiptPrompt;
 
-  /// No description provided for @inStock.
+  /// Localization key for inStock
   ///
   /// In en, this message translates to:
   /// **'In stock'**
   String get inStock;
 
-  /// No description provided for @outOfStock.
+  /// Localization key for outOfStock
   ///
   /// In en, this message translates to:
   /// **'Out of stock'**
@@ -2800,10 +2800,10 @@ abstract class AppLocalizations {
   /// **'RECEIPT'**
   String get colReceipt;
 
-  /// No description provided for @colItem.
+  /// Localization key for colItem
   ///
   /// In en, this message translates to:
-  /// **'ITEM'**
+  /// **'Item'**
   String get colItem;
 
   /// No description provided for @colOnHand.
@@ -2872,19 +2872,19 @@ abstract class AppLocalizations {
   /// **'Preview PDF'**
   String get previewPdf;
 
-  /// No description provided for @saveAndSend.
+  /// Localization key for saveAndSend
   ///
   /// In en, this message translates to:
   /// **'Save & Send'**
   String get saveAndSend;
 
-  /// No description provided for @importAndAutoMatch.
+  /// Localization key for importAndAutoMatch
   ///
   /// In en, this message translates to:
   /// **'Import & Auto-Match'**
   String get importAndAutoMatch;
 
-  /// No description provided for @loadSampleCsv.
+  /// Localization key for loadSampleCsv
   ///
   /// In en, this message translates to:
   /// **'Load Sample CSV'**
@@ -2973,6 +2973,1428 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Expand sidebar'**
   String get expandSidebar;
+
+  /// No description provided for @languageAndRegion.
+  ///
+  /// In en, this message translates to:
+  /// **'Language & Region'**
+  String get languageAndRegion;
+
+  /// No description provided for @usersAndRoles.
+  ///
+  /// In en, this message translates to:
+  /// **'Users & Roles'**
+  String get usersAndRoles;
+
+  /// No description provided for @companyAndSystemSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Company & System Settings'**
+  String get companyAndSystemSettings;
+
+  /// No description provided for @companyProfileUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Company profile updated successfully'**
+  String get companyProfileUpdated;
+
+  /// No description provided for @companyLogoUploaded.
+  ///
+  /// In en, this message translates to:
+  /// **'Company logo uploaded successfully'**
+  String get companyLogoUploaded;
+
+  /// No description provided for @companyLogoRemoved.
+  ///
+  /// In en, this message translates to:
+  /// **'Company logo removed'**
+  String get companyLogoRemoved;
+
+  /// No description provided for @uploadNewLogo.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload New Logo'**
+  String get uploadNewLogo;
+
+  /// No description provided for @removeLogo.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove Logo'**
+  String get removeLogo;
+
+  /// No description provided for @reset.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get reset;
+
+  /// No description provided for @validationRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Required'**
+  String get validationRequired;
+
+  /// No description provided for @validationTrn15Digits.
+  ///
+  /// In en, this message translates to:
+  /// **'UAE TRN must be 15 digits'**
+  String get validationTrn15Digits;
+
+  /// No description provided for @emirateDubai.
+  ///
+  /// In en, this message translates to:
+  /// **'Dubai'**
+  String get emirateDubai;
+
+  /// No description provided for @emirateAbuDhabi.
+  ///
+  /// In en, this message translates to:
+  /// **'Abu Dhabi'**
+  String get emirateAbuDhabi;
+
+  /// No description provided for @emirateSharjah.
+  ///
+  /// In en, this message translates to:
+  /// **'Sharjah'**
+  String get emirateSharjah;
+
+  /// No description provided for @emirateAjman.
+  ///
+  /// In en, this message translates to:
+  /// **'Ajman'**
+  String get emirateAjman;
+
+  /// No description provided for @emirateRasAlKhaimah.
+  ///
+  /// In en, this message translates to:
+  /// **'Ras Al Khaimah'**
+  String get emirateRasAlKhaimah;
+
+  /// No description provided for @emirateFujairah.
+  ///
+  /// In en, this message translates to:
+  /// **'Fujairah'**
+  String get emirateFujairah;
+
+  /// No description provided for @emirateUmmAlQuwain.
+  ///
+  /// In en, this message translates to:
+  /// **'Umm Al Quwain'**
+  String get emirateUmmAlQuwain;
+
+  /// No description provided for @currencyAedFull.
+  ///
+  /// In en, this message translates to:
+  /// **'AED - United Arab Emirates Dirham'**
+  String get currencyAedFull;
+
+  /// No description provided for @currencyUsdFull.
+  ///
+  /// In en, this message translates to:
+  /// **'USD - US Dollar'**
+  String get currencyUsdFull;
+
+  /// No description provided for @currencyAedParen.
+  ///
+  /// In en, this message translates to:
+  /// **'AED (UAE Dirham)'**
+  String get currencyAedParen;
+
+  /// No description provided for @currencySarParen.
+  ///
+  /// In en, this message translates to:
+  /// **'SAR (Saudi Riyal)'**
+  String get currencySarParen;
+
+  /// No description provided for @currencyUsdParen.
+  ///
+  /// In en, this message translates to:
+  /// **'USD (US Dollar)'**
+  String get currencyUsdParen;
+
+  /// No description provided for @fiscalYearsAndLocking.
+  ///
+  /// In en, this message translates to:
+  /// **'Fiscal Years & Period Locking'**
+  String get fiscalYearsAndLocking;
+
+  /// No description provided for @fiscalYearsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Configure accounting financial periods and book closure cutoffs'**
+  String get fiscalYearsSubtitle;
+
+  /// No description provided for @fiscalYear.
+  ///
+  /// In en, this message translates to:
+  /// **'Fiscal Year'**
+  String get fiscalYear;
+
+  /// No description provided for @startDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Date'**
+  String get startDate;
+
+  /// No description provided for @endDate.
+  ///
+  /// In en, this message translates to:
+  /// **'End Date'**
+  String get endDate;
+
+  /// No description provided for @uaeVatRatesRegs.
+  ///
+  /// In en, this message translates to:
+  /// **'UAE FTA VAT Rates & Regulations'**
+  String get uaeVatRatesRegs;
+
+  /// No description provided for @uaeVatSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Federal Tax Authority (FTA) statutory rates for VAT 201 return reporting'**
+  String get uaeVatSubtitle;
+
+  /// No description provided for @currenciesAndRates.
+  ///
+  /// In en, this message translates to:
+  /// **'Currencies & Exchange Rates'**
+  String get currenciesAndRates;
+
+  /// No description provided for @currenciesSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Multi-currency conversion rates with AED functional base currency'**
+  String get currenciesSubtitle;
+
+  /// No description provided for @updateRates.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Rates'**
+  String get updateRates;
+
+  /// No description provided for @ratesSynced.
+  ///
+  /// In en, this message translates to:
+  /// **'Central Bank of the UAE exchange rates synced'**
+  String get ratesSynced;
+
+  /// No description provided for @rateToAed.
+  ///
+  /// In en, this message translates to:
+  /// **'Rate (to 1.00 AED)'**
+  String get rateToAed;
+
+  /// No description provided for @docNumberSeries.
+  ///
+  /// In en, this message translates to:
+  /// **'Document Number Series'**
+  String get docNumberSeries;
+
+  /// No description provided for @docNumberSeriesSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sequential numbering patterns and prefixes across all modules'**
+  String get docNumberSeriesSubtitle;
+
+  /// No description provided for @docType.
+  ///
+  /// In en, this message translates to:
+  /// **'Document Type'**
+  String get docType;
+
+  /// No description provided for @prefix.
+  ///
+  /// In en, this message translates to:
+  /// **'Prefix'**
+  String get prefix;
+
+  /// No description provided for @nextSequential.
+  ///
+  /// In en, this message translates to:
+  /// **'Next Sequential'**
+  String get nextSequential;
+
+  /// No description provided for @sampleDocNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Sample Document Number'**
+  String get sampleDocNumber;
+
+  /// No description provided for @usersAndPermissions.
+  ///
+  /// In en, this message translates to:
+  /// **'Users & Role-Based Permissions'**
+  String get usersAndPermissions;
+
+  /// No description provided for @usersAndPermissionsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage authorized users, segregation of duties, and module rights'**
+  String get usersAndPermissionsSubtitle;
+
+  /// No description provided for @inviteUserBtn.
+  ///
+  /// In en, this message translates to:
+  /// **'+ Invite User'**
+  String get inviteUserBtn;
+
+  /// No description provided for @inviteTeamMember.
+  ///
+  /// In en, this message translates to:
+  /// **'Invite Team Member'**
+  String get inviteTeamMember;
+
+  /// No description provided for @fullName.
+  ///
+  /// In en, this message translates to:
+  /// **'Full Name'**
+  String get fullName;
+
+  /// No description provided for @emailAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Email Address'**
+  String get emailAddress;
+
+  /// No description provided for @roleDirective.
+  ///
+  /// In en, this message translates to:
+  /// **'Role Directive'**
+  String get roleDirective;
+
+  /// No description provided for @roleAccountant.
+  ///
+  /// In en, this message translates to:
+  /// **'Accountant'**
+  String get roleAccountant;
+
+  /// No description provided for @roleSalesRepresentative.
+  ///
+  /// In en, this message translates to:
+  /// **'Sales Representative'**
+  String get roleSalesRepresentative;
+
+  /// No description provided for @roleWarehouseManager.
+  ///
+  /// In en, this message translates to:
+  /// **'Warehouse Manager'**
+  String get roleWarehouseManager;
+
+  /// No description provided for @roleController.
+  ///
+  /// In en, this message translates to:
+  /// **'Controller'**
+  String get roleController;
+
+  /// No description provided for @sendInvite.
+  ///
+  /// In en, this message translates to:
+  /// **'Send Invite'**
+  String get sendInvite;
+
+  /// No description provided for @securityAuditTrail.
+  ///
+  /// In en, this message translates to:
+  /// **'Security & Audit Log Trail'**
+  String get securityAuditTrail;
+
+  /// No description provided for @securityAuditSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Immutable chronological trace of user operations and system posts'**
+  String get securityAuditSubtitle;
+
+  /// No description provided for @colTimestamp.
+  ///
+  /// In en, this message translates to:
+  /// **'Timestamp'**
+  String get colTimestamp;
+
+  /// No description provided for @colUser.
+  ///
+  /// In en, this message translates to:
+  /// **'User'**
+  String get colUser;
+
+  /// No description provided for @colAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Action'**
+  String get colAction;
+
+  /// No description provided for @colDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Details'**
+  String get colDetails;
+
+  /// No description provided for @colIpAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'IP Address'**
+  String get colIpAddress;
+
+  /// No description provided for @adjustmentNo.
+  ///
+  /// In en, this message translates to:
+  /// **'Adjustment No.'**
+  String get adjustmentNo;
+
+  /// No description provided for @reasonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason'**
+  String get reasonLabel;
+
+  /// No description provided for @reasonStockCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Stock count'**
+  String get reasonStockCount;
+
+  /// No description provided for @reasonDamagedGoods.
+  ///
+  /// In en, this message translates to:
+  /// **'Damaged goods'**
+  String get reasonDamagedGoods;
+
+  /// No description provided for @reasonSurplus.
+  ///
+  /// In en, this message translates to:
+  /// **'Surplus'**
+  String get reasonSurplus;
+
+  /// No description provided for @reasonWriteOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Write-off'**
+  String get reasonWriteOff;
+
+  /// No description provided for @reasonInternalConsumption.
+  ///
+  /// In en, this message translates to:
+  /// **'Internal consumption'**
+  String get reasonInternalConsumption;
+
+  /// No description provided for @reasonTheftLoss.
+  ///
+  /// In en, this message translates to:
+  /// **'Theft / Loss'**
+  String get reasonTheftLoss;
+
+  /// No description provided for @physicalInventoryCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Physical Inventory Count (Load All)'**
+  String get physicalInventoryCount;
+
+  /// No description provided for @pleaseAddLineItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Please add at least one line item.'**
+  String get pleaseAddLineItem;
+
+  /// No description provided for @warehousesCannotBeIdentical.
+  ///
+  /// In en, this message translates to:
+  /// **'From and To warehouse cannot be identical.'**
+  String get warehousesCannotBeIdentical;
+
+  /// No description provided for @fromWarehouse.
+  ///
+  /// In en, this message translates to:
+  /// **'From Warehouse'**
+  String get fromWarehouse;
+
+  /// No description provided for @toWarehouse.
+  ///
+  /// In en, this message translates to:
+  /// **'To Warehouse'**
+  String get toWarehouse;
+
+  /// No description provided for @transferNo.
+  ///
+  /// In en, this message translates to:
+  /// **'Transfer No.'**
+  String get transferNo;
+
+  /// No description provided for @dispatchTransfer.
+  ///
+  /// In en, this message translates to:
+  /// **'Dispatch Transfer'**
+  String get dispatchTransfer;
+
+  /// No description provided for @saveProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Progress'**
+  String get saveProgress;
+
+  /// No description provided for @scanBarcode.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan Barcode'**
+  String get scanBarcode;
+
+  /// No description provided for @addLineItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Line Item'**
+  String get addLineItem;
+
+  /// No description provided for @systemQty.
+  ///
+  /// In en, this message translates to:
+  /// **'System Qty'**
+  String get systemQty;
+
+  /// No description provided for @countedQty.
+  ///
+  /// In en, this message translates to:
+  /// **'Counted Qty'**
+  String get countedQty;
+
+  /// No description provided for @totalTransferValue.
+  ///
+  /// In en, this message translates to:
+  /// **'Total transfer value'**
+  String get totalTransferValue;
+
+  /// No description provided for @netValueImpact.
+  ///
+  /// In en, this message translates to:
+  /// **'Net value impact'**
+  String get netValueImpact;
+
+  /// No description provided for @searchSkuBarcode.
+  ///
+  /// In en, this message translates to:
+  /// **'Search SKU / name / barcode...'**
+  String get searchSkuBarcode;
+
+  /// No description provided for @allWarehouses.
+  ///
+  /// In en, this message translates to:
+  /// **'All warehouses'**
+  String get allWarehouses;
+
+  /// No description provided for @allCategories.
+  ///
+  /// In en, this message translates to:
+  /// **'All categories'**
+  String get allCategories;
+
+  /// No description provided for @allStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'All Status'**
+  String get allStatus;
+
+  /// No description provided for @quickTestBarcodes.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Test Barcodes:'**
+  String get quickTestBarcodes;
+
+  /// No description provided for @enterBarcodeSku.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter barcode or SKU (e.g. 629104800130)'**
+  String get enterBarcodeSku;
+
+  /// No description provided for @scanBtn.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan'**
+  String get scanBtn;
+
+  /// No description provided for @noInventoryItemsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No inventory items found matching filters.'**
+  String get noInventoryItemsFound;
+
+  /// No description provided for @noStockMovementsRecorded.
+  ///
+  /// In en, this message translates to:
+  /// **'No stock movements recorded for this filter.'**
+  String get noStockMovementsRecorded;
+
+  /// No description provided for @exportStockSummaryExcel.
+  ///
+  /// In en, this message translates to:
+  /// **'Exporting stock summary to Excel/CSV...'**
+  String get exportStockSummaryExcel;
+
+  /// No description provided for @adjustmentAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Adjustment Account'**
+  String get adjustmentAccount;
+
+  /// No description provided for @balanceQty.
+  ///
+  /// In en, this message translates to:
+  /// **'Balance Qty'**
+  String get balanceQty;
+
+  /// No description provided for @transferQty.
+  ///
+  /// In en, this message translates to:
+  /// **'Transfer Qty'**
+  String get transferQty;
+
+  /// No description provided for @claimApproved.
+  ///
+  /// In en, this message translates to:
+  /// **'Expense claim approved.'**
+  String get claimApproved;
+
+  /// No description provided for @claimReimbursedPayroll.
+  ///
+  /// In en, this message translates to:
+  /// **'Expense reimbursed via payroll / bank transfer.'**
+  String get claimReimbursedPayroll;
+
+  /// No description provided for @rejectExpenseClaim.
+  ///
+  /// In en, this message translates to:
+  /// **'Reject Expense Claim'**
+  String get rejectExpenseClaim;
+
+  /// No description provided for @enterRejectionReason.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter rejection reason for the employee:'**
+  String get enterRejectionReason;
+
+  /// No description provided for @postToGl.
+  ///
+  /// In en, this message translates to:
+  /// **'Post to General Ledger'**
+  String get postToGl;
+
+  /// No description provided for @selectReceiptDocument.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Receipt Document:'**
+  String get selectReceiptDocument;
+
+  /// No description provided for @tapToCaptureAttach.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to capture & attach'**
+  String get tapToCaptureAttach;
+
+  /// No description provided for @noExpensesFoundTab.
+  ///
+  /// In en, this message translates to:
+  /// **'No expenses found for this tab.'**
+  String get noExpensesFoundTab;
+
+  /// No description provided for @exportingExpensesExcel.
+  ///
+  /// In en, this message translates to:
+  /// **'Exporting expenses to Excel...'**
+  String get exportingExpensesExcel;
+
+  /// No description provided for @employeePayee.
+  ///
+  /// In en, this message translates to:
+  /// **'Employee / Payee'**
+  String get employeePayee;
+
+  /// No description provided for @paidBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Paid by'**
+  String get paidBy;
+
+  /// No description provided for @purpose.
+  ///
+  /// In en, this message translates to:
+  /// **'Purpose'**
+  String get purpose;
+
+  /// No description provided for @receiptDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Receipt Date'**
+  String get receiptDate;
+
+  /// No description provided for @submitForApproval.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit for Approval'**
+  String get submitForApproval;
+
+  /// No description provided for @expenseAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Expense Account'**
+  String get expenseAccount;
+
+  /// No description provided for @expenseNo.
+  ///
+  /// In en, this message translates to:
+  /// **'Expense No.'**
+  String get expenseNo;
+
+  /// No description provided for @pleaseSelectCustomer.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a customer'**
+  String get pleaseSelectCustomer;
+
+  /// No description provided for @exportingInvoicesCsv.
+  ///
+  /// In en, this message translates to:
+  /// **'Exporting invoices to CSV...'**
+  String get exportingInvoicesCsv;
+
+  /// No description provided for @noInvoicesFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No invoices found matching criteria'**
+  String get noInvoicesFound;
+
+  /// No description provided for @noOpenInvoicesCustomer.
+  ///
+  /// In en, this message translates to:
+  /// **'No open invoices found for this customer.'**
+  String get noOpenInvoicesCustomer;
+
+  /// No description provided for @searchInvoiceCustomer.
+  ///
+  /// In en, this message translates to:
+  /// **'Search invoice / customer...'**
+  String get searchInvoiceCustomer;
+
+  /// No description provided for @amountReceivedGreaterZero.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount received must be greater than zero'**
+  String get amountReceivedGreaterZero;
+
+  /// No description provided for @appliedExceedsReceived.
+  ///
+  /// In en, this message translates to:
+  /// **'Total applied exceeds amount received.'**
+  String get appliedExceedsReceived;
+
+  /// No description provided for @depositTo.
+  ///
+  /// In en, this message translates to:
+  /// **'Deposit To'**
+  String get depositTo;
+
+  /// No description provided for @amountReceived.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount Received'**
+  String get amountReceived;
+
+  /// No description provided for @referenceChequeNo.
+  ///
+  /// In en, this message translates to:
+  /// **'Reference / Cheque No.'**
+  String get referenceChequeNo;
+
+  /// No description provided for @invoiceDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Invoice Date'**
+  String get invoiceDate;
+
+  /// No description provided for @notesToCustomer.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes to customer'**
+  String get notesToCustomer;
+
+  /// No description provided for @discPct.
+  ///
+  /// In en, this message translates to:
+  /// **'Disc %'**
+  String get discPct;
+
+  /// No description provided for @vatRate.
+  ///
+  /// In en, this message translates to:
+  /// **'VAT %'**
+  String get vatRate;
+
+  /// No description provided for @lineTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Total'**
+  String get lineTotal;
+
+  /// No description provided for @taxInvoiceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'TAX INVOICE'**
+  String get taxInvoiceTitle;
+
+  /// No description provided for @invoiceTo.
+  ///
+  /// In en, this message translates to:
+  /// **'BILL TO:'**
+  String get invoiceTo;
+
+  /// No description provided for @notesAndBankDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes & Bank Details:'**
+  String get notesAndBankDetails;
+
+  /// No description provided for @paymentTermsHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'PAYMENT TERMS:'**
+  String get paymentTermsHeader;
+
+  /// No description provided for @stageChangedTo.
+  ///
+  /// In en, this message translates to:
+  /// **'Stage changed to'**
+  String get stageChangedTo;
+
+  /// No description provided for @oppMarkedLost.
+  ///
+  /// In en, this message translates to:
+  /// **'Opportunity marked as Lost'**
+  String get oppMarkedLost;
+
+  /// No description provided for @logCallMeetingNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Log a call, meeting or note...'**
+  String get logCallMeetingNote;
+
+  /// No description provided for @noQuotationsGenerated.
+  ///
+  /// In en, this message translates to:
+  /// **'No quotations generated yet.'**
+  String get noQuotationsGenerated;
+
+  /// No description provided for @noPrimaryContactLinked.
+  ///
+  /// In en, this message translates to:
+  /// **'No primary contact linked.'**
+  String get noPrimaryContactLinked;
+
+  /// No description provided for @createQuotation.
+  ///
+  /// In en, this message translates to:
+  /// **'+ Quotation'**
+  String get createQuotation;
+
+  /// No description provided for @winProbabilityLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Win Probability'**
+  String get winProbabilityLabel;
+
+  /// No description provided for @journalReference.
+  ///
+  /// In en, this message translates to:
+  /// **'Journal Reference'**
+  String get journalReference;
+
+  /// No description provided for @noJournalTransactionsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No journal transactions found for this account.'**
+  String get noJournalTransactionsFound;
+
+  /// No description provided for @reconciliationComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Reconciliation Complete'**
+  String get reconciliationComplete;
+
+  /// No description provided for @reconciliationProgressSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Reconciliation progress saved successfully'**
+  String get reconciliationProgressSaved;
+
+  /// No description provided for @postAndClearEntry.
+  ///
+  /// In en, this message translates to:
+  /// **'Post & Clear Entry'**
+  String get postAndClearEntry;
+
+  /// No description provided for @card.
+  ///
+  /// In en, this message translates to:
+  /// **'Card'**
+  String get card;
+
+  /// No description provided for @topLevelGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'— None (Top-level Group) —'**
+  String get topLevelGroup;
+
+  /// No description provided for @accountTypeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Type'**
+  String get accountTypeLabel;
+
+  /// No description provided for @selectPeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Period'**
+  String get selectPeriod;
+
+  /// No description provided for @periodYtd.
+  ///
+  /// In en, this message translates to:
+  /// **'Year to Date (01-Jan to 31-Oct 2026)'**
+  String get periodYtd;
+
+  /// No description provided for @periodThisMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'This Month (October 2026)'**
+  String get periodThisMonth;
+
+  /// No description provided for @periodQ3.
+  ///
+  /// In en, this message translates to:
+  /// **'Q3 2026 (01-Jul to 30-Sep 2026)'**
+  String get periodQ3;
+
+  /// No description provided for @comparePriorYear.
+  ///
+  /// In en, this message translates to:
+  /// **'Compare: Prior Year'**
+  String get comparePriorYear;
+
+  /// No description provided for @comparePriorPeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'Compare: Prior Period'**
+  String get comparePriorPeriod;
+
+  /// No description provided for @compareBudget.
+  ///
+  /// In en, this message translates to:
+  /// **'Compare: Budget'**
+  String get compareBudget;
+
+  /// No description provided for @compareNone.
+  ///
+  /// In en, this message translates to:
+  /// **'Compare: None'**
+  String get compareNone;
+
+  /// No description provided for @costCenterSales.
+  ///
+  /// In en, this message translates to:
+  /// **'Sales'**
+  String get costCenterSales;
+
+  /// No description provided for @costCenterOperations.
+  ///
+  /// In en, this message translates to:
+  /// **'Operations'**
+  String get costCenterOperations;
+
+  /// No description provided for @costCenterAdmin.
+  ///
+  /// In en, this message translates to:
+  /// **'Admin'**
+  String get costCenterAdmin;
+
+  /// No description provided for @run.
+  ///
+  /// In en, this message translates to:
+  /// **'Run'**
+  String get run;
+
+  /// No description provided for @colAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get colAccount;
+
+  /// No description provided for @colChangePct.
+  ///
+  /// In en, this message translates to:
+  /// **'Change %'**
+  String get colChangePct;
+
+  /// No description provided for @entryNo.
+  ///
+  /// In en, this message translates to:
+  /// **'Entry #'**
+  String get entryNo;
+
+  /// No description provided for @boardPackSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Board Pack PDF generated and downloaded successfully.'**
+  String get boardPackSuccess;
+
+  /// No description provided for @financialStatements.
+  ///
+  /// In en, this message translates to:
+  /// **'Financial Statements'**
+  String get financialStatements;
+
+  /// No description provided for @taxCompliance.
+  ///
+  /// In en, this message translates to:
+  /// **'Tax & Compliance'**
+  String get taxCompliance;
+
+  /// No description provided for @pnlDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Trading revenue, cost of goods sold (COGS), operating expenses, and net profit margins'**
+  String get pnlDesc;
+
+  /// No description provided for @balanceSheetDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Assets, liabilities, and retained earnings equity summary'**
+  String get balanceSheetDesc;
+
+  /// No description provided for @trialBalanceDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete listing of all debit and credit account balances verifying ledger equilibrium'**
+  String get trialBalanceDesc;
+
+  /// No description provided for @vatReturnDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Box-by-box breakdown of 5% standard rated sales, zero rated supplies, and recoverable input VAT'**
+  String get vatReturnDesc;
+
+  /// No description provided for @bankStatementImportedSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank statement imported successfully.'**
+  String get bankStatementImportedSuccess;
+
+  /// Localization key for companyLegalName
+  ///
+  /// In en, this message translates to:
+  /// **'Company Legal Name *'**
+  String get companyLegalName;
+
+  /// Localization key for taxRegistrationNumberTrn
+  ///
+  /// In en, this message translates to:
+  /// **'Tax Registration Number (TRN) *'**
+  String get taxRegistrationNumberTrn;
+
+  /// Localization key for tradeLicenseCommercialReg
+  ///
+  /// In en, this message translates to:
+  /// **'Trade License / Commercial Reg *'**
+  String get tradeLicenseCommercialReg;
+
+  /// Localization key for corporateTaxTrn
+  ///
+  /// In en, this message translates to:
+  /// **'Corporate Tax TRN'**
+  String get corporateTaxTrn;
+
+  /// Localization key for registeredAddress
+  ///
+  /// In en, this message translates to:
+  /// **'Registered Address *'**
+  String get registeredAddress;
+
+  /// Localization key for emirateLabel
+  ///
+  /// In en, this message translates to:
+  /// **'Emirate *'**
+  String get emirateLabel;
+
+  /// Localization key for primaryEmailLabel
+  ///
+  /// In en, this message translates to:
+  /// **'Primary Email *'**
+  String get primaryEmailLabel;
+
+  /// Localization key for validEmailRequired
+  ///
+  /// In en, this message translates to:
+  /// **'Valid email required'**
+  String get validEmailRequired;
+
+  /// Localization key for phoneNumberLabel
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Number *'**
+  String get phoneNumberLabel;
+
+  /// Localization key for websiteLabel
+  ///
+  /// In en, this message translates to:
+  /// **'Website'**
+  String get websiteLabel;
+
+  /// Localization key for functionalBaseCurrency
+  ///
+  /// In en, this message translates to:
+  /// **'Functional Base Currency *'**
+  String get functionalBaseCurrency;
+
+  /// Localization key for companyLogo
+  ///
+  /// In en, this message translates to:
+  /// **'Company Logo'**
+  String get companyLogo;
+
+  /// Localization key for companyLogoHint
+  ///
+  /// In en, this message translates to:
+  /// **'Displayed on printed tax invoices, quotations, customer receipts, and financial reports. Recommended size: 300x100px. PNG, JPG or SVG format.'**
+  String get companyLogoHint;
+
+  /// Localization key for ftaActive
+  ///
+  /// In en, this message translates to:
+  /// **'FTA Active'**
+  String get ftaActive;
+
+  /// Localization key for booksLockedPriorTo
+  ///
+  /// In en, this message translates to:
+  /// **'Books Locked Prior to: 31-Dec-2025'**
+  String get booksLockedPriorTo;
+
+  /// Localization key for booksLockedDesc
+  ///
+  /// In en, this message translates to:
+  /// **'General Ledger journal vouchers and invoices dated on or prior to this date cannot be modified or deleted without financial controller clearance.'**
+  String get booksLockedDesc;
+
+  /// Localization key for openCurrentStatus
+  ///
+  /// In en, this message translates to:
+  /// **'Open (Current)'**
+  String get openCurrentStatus;
+
+  /// Localization key for activeRate
+  ///
+  /// In en, this message translates to:
+  /// **'Active Rate'**
+  String get activeRate;
+
+  /// Localization key for baseCurrency
+  ///
+  /// In en, this message translates to:
+  /// **'Base Currency'**
+  String get baseCurrency;
+
+  /// Localization key for colRateAed
+  ///
+  /// In en, this message translates to:
+  /// **'Rate (to 1.00 AED)'**
+  String get colRateAed;
+
+  /// Localization key for invitationSent
+  ///
+  /// In en, this message translates to:
+  /// **'Invitation sent to'**
+  String get invitationSent;
+
+  /// Localization key for asRole
+  ///
+  /// In en, this message translates to:
+  /// **'as'**
+  String get asRole;
+
+  /// Localization key for immutableAuditTrace
+  ///
+  /// In en, this message translates to:
+  /// **'Immutable chronological trace of user operations and system posts'**
+  String get immutableAuditTrace;
+
+  /// Localization key for currency
+  ///
+  /// In en, this message translates to:
+  /// **'Currency'**
+  String get currency;
+
+  /// Localization key for currencyName
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get currencyName;
+
+  /// Localization key for colCurrency
+  ///
+  /// In en, this message translates to:
+  /// **'Currency'**
+  String get colCurrency;
+
+  /// Localization key for colCurrencyName
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get colCurrencyName;
+
+  /// Localization key for reasonExpired
+  ///
+  /// In en, this message translates to:
+  /// **'Expired'**
+  String get reasonExpired;
+
+  /// Localization key for reasonOpeningBalance
+  ///
+  /// In en, this message translates to:
+  /// **'Opening balance'**
+  String get reasonOpeningBalance;
+
+  /// Localization key for reasonOther
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get reasonOther;
+
+  /// Localization key for valueImpactAed
+  ///
+  /// In en, this message translates to:
+  /// **'Value impact (AED)'**
+  String get valueImpactAed;
+
+  /// Localization key for removeLineTooltip
+  ///
+  /// In en, this message translates to:
+  /// **'Remove line'**
+  String get removeLineTooltip;
+
+  /// Localization key for deleteLineTooltip
+  ///
+  /// In en, this message translates to:
+  /// **'Delete line'**
+  String get deleteLineTooltip;
+
+  /// Localization key for journalPreviewOnPost
+  ///
+  /// In en, this message translates to:
+  /// **'Journal preview (on post)'**
+  String get journalPreviewOnPost;
+
+  /// Localization key for stockEffect
+  ///
+  /// In en, this message translates to:
+  /// **'Stock effect'**
+  String get stockEffect;
+
+  /// Localization key for availableQty
+  ///
+  /// In en, this message translates to:
+  /// **'Available Qty'**
+  String get availableQty;
+
+  /// Localization key for transferValueAed
+  ///
+  /// In en, this message translates to:
+  /// **'Transfer Value (AED)'**
+  String get transferValueAed;
+
+  /// Localization key for stockTransferImpact
+  ///
+  /// In en, this message translates to:
+  /// **'Stock Transfer Impact'**
+  String get stockTransferImpact;
+
+  /// Localization key for billableTo
+  ///
+  /// In en, this message translates to:
+  /// **'Billable to'**
+  String get billableTo;
+
+  /// Localization key for totalAed
+  ///
+  /// In en, this message translates to:
+  /// **'Total (AED)'**
+  String get totalAed;
+
+  /// Localization key for receipt
+  ///
+  /// In en, this message translates to:
+  /// **'Receipt'**
+  String get receipt;
+
+  /// Localization key for expenseNumber
+  ///
+  /// In en, this message translates to:
+  /// **'Expense #'**
+  String get expenseNumber;
+
+  /// Localization key for net
+  ///
+  /// In en, this message translates to:
+  /// **'Net'**
+  String get net;
+
+  /// Localization key for amountAed
+  ///
+  /// In en, this message translates to:
+  /// **'Amount (AED)'**
+  String get amountAed;
+
+  /// Localization key for vat5Pct
+  ///
+  /// In en, this message translates to:
+  /// **'VAT 5%'**
+  String get vat5Pct;
+
+  /// Localization key for vat0Pct
+  ///
+  /// In en, this message translates to:
+  /// **'VAT 0%'**
+  String get vat0Pct;
+
+  /// Localization key for outstanding
+  ///
+  /// In en, this message translates to:
+  /// **'Outstanding'**
+  String get outstanding;
+
+  /// Localization key for payment
+  ///
+  /// In en, this message translates to:
+  /// **'Payment'**
+  String get payment;
+
+  /// Localization key for convertToCustomer
+  ///
+  /// In en, this message translates to:
+  /// **'Convert to Customer'**
+  String get convertToCustomer;
+
+  /// Localization key for allTasksCompleted
+  ///
+  /// In en, this message translates to:
+  /// **'All tasks completed! Great job.'**
+  String get allTasksCompleted;
+
+  /// Localization key for standardAvgCostAed
+  ///
+  /// In en, this message translates to:
+  /// **'Standard / Avg Cost (AED) *'**
+  String get standardAvgCostAed;
+
+  /// Localization key for reorderLevelLabel
+  ///
+  /// In en, this message translates to:
+  /// **'Reorder Level *'**
+  String get reorderLevelLabel;
+
+  /// Localization key for subTypeOptional
+  ///
+  /// In en, this message translates to:
+  /// **'Sub-Type (Optional)'**
+  String get subTypeOptional;
+
+  /// Localization key for operations
+  ///
+  /// In en, this message translates to:
+  /// **'Operations'**
+  String get operations;
+
+  /// Localization key for admin
+  ///
+  /// In en, this message translates to:
+  /// **'Admin'**
+  String get admin;
+
+  /// Localization key for invoiceNo
+  ///
+  /// In en, this message translates to:
+  /// **'Invoice No.'**
+  String get invoiceNo;
+
+  /// Localization key for tax
+  ///
+  /// In en, this message translates to:
+  /// **'Tax'**
+  String get tax;
+
+  /// Localization key for statementDate
+  ///
+  /// In en, this message translates to:
+  /// **'Statement Date'**
+  String get statementDate;
+
+  /// Localization key for statementEndingBalance
+  ///
+  /// In en, this message translates to:
+  /// **'Statement Ending Balance'**
+  String get statementEndingBalance;
+
+  /// Localization key for importStatementCsv
+  ///
+  /// In en, this message translates to:
+  /// **'Import Statement (CSV)'**
+  String get importStatementCsv;
+
+  /// Localization key for bankAccount
+  ///
+  /// In en, this message translates to:
+  /// **'Bank Account'**
+  String get bankAccount;
+
+  /// Localization key for balanceAed
+  ///
+  /// In en, this message translates to:
+  /// **'Balance (AED)'**
+  String get balanceAed;
+
+  /// Localization key for qtyInOut
+  ///
+  /// In en, this message translates to:
+  /// **'Qty In/Out'**
+  String get qtyInOut;
+
+  /// Localization key for totalCostAed
+  ///
+  /// In en, this message translates to:
+  /// **'Total Cost (AED)'**
+  String get totalCostAed;
+
+  /// Localization key for balance
+  ///
+  /// In en, this message translates to:
+  /// **'Balance'**
+  String get balance;
+
+  /// Localization key for reorderLevel
+  ///
+  /// In en, this message translates to:
+  /// **'REORDER LEVEL'**
+  String get reorderLevel;
+
+  /// Localization key for weightedAvgCost
+  ///
+  /// In en, this message translates to:
+  /// **'WEIGHTED AVG COST'**
+  String get weightedAvgCost;
+
+  /// Localization key for type
+  ///
+  /// In en, this message translates to:
+  /// **'Type'**
+  String get type;
+
+  /// Localization key for stockStatus
+  ///
+  /// In en, this message translates to:
+  /// **'Stock status'**
+  String get stockStatus;
 }
 
 class _AppLocalizationsDelegate

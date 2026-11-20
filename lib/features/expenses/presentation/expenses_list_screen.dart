@@ -74,7 +74,7 @@ class _ExpensesListScreenState extends State<ExpensesListScreen> {
       _loadData();
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Expense claim approved.'), backgroundColor: Color(0xFF16A34A)),
+        SnackBar(content: Text(context.l10n.claimApproved), backgroundColor: const Color(0xFF16A34A)),
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -88,13 +88,13 @@ class _ExpensesListScreenState extends State<ExpensesListScreen> {
     final confirm = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Reject Expense Claim', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        title: Text(context.l10n.rejectExpenseClaim, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         content: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Enter rejection reason for the employee:', style: TextStyle(fontSize: 12.5)),
+              Text(context.l10n.enterRejectionReason, style: const TextStyle(fontSize: 12.5)),
               const SizedBox(height: 8),
               TextField(
                 controller: reasonController,
@@ -109,11 +109,11 @@ class _ExpensesListScreenState extends State<ExpensesListScreen> {
             spacing: 8,
             runSpacing: 8,
             children: [
-              TextButton(onPressed: () => Navigator.of(context).pop(false), child: const Text('Cancel')),
+              TextButton(onPressed: () => Navigator.of(context).pop(false), child: Text(context.l10n.cancel)),
               ElevatedButton(
                 onPressed: () => Navigator.of(context).pop(true),
                 style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFFDC2626), foregroundColor: Colors.white),
-                child: const Text('Reject Claim'),
+                child: Text(context.l10n.rejectClaim),
               ),
             ],
           ),
@@ -132,7 +132,7 @@ class _ExpensesListScreenState extends State<ExpensesListScreen> {
     _loadData();
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Expense reimbursed via payroll / bank transfer.'), backgroundColor: Color(0xFF059669)),
+      SnackBar(content: Text(context.l10n.claimReimbursedPayroll), backgroundColor: const Color(0xFF059669)),
     );
   }
 
@@ -400,7 +400,7 @@ class _ExpensesListScreenState extends State<ExpensesListScreen> {
             OutlinedButton(
               onPressed: () {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Exporting expenses to Excel...')),
+                  SnackBar(content: Text(context.l10n.exportingExpensesExcel)),
                 );
               },
               style: OutlinedButton.styleFrom(
@@ -562,17 +562,17 @@ class _ExpensesListScreenState extends State<ExpensesListScreen> {
                                   ),
                                 ),
                                 const SizedBox(width: 10),
-                                const Expanded(flex: 3, child: Text('Expense #', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
-                                const Expanded(flex: 2, child: Text('Date', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
-                                const Expanded(flex: 3, child: Text('Employee / Payee', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
-                                const Expanded(flex: 3, child: Text('Category', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
-                                const Expanded(flex: 3, child: Text('Paid by', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
-                                const Expanded(flex: 2, child: Text('Net', textAlign: TextAlign.right, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
-                                const Expanded(flex: 2, child: Text('VAT', textAlign: TextAlign.right, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
-                                const Expanded(flex: 3, child: Text('Total (AED)', textAlign: TextAlign.right, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                                Expanded(flex: 3, child: Text(context.l10n.expenseNumber, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                                Expanded(flex: 2, child: Text(context.l10n.date, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                                Expanded(flex: 3, child: Text(context.l10n.employeePayee, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                                Expanded(flex: 3, child: Text(context.l10n.category, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                                Expanded(flex: 3, child: Text(context.l10n.paidBy, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                                Expanded(flex: 2, child: Text(context.l10n.net, textAlign: TextAlign.right, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                                Expanded(flex: 2, child: Text(context.l10n.vat, textAlign: TextAlign.right, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                                Expanded(flex: 3, child: Text(context.l10n.totalAed, textAlign: TextAlign.right, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
                                 const SizedBox(width: 44, child: Center(child: Icon(Icons.attach_file, size: 14, color: AppColors.textSecondary))),
-                                const Expanded(flex: 2, child: Center(child: Text('Status', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary)))),
-                                const SizedBox(width: 145, child: Align(alignment: Alignment.centerRight, child: Text('Action', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary)))),
+                                Expanded(flex: 2, child: Center(child: Text(context.l10n.status, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary)))),
+                                SizedBox(width: 145, child: Align(alignment: Alignment.centerRight, child: Text(context.l10n.colAction, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary)))),
                               ],
                             ),
                           ),
@@ -580,10 +580,10 @@ class _ExpensesListScreenState extends State<ExpensesListScreen> {
 
                           // Rows
                           if (expenses.isEmpty)
-                            const Padding(
-                              padding: EdgeInsets.all(40),
+                            Padding(
+                              padding: const EdgeInsets.all(40),
                               child: Center(
-                                child: Text('No expenses found for this tab.', style: TextStyle(color: AppColors.textSecondary)),
+                                child: Text(context.l10n.noExpensesFoundTab, style: const TextStyle(color: AppColors.textSecondary)),
                               ),
                             )
                           else
@@ -819,22 +819,22 @@ class _ExpensesListScreenState extends State<ExpensesListScreen> {
           children: [
             InkWell(
               onTap: () => _handleApprove(exp.id),
-              child: const Row(
+              child: Row(
                 children: [
-                  Icon(Icons.check, size: 14, color: Color(0xFF2563EB)),
-                  SizedBox(width: 2),
-                  Text('Approve', style: TextStyle(fontSize: 12, color: Color(0xFF2563EB), fontWeight: FontWeight.bold)),
+                  const Icon(Icons.check, size: 14, color: Color(0xFF2563EB)),
+                  const SizedBox(width: 2),
+                  Text(context.l10n.approve, style: const TextStyle(fontSize: 12, color: Color(0xFF2563EB), fontWeight: FontWeight.bold)),
                 ],
               ),
             ),
             const SizedBox(width: 8),
             InkWell(
               onTap: () => _handleReject(exp.id),
-              child: const Row(
+              child: Row(
                 children: [
-                  Icon(Icons.close, size: 14, color: Color(0xFF2563EB)),
-                  SizedBox(width: 2),
-                  Text('Reject', style: TextStyle(fontSize: 12, color: Color(0xFF2563EB), fontWeight: FontWeight.bold)),
+                  const Icon(Icons.close, size: 14, color: Color(0xFF2563EB)),
+                  const SizedBox(width: 2),
+                  Text(context.l10n.reject, style: const TextStyle(fontSize: 12, color: Color(0xFF2563EB), fontWeight: FontWeight.bold)),
                 ],
               ),
             ),

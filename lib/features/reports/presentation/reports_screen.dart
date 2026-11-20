@@ -9,8 +9,8 @@ class ReportsScreen extends StatelessWidget {
 
   void _exportBoardPack(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Board Pack PDF generated and downloaded successfully.'),
+      SnackBar(
+        content: Text(context.l10n.boardPackSuccess),
         backgroundColor: AppColors.paid,
       ),
     );
