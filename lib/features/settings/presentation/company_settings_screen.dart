@@ -167,7 +167,10 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
     final isMobile = MediaQuery.of(context).size.width < 768;
 
     return SingleChildScrollView(
-      padding: EdgeInsets.all(isMobile ? 16 : 24),
+      padding: EdgeInsets.symmetric(
+        horizontal: isMobile ? 16 : 28,
+        vertical: isMobile ? 16 : 24,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -184,20 +187,23 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
                   Wrap(
                     crossAxisAlignment: WrapCrossAlignment.center,
                     children: [
-                      Text(context.l10n.settings, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary, fontWeight: FontWeight.w500)),
+                      InkWell(
+                        onTap: () {},
+                        child: Text(context.l10n.settings, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary, fontWeight: FontWeight.w500)),
+                      ),
                       const SizedBox(width: 4),
                       const Text('/', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
                       const SizedBox(width: 4),
                       Text(
                         activeTabObj['label'] as String,
-                        style: TextStyle(fontSize: 12, color: Colors.blue.shade700, fontWeight: FontWeight.w500),
+                        style: const TextStyle(fontSize: 12, color: Color(0xFF2563EB), fontWeight: FontWeight.w600),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 4),
+                  const SizedBox(height: 6),
                   Text(
                     context.l10n.companyAndSystemSettings,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.w800,
                       color: AppColors.textPrimary,
@@ -209,16 +215,20 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
               if (_activeTab == 'profile')
                 ElevatedButton.icon(
                   onPressed: _saveProfile,
-                  icon: const Icon(Icons.save_outlined, size: 16),
-                  label: Text(context.l10n.saveChanges),
+                  icon: const Icon(Icons.save_outlined, size: 16, color: Colors.white),
+                  label: Text(context.l10n.saveChanges, style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.bold, color: Colors.white)),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF2563EB),
-                    padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                    padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+                    minimumSize: const Size(0, 40),
+                    elevation: 0,
                   ),
                 ),
             ],
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 22),
 
           // Split View: Vertical Sub-Navigation Tabs + Content Area
           LayoutBuilder(
@@ -248,14 +258,38 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
                           final isSelected = tab['id'] == _activeTab;
                           return Padding(
                             padding: const EdgeInsets.only(right: 8),
-                            child: ChoiceChip(
-                              label: Text(tab['label'] as String),
-                              selected: isSelected,
-                              onSelected: (_) => setState(() => _activeTab = tab['id'] as String),
-                              selectedColor: const Color(0xFF2563EB),
-                              labelStyle: TextStyle(
-                                color: isSelected ? Colors.white : AppColors.textPrimary,
-                                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                            child: InkWell(
+                              onTap: () => setState(() => _activeTab = tab['id'] as String),
+                              borderRadius: BorderRadius.circular(6),
+                              child: Container(
+                                height: 36,
+                                padding: const EdgeInsets.symmetric(horizontal: 12),
+                                decoration: BoxDecoration(
+                                  color: isSelected ? const Color(0xFF2563EB) : Colors.white,
+                                  borderRadius: BorderRadius.circular(6),
+                                  border: Border.all(
+                                    color: isSelected ? const Color(0xFF2563EB) : const Color(0xFFE2E8F0),
+                                  ),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Icon(
+                                      tab['icon'] as IconData,
+                                      size: 15,
+                                      color: isSelected ? Colors.white : const Color(0xFF64748B),
+                                    ),
+                                    const SizedBox(width: 6),
+                                    Text(
+                                      tab['label'] as String,
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
+                                        color: isSelected ? Colors.white : const Color(0xFF334155),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           );
@@ -395,6 +429,8 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
                     _buildFieldLabel(context.l10n.companyLegalName),
                     TextFormField(
                       controller: _nameController,
+                      style: const TextStyle(fontSize: 13),
+                      decoration: _buildInputDecoration(prefixIcon: Icons.business_outlined),
                       validator: (v) => (v == null || v.trim().isEmpty) ? context.l10n.validationRequired : null,
                     ),
                     const SizedBox(height: 16),
@@ -405,6 +441,8 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
                         Expanded(
                           child: TextFormField(
                             controller: _trnController,
+                            style: const TextStyle(fontSize: 13),
+                            decoration: _buildInputDecoration(prefixIcon: Icons.confirmation_number_outlined),
                             validator: (v) {
                               if (v == null || v.trim().isEmpty) return context.l10n.validationRequired;
                               if (v.trim().length != 15) return context.l10n.validationTrn15Digits;
@@ -414,7 +452,7 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
                         ),
                         const SizedBox(width: 8),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                           decoration: BoxDecoration(
                             color: const Color(0xFFDCFCE7),
                             borderRadius: BorderRadius.circular(6),
@@ -425,7 +463,7 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
                               const SizedBox(width: 4),
                               Text(
                                 context.l10n.ftaActive,
-                                style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Color(0xFF166534)),
+                                style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Color(0xFF166534)),
                               ),
                             ],
                           ),
@@ -435,17 +473,27 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
                     const SizedBox(height: 16),
 
                     _buildFieldLabel(context.l10n.tradeLicenseCommercialReg),
-                    TextFormField(controller: _tradeLicenseController),
+                    TextFormField(
+                      controller: _tradeLicenseController,
+                      style: const TextStyle(fontSize: 13),
+                      decoration: _buildInputDecoration(prefixIcon: Icons.description_outlined),
+                    ),
                     const SizedBox(height: 16),
 
                     _buildFieldLabel(context.l10n.corporateTaxTrn),
-                    TextFormField(controller: _corporateTaxTrnController),
+                    TextFormField(
+                      controller: _corporateTaxTrnController,
+                      style: const TextStyle(fontSize: 13),
+                      decoration: _buildInputDecoration(prefixIcon: Icons.account_balance_outlined),
+                    ),
                     const SizedBox(height: 16),
 
                     _buildFieldLabel(context.l10n.registeredAddress),
                     TextFormField(
                       controller: _addressController,
+                      style: const TextStyle(fontSize: 13),
                       maxLines: 2,
+                      decoration: _buildInputDecoration(prefixIcon: Icons.place_outlined),
                       validator: (v) => (v == null || v.trim().isEmpty) ? context.l10n.validationRequired : null,
                     ),
                   ],
@@ -458,6 +506,7 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
                     DropdownButtonFormField<String>(
                       initialValue: _selectedEmirate,
                       isExpanded: true,
+                      decoration: _buildInputDecoration(prefixIcon: Icons.location_city_outlined),
                       items: [
                         DropdownMenuItem(value: 'Dubai', child: Text(context.l10n.emirateDubai)),
                         DropdownMenuItem(value: 'Abu Dhabi', child: Text(context.l10n.emirateAbuDhabi)),
@@ -476,22 +525,33 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
                     _buildFieldLabel(context.l10n.primaryEmailLabel),
                     TextFormField(
                       controller: _emailController,
+                      style: const TextStyle(fontSize: 13),
+                      decoration: _buildInputDecoration(prefixIcon: Icons.email_outlined),
                       validator: (v) => (v == null || !v.contains('@')) ? context.l10n.validEmailRequired : null,
                     ),
                     const SizedBox(height: 16),
 
                     _buildFieldLabel(context.l10n.phoneNumberLabel),
-                    TextFormField(controller: _phoneController),
+                    TextFormField(
+                      controller: _phoneController,
+                      style: const TextStyle(fontSize: 13),
+                      decoration: _buildInputDecoration(prefixIcon: Icons.phone_outlined),
+                    ),
                     const SizedBox(height: 16),
 
                     _buildFieldLabel(context.l10n.websiteLabel),
-                    TextFormField(controller: _websiteController),
+                    TextFormField(
+                      controller: _websiteController,
+                      style: const TextStyle(fontSize: 13),
+                      decoration: _buildInputDecoration(prefixIcon: Icons.language_outlined),
+                    ),
                     const SizedBox(height: 16),
 
                     _buildFieldLabel(context.l10n.functionalBaseCurrency),
                     DropdownButtonFormField<String>(
                       initialValue: _selectedCurrency,
                       isExpanded: true,
+                      decoration: _buildInputDecoration(prefixIcon: Icons.payments_outlined),
                       items: [
                         DropdownMenuItem(
                           value: 'AED - United Arab Emirates Dirham',
@@ -540,15 +600,25 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
               children: [
                 OutlinedButton(
                   onPressed: _loadProfile,
-                  child: Text(context.l10n.reset),
+                  style: OutlinedButton.styleFrom(
+                    side: const BorderSide(color: AppColors.border),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                    padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+                    minimumSize: const Size(0, 38),
+                  ),
+                  child: Text(context.l10n.reset, style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600, color: AppColors.textSecondary)),
                 ),
                 ElevatedButton(
                   onPressed: _saveProfile,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF2563EB),
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    minimumSize: const Size(0, 38),
+                    elevation: 0,
                   ),
-                  child: Text(context.l10n.saveChanges),
+                  child: Text(context.l10n.saveChanges, style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.bold, color: Colors.white)),
                 ),
               ],
             ),
@@ -653,6 +723,31 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
           ],
         );
       },
+    );
+  }
+
+  InputDecoration _buildInputDecoration({String? hintText, IconData? prefixIcon}) {
+    return InputDecoration(
+      hintText: hintText,
+      hintStyle: const TextStyle(fontSize: 12.5, color: AppColors.textMuted),
+      prefixIcon: prefixIcon != null ? Icon(prefixIcon, size: 16, color: AppColors.textMuted) : null,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(6),
+        borderSide: const BorderSide(color: AppColors.border),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(6),
+        borderSide: const BorderSide(color: AppColors.border),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(6),
+        borderSide: const BorderSide(color: Color(0xFF2563EB), width: 1.5),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(6),
+        borderSide: const BorderSide(color: Color(0xFFDC2626)),
+      ),
     );
   }
 
@@ -966,14 +1061,22 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
                     ElevatedButton.icon(
                       onPressed: () {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Central Bank of the UAE exchange rates synced'),
-                            backgroundColor: Color(0xFF16A34A),
+                          SnackBar(
+                            content: Text(context.l10n.ratesSynced),
+                            backgroundColor: const Color(0xFF16A34A),
                           ),
                         );
                       },
                       icon: const Icon(Icons.sync, size: 14),
                       label: Text(context.l10n.updateRates),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF2563EB),
+                        foregroundColor: Colors.white,
+                        minimumSize: const Size(0, 38),
+                        padding: const EdgeInsets.symmetric(horizontal: 14),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                        elevation: 0,
+                      ),
                     ),
                   ],
                 );
@@ -1003,6 +1106,14 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
                     },
                     icon: const Icon(Icons.sync, size: 14),
                     label: Text(context.l10n.updateRates),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF2563EB),
+                      foregroundColor: Colors.white,
+                      minimumSize: const Size(0, 38),
+                      padding: const EdgeInsets.symmetric(horizontal: 14),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                      elevation: 0,
+                    ),
                   ),
                 ],
               );
@@ -1281,54 +1392,112 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
     showDialog(
       context: context,
       builder: (ctx) => StatefulBuilder(
-        builder: (context, setModalState) => AlertDialog(
-          title: Text(context.l10n.inviteTeamMember),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                controller: nameController,
-                decoration: InputDecoration(labelText: context.l10n.fullName, border: const OutlineInputBorder()),
-              ),
-              const SizedBox(height: 12),
-              TextField(
-                controller: emailController,
-                decoration: InputDecoration(labelText: context.l10n.emailAddress, border: const OutlineInputBorder()),
-              ),
-              const SizedBox(height: 12),
-              DropdownButtonFormField<String>(
-                initialValue: selectedRole,
-                decoration: InputDecoration(labelText: context.l10n.roleDirective, border: const OutlineInputBorder()),
-                items: const [
-                  DropdownMenuItem(value: 'Accountant', child: Text('Accountant')),
-                  DropdownMenuItem(value: 'Sales Representative', child: Text('Sales Representative')),
-                  DropdownMenuItem(value: 'Warehouse Manager', child: Text('Warehouse Manager')),
-                  DropdownMenuItem(value: 'Controller', child: Text('Controller')),
-                ],
-                onChanged: (val) {
-                  if (val != null) setModalState(() => selectedRole = val);
-                },
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(ctx),
-              child: Text(context.l10n.cancel),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pop(ctx);
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text('${context.l10n.invitationSent} ${emailController.text} ${context.l10n.asRole} $selectedRole.'),
-                    backgroundColor: AppColors.paid,
+        builder: (context, setModalState) => Dialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          backgroundColor: Colors.white,
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 440),
+            child: Padding(
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFEFF6FF),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: const Icon(Icons.person_add_outlined, size: 20, color: Color(0xFF2563EB)),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Text(
+                          context.l10n.inviteTeamMember,
+                          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                        ),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.close, size: 18, color: AppColors.textSecondary),
+                        onPressed: () => Navigator.pop(ctx),
+                        padding: EdgeInsets.zero,
+                        constraints: const BoxConstraints(),
+                      ),
+                    ],
                   ),
-                );
-              },
-              child: Text(context.l10n.sendInvite),
+                  const SizedBox(height: 20),
+                  _buildFieldLabel(context.l10n.fullName),
+                  TextField(
+                    controller: nameController,
+                    style: const TextStyle(fontSize: 13),
+                    decoration: _buildInputDecoration(hintText: 'John Doe', prefixIcon: Icons.badge_outlined),
+                  ),
+                  const SizedBox(height: 14),
+                  _buildFieldLabel(context.l10n.emailAddress),
+                  TextField(
+                    controller: emailController,
+                    style: const TextStyle(fontSize: 13),
+                    decoration: _buildInputDecoration(hintText: 'user@company.com', prefixIcon: Icons.email_outlined),
+                  ),
+                  const SizedBox(height: 14),
+                  _buildFieldLabel(context.l10n.roleDirective),
+                  DropdownButtonFormField<String>(
+                    initialValue: selectedRole,
+                    isExpanded: true,
+                    style: const TextStyle(fontSize: 13, color: AppColors.textPrimary),
+                    decoration: _buildInputDecoration(prefixIcon: Icons.shield_outlined),
+                    items: const [
+                      DropdownMenuItem(value: 'Accountant', child: Text('Accountant')),
+                      DropdownMenuItem(value: 'Sales Representative', child: Text('Sales Representative')),
+                      DropdownMenuItem(value: 'Warehouse Manager', child: Text('Warehouse Manager')),
+                      DropdownMenuItem(value: 'Controller', child: Text('Controller')),
+                    ],
+                    onChanged: (val) {
+                      if (val != null) setModalState(() => selectedRole = val);
+                    },
+                  ),
+                  const SizedBox(height: 24),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      OutlinedButton(
+                        onPressed: () => Navigator.pop(ctx),
+                        style: OutlinedButton.styleFrom(
+                          minimumSize: const Size(80, 38),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                          side: const BorderSide(color: AppColors.border),
+                        ),
+                        child: Text(context.l10n.cancel, style: const TextStyle(fontSize: 12.5, color: AppColors.textSecondary)),
+                      ),
+                      const SizedBox(width: 10),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(ctx);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('${context.l10n.invitationSent} ${emailController.text} ${context.l10n.asRole} $selectedRole.'),
+                              backgroundColor: AppColors.paid,
+                            ),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF2563EB),
+                          foregroundColor: Colors.white,
+                          minimumSize: const Size(100, 38),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                          elevation: 0,
+                        ),
+                        child: Text(context.l10n.sendInvite, style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.bold)),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ],
+          ),
         ),
       ),
     );
@@ -1365,6 +1534,14 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
                       onPressed: _showInviteUserDialog,
                       icon: const Icon(Icons.person_add_outlined, size: 14),
                       label: Text(context.l10n.inviteUserBtn),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF2563EB),
+                        foregroundColor: Colors.white,
+                        minimumSize: const Size(0, 38),
+                        padding: const EdgeInsets.symmetric(horizontal: 14),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                        elevation: 0,
+                      ),
                     ),
                   ],
                 );
@@ -1387,6 +1564,14 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
                     onPressed: _showInviteUserDialog,
                     icon: const Icon(Icons.person_add_outlined, size: 14),
                     label: Text(context.l10n.inviteUserBtn),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF2563EB),
+                      foregroundColor: Colors.white,
+                      minimumSize: const Size(0, 38),
+                      padding: const EdgeInsets.symmetric(horizontal: 14),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                      elevation: 0,
+                    ),
                   ),
                 ],
               );

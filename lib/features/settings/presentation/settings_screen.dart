@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/localization/locale_provider.dart';
 import '../../../shared/widgets/rounded_card.dart';
@@ -12,57 +13,124 @@ class SettingsScreen extends StatelessWidget {
     final isMobile = MediaQuery.of(context).size.width < 768;
 
     return SingleChildScrollView(
-      padding: EdgeInsets.all(isMobile ? 16 : 24),
+      padding: EdgeInsets.symmetric(
+        horizontal: isMobile ? 16 : 28,
+        vertical: isMobile ? 16 : 24,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Breadcrumbs
           Wrap(
-            alignment: WrapAlignment.spaceBetween,
             crossAxisAlignment: WrapCrossAlignment.center,
-            spacing: 16,
-            runSpacing: 12,
             children: [
-              ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 600),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      context.l10n.systemSettings,
-                      style: const TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w800,
-                        color: AppColors.textPrimary,
-                        letterSpacing: -0.5,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    const Text(
-                      'Manage company profile, UAE VAT tax registration, fiscal periods, language, and user roles',
-                      style: TextStyle(fontSize: 13, color: AppColors.textSecondary),
-                    ),
-                  ],
-                ),
+              InkWell(
+                onTap: () => context.go('/dashboard'),
+                child: Text(context.l10n.home, style: const TextStyle(fontSize: 12, color: AppColors.textMuted)),
               ),
-              ElevatedButton.icon(
-                onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(context.l10n.saveChanges),
-                      backgroundColor: AppColors.paid,
-                    ),
-                  );
-                },
-                icon: const Icon(Icons.save_outlined, size: 16),
-                label: Text(context.l10n.saveChanges),
-              ),
+              const Text('  /  ', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
+              Text(context.l10n.settings, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary, fontWeight: FontWeight.w600)),
             ],
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 6),
+
+          // Header
+          if (isMobile) ...[
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  context.l10n.systemSettings,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w800,
+                    color: AppColors.textPrimary,
+                    letterSpacing: -0.5,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                const Text(
+                  'Manage company profile, UAE VAT tax registration, fiscal periods, language, and user roles',
+                  style: TextStyle(fontSize: 12.5, color: AppColors.textSecondary),
+                ),
+                const SizedBox(height: 12),
+                ElevatedButton.icon(
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(context.l10n.saveChanges),
+                        backgroundColor: AppColors.paid,
+                      ),
+                    );
+                  },
+                  icon: const Icon(Icons.save_outlined, size: 16, color: Colors.white),
+                  label: Text(context.l10n.saveChanges, style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.bold, color: Colors.white)),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF2563EB),
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                    minimumSize: const Size(0, 40),
+                    elevation: 0,
+                  ),
+                ),
+              ],
+            ),
+          ] else ...[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        context.l10n.systemSettings,
+                        style: const TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.w800,
+                          color: AppColors.textPrimary,
+                          letterSpacing: -0.5,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      const Text(
+                        'Manage company profile, UAE VAT tax registration, fiscal periods, language, and user roles',
+                        style: TextStyle(fontSize: 13, color: AppColors.textSecondary),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 16),
+                ElevatedButton.icon(
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(context.l10n.saveChanges),
+                        backgroundColor: AppColors.paid,
+                      ),
+                    );
+                  },
+                  icon: const Icon(Icons.save_outlined, size: 16, color: Colors.white),
+                  label: Text(context.l10n.saveChanges, style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.bold, color: Colors.white)),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF2563EB),
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                    padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+                    minimumSize: const Size(0, 40),
+                    elevation: 0,
+                  ),
+                ),
+              ],
+            ),
+          ],
+          const SizedBox(height: 22),
 
           // Prominent Language & Localization Switcher Card
           LanguageSwitcher.settingsCard(),
-          const SizedBox(height: 24),
+          const SizedBox(height: 20),
 
           // Company Profile Card
           RoundedCard(
@@ -71,18 +139,18 @@ class SettingsScreen extends StatelessWidget {
             child: Column(
               children: [
                 _buildSettingRow('Company Legal Name', 'BSB Trading LLC'),
-                const Divider(height: 20),
+                const Divider(height: 22, color: AppColors.borderSubtle),
                 _buildSettingRow('Tax Registration Number (TRN)', '100234891000003 (FTA Registered)'),
-                const Divider(height: 20),
+                const Divider(height: 22, color: AppColors.borderSubtle),
                 _buildSettingRow('Registered Address', 'Building 4, Al Quoz Industrial Area 3, Dubai, UAE'),
-                const Divider(height: 20),
+                const Divider(height: 22, color: AppColors.borderSubtle),
                 _buildSettingRow('Functional Base Currency', 'AED - United Arab Emirates Dirham'),
-                const Divider(height: 20),
+                const Divider(height: 22, color: AppColors.borderSubtle),
                 _buildSettingRow('Current Fiscal Year', '01-Jan-2026 to 31-Dec-2026 (Period 10 Active)'),
               ],
             ),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 20),
 
           // Tax Rates Configuration
           RoundedCard(
@@ -91,14 +159,14 @@ class SettingsScreen extends StatelessWidget {
             child: Column(
               children: [
                 _buildSettingRow('Standard Rate (5%)', 'Default for all commercial goods & services'),
-                const Divider(height: 20),
+                const Divider(height: 22, color: AppColors.borderSubtle),
                 _buildSettingRow('Zero Rated (0%)', 'Applies to qualifying exports and designated medical supplies'),
-                const Divider(height: 20),
+                const Divider(height: 22, color: AppColors.borderSubtle),
                 _buildSettingRow('Exempt Supplies', 'Residential real estate leases & financial services'),
               ],
             ),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 20),
 
           // Users & Permissions
           RoundedCard(
@@ -107,9 +175,9 @@ class SettingsScreen extends StatelessWidget {
             child: Column(
               children: [
                 _buildUserRow('Ahmed Jaber Al Hamri', 'ahmed.alhamri@bsbtrading.ae', 'Financial Controller', 'Super Admin'),
-                const Divider(height: 16),
+                const Divider(height: 20, color: AppColors.borderSubtle),
                 _buildUserRow('Sara Khalil', 'sara.khalil@bsbtrading.ae', 'Senior Accountant', 'Accounting, Banking, Invoices'),
-                const Divider(height: 16),
+                const Divider(height: 20, color: AppColors.borderSubtle),
                 _buildUserRow('Tariq Mansoor', 'tariq.m@bsbtrading.ae', 'Sales Manager', 'CRM, Quotations, Sales Orders'),
               ],
             ),
@@ -128,7 +196,7 @@ class SettingsScreen extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+                style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13, color: AppColors.textPrimary),
               ),
               const SizedBox(height: 4),
               Text(
@@ -144,7 +212,7 @@ class SettingsScreen extends StatelessWidget {
           children: [
             Text(
               title,
-              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13, color: AppColors.textPrimary),
             ),
             const SizedBox(width: 16),
             Flexible(
@@ -163,23 +231,23 @@ class SettingsScreen extends StatelessWidget {
   Widget _buildUserRow(String name, String email, String role, String perms) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final isNarrow = constraints.maxWidth < 450;
+        final isNarrow = constraints.maxWidth < 480;
         return Row(
           children: [
             CircleAvatar(
-              radius: 16,
-              backgroundColor: AppColors.primarySurface,
-              child: Text(name[0], style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.primary, fontSize: 12)),
+              radius: 17,
+              backgroundColor: const Color(0xFFEFF6FF),
+              child: Text(name[0], style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF2563EB), fontSize: 13)),
             ),
             const SizedBox(width: 12),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(name, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13), maxLines: 1, overflow: TextOverflow.ellipsis),
-                  Text(email, style: const TextStyle(fontSize: 11, color: AppColors.textMuted), maxLines: 1, overflow: TextOverflow.ellipsis),
+                  Text(name, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13, color: AppColors.textPrimary), maxLines: 1, overflow: TextOverflow.ellipsis),
+                  Text(email, style: const TextStyle(fontSize: 11.5, color: AppColors.textMuted), maxLines: 1, overflow: TextOverflow.ellipsis),
                   if (isNarrow) ...[
-                    const SizedBox(height: 4),
+                    const SizedBox(height: 5),
                     Text('$role • $perms', style: const TextStyle(fontSize: 11, color: AppColors.textSecondary), maxLines: 1, overflow: TextOverflow.ellipsis),
                   ],
                 ],
@@ -190,7 +258,15 @@ class SettingsScreen extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Text(role, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 12.5), maxLines: 1, overflow: TextOverflow.ellipsis),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFF1F5F9),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: Text(role, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 11.5, color: Color(0xFF334155)), maxLines: 1, overflow: TextOverflow.ellipsis),
+                  ),
+                  const SizedBox(height: 3),
                   Text(perms, style: const TextStyle(fontSize: 10.5, color: AppColors.textMuted), maxLines: 1, overflow: TextOverflow.ellipsis),
                 ],
               ),
