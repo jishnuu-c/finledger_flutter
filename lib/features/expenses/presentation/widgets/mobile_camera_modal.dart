@@ -72,44 +72,61 @@ class _MobileCameraModalState extends State<MobileCameraModal> {
         vertical: 16,
       ),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: ConstrainedBox(
+      child: Container(
+        width: isMobile ? screenWidth - 24 : 440,
         constraints: BoxConstraints(
-          maxWidth: 440,
           maxHeight: screenHeight * 0.9,
         ),
-        child: Padding(
-          padding: EdgeInsets.all(isMobile ? 16 : 22),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                // Header
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Row(
-                        children: [
-                          const Icon(Icons.photo_camera, color: Color(0xFF2563EB), size: 20),
-                          const SizedBox(width: 8),
-                          Expanded(
-                            child: Text(
-                              context.l10n.mobileReceiptCamera,
-                              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
-                              overflow: TextOverflow.ellipsis,
-                            ),
+        padding: EdgeInsets.all(isMobile ? 16 : 22),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // Header
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(6),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFEFF6FF),
+                            borderRadius: BorderRadius.circular(8),
                           ),
-                        ],
-                      ),
+                          child: const Icon(
+                            Icons.photo_camera_rounded,
+                            color: Color(0xFF2563EB),
+                            size: 18,
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Text(
+                            context.l10n.mobileReceiptCamera,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.textPrimary,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
                     ),
-                    IconButton(
-                      onPressed: () => Navigator.of(context).pop(),
-                      icon: const Icon(Icons.close, color: AppColors.textMuted),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 14),
+                  ),
+                  IconButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    icon: const Icon(Icons.close_rounded, color: AppColors.textMuted, size: 20),
+                    visualDensity: VisualDensity.compact,
+                    padding: EdgeInsets.zero,
+                    constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 14),
 
               // Viewfinder simulation
               Container(
@@ -125,21 +142,30 @@ class _MobileCameraModalState extends State<MobileCameraModal> {
                     // Corner brackets
                     Positioned.fill(
                       child: Padding(
-                        padding: const EdgeInsets.all(24),
+                        padding: const EdgeInsets.all(22),
                         child: Container(
                           decoration: BoxDecoration(
-                            border: Border.all(color: Colors.white30, width: 2),
+                            border: Border.all(color: Colors.white24, width: 2),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Center(
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                const Icon(Icons.receipt_long, color: Colors.white60, size: 48),
+                                const Icon(Icons.receipt_long_rounded, color: Colors.white70, size: 44),
                                 const SizedBox(height: 8),
-                                Text(
-                                  _selectedReceiptName,
-                                  style: const TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.w600),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                                  child: Text(
+                                    _selectedReceiptName,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
                                 ),
                                 const SizedBox(height: 2),
                                 const Text(
@@ -165,18 +191,38 @@ class _MobileCameraModalState extends State<MobileCameraModal> {
               const SizedBox(height: 16),
 
               // Quick template selector
-              const Text('Select Receipt Document:', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textSecondary)),
-              const SizedBox(height: 6),
+              Text(
+                context.l10n.selectReceiptDocument,
+                style: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                  color: AppColors.textSecondary,
+                ),
+              ),
+              const SizedBox(height: 8),
               Wrap(
                 spacing: 6,
                 runSpacing: 6,
                 children: _sampleReceipts.map((name) {
                   final isSel = name == _selectedReceiptName;
                   return ChoiceChip(
-                    label: Text(name, style: TextStyle(fontSize: 11, color: isSel ? Colors.white : AppColors.textPrimary)),
+                    label: Text(
+                      name,
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: isSel ? FontWeight.w600 : FontWeight.normal,
+                        color: isSel ? Colors.white : AppColors.textPrimary,
+                      ),
+                    ),
                     selected: isSel,
                     selectedColor: const Color(0xFF2563EB),
                     backgroundColor: const Color(0xFFF1F5F9),
+                    side: BorderSide(
+                      color: isSel ? const Color(0xFF2563EB) : AppColors.border,
+                    ),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    visualDensity: VisualDensity.compact,
                     onSelected: (val) {
                       if (val) setState(() => _selectedReceiptName = name);
                     },
@@ -200,7 +246,11 @@ class _MobileCameraModalState extends State<MobileCameraModal> {
                     ),
                     child: Center(
                       child: _isCapturing
-                          ? const SizedBox(width: 24, height: 24, child: CircularProgressIndicator(strokeWidth: 2))
+                          ? const SizedBox(
+                              width: 24,
+                              height: 24,
+                              child: CircularProgressIndicator(strokeWidth: 2, color: Color(0xFF2563EB)),
+                            )
                           : Container(
                               width: 48,
                               height: 48,
@@ -208,21 +258,23 @@ class _MobileCameraModalState extends State<MobileCameraModal> {
                                 shape: BoxShape.circle,
                                 color: Color(0xFF2563EB),
                               ),
-                              child: const Icon(Icons.camera_alt, color: Colors.white, size: 24),
+                              child: const Icon(Icons.camera_alt_rounded, color: Colors.white, size: 24),
                             ),
                     ),
                   ),
                 ),
               ),
               const SizedBox(height: 6),
-              const Center(
-                child: Text('Tap to capture & attach', style: TextStyle(fontSize: 11, color: AppColors.textMuted)),
+              Center(
+                child: Text(
+                  context.l10n.tapToCaptureAttach,
+                  style: const TextStyle(fontSize: 11, color: AppColors.textMuted),
+                ),
               ),
             ],
           ),
         ),
       ),
-    ),
-  );
+    );
   }
 }

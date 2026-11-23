@@ -486,6 +486,7 @@ class _NewExpenseClaimScreenState extends State<NewExpenseClaimScreen> {
         const SizedBox(height: 6),
         Container(
           height: 40,
+          padding: const EdgeInsets.all(3),
           decoration: BoxDecoration(
             color: const Color(0xFFF1F5F9),
             borderRadius: BorderRadius.circular(6),
@@ -495,17 +496,27 @@ class _NewExpenseClaimScreenState extends State<NewExpenseClaimScreen> {
               Expanded(
                 child: InkWell(
                   onTap: () => setState(() => _paidBy = 'COMPANY'),
+                  borderRadius: BorderRadius.circular(5),
                   child: Container(
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       color: _paidBy == 'COMPANY' ? const Color(0xFF2563EB) : Colors.transparent,
-                      borderRadius: BorderRadius.circular(6),
+                      borderRadius: BorderRadius.circular(5),
+                      boxShadow: _paidBy == 'COMPANY'
+                          ? [
+                              BoxShadow(
+                                color: const Color(0xFF2563EB).withValues(alpha: 0.25),
+                                blurRadius: 4,
+                                offset: const Offset(0, 1),
+                              ),
+                            ]
+                          : null,
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          Icons.business,
+                          Icons.business_rounded,
                           size: 14,
                           color: _paidBy == 'COMPANY' ? Colors.white : AppColors.textSecondary,
                         ),
@@ -526,11 +537,21 @@ class _NewExpenseClaimScreenState extends State<NewExpenseClaimScreen> {
               Expanded(
                 child: InkWell(
                   onTap: () => setState(() => _paidBy = 'EMPLOYEE'),
+                  borderRadius: BorderRadius.circular(5),
                   child: Container(
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       color: _paidBy == 'EMPLOYEE' ? const Color(0xFF2563EB) : Colors.transparent,
-                      borderRadius: BorderRadius.circular(6),
+                      borderRadius: BorderRadius.circular(5),
+                      boxShadow: _paidBy == 'EMPLOYEE'
+                          ? [
+                              BoxShadow(
+                                color: const Color(0xFF2563EB).withValues(alpha: 0.25),
+                                blurRadius: 4,
+                                offset: const Offset(0, 1),
+                              ),
+                            ]
+                          : null,
                     ),
                     child: Text(
                       'Employee\n(reimbursable)',
@@ -573,6 +594,7 @@ class _NewExpenseClaimScreenState extends State<NewExpenseClaimScreen> {
             child: DropdownButton<String>(
               value: _paidBy == 'EMPLOYEE' ? _selectedEmployee : _selectedPaidFromAccount,
               isExpanded: true,
+              icon: const Icon(Icons.keyboard_arrow_down_rounded, size: 16, color: Color(0xFF64748B)),
               style: const TextStyle(fontSize: 12.5, color: AppColors.textPrimary),
               items: _paidBy == 'EMPLOYEE'
                   ? const [
@@ -639,10 +661,20 @@ class _NewExpenseClaimScreenState extends State<NewExpenseClaimScreen> {
             controller: _dateController,
             style: const TextStyle(fontSize: 12.5),
             decoration: InputDecoration(
+              prefixIcon: const Icon(Icons.calendar_today_rounded, size: 14, color: AppColors.textMuted),
+              prefixIconConstraints: const BoxConstraints(minWidth: 32, minHeight: 32),
               contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(6),
                 borderSide: const BorderSide(color: AppColors.border),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(6),
+                borderSide: const BorderSide(color: AppColors.border),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(6),
+                borderSide: const BorderSide(color: Color(0xFF2563EB)),
               ),
             ),
           ),
@@ -669,6 +701,7 @@ class _NewExpenseClaimScreenState extends State<NewExpenseClaimScreen> {
             child: DropdownButton<String>(
               value: _currency,
               isExpanded: true,
+              icon: const Icon(Icons.keyboard_arrow_down_rounded, size: 16, color: Color(0xFF64748B)),
               style: const TextStyle(fontSize: 12.5, color: AppColors.textPrimary),
               items: const [
                 DropdownMenuItem(value: 'AED', child: Text('AED')),
@@ -697,10 +730,20 @@ class _NewExpenseClaimScreenState extends State<NewExpenseClaimScreen> {
             controller: _purposeController,
             style: const TextStyle(fontSize: 12.5),
             decoration: InputDecoration(
-              contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
+              prefixIcon: const Icon(Icons.edit_note_rounded, size: 16, color: AppColors.textMuted),
+              prefixIconConstraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(6),
                 borderSide: const BorderSide(color: AppColors.border),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(6),
+                borderSide: const BorderSide(color: AppColors.border),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(6),
+                borderSide: const BorderSide(color: Color(0xFF2563EB)),
               ),
             ),
           ),
@@ -915,9 +958,20 @@ class _NewExpenseClaimScreenState extends State<NewExpenseClaimScreen> {
               children: [
                 InkWell(
                   onTap: _onAddLine,
-                  child: const Text(
-                    '+ Add line',
-                    style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Color(0xFF2563EB)),
+                  borderRadius: BorderRadius.circular(4),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.add_rounded, size: 16, color: Color(0xFF2563EB)),
+                        SizedBox(width: 4),
+                        Text(
+                          '+ Add line',
+                          style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: Color(0xFF2563EB)),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -936,8 +990,8 @@ class _NewExpenseClaimScreenState extends State<NewExpenseClaimScreen> {
               ),
               child: Row(
                 children: [
-                  const Text('⚠️ ', style: TextStyle(fontSize: 13)),
-                  const SizedBox(width: 4),
+                  const Icon(Icons.warning_amber_rounded, size: 16, color: Color(0xFFB45309)),
+                  const SizedBox(width: 8),
                   Expanded(
                     child: Text(
                       policyWarning,
@@ -1068,7 +1122,23 @@ class _NewExpenseClaimScreenState extends State<NewExpenseClaimScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(context.l10n.receipts, style: const TextStyle(fontSize: 13.5, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFEFF6FF),
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                child: const Icon(Icons.receipt_long_rounded, size: 14, color: Color(0xFF2563EB)),
+              ),
+              const SizedBox(width: 8),
+              Text(
+                context.l10n.receipts,
+                style: const TextStyle(fontSize: 13.5, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+              ),
+            ],
+          ),
           const SizedBox(height: 12),
 
           // Drop / Camera click container
@@ -1117,7 +1187,7 @@ class _NewExpenseClaimScreenState extends State<NewExpenseClaimScreen> {
                   child: Column(
                     children: [
                       Icon(
-                        att.isPdf ? Icons.picture_as_pdf : Icons.image_outlined,
+                        att.isPdf ? Icons.picture_as_pdf_rounded : Icons.image_outlined,
                         size: 24,
                         color: const Color(0xFF38BDF8),
                       ),

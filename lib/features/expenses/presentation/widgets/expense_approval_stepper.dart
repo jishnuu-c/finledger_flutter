@@ -61,23 +61,36 @@ class ExpenseApprovalStepper extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Approval flow',
-            style: TextStyle(
-              fontSize: 13.5,
-              fontWeight: FontWeight.bold,
-              color: AppColors.textPrimary,
-            ),
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFEFF6FF),
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                child: const Icon(Icons.alt_route_rounded, size: 14, color: Color(0xFF2563EB)),
+              ),
+              const SizedBox(width: 8),
+              const Text(
+                'Approval flow',
+                style: TextStyle(
+                  fontSize: 13.5,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.textPrimary,
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 14),
 
-          // Stepper lines
+          // Stepper lines with RTL-safe Directional connectors
           ListView.separated(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: steps.length,
             separatorBuilder: (context, _) => Padding(
-              padding: const EdgeInsets.only(left: 11),
+              padding: const EdgeInsetsDirectional.only(start: 11),
               child: Container(
                 width: 2,
                 height: 18,
@@ -112,6 +125,8 @@ class ExpenseApprovalStepper extends StatelessWidget {
                   Expanded(
                     child: Text(
                       step.title,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         fontSize: 12.5,
                         fontWeight: isStep1 ? FontWeight.w600 : FontWeight.w500,
@@ -119,12 +134,23 @@ class ExpenseApprovalStepper extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Text(
-                    step.statusText,
-                    style: TextStyle(
-                      fontSize: 11.5,
-                      fontWeight: isStep1 ? FontWeight.bold : FontWeight.w500,
-                      color: isStep1 ? const Color(0xFF2563EB) : step.statusColor,
+                  const SizedBox(width: 6),
+                  Container(
+                    padding: const EdgeInsetsDirectional.symmetric(horizontal: 7, vertical: 2),
+                    decoration: BoxDecoration(
+                      color: isStep1 ? const Color(0xFFEFF6FF) : const Color(0xFFF8FAFC),
+                      borderRadius: BorderRadius.circular(4),
+                      border: Border.all(
+                        color: isStep1 ? const Color(0xFFBFDBFE) : const Color(0xFFE2E8F0),
+                      ),
+                    ),
+                    child: Text(
+                      step.statusText,
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: isStep1 ? FontWeight.bold : FontWeight.w500,
+                        color: isStep1 ? const Color(0xFF2563EB) : step.statusColor,
+                      ),
                     ),
                   ),
                 ],

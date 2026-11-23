@@ -17,13 +17,36 @@ class ExpensesScreen extends StatelessWidget {
       {'id': 'EXP-2026-0116', 'employee': 'Zaid Rashid', 'title': 'Warehouse Packaging Tools', 'category': 'Office & Warehouse Supplies', 'date': '21-Oct-2026', 'amount': 'AED 840.00', 'receipts': '1 receipt', 'status': 'Reimbursed'},
     ];
 
-    final isMobile = MediaQuery.of(context).size.width < 600;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 768;
 
     return SingleChildScrollView(
       padding: EdgeInsets.symmetric(horizontal: isMobile ? 16 : 24, vertical: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Breadcrumbs
+          Wrap(
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
+              Text(
+                context.l10n.home,
+                style: const TextStyle(fontSize: 12, color: AppColors.textMuted),
+              ),
+              const Text('  /  ', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
+              Text(
+                context.l10n.expenses,
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: AppColors.textSecondary,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 6),
+
+          // Header & Actions
           if (isMobile) ...[
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,7 +67,7 @@ class ExpensesScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
                 Wrap(
-                  spacing: 12,
+                  spacing: 10,
                   runSpacing: 8,
                   children: [
                     OutlinedButton.icon(
@@ -56,13 +79,25 @@ class ExpensesScreen extends StatelessWidget {
                           ),
                         );
                       },
-                      icon: const Icon(Icons.check_circle_outline, size: 16),
-                      label: Text(context.l10n.batchApprove),
+                      style: OutlinedButton.styleFrom(
+                        side: const BorderSide(color: AppColors.border),
+                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                      ),
+                      icon: const Icon(Icons.check_circle_outline_rounded, size: 16),
+                      label: Text(context.l10n.batchApprove, style: const TextStyle(fontSize: 12.5)),
                     ),
                     ElevatedButton.icon(
                       onPressed: () => context.go('/expenses/new'),
-                      icon: const Icon(Icons.add, size: 16),
-                      label: Text(context.l10n.newExpenseClaim),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.primary,
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                        elevation: 0,
+                      ),
+                      icon: const Icon(Icons.add_rounded, size: 16),
+                      label: Text(context.l10n.newExpenseClaim, style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.bold)),
                     ),
                   ],
                 ),
@@ -96,7 +131,7 @@ class ExpensesScreen extends StatelessWidget {
                 ),
                 const SizedBox(width: 16),
                 Wrap(
-                  spacing: 12,
+                  spacing: 10,
                   runSpacing: 8,
                   children: [
                     OutlinedButton.icon(
@@ -108,13 +143,25 @@ class ExpensesScreen extends StatelessWidget {
                           ),
                         );
                       },
-                      icon: const Icon(Icons.check_circle_outline, size: 16),
-                      label: Text(context.l10n.batchApprove),
+                      style: OutlinedButton.styleFrom(
+                        side: const BorderSide(color: AppColors.border),
+                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                      ),
+                      icon: const Icon(Icons.check_circle_outline_rounded, size: 16),
+                      label: Text(context.l10n.batchApprove, style: const TextStyle(fontSize: 12.5)),
                     ),
                     ElevatedButton.icon(
                       onPressed: () => context.go('/expenses/new'),
-                      icon: const Icon(Icons.add, size: 16),
-                      label: Text(context.l10n.newExpenseClaim),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.primary,
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                        elevation: 0,
+                      ),
+                      icon: const Icon(Icons.add_rounded, size: 16),
+                      label: Text(context.l10n.newExpenseClaim, style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.bold)),
                     ),
                   ],
                 ),
@@ -131,77 +178,89 @@ class ExpensesScreen extends StatelessWidget {
               child: ConstrainedBox(
                 constraints: const BoxConstraints(minWidth: 800),
                 child: DataTable(
+                  headingRowColor: WidgetStateProperty.all(const Color(0xFFF8FAFC)),
                   headingRowHeight: 40,
                   dataRowMinHeight: 48,
                   dataRowMaxHeight: 48,
-                columns: [
-                  DataColumn(label: Text(context.l10n.colClaimNo, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                  DataColumn(label: Text(context.l10n.colEmployee, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                  DataColumn(label: Text(context.l10n.description, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                  DataColumn(label: Text(context.l10n.colCategory, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                  DataColumn(label: Text(context.l10n.date, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                  DataColumn(label: Text('${context.l10n.amount} (${context.l10n.currencyAed})', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                  DataColumn(label: Text(context.l10n.colReceipt, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                  DataColumn(label: Text(context.l10n.status, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                  DataColumn(label: Text(context.l10n.actions, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                ],
-                rows: claims.map((c) {
-                  return DataRow(
-                    cells: [
-                      DataCell(Text(c['id']!, style: const TextStyle(fontWeight: FontWeight.w600, color: AppColors.primary, fontSize: 13))),
-                      DataCell(Text(c['employee']!, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13))),
-                      DataCell(Text(c['title']!, style: const TextStyle(fontSize: 12.5))),
-                      DataCell(Text(c['category']!, style: const TextStyle(fontSize: 12))),
-                      DataCell(Text(c['date']!, style: const TextStyle(fontSize: 12, color: AppColors.textMuted))),
-                      DataCell(Text(c['amount']!, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13))),
-                      DataCell(
-                        Row(
-                          children: [
-                            const Icon(Icons.attach_file, size: 14, color: AppColors.textSecondary),
-                            const SizedBox(width: 4),
-                            Text(c['receipts']!, style: const TextStyle(fontSize: 11.5, color: AppColors.textSecondary)),
-                          ],
+                  horizontalMargin: 16,
+                  columnSpacing: 20,
+                  columns: [
+                    DataColumn(label: Text(context.l10n.colClaimNo, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                    DataColumn(label: Text(context.l10n.colEmployee, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                    DataColumn(label: Text(context.l10n.description, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                    DataColumn(label: Text(context.l10n.colCategory, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                    DataColumn(label: Text(context.l10n.date, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                    DataColumn(label: Text('${context.l10n.amount} (${context.l10n.currencyAed})', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                    DataColumn(label: Text(context.l10n.colReceipt, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                    DataColumn(label: Text(context.l10n.status, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                    DataColumn(label: Text(context.l10n.actions, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                  ],
+                  rows: claims.map((c) {
+                    return DataRow(
+                      cells: [
+                        DataCell(Text(c['id']!, style: const TextStyle(fontWeight: FontWeight.w600, color: AppColors.primary, fontSize: 13))),
+                        DataCell(Text(c['employee']!, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13))),
+                        DataCell(Text(c['title']!, style: const TextStyle(fontSize: 12.5))),
+                        DataCell(Text(c['category']!, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary))),
+                        DataCell(Text(c['date']!, style: const TextStyle(fontSize: 12, color: AppColors.textMuted))),
+                        DataCell(Text(c['amount']!, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: AppColors.textPrimary))),
+                        DataCell(
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Icon(Icons.attach_file_rounded, size: 14, color: AppColors.textSecondary),
+                              const SizedBox(width: 4),
+                              Text(c['receipts']!, style: const TextStyle(fontSize: 11.5, color: AppColors.textSecondary)),
+                            ],
+                          ),
                         ),
-                      ),
-                      DataCell(StatusChip.fromStatusString(c['status']!)),
-                      DataCell(
-                        c['status'] == 'Pending Approval'
-                            ? Row(
-                                children: [
-                                  IconButton(
-                                    onPressed: () {
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(
-                                          content: Text('Expense claim ${c['id']} approved.'),
-                                          backgroundColor: AppColors.paid,
-                                        ),
-                                      );
-                                    },
-                                    icon: const Icon(Icons.check, color: AppColors.paid, size: 18),
-                                    tooltip: 'Approve',
-                                  ),
-                                  IconButton(
-                                    onPressed: () {
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(
-                                          content: Text('Expense claim ${c['id']} rejected.'),
-                                          backgroundColor: AppColors.overdue,
-                                        ),
-                                      );
-                                    },
-                                    icon: const Icon(Icons.close, color: AppColors.overdue, size: 18),
-                                    tooltip: 'Reject',
-                                  ),
-                                ],
-                              )
-                            : const Text('—', style: TextStyle(color: AppColors.textMuted)),
-                      ),
-                    ],
-                  );
-                }).toList(),
+                        DataCell(StatusChip.fromStatusString(c['status']!)),
+                        DataCell(
+                          c['status'] == 'Pending Approval'
+                              ? Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    IconButton(
+                                      onPressed: () {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(
+                                            content: Text('Expense claim ${c['id']} approved.'),
+                                            backgroundColor: AppColors.paid,
+                                          ),
+                                        );
+                                      },
+                                      icon: const Icon(Icons.check_rounded, color: AppColors.paid, size: 18),
+                                      tooltip: 'Approve',
+                                      visualDensity: VisualDensity.compact,
+                                      padding: EdgeInsets.zero,
+                                      constraints: const BoxConstraints(minWidth: 30, minHeight: 30),
+                                    ),
+                                    const SizedBox(width: 4),
+                                    IconButton(
+                                      onPressed: () {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(
+                                            content: Text('Expense claim ${c['id']} rejected.'),
+                                            backgroundColor: AppColors.overdue,
+                                          ),
+                                        );
+                                      },
+                                      icon: const Icon(Icons.close_rounded, color: AppColors.overdue, size: 18),
+                                      tooltip: 'Reject',
+                                      visualDensity: VisualDensity.compact,
+                                      padding: EdgeInsets.zero,
+                                      constraints: const BoxConstraints(minWidth: 30, minHeight: 30),
+                                    ),
+                                  ],
+                                )
+                              : const Text('—', style: TextStyle(color: AppColors.textMuted)),
+                        ),
+                      ],
+                    );
+                  }).toList(),
+                ),
               ),
             ),
-          ),
           ),
         ],
       ),

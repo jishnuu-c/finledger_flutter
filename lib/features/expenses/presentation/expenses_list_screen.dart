@@ -87,38 +87,89 @@ class _ExpensesListScreenState extends State<ExpensesListScreen> {
     final reasonController = TextEditingController(text: 'Mandatory tax invoice receipt missing as per policy.');
     final confirm = await showDialog<bool>(
       context: context,
-      builder: (context) => AlertDialog(
-        title: Text(context.l10n.rejectExpenseClaim, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-        content: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(context.l10n.enterRejectionReason, style: const TextStyle(fontSize: 12.5)),
-              const SizedBox(height: 8),
-              TextField(
-                controller: reasonController,
-                decoration: const InputDecoration(border: OutlineInputBorder()),
+      builder: (context) {
+        final screenWidth = MediaQuery.of(context).size.width;
+        final isMobile = screenWidth < 600;
+
+        return Dialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          insetPadding: EdgeInsets.symmetric(horizontal: isMobile ? 16 : 32, vertical: 24),
+          child: Container(
+            width: isMobile ? screenWidth - 32 : 460,
+            padding: EdgeInsets.all(isMobile ? 18 : 24),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(6),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFFEF2F2),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: const Icon(Icons.block_rounded, color: Color(0xFFDC2626), size: 18),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Text(
+                          context.l10n.rejectExpenseClaim,
+                          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 14),
+                  Text(context.l10n.enterRejectionReason, style: const TextStyle(fontSize: 12.5, color: AppColors.textSecondary)),
+                  const SizedBox(height: 8),
+                  TextField(
+                    controller: reasonController,
+                    maxLines: 3,
+                    style: const TextStyle(fontSize: 13),
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(6), borderSide: const BorderSide(color: AppColors.border)),
+                      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(6), borderSide: const BorderSide(color: AppColors.border)),
+                      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(6), borderSide: const BorderSide(color: Color(0xFFDC2626))),
+                    ),
+                  ),
+                  const SizedBox(height: 18),
+                  Wrap(
+                    alignment: WrapAlignment.end,
+                    spacing: 10,
+                    runSpacing: 8,
+                    children: [
+                      OutlinedButton(
+                        onPressed: () => Navigator.of(context).pop(false),
+                        style: OutlinedButton.styleFrom(
+                          side: const BorderSide(color: AppColors.border),
+                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 11),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                        ),
+                        child: Text(context.l10n.cancel, style: const TextStyle(fontSize: 12.5, color: AppColors.textPrimary)),
+                      ),
+                      ElevatedButton(
+                        onPressed: () => Navigator.of(context).pop(true),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFFDC2626),
+                          foregroundColor: Colors.white,
+                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 11),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                          elevation: 0,
+                        ),
+                        child: Text(context.l10n.rejectClaim, style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.bold)),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
-        actions: [
-          Wrap(
-            alignment: WrapAlignment.end,
-            spacing: 8,
-            runSpacing: 8,
-            children: [
-              TextButton(onPressed: () => Navigator.of(context).pop(false), child: Text(context.l10n.cancel)),
-              ElevatedButton(
-                onPressed: () => Navigator.of(context).pop(true),
-                style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFFDC2626), foregroundColor: Colors.white),
-                child: Text(context.l10n.rejectClaim),
-              ),
-            ],
-          ),
-        ],
-      ),
+        );
+      },
     );
 
     if (confirm == true) {
@@ -253,6 +304,9 @@ class _ExpensesListScreenState extends State<ExpensesListScreen> {
                     overflow: TextOverflow.ellipsis,
                   ),
                   valueColor: AppColors.textPrimary,
+                  icon: Icons.receipt_long_rounded,
+                  iconBgColor: const Color(0xFFEFF6FF),
+                  iconColor: const Color(0xFF2563EB),
                   width: itemWidth,
                 ),
                 _buildSingleKpi(
@@ -265,6 +319,9 @@ class _ExpensesListScreenState extends State<ExpensesListScreen> {
                     overflow: TextOverflow.ellipsis,
                   ),
                   valueColor: const Color(0xFFD97706), // Amber
+                  icon: Icons.pending_actions_rounded,
+                  iconBgColor: const Color(0xFFFFFBEB),
+                  iconColor: const Color(0xFFD97706),
                   width: itemWidth,
                 ),
                 _buildSingleKpi(
@@ -277,6 +334,9 @@ class _ExpensesListScreenState extends State<ExpensesListScreen> {
                     overflow: TextOverflow.ellipsis,
                   ),
                   valueColor: AppColors.textPrimary,
+                  icon: Icons.payments_rounded,
+                  iconBgColor: const Color(0xFFECFDF5),
+                  iconColor: const Color(0xFF059669),
                   width: itemWidth,
                 ),
                 _buildSingleKpi(
@@ -289,6 +349,9 @@ class _ExpensesListScreenState extends State<ExpensesListScreen> {
                     overflow: TextOverflow.ellipsis,
                   ),
                   valueColor: AppColors.textPrimary,
+                  icon: Icons.pie_chart_outline_rounded,
+                  iconBgColor: const Color(0xFFF1F5F9),
+                  iconColor: const Color(0xFF475569),
                   width: itemWidth,
                 ),
               ],
@@ -304,11 +367,14 @@ class _ExpensesListScreenState extends State<ExpensesListScreen> {
     required String value,
     required Widget subtitleWidget,
     required Color valueColor,
+    IconData? icon,
+    Color? iconBgColor,
+    Color? iconColor,
     double? width,
   }) {
     return Container(
       width: width,
-      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
+      padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),
@@ -318,16 +384,34 @@ class _ExpensesListScreenState extends State<ExpensesListScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            title,
-            style: const TextStyle(fontSize: 12, color: AppColors.textSecondary, fontWeight: FontWeight.w500),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Text(
+                  title,
+                  style: const TextStyle(fontSize: 12, color: AppColors.textSecondary, fontWeight: FontWeight.w500),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              if (icon != null) ...[
+                const SizedBox(width: 8),
+                Container(
+                  padding: const EdgeInsets.all(6),
+                  decoration: BoxDecoration(
+                    color: iconBgColor ?? const Color(0xFFF1F5F9),
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Icon(icon, size: 14, color: iconColor ?? AppColors.textSecondary),
+                ),
+              ],
+            ],
           ),
-          const SizedBox(height: 6),
+          const SizedBox(height: 8),
           FittedBox(
             fit: BoxFit.scaleDown,
-            alignment: Alignment.centerLeft,
+            alignment: AlignmentDirectional.centerStart,
             child: Text(
               value,
               maxLines: 1,
@@ -342,7 +426,7 @@ class _ExpensesListScreenState extends State<ExpensesListScreen> {
           const SizedBox(height: 4),
           FittedBox(
             fit: BoxFit.scaleDown,
-            alignment: Alignment.centerLeft,
+            alignment: AlignmentDirectional.centerStart,
             child: subtitleWidget,
           ),
         ],
@@ -814,28 +898,37 @@ class _ExpensesListScreenState extends State<ExpensesListScreen> {
     if (exp.status == 'SUBMITTED') {
       return FittedBox(
         fit: BoxFit.scaleDown,
+        alignment: AlignmentDirectional.centerEnd,
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             InkWell(
               onTap: () => _handleApprove(exp.id),
-              child: Row(
-                children: [
-                  const Icon(Icons.check, size: 14, color: Color(0xFF2563EB)),
-                  const SizedBox(width: 2),
-                  Text(context.l10n.approve, style: const TextStyle(fontSize: 12, color: Color(0xFF2563EB), fontWeight: FontWeight.bold)),
-                ],
+              borderRadius: BorderRadius.circular(4),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                child: Row(
+                  children: [
+                    const Icon(Icons.check_rounded, size: 14, color: Color(0xFF2563EB)),
+                    const SizedBox(width: 2),
+                    Text(context.l10n.approve, style: const TextStyle(fontSize: 12, color: Color(0xFF2563EB), fontWeight: FontWeight.bold)),
+                  ],
+                ),
               ),
             ),
             const SizedBox(width: 8),
             InkWell(
               onTap: () => _handleReject(exp.id),
-              child: Row(
-                children: [
-                  const Icon(Icons.close, size: 14, color: Color(0xFF2563EB)),
-                  const SizedBox(width: 2),
-                  Text(context.l10n.reject, style: const TextStyle(fontSize: 12, color: Color(0xFF2563EB), fontWeight: FontWeight.bold)),
-                ],
+              borderRadius: BorderRadius.circular(4),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                child: Row(
+                  children: [
+                    const Icon(Icons.close_rounded, size: 14, color: Color(0xFFDC2626)),
+                    const SizedBox(width: 2),
+                    Text(context.l10n.reject, style: const TextStyle(fontSize: 12, color: Color(0xFFDC2626), fontWeight: FontWeight.bold)),
+                  ],
+                ),
               ),
             ),
           ],
@@ -846,16 +939,23 @@ class _ExpensesListScreenState extends State<ExpensesListScreen> {
     if (exp.status == 'APPROVED' && exp.paidBy == 'EMPLOYEE') {
       return InkWell(
         onTap: () => _handleReimburse(exp.id),
-        child: const Text(
-          'Reimburse',
-          style: TextStyle(fontSize: 12, color: Color(0xFF2563EB), fontWeight: FontWeight.bold),
+        borderRadius: BorderRadius.circular(4),
+        child: const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+          child: Text(
+            'Reimburse',
+            style: TextStyle(fontSize: 12, color: Color(0xFF059669), fontWeight: FontWeight.bold),
+          ),
         ),
       );
     }
 
-    return const Text(
-      'View',
-      style: TextStyle(fontSize: 12, color: Color(0xFF2563EB), fontWeight: FontWeight.w500),
+    return const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+      child: Text(
+        'View',
+        style: TextStyle(fontSize: 12, color: Color(0xFF2563EB), fontWeight: FontWeight.w500),
+      ),
     );
   }
 
