@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/localization/locale_provider.dart';
-import '../../../shared/widgets/rounded_card.dart';
 
 class ReportsScreen extends StatelessWidget {
   const ReportsScreen({super.key});
@@ -28,11 +27,30 @@ class ReportsScreen extends StatelessWidget {
     ];
 
     final isMobile = MediaQuery.of(context).size.width < 768;
+
     return SingleChildScrollView(
-      padding: EdgeInsets.all(isMobile ? 16 : 24),
+      padding: EdgeInsets.symmetric(
+        horizontal: isMobile ? 16 : 28,
+        vertical: isMobile ? 16 : 24,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Breadcrumbs
+          Wrap(
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
+              InkWell(
+                onTap: () => context.go('/dashboard'),
+                child: Text(context.l10n.home, style: const TextStyle(fontSize: 12, color: AppColors.textMuted)),
+              ),
+              const Text('  /  ', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
+              Text(context.l10n.reports, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary, fontWeight: FontWeight.w600)),
+            ],
+          ),
+          const SizedBox(height: 6),
+
+          // Header
           if (isMobile) ...[
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,8 +72,15 @@ class ReportsScreen extends StatelessWidget {
                 const SizedBox(height: 12),
                 OutlinedButton.icon(
                   onPressed: () => _exportBoardPack(context),
-                  icon: const Icon(Icons.picture_as_pdf_outlined, size: 16),
-                  label: Text(context.l10n.exportBoardPackPdf),
+                  icon: const Icon(Icons.picture_as_pdf_outlined, size: 16, color: Color(0xFF2563EB)),
+                  label: Text(context.l10n.exportBoardPackPdf, style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
+                  style: OutlinedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    side: const BorderSide(color: AppColors.border),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                    minimumSize: const Size(0, 40),
+                  ),
                 ),
               ],
             ),
@@ -77,7 +102,7 @@ class ReportsScreen extends StatelessWidget {
                           letterSpacing: -0.5,
                         ),
                       ),
-                      SizedBox(height: 4),
+                      const SizedBox(height: 4),
                       Text(
                         context.l10n.reportsSubtitle,
                         style: const TextStyle(fontSize: 13, color: AppColors.textSecondary),
@@ -88,77 +113,116 @@ class ReportsScreen extends StatelessWidget {
                 const SizedBox(width: 16),
                 OutlinedButton.icon(
                   onPressed: () => _exportBoardPack(context),
-                  icon: const Icon(Icons.picture_as_pdf_outlined, size: 16),
-                  label: Text(context.l10n.exportBoardPackPdf),
+                  icon: const Icon(Icons.picture_as_pdf_outlined, size: 16, color: Color(0xFF2563EB)),
+                  label: Text(context.l10n.exportBoardPackPdf, style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
+                  style: OutlinedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    side: const BorderSide(color: AppColors.border),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                    minimumSize: const Size(0, 40),
+                  ),
                 ),
               ],
             ),
           ],
-          const SizedBox(height: 20),
+          const SizedBox(height: 22),
 
+          // Reports Directory Grid (Wrap-based for zero aspect-ratio overflow)
           LayoutBuilder(
             builder: (context, constraints) {
-              final count = constraints.maxWidth > 900 ? 2 : 1;
-              final isNarrow = constraints.maxWidth < 500;
-              final ratio = count == 2 ? 2.8 : (isNarrow ? 1.85 : 2.5);
-              return GridView.count(
-                crossAxisCount: count,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                crossAxisSpacing: 16,
-                mainAxisSpacing: 16,
-                childAspectRatio: ratio,
+              final isDesktop = constraints.maxWidth >= 840;
+              final cardWidth = isDesktop
+                  ? (constraints.maxWidth - 16) / 2
+                  : constraints.maxWidth;
+
+              return Wrap(
+                spacing: 16,
+                runSpacing: 16,
                 children: reports.map((r) {
                   final code = r['code'] as String;
-                  return InkWell(
-                    onTap: () => context.go('/reports/$code'),
-                    borderRadius: BorderRadius.circular(10),
-                    child: RoundedCard(
-                      padding: EdgeInsets.all(isNarrow ? 12 : 18),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            width: 42,
-                            height: 42,
-                            decoration: BoxDecoration(
-                              color: AppColors.primarySurface,
-                              borderRadius: BorderRadius.circular(8),
+                  return SizedBox(
+                    width: cardWidth,
+                    child: InkWell(
+                      onTap: () => context.go('/reports/$code'),
+                      borderRadius: BorderRadius.circular(10),
+                      child: Container(
+                        padding: const EdgeInsets.all(18),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: AppColors.borderSubtle),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Color(0x06000000),
+                              blurRadius: 6,
+                              offset: Offset(0, 2),
                             ),
-                            child: Icon(r['icon'] as IconData, color: AppColors.primary, size: 22),
-                          ),
-                          const SizedBox(width: 14),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  (r['category'] as String).toUpperCase(),
-                                  style: const TextStyle(fontSize: 9.5, fontWeight: FontWeight.bold, color: AppColors.textMuted, letterSpacing: 0.8),
-                                ),
-                                const SizedBox(height: 2),
-                                Text(
-                                  r['title'] as String,
-                                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                                ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  r['desc'] as String,
-                                  style: const TextStyle(fontSize: 11.5, color: AppColors.textSecondary),
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ],
+                          ],
+                        ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              width: 44,
+                              height: 44,
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFEFF6FF),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Icon(r['icon'] as IconData, color: const Color(0xFF2563EB), size: 22),
                             ),
-                          ),
-                          IconButton(
-                            onPressed: () => context.go('/reports/$code'),
-                            icon: const Icon(Icons.arrow_forward_ios_rounded, size: 14, color: AppColors.textMuted),
-                            tooltip: 'Run Report',
-                          ),
-                        ],
+                            const SizedBox(width: 14),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    (r['category'] as String).toUpperCase(),
+                                    style: const TextStyle(
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w700,
+                                      color: Color(0xFF2563EB),
+                                      letterSpacing: 0.8,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 3),
+                                  Text(
+                                    r['title'] as String,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 14.5,
+                                      color: AppColors.textPrimary,
+                                      letterSpacing: -0.2,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 5),
+                                  Text(
+                                    r['desc'] as String,
+                                    style: const TextStyle(
+                                      fontSize: 12,
+                                      color: AppColors.textSecondary,
+                                      height: 1.4,
+                                    ),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Container(
+                              width: 32,
+                              height: 32,
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFF8FAFC),
+                                borderRadius: BorderRadius.circular(6),
+                                border: Border.all(color: AppColors.borderSubtle),
+                              ),
+                              child: const Icon(Icons.arrow_forward_rounded, size: 15, color: Color(0xFF64748B)),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   );

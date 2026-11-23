@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/localization/locale_provider.dart';
@@ -138,18 +139,22 @@ class _ReportsViewerScreenState extends State<ReportsViewerScreen> {
             Wrap(
               crossAxisAlignment: WrapCrossAlignment.center,
               children: [
-                Text(context.l10n.reports, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary, fontWeight: FontWeight.w500)),
-                const SizedBox(width: 4),
-                const Text('/', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
-                const SizedBox(width: 4),
-                Text(config.category, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary, fontWeight: FontWeight.w500)),
-                const SizedBox(width: 4),
-                const Text('/', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
-                const SizedBox(width: 4),
-                Text(config.title, style: TextStyle(fontSize: 12, color: Colors.blue.shade700, fontWeight: FontWeight.w500)),
+                InkWell(
+                  onTap: () => context.go('/dashboard'),
+                  child: Text(context.l10n.home, style: const TextStyle(fontSize: 12, color: AppColors.textMuted)),
+                ),
+                const Text('  /  ', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
+                InkWell(
+                  onTap: () => context.go('/reports'),
+                  child: Text(context.l10n.reports, style: const TextStyle(fontSize: 12, color: AppColors.textMuted, fontWeight: FontWeight.w500)),
+                ),
+                const Text('  /  ', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
+                Text(config.category, style: const TextStyle(fontSize: 12, color: AppColors.textMuted, fontWeight: FontWeight.w500)),
+                const Text('  /  ', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
+                Text(config.title, style: const TextStyle(fontSize: 12, color: Color(0xFF2563EB), fontWeight: FontWeight.w600)),
               ],
             ),
-            const SizedBox(height: 4),
+            const SizedBox(height: 6),
             Text(
               config.title,
               style: const TextStyle(
@@ -163,10 +168,11 @@ class _ReportsViewerScreenState extends State<ReportsViewerScreen> {
         ),
         // Switcher dropdown
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+          height: 40,
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(6),
             border: Border.all(color: AppColors.border),
           ),
           child: FittedBox(
@@ -175,7 +181,7 @@ class _ReportsViewerScreenState extends State<ReportsViewerScreen> {
             child: DropdownButtonHideUnderline(
               child: DropdownButton<String>(
                 value: _currentReportCode,
-                icon: const Icon(Icons.arrow_drop_down, color: AppColors.textSecondary),
+                icon: const Icon(Icons.keyboard_arrow_down_rounded, size: 16, color: Color(0xFF64748B)),
                 style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: AppColors.textPrimary),
                 items: ReportService.availableReports.map((r) {
                   return DropdownMenuItem<String>(
@@ -199,7 +205,7 @@ class _ReportsViewerScreenState extends State<ReportsViewerScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(8),
         border: Border.all(color: AppColors.border),
       ),
       child: LayoutBuilder(
@@ -210,7 +216,7 @@ class _ReportsViewerScreenState extends State<ReportsViewerScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Wrap(
-                  spacing: 12,
+                  spacing: 10,
                   runSpacing: 10,
                   crossAxisAlignment: WrapCrossAlignment.center,
                   children: [
@@ -221,7 +227,7 @@ class _ReportsViewerScreenState extends State<ReportsViewerScreen> {
                   ],
                 ),
                 const SizedBox(height: 12),
-                const Divider(height: 1),
+                const Divider(height: 1, color: AppColors.borderSubtle),
                 const SizedBox(height: 12),
                 _buildExportButtons(),
               ],
@@ -237,11 +243,11 @@ class _ReportsViewerScreenState extends State<ReportsViewerScreen> {
                   child: Row(
                     children: [
                       _buildPeriodButton(),
-                      const SizedBox(width: 10),
+                      const SizedBox(width: 8),
                       _buildCompareDropdown(),
-                      const SizedBox(width: 10),
+                      const SizedBox(width: 8),
                       _buildCostCenterDropdown(),
-                      const SizedBox(width: 12),
+                      const SizedBox(width: 10),
                       _buildRunButton(),
                     ],
                   ),
@@ -263,6 +269,7 @@ class _ReportsViewerScreenState extends State<ReportsViewerScreen> {
         showDialog(
           context: context,
           builder: (ctx) => SimpleDialog(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             title: Text(context.l10n.selectPeriod, style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
             children: [
               SimpleDialogOption(
@@ -271,7 +278,10 @@ class _ReportsViewerScreenState extends State<ReportsViewerScreen> {
                   Navigator.pop(ctx);
                   _runReport();
                 },
-                child: Text(context.l10n.periodYtd),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  child: Text(context.l10n.periodYtd, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
+                ),
               ),
               SimpleDialogOption(
                 onPressed: () {
@@ -279,7 +289,10 @@ class _ReportsViewerScreenState extends State<ReportsViewerScreen> {
                   Navigator.pop(ctx);
                   _runReport();
                 },
-                child: Text(context.l10n.periodThisMonth),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  child: Text(context.l10n.periodThisMonth, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
+                ),
               ),
               SimpleDialogOption(
                 onPressed: () {
@@ -287,7 +300,10 @@ class _ReportsViewerScreenState extends State<ReportsViewerScreen> {
                   Navigator.pop(ctx);
                   _runReport();
                 },
-                child: Text(context.l10n.periodQ3),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  child: Text(context.l10n.periodQ3, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
+                ),
               ),
             ],
           ),
@@ -295,10 +311,12 @@ class _ReportsViewerScreenState extends State<ReportsViewerScreen> {
       },
       borderRadius: BorderRadius.circular(6),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        height: 40,
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(6),
           border: Border.all(color: AppColors.border),
+          color: Colors.white,
         ),
         child: FittedBox(
           fit: BoxFit.scaleDown,
@@ -306,11 +324,11 @@ class _ReportsViewerScreenState extends State<ReportsViewerScreen> {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(Icons.calendar_today_outlined, size: 14, color: AppColors.textSecondary),
+              const Icon(Icons.calendar_today_outlined, size: 14, color: AppColors.textMuted),
               const SizedBox(width: 8),
               Text(
                 _dateRangeText,
-                style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600, color: AppColors.textPrimary),
+                style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.w500, color: AppColors.textPrimary),
               ),
             ],
           ),
@@ -321,10 +339,12 @@ class _ReportsViewerScreenState extends State<ReportsViewerScreen> {
 
   Widget _buildCompareDropdown() {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+      height: 40,
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(6),
         border: Border.all(color: AppColors.border),
+        color: Colors.white,
       ),
       child: FittedBox(
         fit: BoxFit.scaleDown,
@@ -332,6 +352,7 @@ class _ReportsViewerScreenState extends State<ReportsViewerScreen> {
         child: DropdownButtonHideUnderline(
           child: DropdownButton<String>(
             value: _compareOption,
+            icon: const Icon(Icons.keyboard_arrow_down_rounded, size: 16, color: Color(0xFF64748B)),
             style: const TextStyle(fontSize: 12.5, color: AppColors.textPrimary, fontWeight: FontWeight.w500),
             items: [
               DropdownMenuItem(value: 'Prior Year', child: Text(context.l10n.comparePriorYear)),
@@ -353,10 +374,12 @@ class _ReportsViewerScreenState extends State<ReportsViewerScreen> {
 
   Widget _buildCostCenterDropdown() {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+      height: 40,
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(6),
         border: Border.all(color: AppColors.border),
+        color: Colors.white,
       ),
       child: FittedBox(
         fit: BoxFit.scaleDown,
@@ -364,6 +387,7 @@ class _ReportsViewerScreenState extends State<ReportsViewerScreen> {
         child: DropdownButtonHideUnderline(
           child: DropdownButton<String>(
             value: _costCenter,
+            icon: const Icon(Icons.keyboard_arrow_down_rounded, size: 16, color: Color(0xFF64748B)),
             style: const TextStyle(fontSize: 12.5, color: AppColors.textPrimary, fontWeight: FontWeight.w500),
             items: [
               DropdownMenuItem(value: 'All Cost Centers', child: Text(context.l10n.allCostCenters)),
@@ -388,10 +412,13 @@ class _ReportsViewerScreenState extends State<ReportsViewerScreen> {
       onPressed: _runReport,
       style: ElevatedButton.styleFrom(
         backgroundColor: const Color(0xFF2563EB),
-        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+        foregroundColor: Colors.white,
+        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 0),
+        minimumSize: const Size(0, 40),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+        elevation: 0,
       ),
-      child: Text(context.l10n.run, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
+      child: Text(context.l10n.run, style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.bold, color: Colors.white)),
     );
   }
 
@@ -423,12 +450,13 @@ class _ReportsViewerScreenState extends State<ReportsViewerScreen> {
   Widget _buildExportButton({required String label, required IconData icon, required VoidCallback onTap}) {
     return OutlinedButton.icon(
       onPressed: onTap,
-      icon: Icon(icon, size: 14),
-      label: Text(label, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+      icon: Icon(icon, size: 14, color: AppColors.textSecondary),
+      label: Text(label, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
       style: OutlinedButton.styleFrom(
-        foregroundColor: AppColors.textPrimary,
+        backgroundColor: Colors.white,
         side: const BorderSide(color: AppColors.border),
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
+        minimumSize: const Size(0, 38),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
       ),
     );
@@ -445,28 +473,28 @@ class _ReportsViewerScreenState extends State<ReportsViewerScreen> {
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: AppColors.border),
-          boxShadow: [
-            const BoxShadow(
+          boxShadow: const [
+            BoxShadow(
               color: Color(0x0A000000),
               blurRadius: 10,
               offset: Offset(0, 4),
             ),
           ],
         ),
-        padding: EdgeInsets.all(isMobile ? 16 : 32),
+        padding: EdgeInsets.all(isMobile ? 18 : 32),
         child: Column(
           children: [
             // Centered Header from Figure 16
             Text(
               data.companyName,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: AppColors.textPrimary),
+              style: const TextStyle(fontSize: 19, fontWeight: FontWeight.w800, color: AppColors.textPrimary, letterSpacing: -0.3),
             ),
-            const SizedBox(height: 2),
+            const SizedBox(height: 3),
             Text(
               data.reportTitle,
-              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.textPrimary),
+              style: const TextStyle(fontSize: 14.5, fontWeight: FontWeight.w700, color: AppColors.textPrimary),
             ),
-            const SizedBox(height: 2),
+            const SizedBox(height: 3),
             Text(
               data.periodDescription,
               style: const TextStyle(fontSize: 12, color: AppColors.textSecondary),
@@ -493,8 +521,9 @@ class _ReportsViewerScreenState extends State<ReportsViewerScreen> {
               children: [
                 // Column Headers
                 Container(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                   decoration: const BoxDecoration(
+                    color: Color(0xFFF8FAFC),
                     border: Border(bottom: BorderSide(color: Color(0xFFCBD5E1), width: 1.5)),
                   ),
                   child: Row(
@@ -523,7 +552,7 @@ class _ReportsViewerScreenState extends State<ReportsViewerScreen> {
                 for (final section in data.sections) ...[
                   if (section.title.isNotEmpty) ...[
                     Padding(
-                      padding: const EdgeInsets.only(top: 18, bottom: 6),
+                      padding: const EdgeInsets.only(top: 20, bottom: 8, left: 12, right: 12),
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
@@ -551,10 +580,11 @@ class _ReportsViewerScreenState extends State<ReportsViewerScreen> {
     if (row.isHighlight) {
       return Container(
         margin: const EdgeInsets.symmetric(vertical: 4),
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
         decoration: BoxDecoration(
           color: const Color(0xFFEFF6FF), // Light blue banner from Figure 16
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: BorderRadius.circular(6),
+          border: Border.all(color: const Color(0xFFBFDBFE)),
         ),
         child: Row(
           children: [
@@ -597,11 +627,11 @@ class _ReportsViewerScreenState extends State<ReportsViewerScreen> {
     // Total row style
     if (row.isTotal) {
       return Container(
-        padding: const EdgeInsets.symmetric(vertical: 9, horizontal: 4),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
         decoration: const BoxDecoration(
           border: Border(
             top: BorderSide(color: Color(0xFFE2E8F0)),
-            bottom: BorderSide(color: Color(0xFFCBD5E1)),
+            bottom: BorderSide(color: Color(0xFFCBD5E1), width: 1.5),
           ),
         ),
         child: Row(
@@ -652,7 +682,7 @@ class _ReportsViewerScreenState extends State<ReportsViewerScreen> {
       hoverColor: const Color(0xFFF1F5F9),
       borderRadius: BorderRadius.circular(4),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 4),
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
         child: Row(
           children: [
             Expanded(
@@ -674,7 +704,7 @@ class _ReportsViewerScreenState extends State<ReportsViewerScreen> {
                       ),
                     ),
                     if (row.isDrillable) ...[
-                      const SizedBox(width: 4),
+                      const SizedBox(width: 5),
                       const Icon(Icons.open_in_new, size: 12, color: Color(0xFF94A3B8)),
                     ],
                   ],

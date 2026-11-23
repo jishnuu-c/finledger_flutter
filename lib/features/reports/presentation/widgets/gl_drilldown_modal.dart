@@ -98,7 +98,7 @@ class _GlDrilldownModalState extends State<GlDrilldownModal> {
               ],
             ),
             const SizedBox(height: 14),
-            const Divider(height: 1),
+            const Divider(height: 1, color: AppColors.borderSubtle),
             const SizedBox(height: 14),
 
             // Table of GL Transactions
@@ -142,23 +142,23 @@ class _GlDrilldownModalState extends State<GlDrilldownModal> {
                                   padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
                                   child: const Row(
                                     children: [
-                                      SizedBox(width: 85, child: Text('Date', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textMuted))),
-                                      SizedBox(width: 105, child: Text('Entry #', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textMuted))),
-                                      SizedBox(width: 105, child: Text('Reference', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textMuted))),
-                                      Expanded(child: Text('Narration', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textMuted))),
-                                      SizedBox(width: 90, child: Text('Debit', textAlign: TextAlign.right, style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textMuted))),
-                                      SizedBox(width: 90, child: Text('Credit', textAlign: TextAlign.right, style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textMuted))),
-                                      SizedBox(width: 100, child: Text('Balance', textAlign: TextAlign.right, style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textMuted))),
+                                      SizedBox(width: 85, child: Text('Date', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                                      SizedBox(width: 105, child: Text('Entry #', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                                      SizedBox(width: 105, child: Text('Reference', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                                      Expanded(child: Text('Narration', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                                      SizedBox(width: 90, child: Text('Debit', textAlign: TextAlign.right, style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                                      SizedBox(width: 90, child: Text('Credit', textAlign: TextAlign.right, style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                                      SizedBox(width: 100, child: Text('Balance', textAlign: TextAlign.right, style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
                                     ],
                                   ),
                                 ),
-                                const Divider(height: 1),
+                                const Divider(height: 1, color: AppColors.borderSubtle),
 
                                 // Lines
                                 Expanded(
                                   child: ListView.separated(
                                     itemCount: txs.length,
-                                    separatorBuilder: (context, index) => const Divider(height: 1),
+                                    separatorBuilder: (context, index) => const Divider(height: 1, color: AppColors.borderSubtle),
                                     itemBuilder: (context, index) {
                                       final item = txs[index];
                                       return Padding(
@@ -246,10 +246,12 @@ class _GlDrilldownModalState extends State<GlDrilldownModal> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF2563EB),
                     foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                    padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 0),
+                    minimumSize: const Size(0, 38),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                    elevation: 0,
                   ),
-                  child: Text(context.l10n.close),
+                  child: Text(context.l10n.close, style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.bold, color: Colors.white)),
                 ),
               ],
             ),
