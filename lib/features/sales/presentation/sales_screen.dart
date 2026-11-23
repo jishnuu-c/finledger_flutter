@@ -84,11 +84,14 @@ class _SalesScreenState extends State<SalesScreen> {
   Widget build(BuildContext context) {
     final isMobile = MediaQuery.of(context).size.width < 768;
     return SingleChildScrollView(
-      padding: EdgeInsets.all(isMobile ? 16 : 24),
+      padding: EdgeInsets.symmetric(
+        horizontal: isMobile ? 16 : 28,
+        vertical: isMobile ? 16 : 24,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Header
+          // Breadcrumbs & Header
           _buildHeader(context, isMobile),
           const SizedBox(height: 20),
 
@@ -104,86 +107,88 @@ class _SalesScreenState extends State<SalesScreen> {
   }
 
   Widget _buildHeader(BuildContext context, bool isMobile) {
+    final breadcrumbs = Wrap(
+      crossAxisAlignment: WrapCrossAlignment.center,
+      children: [
+        InkWell(
+          onTap: () => context.go('/dashboard'),
+          child: Text(context.l10n.home, style: const TextStyle(fontSize: 12, color: AppColors.textMuted)),
+        ),
+        const Text('  /  ', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
+        Text(context.l10n.sales, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary, fontWeight: FontWeight.w600)),
+      ],
+    );
+
+    final titleColumn = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        breadcrumbs,
+        const SizedBox(height: 6),
+        Text(
+          context.l10n.salesInvoicesTitle,
+          style: const TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.w800,
+            color: AppColors.textPrimary,
+            letterSpacing: -0.5,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          context.l10n.salesInvoicesSubtitle,
+          style: const TextStyle(fontSize: 12.5, color: AppColors.textSecondary),
+        ),
+      ],
+    );
+
+    final actionButtons = Wrap(
+      spacing: 10,
+      runSpacing: 8,
+      children: [
+        OutlinedButton.icon(
+          onPressed: () => context.go('/sales/receipts/new'),
+          icon: const Icon(Icons.receipt_outlined, size: 16, color: AppColors.textSecondary),
+          label: Text(context.l10n.customerReceipts, style: const TextStyle(fontSize: 12.5, color: AppColors.textPrimary)),
+          style: OutlinedButton.styleFrom(
+            side: const BorderSide(color: AppColors.border),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+            minimumSize: const Size(0, 40),
+          ),
+        ),
+        ElevatedButton.icon(
+          onPressed: () => context.go('/sales/invoices/new'),
+          icon: const Icon(Icons.add, size: 16, color: Colors.white),
+          label: Text(context.l10n.createTaxInvoice, style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.bold, color: Colors.white)),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: AppColors.primary,
+            elevation: 0,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+            minimumSize: const Size(0, 40),
+          ),
+        ),
+      ],
+    );
+
     if (isMobile) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            context.l10n.salesInvoicesTitle,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w800,
-              color: AppColors.textPrimary,
-              letterSpacing: -0.5,
-            ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            context.l10n.salesInvoicesSubtitle,
-            style: const TextStyle(fontSize: 12.5, color: AppColors.textSecondary),
-          ),
-          const SizedBox(height: 12),
-          Wrap(
-            spacing: 12,
-            runSpacing: 8,
-            children: [
-              OutlinedButton.icon(
-                onPressed: () => context.go('/sales/receipts/new'),
-                icon: const Icon(Icons.receipt_outlined, size: 16),
-                label: Text(context.l10n.customerReceipts),
-              ),
-              ElevatedButton.icon(
-                onPressed: () => context.go('/sales/invoices/new'),
-                icon: const Icon(Icons.add, size: 16),
-                label: Text(context.l10n.createTaxInvoice),
-              ),
-            ],
-          ),
+          titleColumn,
+          const SizedBox(height: 14),
+          actionButtons,
         ],
       );
     }
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                context.l10n.salesInvoicesTitle,
-                style: const TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.w800,
-                  color: AppColors.textPrimary,
-                  letterSpacing: -0.5,
-                ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                context.l10n.salesInvoicesSubtitle,
-                style: const TextStyle(fontSize: 13, color: AppColors.textSecondary),
-              ),
-            ],
-          ),
-        ),
+        Expanded(child: titleColumn),
         const SizedBox(width: 16),
-        Wrap(
-          spacing: 12,
-          runSpacing: 8,
-          children: [
-            OutlinedButton.icon(
-              onPressed: () => context.go('/sales/receipts/new'),
-              icon: const Icon(Icons.receipt_outlined, size: 16),
-              label: Text(context.l10n.customerReceipts),
-            ),
-            ElevatedButton.icon(
-              onPressed: () => context.go('/sales/invoices/new'),
-              icon: const Icon(Icons.add, size: 16),
-              label: Text(context.l10n.createTaxInvoice),
-            ),
-          ],
-        ),
+        actionButtons,
       ],
     );
   }
@@ -191,8 +196,11 @@ class _SalesScreenState extends State<SalesScreen> {
   Widget _buildStatusSummaryCards() {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final count = constraints.maxWidth > 1000 ? 5 : (constraints.maxWidth > 600 ? 3 : (constraints.maxWidth > 400 ? 2 : 1));
-        final ratio = count >= 5 ? 2.2 : (count >= 2 ? 2.5 : 3.2);
+        final count = constraints.maxWidth > 1000
+            ? 5
+            : (constraints.maxWidth > 650 ? 3 : (constraints.maxWidth > 420 ? 2 : 1));
+        final ratio = count >= 5 ? 2.1 : (count >= 2 ? 2.4 : 3.0);
+
         return GridView.count(
           crossAxisCount: count,
           shrinkWrap: true,
@@ -214,11 +222,11 @@ class _SalesScreenState extends State<SalesScreen> {
 
   Widget _buildStatusCard(String title, String count, String total, Color color, Color bg) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
         color: AppColors.cardBackground,
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: AppColors.border),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: AppColors.borderSubtle),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -229,11 +237,11 @@ class _SalesScreenState extends State<SalesScreen> {
             children: [
               Text(
                 title,
-                style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: color, letterSpacing: 0.5),
+                style: TextStyle(fontSize: 10.5, fontWeight: FontWeight.w700, color: color, letterSpacing: 0.5),
               ),
               Container(
-                width: 8,
-                height: 8,
+                width: 7,
+                height: 7,
                 decoration: BoxDecoration(color: color, shape: BoxShape.circle),
               ),
             ],
@@ -244,7 +252,7 @@ class _SalesScreenState extends State<SalesScreen> {
             child: Text(
               total,
               maxLines: 1,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+              style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w800, color: AppColors.textPrimary),
             ),
           ),
           Text(
@@ -264,17 +272,29 @@ class _SalesScreenState extends State<SalesScreen> {
         mainAxisSize: MainAxisSize.min,
         children: [
           // Filter Chips
-          DropdownButton<String>(
-            value: _selectedStatusFilter,
-            underline: const SizedBox(),
-            items: ['All', 'Draft', 'Sent', 'Partial', 'Paid', 'Overdue']
-                .map((s) => DropdownMenuItem(value: s, child: Text(s, style: const TextStyle(fontSize: 13))))
-                .toList(),
-            onChanged: (val) {
-              if (val != null) setState(() => _selectedStatusFilter = val);
-            },
+          Container(
+            height: 36,
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            decoration: BoxDecoration(
+              border: Border.all(color: AppColors.border),
+              borderRadius: BorderRadius.circular(6),
+              color: Colors.white,
+            ),
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton<String>(
+                value: _selectedStatusFilter,
+                icon: const Icon(Icons.keyboard_arrow_down_rounded, size: 16, color: Color(0xFF64748B)),
+                style: const TextStyle(fontSize: 12.5, color: AppColors.textPrimary),
+                items: ['All', 'Draft', 'Sent', 'Partial', 'Paid', 'Overdue']
+                    .map((s) => DropdownMenuItem(value: s, child: Text(s, style: const TextStyle(fontSize: 12.5))))
+                    .toList(),
+                onChanged: (val) {
+                  if (val != null) setState(() => _selectedStatusFilter = val);
+                },
+              ),
+            ),
           ),
-          const SizedBox(width: 12),
+          const SizedBox(width: 8),
           IconButton(
             onPressed: () {
               ScaffoldMessenger.of(context).showSnackBar(
@@ -285,7 +305,8 @@ class _SalesScreenState extends State<SalesScreen> {
               );
             },
             tooltip: 'Export CSV',
-            icon: const Icon(Icons.download_rounded, size: 18),
+            icon: const Icon(Icons.download_rounded, size: 18, color: AppColors.textSecondary),
+            visualDensity: VisualDensity.compact,
           ),
         ],
       ),
@@ -295,15 +316,16 @@ class _SalesScreenState extends State<SalesScreen> {
           headingRowHeight: 42,
           dataRowMinHeight: 52,
           dataRowMaxHeight: 52,
+          headingRowColor: const WidgetStatePropertyAll(Color(0xFFF8FAFC)),
           columns: [
-            DataColumn(label: Text(context.l10n.invoiceNumber.toUpperCase(), style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-            DataColumn(label: Text(context.l10n.customer.toUpperCase(), style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-            DataColumn(label: Text(context.l10n.issueDate.toUpperCase(), style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-            DataColumn(label: Text(context.l10n.dueDate.toUpperCase(), style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-            DataColumn(label: Text(context.l10n.totalAmount.toUpperCase(), style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-            DataColumn(label: Text(context.l10n.balanceDue.toUpperCase(), style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-            DataColumn(label: Text(context.l10n.status.toUpperCase(), style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-            DataColumn(label: Text(context.l10n.actions.toUpperCase(), style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+            DataColumn(label: Text(context.l10n.invoiceNumber.toUpperCase(), style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+            DataColumn(label: Text(context.l10n.customer.toUpperCase(), style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+            DataColumn(label: Text(context.l10n.issueDate.toUpperCase(), style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+            DataColumn(label: Text(context.l10n.dueDate.toUpperCase(), style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+            DataColumn(label: Text(context.l10n.totalAmount.toUpperCase(), style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+            DataColumn(label: Text(context.l10n.balanceDue.toUpperCase(), style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+            DataColumn(label: Text(context.l10n.status.toUpperCase(), style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+            DataColumn(label: Text(context.l10n.actions.toUpperCase(), style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
           ],
           rows: _invoices.map((inv) {
             return DataRow(
@@ -311,7 +333,7 @@ class _SalesScreenState extends State<SalesScreen> {
                 DataCell(
                   Text(
                     inv['number'],
-                    style: const TextStyle(fontWeight: FontWeight.w600, color: AppColors.primary, fontSize: 13),
+                    style: const TextStyle(fontWeight: FontWeight.w600, color: Color(0xFF2563EB), fontSize: 13),
                   ),
                 ),
                 DataCell(
@@ -368,8 +390,9 @@ class _SalesScreenState extends State<SalesScreen> {
                             builder: (ctx) => InvoicePdfPreviewDialog(invoice: invObj),
                           );
                         },
-                        icon: const Icon(Icons.picture_as_pdf_outlined, size: 16, color: AppColors.primary),
+                        icon: const Icon(Icons.picture_as_pdf_outlined, size: 16, color: Color(0xFF2563EB)),
                         tooltip: 'Download Tax PDF',
+                        visualDensity: VisualDensity.compact,
                       ),
                       IconButton(
                         onPressed: () {
@@ -382,6 +405,7 @@ class _SalesScreenState extends State<SalesScreen> {
                         },
                         icon: const Icon(Icons.send_outlined, size: 16, color: AppColors.textSecondary),
                         tooltip: 'Send to Customer',
+                        visualDensity: VisualDensity.compact,
                       ),
                     ],
                   ),

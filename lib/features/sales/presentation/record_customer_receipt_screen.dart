@@ -259,7 +259,10 @@ class _RecordCustomerReceiptScreenState extends State<RecordCustomerReceiptScree
     return Scaffold(
       backgroundColor: AppColors.contentBackground,
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(isMobile ? 16 : 24),
+        padding: EdgeInsets.symmetric(
+          horizontal: isMobile ? 16 : 28,
+          vertical: isMobile ? 16 : 24,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -291,9 +294,9 @@ class _RecordCustomerReceiptScreenState extends State<RecordCustomerReceiptScree
                     ),
                     const SizedBox(width: 18),
 
-                    // Right Summary Card (Fixed width 330)
+                    // Right Summary Card (Fixed width 340)
                     SizedBox(
-                      width: 330,
+                      width: 340,
                       child: _buildRightSummaryCard(currencyFormatter, isMobile: isMobile),
                     ),
                   ],
@@ -314,6 +317,11 @@ class _RecordCustomerReceiptScreenState extends State<RecordCustomerReceiptScree
           crossAxisAlignment: WrapCrossAlignment.center,
           children: [
             InkWell(
+              onTap: () => context.go('/dashboard'),
+              child: Text(context.l10n.home, style: const TextStyle(fontSize: 12, color: AppColors.textMuted)),
+            ),
+            const Text('  /  ', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
+            InkWell(
               onTap: () => context.go('/sales/invoices'),
               child: Text(context.l10n.sales, style: const TextStyle(fontSize: 12, color: AppColors.textMuted)),
             ),
@@ -323,7 +331,7 @@ class _RecordCustomerReceiptScreenState extends State<RecordCustomerReceiptScree
             Text(context.l10n.create, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary, fontWeight: FontWeight.w600)),
           ],
         ),
-        const SizedBox(height: 4),
+        const SizedBox(height: 6),
         Text(
           context.l10n.recordCustomerReceipt,
           style: const TextStyle(
@@ -339,11 +347,11 @@ class _RecordCustomerReceiptScreenState extends State<RecordCustomerReceiptScree
 
   Widget _buildLeftFormCard(NumberFormat currencyFormatter, {bool isMobile = false}) {
     return Container(
-      padding: EdgeInsets.all(isMobile ? 14 : 22),
+      padding: EdgeInsets.all(isMobile ? 16 : 22),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: AppColors.border),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: AppColors.borderSubtle),
       ),
       child: LayoutBuilder(
         builder: (context, constraints) {
@@ -352,7 +360,7 @@ class _RecordCustomerReceiptScreenState extends State<RecordCustomerReceiptScree
           Widget customerField = Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('${context.l10n.customer} *', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+              Text('${context.l10n.customer} *', style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textSecondary)),
               const SizedBox(height: 6),
               Container(
                 height: 40,
@@ -360,15 +368,17 @@ class _RecordCustomerReceiptScreenState extends State<RecordCustomerReceiptScree
                 decoration: BoxDecoration(
                   border: Border.all(color: AppColors.border),
                   borderRadius: BorderRadius.circular(6),
+                  color: Colors.white,
                 ),
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton<Customer>(
                     value: _selectedCustomer,
                     isExpanded: true,
+                    icon: const Icon(Icons.keyboard_arrow_down_rounded, size: 16, color: Color(0xFF64748B)),
                     items: _customers.map((c) {
                       return DropdownMenuItem(
                         value: c,
-                        child: Text(c.name, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
+                        child: Text(c.name, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: AppColors.textPrimary)),
                       );
                     }).toList(),
                     onChanged: _onCustomerChanged,
@@ -381,7 +391,7 @@ class _RecordCustomerReceiptScreenState extends State<RecordCustomerReceiptScree
           Widget receiptDateField = Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('${context.l10n.receiptDate} *', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+              Text('${context.l10n.receiptDate} *', style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textSecondary)),
               const SizedBox(height: 6),
               SizedBox(
                 height: 40,
@@ -389,8 +399,13 @@ class _RecordCustomerReceiptScreenState extends State<RecordCustomerReceiptScree
                   controller: _receiptDateController,
                   style: const TextStyle(fontSize: 13),
                   decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
+                    prefixIcon: const Icon(Icons.calendar_today_outlined, size: 15, color: AppColors.textMuted),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
                     border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(6),
+                      borderSide: const BorderSide(color: AppColors.border),
+                    ),
+                    enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(6),
                       borderSide: const BorderSide(color: AppColors.border),
                     ),
@@ -403,7 +418,7 @@ class _RecordCustomerReceiptScreenState extends State<RecordCustomerReceiptScree
           Widget depositToField = Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('${context.l10n.depositTo} *', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+              Text('${context.l10n.depositTo} *', style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textSecondary)),
               const SizedBox(height: 6),
               Container(
                 height: 40,
@@ -411,15 +426,17 @@ class _RecordCustomerReceiptScreenState extends State<RecordCustomerReceiptScree
                 decoration: BoxDecoration(
                   border: Border.all(color: AppColors.border),
                   borderRadius: BorderRadius.circular(6),
+                  color: Colors.white,
                 ),
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton<String>(
                     value: _depositTo,
                     isExpanded: true,
+                    icon: const Icon(Icons.keyboard_arrow_down_rounded, size: 16, color: Color(0xFF64748B)),
                     items: const [
-                      DropdownMenuItem(value: '1110 – Emirates NBD Current', child: Text('1110 – Emirates NBD Current', style: TextStyle(fontSize: 13))),
-                      DropdownMenuItem(value: '1120 – Petty Cash', child: Text('1120 – Petty Cash', style: TextStyle(fontSize: 13))),
-                      DropdownMenuItem(value: '1130 – ADCB Operations', child: Text('1130 – ADCB Operations', style: TextStyle(fontSize: 13))),
+                      DropdownMenuItem(value: '1110 – Emirates NBD Current', child: Text('1110 – Emirates NBD Current', style: TextStyle(fontSize: 13, color: AppColors.textPrimary))),
+                      DropdownMenuItem(value: '1120 – Petty Cash', child: Text('1120 – Petty Cash', style: TextStyle(fontSize: 13, color: AppColors.textPrimary))),
+                      DropdownMenuItem(value: '1130 – ADCB Operations', child: Text('1130 – ADCB Operations', style: TextStyle(fontSize: 13, color: AppColors.textPrimary))),
                     ],
                     onChanged: (val) {
                       if (val != null) setState(() => _depositTo = val);
@@ -433,7 +450,7 @@ class _RecordCustomerReceiptScreenState extends State<RecordCustomerReceiptScree
           Widget paymentMethodField = Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(context.l10n.paymentMethod, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+              Text(context.l10n.paymentMethod, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textSecondary)),
               const SizedBox(height: 6),
               Container(
                 height: 40,
@@ -441,16 +458,18 @@ class _RecordCustomerReceiptScreenState extends State<RecordCustomerReceiptScree
                 decoration: BoxDecoration(
                   border: Border.all(color: AppColors.border),
                   borderRadius: BorderRadius.circular(6),
+                  color: Colors.white,
                 ),
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton<String>(
                     value: _paymentMethod,
                     isExpanded: true,
+                    icon: const Icon(Icons.keyboard_arrow_down_rounded, size: 16, color: Color(0xFF64748B)),
                     items: [
-                      DropdownMenuItem(value: 'Bank Transfer', child: Text(context.l10n.bankTransfer, style: const TextStyle(fontSize: 13))),
-                      DropdownMenuItem(value: 'Cheque', child: Text(context.l10n.cheque, style: const TextStyle(fontSize: 13))),
-                      DropdownMenuItem(value: 'Cash', child: Text(context.l10n.cash, style: const TextStyle(fontSize: 13))),
-                      DropdownMenuItem(value: 'Card', child: Text(context.l10n.card, style: const TextStyle(fontSize: 13))),
+                      DropdownMenuItem(value: 'Bank Transfer', child: Text(context.l10n.bankTransfer, style: const TextStyle(fontSize: 13, color: AppColors.textPrimary))),
+                      DropdownMenuItem(value: 'Cheque', child: Text(context.l10n.cheque, style: const TextStyle(fontSize: 13, color: AppColors.textPrimary))),
+                      DropdownMenuItem(value: 'Cash', child: Text(context.l10n.cash, style: const TextStyle(fontSize: 13, color: AppColors.textPrimary))),
+                      DropdownMenuItem(value: 'Card', child: Text(context.l10n.card, style: const TextStyle(fontSize: 13, color: AppColors.textPrimary))),
                     ],
                     onChanged: (val) {
                       if (val != null) setState(() => _paymentMethod = val);
@@ -464,7 +483,7 @@ class _RecordCustomerReceiptScreenState extends State<RecordCustomerReceiptScree
           Widget amountReceivedField = Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('${context.l10n.amountReceived} *', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+              Text('${context.l10n.amountReceived} *', style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textSecondary)),
               const SizedBox(height: 6),
               SizedBox(
                 height: 40,
@@ -478,6 +497,10 @@ class _RecordCustomerReceiptScreenState extends State<RecordCustomerReceiptScree
                       borderRadius: BorderRadius.circular(6),
                       borderSide: const BorderSide(color: AppColors.border),
                     ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(6),
+                      borderSide: const BorderSide(color: AppColors.border),
+                    ),
                   ),
                 ),
               ),
@@ -487,7 +510,7 @@ class _RecordCustomerReceiptScreenState extends State<RecordCustomerReceiptScree
           Widget referenceField = Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(context.l10n.referenceChequeNo, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+              Text(context.l10n.referenceChequeNo, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textSecondary)),
               const SizedBox(height: 6),
               SizedBox(
                 height: 40,
@@ -495,8 +518,13 @@ class _RecordCustomerReceiptScreenState extends State<RecordCustomerReceiptScree
                   controller: _referenceController,
                   style: const TextStyle(fontSize: 13),
                   decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
+                    prefixIcon: const Icon(Icons.tag_rounded, size: 15, color: AppColors.textMuted),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
                     border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(6),
+                      borderSide: const BorderSide(color: AppColors.border),
+                    ),
+                    enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(6),
                       borderSide: const BorderSide(color: AppColors.border),
                     ),
@@ -590,6 +618,7 @@ class _RecordCustomerReceiptScreenState extends State<RecordCustomerReceiptScree
                           border: Border.all(color: AppColors.border),
                           borderRadius: BorderRadius.circular(6),
                         ),
+                        clipBehavior: Clip.antiAlias,
                         child: Column(
                           children: [
                             // Table Header
@@ -599,16 +628,16 @@ class _RecordCustomerReceiptScreenState extends State<RecordCustomerReceiptScree
                               child: Row(
                                 children: [
                                   const SizedBox(width: 32), // checkbox space
-                                  Expanded(flex: 3, child: Text(context.l10n.invoiceNo, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textMuted))),
-                                  Expanded(flex: 3, child: Text(context.l10n.date, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textMuted))),
-                                  Expanded(flex: 3, child: Text(context.l10n.lineTotal, textAlign: TextAlign.right, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textMuted))),
-                                  Expanded(flex: 3, child: Text(context.l10n.outstanding, textAlign: TextAlign.right, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textMuted))),
-                                  SizedBox(width: 14),
-                                  SizedBox(width: 95, child: Text(context.l10n.payment, textAlign: TextAlign.right, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textMuted))),
+                                  Expanded(flex: 3, child: Text(context.l10n.invoiceNo, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                                  Expanded(flex: 3, child: Text(context.l10n.date, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                                  Expanded(flex: 3, child: Text(context.l10n.lineTotal, textAlign: TextAlign.right, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                                  Expanded(flex: 3, child: Text(context.l10n.outstanding, textAlign: TextAlign.right, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                                  const SizedBox(width: 14),
+                                  SizedBox(width: 95, child: Text(context.l10n.payment, textAlign: TextAlign.right, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
                                 ],
                               ),
                             ),
-                            const Divider(height: 1, color: AppColors.border),
+                            const Divider(height: 1, color: AppColors.borderSubtle),
 
                             // Table Rows
                             for (final row in _openInvoiceRows) ...[
@@ -647,7 +676,7 @@ class _RecordCustomerReceiptScreenState extends State<RecordCustomerReceiptScree
                                       child: Text(
                                         currencyFormatter.format(row.invoice.total),
                                         textAlign: TextAlign.right,
-                                        style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+                                        style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: AppColors.textPrimary),
                                       ),
                                     ),
                                     // Outstanding
@@ -656,14 +685,14 @@ class _RecordCustomerReceiptScreenState extends State<RecordCustomerReceiptScree
                                       child: Text(
                                         currencyFormatter.format(row.invoice.outstanding),
                                         textAlign: TextAlign.right,
-                                        style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700),
+                                        style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: AppColors.textPrimary),
                                       ),
                                     ),
                                     const SizedBox(width: 14),
                                     // Payment Amount editable textfield
                                     SizedBox(
                                       width: 95,
-                                      height: 34,
+                                      height: 36,
                                       child: TextField(
                                         controller: row.paymentController,
                                         textAlign: TextAlign.right,
@@ -673,6 +702,10 @@ class _RecordCustomerReceiptScreenState extends State<RecordCustomerReceiptScree
                                         decoration: InputDecoration(
                                           contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
                                           border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(4),
+                                            borderSide: const BorderSide(color: AppColors.border),
+                                          ),
+                                          enabledBorder: OutlineInputBorder(
                                             borderRadius: BorderRadius.circular(4),
                                             borderSide: const BorderSide(color: AppColors.border),
                                           ),
@@ -703,11 +736,11 @@ class _RecordCustomerReceiptScreenState extends State<RecordCustomerReceiptScree
     final unapplied = _unappliedTotal;
 
     return Container(
-      padding: EdgeInsets.all(isMobile ? 14 : 22),
+      padding: EdgeInsets.all(isMobile ? 16 : 22),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: AppColors.border),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: AppColors.borderSubtle),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -730,7 +763,7 @@ class _RecordCustomerReceiptScreenState extends State<RecordCustomerReceiptScree
             padding: const EdgeInsets.all(14),
             decoration: BoxDecoration(
               color: const Color(0xFFF8FAFC),
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(6),
               border: Border.all(color: AppColors.borderSubtle),
             ),
             child: SingleChildScrollView(
@@ -772,7 +805,8 @@ class _RecordCustomerReceiptScreenState extends State<RecordCustomerReceiptScree
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFF2563EB), // Solid blue from Figure 8
               foregroundColor: Colors.white,
-              padding: const EdgeInsets.symmetric(vertical: 14),
+              padding: const EdgeInsets.symmetric(vertical: 12),
+              minimumSize: const Size(0, 42),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
               elevation: 0,
             ),
