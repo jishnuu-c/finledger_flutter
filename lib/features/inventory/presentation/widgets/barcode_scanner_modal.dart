@@ -98,43 +98,52 @@ class _BarcodeScannerModalState extends State<BarcodeScannerModal> with SingleTi
         vertical: 16,
       ),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: ConstrainedBox(
+      child: Container(
+        width: isMobile ? screenWidth - 24 : 480,
         constraints: BoxConstraints(
-          maxWidth: 480,
           maxHeight: screenHeight * 0.9,
         ),
-        child: Padding(
-          padding: EdgeInsets.all(isMobile ? 16 : 24),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                // Header
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Row(
-                        children: [
-                          const Icon(Icons.qr_code_scanner, color: Color(0xFF2563EB), size: 22),
-                          const SizedBox(width: 8),
-                          Expanded(
-                            child: Text(
-                              context.l10n.scanItemBarcode,
-                              style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
-                              overflow: TextOverflow.ellipsis,
-                            ),
+        padding: EdgeInsets.all(isMobile ? 16 : 24),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // Header
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(6),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFEFF6FF),
+                            borderRadius: BorderRadius.circular(8),
                           ),
-                        ],
-                      ),
+                          child: const Icon(Icons.qr_code_scanner_rounded, color: Color(0xFF2563EB), size: 20),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Text(
+                            context.l10n.scanItemBarcode,
+                            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
                     ),
-                    IconButton(
-                      onPressed: () => Navigator.of(context).pop(),
-                      icon: const Icon(Icons.close, color: AppColors.textMuted),
-                    ),
-                  ],
-                ),
+                  ),
+                  IconButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    icon: const Icon(Icons.close_rounded, color: AppColors.textMuted, size: 20),
+                    visualDensity: VisualDensity.compact,
+                    padding: EdgeInsets.zero,
+                    constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+                  ),
+                ],
+              ),
               const SizedBox(height: 16),
 
               // Viewfinder simulation
@@ -200,34 +209,50 @@ class _BarcodeScannerModalState extends State<BarcodeScannerModal> with SingleTi
               Row(
                 children: [
                   Expanded(
-                    child: TextField(
-                      controller: _barcodeController,
-                      style: const TextStyle(fontSize: 13),
-                      decoration: InputDecoration(
-                        hintText: context.l10n.enterBarcodeSku,
-                        hintStyle: const TextStyle(fontSize: 12, color: AppColors.textMuted),
-                        contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(6),
-                          borderSide: const BorderSide(color: AppColors.border),
+                    child: SizedBox(
+                      height: 40,
+                      child: TextField(
+                        controller: _barcodeController,
+                        style: const TextStyle(fontSize: 13),
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.qr_code_rounded, size: 16, color: AppColors.textMuted),
+                          prefixIconConstraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+                          hintText: context.l10n.enterBarcodeSku,
+                          hintStyle: const TextStyle(fontSize: 12, color: AppColors.textMuted),
+                          contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(6),
+                            borderSide: const BorderSide(color: AppColors.border),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(6),
+                            borderSide: const BorderSide(color: AppColors.border),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(6),
+                            borderSide: const BorderSide(color: Color(0xFF2563EB)),
+                          ),
                         ),
+                        onSubmitted: _handleScan,
                       ),
-                      onSubmitted: _handleScan,
                     ),
                   ),
                   const SizedBox(width: 8),
-                  ElevatedButton(
-                    onPressed: _isSearching ? null : () => _handleScan(_barcodeController.text),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF2563EB),
-                      foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-                      elevation: 0,
+                  SizedBox(
+                    height: 40,
+                    child: ElevatedButton(
+                      onPressed: _isSearching ? null : () => _handleScan(_barcodeController.text),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF2563EB),
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                        elevation: 0,
+                      ),
+                      child: _isSearching
+                          ? const SizedBox(width: 14, height: 14, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
+                          : Text(context.l10n.scanBtn, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
                     ),
-                    child: _isSearching
-                        ? const SizedBox(width: 14, height: 14, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
-                        : Text(context.l10n.scanBtn, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
                   ),
                 ],
               ),
@@ -241,7 +266,10 @@ class _BarcodeScannerModalState extends State<BarcodeScannerModal> with SingleTi
               ],
 
               const SizedBox(height: 16),
-              Text(context.l10n.quickTestBarcodes, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textSecondary)),
+              Text(
+                context.l10n.quickTestBarcodes,
+                style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.bold, color: AppColors.textSecondary),
+              ),
               const SizedBox(height: 8),
 
               Wrap(
@@ -249,8 +277,15 @@ class _BarcodeScannerModalState extends State<BarcodeScannerModal> with SingleTi
                 runSpacing: 6,
                 children: _sampleBarcodes.map((item) {
                   return ActionChip(
-                    label: Text('${item['sku']} (${item['code']})', style: const TextStyle(fontSize: 11)),
+                    label: Text(
+                      '${item['sku']} (${item['code']})',
+                      style: const TextStyle(fontSize: 11, color: AppColors.textPrimary),
+                    ),
                     backgroundColor: const Color(0xFFF1F5F9),
+                    side: const BorderSide(color: AppColors.border),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    visualDensity: VisualDensity.compact,
                     onPressed: () => _handleScan(item['code']!),
                   );
                 }).toList(),
@@ -259,7 +294,6 @@ class _BarcodeScannerModalState extends State<BarcodeScannerModal> with SingleTi
           ),
         ),
       ),
-    ),
-  );
+    );
   }
 }

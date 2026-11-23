@@ -115,17 +115,22 @@ class _ItemsAndStockScreenState extends State<ItemsAndStockScreen> {
           crossAxisAlignment: WrapCrossAlignment.center,
           children: [
             InkWell(
-              onTap: () => context.go('/inventory/items'),
-              child: const Text('Inventory', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
+              onTap: () => context.go('/dashboard'),
+              child: Text(context.l10n.home, style: const TextStyle(fontSize: 12, color: AppColors.textMuted)),
             ),
             const Text('  /  ', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
-            const Text('Items & Stock', style: TextStyle(fontSize: 12, color: AppColors.textSecondary, fontWeight: FontWeight.w600)),
+            InkWell(
+              onTap: () => context.go('/inventory/items'),
+              child: Text(context.l10n.inventory, style: const TextStyle(fontSize: 12, color: AppColors.textMuted)),
+            ),
+            const Text('  /  ', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
+            Text(context.l10n.itemsAndStock, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary, fontWeight: FontWeight.w600)),
           ],
         ),
-        const SizedBox(height: 4),
-        const Text(
-          'Items & Stock',
-          style: TextStyle(
+        const SizedBox(height: 6),
+        Text(
+          context.l10n.itemsAndStock,
+          style: const TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.w800,
             color: AppColors.textPrimary,
@@ -168,6 +173,7 @@ class _ItemsAndStockScreenState extends State<ItemsAndStockScreen> {
                   value: 'AED ${_compactCurrency.format(kpis.totalStockValue)}',
                   subtitle: context.l10n.weightedAverageCost,
                   valueColor: AppColors.textPrimary,
+                  icon: Icons.inventory_2_outlined,
                   width: cardWidth,
                 ),
                 _buildSingleKpiCard(
@@ -175,6 +181,7 @@ class _ItemsAndStockScreenState extends State<ItemsAndStockScreen> {
                   value: '${kpis.activeSkus}',
                   subtitle: '${kpis.totalWarehouses} ${context.l10n.warehouses}',
                   valueColor: AppColors.textPrimary,
+                  icon: Icons.tag_rounded,
                   width: cardWidth,
                 ),
                 _buildSingleKpiCard(
@@ -182,6 +189,7 @@ class _ItemsAndStockScreenState extends State<ItemsAndStockScreen> {
                   value: '${kpis.belowReorderCount}',
                   subtitle: '${context.l10n.suggestedPoValue} AED ${_compactCurrency.format(kpis.suggestedPoValue)}',
                   valueColor: const Color(0xFFDC2626), // red accent in Figure 9
+                  icon: Icons.warning_amber_rounded,
                   width: cardWidth,
                 ),
                 _buildSingleKpiCard(
@@ -189,6 +197,7 @@ class _ItemsAndStockScreenState extends State<ItemsAndStockScreen> {
                   value: '${kpis.outOfStockCount}',
                   subtitle: '${kpis.openQuotationsCount} ${context.l10n.withOpenQuotations}',
                   valueColor: const Color(0xFFDC2626), // red accent in Figure 9
+                  icon: Icons.error_outline_rounded,
                   width: cardWidth,
                 ),
               ],
@@ -204,6 +213,7 @@ class _ItemsAndStockScreenState extends State<ItemsAndStockScreen> {
     required String value,
     required String subtitle,
     required Color valueColor,
+    required IconData icon,
     double? width,
   }) {
     return Container(
@@ -212,19 +222,42 @@ class _ItemsAndStockScreenState extends State<ItemsAndStockScreen> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: AppColors.border),
+        border: Border.all(color: AppColors.borderSubtle),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            title,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: const TextStyle(fontSize: 12, color: AppColors.textSecondary, fontWeight: FontWeight.w500),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Text(
+                  title,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(fontSize: 12, color: AppColors.textSecondary, fontWeight: FontWeight.w500),
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.all(6),
+                decoration: BoxDecoration(
+                  color: valueColor == const Color(0xFFDC2626)
+                      ? AppColors.overdueBg
+                      : AppColors.primarySurface,
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                child: Icon(
+                  icon,
+                  size: 15,
+                  color: valueColor == const Color(0xFFDC2626)
+                      ? const Color(0xFFDC2626)
+                      : AppColors.primary,
+                ),
+              ),
+            ],
           ),
-          const SizedBox(height: 6),
+          const SizedBox(height: 8),
           FittedBox(
             fit: BoxFit.scaleDown,
             alignment: Alignment.centerLeft,
@@ -266,7 +299,7 @@ class _ItemsAndStockScreenState extends State<ItemsAndStockScreen> {
               // Search input
               SizedBox(
                 width: isWide ? 220 : double.infinity,
-                height: 38,
+                height: 40,
                 child: TextField(
                   controller: _searchController,
                   onChanged: (_) => _filterItems(),
@@ -280,6 +313,10 @@ class _ItemsAndStockScreenState extends State<ItemsAndStockScreen> {
                       borderRadius: BorderRadius.circular(6),
                       borderSide: const BorderSide(color: AppColors.border),
                     ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(6),
+                      borderSide: const BorderSide(color: AppColors.border),
+                    ),
                   ),
                 ),
               ),
@@ -287,7 +324,7 @@ class _ItemsAndStockScreenState extends State<ItemsAndStockScreen> {
 
               // Categories dropdown
               Container(
-                height: 38,
+                height: 40,
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 decoration: BoxDecoration(
                   border: Border.all(color: AppColors.border),
@@ -297,6 +334,7 @@ class _ItemsAndStockScreenState extends State<ItemsAndStockScreen> {
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton<String>(
                     value: _selectedCategory,
+                    icon: const Icon(Icons.keyboard_arrow_down_rounded, size: 16, color: Color(0xFF64748B)),
                     style: const TextStyle(fontSize: 12.5, color: AppColors.textPrimary),
                     items: [
                       DropdownMenuItem(value: 'All categories', child: Text(context.l10n.allCategories)),
@@ -315,7 +353,7 @@ class _ItemsAndStockScreenState extends State<ItemsAndStockScreen> {
 
               // Warehouses dropdown
               Container(
-                height: 38,
+                height: 40,
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 decoration: BoxDecoration(
                   border: Border.all(color: AppColors.border),
@@ -325,6 +363,7 @@ class _ItemsAndStockScreenState extends State<ItemsAndStockScreen> {
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton<String>(
                     value: _selectedWarehouse,
+                    icon: const Icon(Icons.keyboard_arrow_down_rounded, size: 16, color: Color(0xFF64748B)),
                     style: const TextStyle(fontSize: 12.5, color: AppColors.textPrimary),
                     items: [
                       DropdownMenuItem(value: 'All warehouses', child: Text(context.l10n.allWarehouses)),
@@ -346,7 +385,7 @@ class _ItemsAndStockScreenState extends State<ItemsAndStockScreen> {
 
               // Stock status dropdown
               Container(
-                height: 38,
+                height: 40,
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 decoration: BoxDecoration(
                   border: Border.all(color: AppColors.border),
@@ -356,6 +395,7 @@ class _ItemsAndStockScreenState extends State<ItemsAndStockScreen> {
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton<String>(
                     value: _selectedStatus,
+                    icon: const Icon(Icons.keyboard_arrow_down_rounded, size: 16, color: Color(0xFF64748B)),
                     style: const TextStyle(fontSize: 12.5, color: AppColors.textPrimary),
                     items: [
                       DropdownMenuItem(value: 'Stock status', child: Text(context.l10n.stockStatus)),
@@ -388,6 +428,7 @@ class _ItemsAndStockScreenState extends State<ItemsAndStockScreen> {
                 icon: const Icon(Icons.menu_book_outlined, size: 14, color: AppColors.textSecondary),
                 label: const Text('Stock Ledger', style: TextStyle(fontSize: 12.5, color: AppColors.textPrimary)),
                 style: OutlinedButton.styleFrom(
+                  minimumSize: const Size(0, 40),
                   padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
                   side: const BorderSide(color: AppColors.border),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
@@ -406,6 +447,7 @@ class _ItemsAndStockScreenState extends State<ItemsAndStockScreen> {
                   );
                 },
                 style: OutlinedButton.styleFrom(
+                  minimumSize: const Size(0, 40),
                   padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
                   side: const BorderSide(color: AppColors.border),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
@@ -422,6 +464,7 @@ class _ItemsAndStockScreenState extends State<ItemsAndStockScreen> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF2563EB), // Blue from mockup
                   elevation: 0,
+                  minimumSize: const Size(0, 40),
                   padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
                 ),
@@ -732,37 +775,76 @@ class _ItemsAndStockScreenState extends State<ItemsAndStockScreen> {
     showDialog<void>(
       context: context,
       builder: (context) {
+        final screenWidth = MediaQuery.of(context).size.width;
+        final isMobile = screenWidth < 500;
+
         return AlertDialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-          title: Text(context.l10n.newInventorySku, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-          content: ConstrainedBox(
-            constraints: BoxConstraints(
-              maxWidth: 400,
-              maxHeight: MediaQuery.of(context).size.height * 0.7,
-            ),
+          titlePadding: const EdgeInsets.fromLTRB(20, 20, 20, 12),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+          actionsPadding: const EdgeInsets.fromLTRB(20, 12, 20, 16),
+          title: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(6),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFEFF6FF),
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                child: const Icon(Icons.inventory_2_rounded, size: 18, color: Color(0xFF2563EB)),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  context.l10n.newInventorySku,
+                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                ),
+              ),
+            ],
+          ),
+          content: SizedBox(
+            width: isMobile ? screenWidth - 48 : 420,
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   TextField(
                     controller: skuController,
-                    decoration: const InputDecoration(labelText: 'SKU *', hintText: 'e.g. BSB-GEN-01'),
+                    decoration: InputDecoration(
+                      labelText: 'SKU *',
+                      hintText: 'e.g. BSB-GEN-01',
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(6)),
+                    ),
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 12),
                   TextField(
                     controller: nameController,
-                    decoration: const InputDecoration(labelText: 'Item Name *', hintText: 'e.g. Industrial Sensor'),
+                    decoration: InputDecoration(
+                      labelText: 'Item Name *',
+                      hintText: 'e.g. Industrial Sensor',
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(6)),
+                    ),
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 12),
                   TextField(
                     controller: costController,
-                    decoration: const InputDecoration(labelText: 'Standard / Avg Cost (AED) *'),
+                    decoration: InputDecoration(
+                      labelText: 'Standard / Avg Cost (AED) *',
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(6)),
+                    ),
                     keyboardType: TextInputType.number,
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 12),
                   TextField(
                     controller: reorderController,
-                    decoration: const InputDecoration(labelText: 'Reorder Level *'),
+                    decoration: InputDecoration(
+                      labelText: 'Reorder Level *',
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(6)),
+                    ),
                     keyboardType: TextInputType.number,
                   ),
                 ],
@@ -775,9 +857,14 @@ class _ItemsAndStockScreenState extends State<ItemsAndStockScreen> {
               spacing: 8,
               runSpacing: 8,
               children: [
-                TextButton(
+                OutlinedButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  child: Text(context.l10n.cancel),
+                  style: OutlinedButton.styleFrom(
+                    side: const BorderSide(color: AppColors.border),
+                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 9),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                  ),
+                  child: Text(context.l10n.cancel, style: const TextStyle(fontSize: 12.5, color: AppColors.textSecondary)),
                 ),
                 ElevatedButton(
                   onPressed: () {
@@ -791,8 +878,14 @@ class _ItemsAndStockScreenState extends State<ItemsAndStockScreen> {
                       );
                     }
                   },
-                  style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF2563EB), foregroundColor: Colors.white),
-                  child: Text(context.l10n.saveSku),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF2563EB),
+                    foregroundColor: Colors.white,
+                    elevation: 0,
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 9),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                  ),
+                  child: Text(context.l10n.saveSku, style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.bold)),
                 ),
               ],
             ),

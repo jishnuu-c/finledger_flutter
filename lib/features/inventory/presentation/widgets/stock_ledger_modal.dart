@@ -135,10 +135,11 @@ class _StockLedgerModalState extends State<StockLedgerModal> {
                   ),
                   IconButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    icon: const Icon(Icons.close, color: AppColors.textMuted),
+                    icon: const Icon(Icons.close_rounded, color: AppColors.textMuted, size: 20),
                     tooltip: context.l10n.close,
+                    visualDensity: VisualDensity.compact,
                     padding: EdgeInsets.zero,
-                    constraints: const BoxConstraints(),
+                    constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
                   ),
                 ],
               ),
@@ -176,6 +177,7 @@ class _StockLedgerModalState extends State<StockLedgerModal> {
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton<String>(
                         value: _selectedWarehouse,
+                        icon: const Icon(Icons.keyboard_arrow_down_rounded, size: 16, color: Color(0xFF64748B)),
                         items: const [
                           DropdownMenuItem(value: 'All', child: Text('All Warehouses', style: TextStyle(fontSize: 12.5))),
                           DropdownMenuItem(value: 'DXB-WH', child: Text('Dubai WH (DXB-WH)', style: TextStyle(fontSize: 12.5))),
@@ -223,6 +225,7 @@ class _StockLedgerModalState extends State<StockLedgerModal> {
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton<String>(
                           value: _selectedWarehouse,
+                          icon: const Icon(Icons.keyboard_arrow_down_rounded, size: 16, color: Color(0xFF64748B)),
                           items: const [
                             DropdownMenuItem(value: 'All', child: Text('All Warehouses', style: TextStyle(fontSize: 12.5))),
                             DropdownMenuItem(value: 'DXB-WH', child: Text('Dubai WH (DXB-WH)', style: TextStyle(fontSize: 12.5))),
@@ -414,7 +417,7 @@ class _StockLedgerModalState extends State<StockLedgerModal> {
 
   Widget _buildMiniBadge(String title, String value, Color color) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+      padding: const EdgeInsetsDirectional.symmetric(horizontal: 10, vertical: 6),
       decoration: BoxDecoration(
         color: const Color(0xFFF8FAFC),
         borderRadius: BorderRadius.circular(6),
@@ -423,7 +426,7 @@ class _StockLedgerModalState extends State<StockLedgerModal> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: const TextStyle(fontSize: 10, color: AppColors.textMuted)),
+          Text(title, style: const TextStyle(fontSize: 10.5, color: AppColors.textMuted)),
           const SizedBox(height: 2),
           Text(value, style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: color)),
         ],

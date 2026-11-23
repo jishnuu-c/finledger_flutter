@@ -457,6 +457,11 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
           crossAxisAlignment: WrapCrossAlignment.center,
           children: [
             InkWell(
+              onTap: () => context.go('/dashboard'),
+              child: Text(context.l10n.home, style: const TextStyle(fontSize: 12, color: AppColors.textMuted)),
+            ),
+            const Text('  /  ', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
+            InkWell(
               onTap: () => context.go('/inventory/items'),
               child: Text(context.l10n.inventory, style: const TextStyle(fontSize: 12, color: AppColors.textMuted)),
             ),
@@ -466,7 +471,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
             Text(context.l10n.create, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary, fontWeight: FontWeight.w600)),
           ],
         ),
-        const SizedBox(height: 4),
+        const SizedBox(height: 6),
         Text(
           title,
           style: const TextStyle(
@@ -481,62 +486,104 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
   }
 
   Widget _buildActionTabs() {
-    return Wrap(
-      spacing: 8,
-      runSpacing: 8,
-      children: [
-        // Stock Adjustment Tab
-        InkWell(
-          onTap: () {
-            setState(() => _activeTab = StockActionTab.adjustment);
-          },
-          borderRadius: BorderRadius.circular(6),
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            decoration: BoxDecoration(
-              color: _activeTab == StockActionTab.adjustment ? const Color(0xFF2563EB) : Colors.white,
-              borderRadius: BorderRadius.circular(6),
-              border: Border.all(
-                color: _activeTab == StockActionTab.adjustment ? const Color(0xFF2563EB) : AppColors.border,
+    return Container(
+      padding: const EdgeInsets.all(4),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF1F5F9),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: AppColors.borderSubtle),
+      ),
+      child: Wrap(
+        spacing: 4,
+        runSpacing: 4,
+        children: [
+          // Stock Adjustment Tab
+          InkWell(
+            onTap: () {
+              setState(() => _activeTab = StockActionTab.adjustment);
+            },
+            borderRadius: BorderRadius.circular(6),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              decoration: BoxDecoration(
+                color: _activeTab == StockActionTab.adjustment ? Colors.white : Colors.transparent,
+                borderRadius: BorderRadius.circular(6),
+                boxShadow: _activeTab == StockActionTab.adjustment
+                    ? [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.05),
+                          blurRadius: 3,
+                          offset: const Offset(0, 1),
+                        ),
+                      ]
+                    : null,
               ),
-            ),
-            child: Text(
-              context.l10n.stockAdjustment,
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w600,
-                color: _activeTab == StockActionTab.adjustment ? Colors.white : AppColors.textSecondary,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.tune_rounded,
+                    size: 15,
+                    color: _activeTab == StockActionTab.adjustment ? const Color(0xFF2563EB) : AppColors.textMuted,
+                  ),
+                  const SizedBox(width: 6),
+                  Text(
+                    context.l10n.stockAdjustment,
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: _activeTab == StockActionTab.adjustment ? FontWeight.w700 : FontWeight.w500,
+                      color: _activeTab == StockActionTab.adjustment ? const Color(0xFF2563EB) : AppColors.textSecondary,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
-        ),
 
-        // Stock Transfer Tab
-        InkWell(
-          onTap: () {
-            setState(() => _activeTab = StockActionTab.transfer);
-          },
-          borderRadius: BorderRadius.circular(6),
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            decoration: BoxDecoration(
-              color: _activeTab == StockActionTab.transfer ? const Color(0xFF2563EB) : Colors.white,
-              borderRadius: BorderRadius.circular(6),
-              border: Border.all(
-                color: _activeTab == StockActionTab.transfer ? const Color(0xFF2563EB) : AppColors.border,
+          // Stock Transfer Tab
+          InkWell(
+            onTap: () {
+              setState(() => _activeTab = StockActionTab.transfer);
+            },
+            borderRadius: BorderRadius.circular(6),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              decoration: BoxDecoration(
+                color: _activeTab == StockActionTab.transfer ? Colors.white : Colors.transparent,
+                borderRadius: BorderRadius.circular(6),
+                boxShadow: _activeTab == StockActionTab.transfer
+                    ? [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.05),
+                          blurRadius: 3,
+                          offset: const Offset(0, 1),
+                        ),
+                      ]
+                    : null,
               ),
-            ),
-            child: Text(
-              context.l10n.stockTransfer,
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w600,
-                color: _activeTab == StockActionTab.transfer ? Colors.white : AppColors.textSecondary,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.swap_horiz_rounded,
+                    size: 16,
+                    color: _activeTab == StockActionTab.transfer ? const Color(0xFF2563EB) : AppColors.textMuted,
+                  ),
+                  const SizedBox(width: 6),
+                  Text(
+                    context.l10n.stockTransfer,
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: _activeTab == StockActionTab.transfer ? FontWeight.w700 : FontWeight.w500,
+                      color: _activeTab == StockActionTab.transfer ? const Color(0xFF2563EB) : AppColors.textSecondary,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -548,7 +595,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: AppColors.border),
+        border: Border.all(color: AppColors.borderSubtle),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -606,13 +653,18 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
           Text(context.l10n.notes, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w500, color: AppColors.textSecondary)),
           const SizedBox(height: 4),
           SizedBox(
-            height: 38,
+            height: 40,
             child: TextField(
               controller: _adjNotesController,
               style: const TextStyle(fontSize: 12.5),
               decoration: InputDecoration(
+                prefixIcon: const Icon(Icons.note_alt_outlined, size: 16, color: AppColors.textMuted),
                 contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
                 border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(6),
+                  borderSide: const BorderSide(color: AppColors.border),
+                ),
+                enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(6),
                   borderSide: const BorderSide(color: AppColors.border),
                 ),
@@ -631,7 +683,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
         Text(context.l10n.adjustmentNo, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w500, color: AppColors.textSecondary)),
         const SizedBox(height: 4),
         Container(
-          height: 38,
+          height: 40,
           alignment: Alignment.centerLeft,
           padding: const EdgeInsets.symmetric(horizontal: 10),
           decoration: BoxDecoration(
@@ -639,9 +691,18 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
             borderRadius: BorderRadius.circular(6),
             border: Border.all(color: AppColors.border),
           ),
-          child: Text(
-            _adjNoController.text,
-            style: const TextStyle(fontSize: 12.5, color: AppColors.textMuted),
+          child: Row(
+            children: [
+              const Icon(Icons.receipt_outlined, size: 15, color: AppColors.textMuted),
+              const SizedBox(width: 6),
+              Expanded(
+                child: Text(
+                  _adjNoController.text,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(fontSize: 12.5, color: AppColors.textMuted),
+                ),
+              ),
+            ],
           ),
         ),
       ],
@@ -655,13 +716,18 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
         Text('${context.l10n.date} *', style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w500, color: AppColors.textSecondary)),
         const SizedBox(height: 4),
         SizedBox(
-          height: 38,
+          height: 40,
           child: TextField(
             controller: _adjDateController,
             style: const TextStyle(fontSize: 12.5),
             decoration: InputDecoration(
+              prefixIcon: const Icon(Icons.calendar_today_outlined, size: 15, color: AppColors.textMuted),
               contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
               border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(6),
+                borderSide: const BorderSide(color: AppColors.border),
+              ),
+              enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(6),
                 borderSide: const BorderSide(color: AppColors.border),
               ),
@@ -679,7 +745,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
         Text('${context.l10n.warehouse} *', style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w500, color: AppColors.textSecondary)),
         const SizedBox(height: 4),
         Container(
-          height: 38,
+          height: 40,
           padding: const EdgeInsets.symmetric(horizontal: 10),
           decoration: BoxDecoration(
             border: Border.all(color: AppColors.border),
@@ -690,6 +756,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
             child: DropdownButton<String>(
               value: _adjWarehouseCode,
               isExpanded: true,
+              icon: const Icon(Icons.keyboard_arrow_down_rounded, size: 16, color: Color(0xFF64748B)),
               style: const TextStyle(fontSize: 12.5, color: AppColors.textPrimary),
               items: _warehouses.map((w) {
                 return DropdownMenuItem(value: w.code, child: Text('${w.code} - ${w.name}'));
@@ -713,7 +780,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
         Text('${context.l10n.reasonLabel} *', style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w500, color: AppColors.textSecondary)),
         const SizedBox(height: 4),
         Container(
-          height: 38,
+          height: 40,
           padding: const EdgeInsets.symmetric(horizontal: 10),
           decoration: BoxDecoration(
             border: Border.all(color: AppColors.border),
@@ -724,6 +791,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
             child: DropdownButton<String>(
               value: _adjReason,
               isExpanded: true,
+              icon: const Icon(Icons.keyboard_arrow_down_rounded, size: 16, color: Color(0xFF64748B)),
               style: const TextStyle(fontSize: 12.5, color: AppColors.textPrimary),
               items: [
                 DropdownMenuItem(value: 'Stock count', child: Text(context.l10n.reasonStockCount)),
@@ -750,7 +818,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
         Text('${context.l10n.adjustmentAccount} *', style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w500, color: AppColors.textSecondary)),
         const SizedBox(height: 4),
         Container(
-          height: 38,
+          height: 40,
           padding: const EdgeInsets.symmetric(horizontal: 10),
           decoration: BoxDecoration(
             border: Border.all(color: AppColors.border),
@@ -761,6 +829,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
             child: DropdownButton<String>(
               value: _adjAccount,
               isExpanded: true,
+              icon: const Icon(Icons.keyboard_arrow_down_rounded, size: 16, color: Color(0xFF64748B)),
               style: const TextStyle(fontSize: 12.5, color: AppColors.textPrimary),
               items: const [
                 DropdownMenuItem(value: '5150 - Inventory Adjustments', child: Text('5150 - Inventory Adjustments')),
@@ -782,7 +851,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: AppColors.border),
+        border: Border.all(color: AppColors.borderSubtle),
       ),
       clipBehavior: Clip.antiAlias,
       child: Column(
@@ -812,7 +881,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
                             Expanded(flex: 2, child: Text(context.l10n.difference, textAlign: TextAlign.right, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
                             Expanded(flex: 2, child: Text(context.l10n.colAvgCost, textAlign: TextAlign.right, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
                             Expanded(flex: 3, child: Text(context.l10n.valueImpactAed, textAlign: TextAlign.right, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
-                            SizedBox(width: 32),
+                            const SizedBox(width: 32),
                           ],
                         ),
                       ),
@@ -849,6 +918,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
                                       child: DropdownButton<String>(
                                         value: line.sku,
                                         isExpanded: true,
+                                        icon: const Icon(Icons.keyboard_arrow_down_rounded, size: 16, color: Color(0xFF64748B)),
                                         style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600, color: AppColors.textPrimary),
                                         items: _availableItems.map((it) {
                                           return DropdownMenuItem(value: it.sku, child: Text(it.sku));
@@ -903,7 +973,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
                                     alignment: Alignment.centerRight,
                                     child: SizedBox(
                                       width: 72,
-                                      height: 34,
+                                      height: 36,
                                       child: TextFormField(
                                         initialValue: '${line.countedQty}',
                                         textAlign: TextAlign.center,
@@ -912,6 +982,10 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
                                         decoration: InputDecoration(
                                           contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 4),
                                           border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(6),
+                                            borderSide: const BorderSide(color: AppColors.border),
+                                          ),
+                                          enabledBorder: OutlineInputBorder(
                                             borderRadius: BorderRadius.circular(6),
                                             borderSide: const BorderSide(color: AppColors.border),
                                           ),
@@ -962,7 +1036,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
                                 SizedBox(
                                   width: 32,
                                   child: IconButton(
-                                    icon: const Icon(Icons.close, size: 16, color: Color(0xFFDC2626)),
+                                    icon: const Icon(Icons.close_rounded, size: 16, color: Color(0xFFDC2626)),
                                     onPressed: () {
                                       setState(() => _adjLines.removeAt(index));
                                     },
@@ -1066,7 +1140,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: AppColors.border),
+            border: Border.all(color: AppColors.borderSubtle),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1078,6 +1152,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
                   border: Border.all(color: AppColors.borderSubtle),
                   borderRadius: BorderRadius.circular(6),
                 ),
+                clipBehavior: Clip.antiAlias,
                 child: Column(
                   children: [
                     // Header
@@ -1154,7 +1229,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: AppColors.border),
+            border: Border.all(color: AppColors.borderSubtle),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1187,7 +1262,8 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
                     onPressed: () => _submitAdjustment(post: false),
                     style: OutlinedButton.styleFrom(
                       side: const BorderSide(color: AppColors.border),
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      minimumSize: const Size(0, 40),
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
                     ),
                     child: Text(context.l10n.saveDraft, style: const TextStyle(fontSize: 12.5, color: AppColors.textPrimary)),
@@ -1197,7 +1273,8 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF2563EB),
                       foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+                      minimumSize: const Size(0, 40),
+                      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
                       elevation: 0,
                     ),
@@ -1239,7 +1316,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: AppColors.border),
+        border: Border.all(color: AppColors.borderSubtle),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -1292,13 +1369,18 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
           Text(context.l10n.notes, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w500, color: AppColors.textSecondary)),
           const SizedBox(height: 4),
           SizedBox(
-            height: 38,
+            height: 40,
             child: TextField(
               controller: _trfNotesController,
               style: const TextStyle(fontSize: 12.5),
               decoration: InputDecoration(
+                prefixIcon: const Icon(Icons.note_alt_outlined, size: 16, color: AppColors.textMuted),
                 contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
                 border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(6),
+                  borderSide: const BorderSide(color: AppColors.border),
+                ),
+                enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(6),
                   borderSide: const BorderSide(color: AppColors.border),
                 ),
@@ -1317,7 +1399,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
         Text(context.l10n.transferNo, style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w500, color: AppColors.textSecondary)),
         const SizedBox(height: 4),
         Container(
-          height: 38,
+          height: 40,
           alignment: Alignment.centerLeft,
           padding: const EdgeInsets.symmetric(horizontal: 10),
           decoration: BoxDecoration(
@@ -1325,7 +1407,19 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
             borderRadius: BorderRadius.circular(6),
             border: Border.all(color: AppColors.border),
           ),
-          child: Text(_trfNoController.text, style: const TextStyle(fontSize: 12.5, color: AppColors.textMuted)),
+          child: Row(
+            children: [
+              const Icon(Icons.receipt_outlined, size: 15, color: AppColors.textMuted),
+              const SizedBox(width: 6),
+              Expanded(
+                child: Text(
+                  _trfNoController.text,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(fontSize: 12.5, color: AppColors.textMuted),
+                ),
+              ),
+            ],
+          ),
         ),
       ],
     );
@@ -1338,13 +1432,18 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
         Text('${context.l10n.date} *', style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w500, color: AppColors.textSecondary)),
         const SizedBox(height: 4),
         SizedBox(
-          height: 38,
+          height: 40,
           child: TextField(
             controller: _trfDateController,
             style: const TextStyle(fontSize: 12.5),
             decoration: InputDecoration(
+              prefixIcon: const Icon(Icons.calendar_today_outlined, size: 15, color: AppColors.textMuted),
               contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
               border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(6),
+                borderSide: const BorderSide(color: AppColors.border),
+              ),
+              enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(6),
                 borderSide: const BorderSide(color: AppColors.border),
               ),
@@ -1362,7 +1461,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
         Text('${context.l10n.fromWarehouse} *', style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w500, color: AppColors.textSecondary)),
         const SizedBox(height: 4),
         Container(
-          height: 38,
+          height: 40,
           padding: const EdgeInsets.symmetric(horizontal: 10),
           decoration: BoxDecoration(
             border: Border.all(color: AppColors.border),
@@ -1373,6 +1472,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
             child: DropdownButton<String>(
               value: _trfFromWarehouseCode,
               isExpanded: true,
+              icon: const Icon(Icons.keyboard_arrow_down_rounded, size: 16, color: Color(0xFF64748B)),
               style: const TextStyle(fontSize: 12.5, color: AppColors.textPrimary),
               items: _warehouses.map((w) {
                 return DropdownMenuItem(value: w.code, child: Text('${w.code} - ${w.name}'));
@@ -1394,7 +1494,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
         Text('${context.l10n.toWarehouse} *', style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w500, color: AppColors.textSecondary)),
         const SizedBox(height: 4),
         Container(
-          height: 38,
+          height: 40,
           padding: const EdgeInsets.symmetric(horizontal: 10),
           decoration: BoxDecoration(
             border: Border.all(color: AppColors.border),
@@ -1405,6 +1505,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
             child: DropdownButton<String>(
               value: _trfToWarehouseCode,
               isExpanded: true,
+              icon: const Icon(Icons.keyboard_arrow_down_rounded, size: 16, color: Color(0xFF64748B)),
               style: const TextStyle(fontSize: 12.5, color: AppColors.textPrimary),
               items: _warehouses.map((w) {
                 return DropdownMenuItem(value: w.code, child: Text('${w.code} - ${w.name}'));
@@ -1424,7 +1525,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: AppColors.border),
+        border: Border.all(color: AppColors.borderSubtle),
       ),
       clipBehavior: Clip.antiAlias,
       child: Column(
@@ -1453,7 +1554,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
                             Expanded(flex: 2, child: Text(context.l10n.transferQty, textAlign: TextAlign.right, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
                             Expanded(flex: 2, child: Text(context.l10n.unitCost, textAlign: TextAlign.right, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
                             Expanded(flex: 3, child: Text(context.l10n.transferValueAed, textAlign: TextAlign.right, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
-                            SizedBox(width: 32),
+                            const SizedBox(width: 32),
                           ],
                         ),
                       ),
@@ -1485,6 +1586,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
                                       child: DropdownButton<String>(
                                         value: line.sku,
                                         isExpanded: true,
+                                        icon: const Icon(Icons.keyboard_arrow_down_rounded, size: 16, color: Color(0xFF64748B)),
                                         style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600, color: AppColors.textPrimary),
                                         items: _availableItems.map((it) {
                                           return DropdownMenuItem(value: it.sku, child: Text(it.sku));
@@ -1535,7 +1637,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
                                     alignment: Alignment.centerRight,
                                     child: SizedBox(
                                       width: 72,
-                                      height: 34,
+                                      height: 36,
                                       child: TextFormField(
                                         initialValue: '${line.transferQty}',
                                         textAlign: TextAlign.center,
@@ -1544,6 +1646,10 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
                                         decoration: InputDecoration(
                                           contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 4),
                                           border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(6),
+                                            borderSide: const BorderSide(color: AppColors.border),
+                                          ),
+                                          enabledBorder: OutlineInputBorder(
                                             borderRadius: BorderRadius.circular(6),
                                             borderSide: const BorderSide(color: AppColors.border),
                                           ),
@@ -1578,7 +1684,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
                                 SizedBox(
                                   width: 32,
                                   child: IconButton(
-                                    icon: const Icon(Icons.close, size: 16, color: Color(0xFFDC2626)),
+                                    icon: const Icon(Icons.close_rounded, size: 16, color: Color(0xFFDC2626)),
                                     onPressed: () {
                                       setState(() => _trfLines.removeAt(index));
                                     },
@@ -1649,7 +1755,7 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: AppColors.border),
+        border: Border.all(color: AppColors.borderSubtle),
       ),
       child: LayoutBuilder(
         builder: (context, constraints) {
@@ -1659,13 +1765,13 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(context.l10n.stockTransferImpact, style: const TextStyle(fontSize: 13.5, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
-              SizedBox(height: 4),
-              Text(
+              const SizedBox(height: 4),
+              const Text(
                 'Creates TRANSFER_OUT from source warehouse and TRANSFER_IN to destination warehouse.',
                 style: TextStyle(fontSize: 12, color: AppColors.textSecondary),
               ),
-              SizedBox(height: 2),
-              Text(
+              const SizedBox(height: 2),
+              const Text(
                 'No GL impact occurs as both warehouses share the parent 1300 Inventory asset account.',
                 style: TextStyle(fontSize: 11.5, color: AppColors.textMuted),
               ),
@@ -1680,7 +1786,8 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
                 onPressed: () => _submitTransfer(dispatch: false),
                 style: OutlinedButton.styleFrom(
                   side: const BorderSide(color: AppColors.border),
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  minimumSize: const Size(0, 40),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
                 ),
                 child: Text(context.l10n.saveDraft, style: const TextStyle(fontSize: 12.5, color: AppColors.textPrimary)),
@@ -1690,7 +1797,8 @@ class _StockAdjustmentTransferScreenState extends State<StockAdjustmentTransferS
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF2563EB),
                   foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+                  minimumSize: const Size(0, 40),
+                  padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
                   elevation: 0,
                 ),

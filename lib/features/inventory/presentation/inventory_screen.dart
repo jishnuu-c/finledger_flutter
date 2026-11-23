@@ -18,13 +18,36 @@ class InventoryScreen extends StatelessWidget {
       {'code': 'SKU-RCK-900', 'name': 'Heavy Duty Industrial Pallet Racks', 'category': 'Logistics & Storage', 'stock': '82 sections', 'reorder': '20 sections', 'avgCost': 'AED 620.00', 'status': 'Optimal'},
     ];
 
-    final isMobile = MediaQuery.of(context).size.width < 600;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 768;
 
     return SingleChildScrollView(
       padding: EdgeInsets.symmetric(horizontal: isMobile ? 16 : 24, vertical: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Breadcrumbs
+          Wrap(
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
+              Text(
+                context.l10n.home,
+                style: const TextStyle(fontSize: 12, color: AppColors.textMuted),
+              ),
+              const Text('  /  ', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
+              Text(
+                context.l10n.inventory,
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: AppColors.textSecondary,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 6),
+
+          // Header & Actions
           if (isMobile) ...[
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,18 +68,30 @@ class InventoryScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
                 Wrap(
-                  spacing: 12,
+                  spacing: 10,
                   runSpacing: 8,
                   children: [
                     OutlinedButton.icon(
                       onPressed: () => context.go('/inventory/transfers/new'),
-                      icon: const Icon(Icons.sync_alt, size: 16),
-                      label: Text(context.l10n.stockTransfer),
+                      style: OutlinedButton.styleFrom(
+                        side: const BorderSide(color: AppColors.border),
+                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                      ),
+                      icon: const Icon(Icons.sync_alt_rounded, size: 16),
+                      label: Text(context.l10n.stockTransfer, style: const TextStyle(fontSize: 12.5)),
                     ),
                     ElevatedButton.icon(
                       onPressed: () => context.go('/inventory/items'),
-                      icon: const Icon(Icons.add, size: 16),
-                      label: Text(context.l10n.newItem),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.primary,
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                        elevation: 0,
+                      ),
+                      icon: const Icon(Icons.add_rounded, size: 16),
+                      label: Text(context.l10n.newItem, style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.bold)),
                     ),
                   ],
                 ),
@@ -90,18 +125,30 @@ class InventoryScreen extends StatelessWidget {
                 ),
                 const SizedBox(width: 16),
                 Wrap(
-                  spacing: 12,
+                  spacing: 10,
                   runSpacing: 8,
                   children: [
                     OutlinedButton.icon(
                       onPressed: () => context.go('/inventory/transfers/new'),
-                      icon: const Icon(Icons.sync_alt, size: 16),
-                      label: Text(context.l10n.stockTransfer),
+                      style: OutlinedButton.styleFrom(
+                        side: const BorderSide(color: AppColors.border),
+                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                      ),
+                      icon: const Icon(Icons.sync_alt_rounded, size: 16),
+                      label: Text(context.l10n.stockTransfer, style: const TextStyle(fontSize: 12.5)),
                     ),
                     ElevatedButton.icon(
                       onPressed: () => context.go('/inventory/items'),
-                      icon: const Icon(Icons.add, size: 16),
-                      label: Text(context.l10n.newItem),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.primary,
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                        elevation: 0,
+                      ),
+                      icon: const Icon(Icons.add_rounded, size: 16),
+                      label: Text(context.l10n.newItem, style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.bold)),
                     ),
                   ],
                 ),
@@ -170,17 +217,20 @@ class InventoryScreen extends StatelessWidget {
               child: ConstrainedBox(
                 constraints: const BoxConstraints(minWidth: 750),
                 child: DataTable(
+                  headingRowColor: WidgetStateProperty.all(const Color(0xFFF8FAFC)),
                   headingRowHeight: 40,
                   dataRowMinHeight: 48,
                   dataRowMaxHeight: 48,
+                  horizontalMargin: 16,
+                  columnSpacing: 20,
                   columns: [
-                    DataColumn(label: Text(context.l10n.sku, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                    DataColumn(label: Text(context.l10n.itemName, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                    DataColumn(label: Text(context.l10n.category, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                    DataColumn(label: Text(context.l10n.onHand, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                    DataColumn(label: Text(context.l10n.reorderLevel, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                    DataColumn(label: Text(context.l10n.weightedAvgCost, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                    DataColumn(label: Text(context.l10n.status, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                    DataColumn(label: Text(context.l10n.sku, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                    DataColumn(label: Text(context.l10n.itemName, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                    DataColumn(label: Text(context.l10n.category, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                    DataColumn(label: Text(context.l10n.onHand, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                    DataColumn(label: Text(context.l10n.reorderLevel, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                    DataColumn(label: Text(context.l10n.weightedAvgCost, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
+                    DataColumn(label: Text(context.l10n.status, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textSecondary))),
                   ],
                   rows: items.map((it) {
                     final isLow = it['status'] == 'Low Stock';
@@ -188,16 +238,19 @@ class InventoryScreen extends StatelessWidget {
                       cells: [
                         DataCell(Text(it['code']!, style: const TextStyle(fontWeight: FontWeight.w600, color: AppColors.primary, fontSize: 13))),
                         DataCell(Text(it['name']!, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13))),
-                        DataCell(Text(it['category']!, style: const TextStyle(fontSize: 12.5))),
-                        DataCell(Text(it['stock']!, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13))),
+                        DataCell(Text(it['category']!, style: const TextStyle(fontSize: 12.5, color: AppColors.textSecondary))),
+                        DataCell(Text(it['stock']!, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: AppColors.textPrimary))),
                         DataCell(Text(it['reorder']!, style: const TextStyle(fontSize: 12, color: AppColors.textMuted))),
-                        DataCell(Text(it['avgCost']!, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 13))),
+                        DataCell(Text(it['avgCost']!, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 13, color: AppColors.textPrimary))),
                         DataCell(
                           Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                            padding: const EdgeInsetsDirectional.symmetric(horizontal: 8, vertical: 3),
                             decoration: BoxDecoration(
                               color: isLow ? AppColors.overdueBg : AppColors.paidBg,
-                              borderRadius: BorderRadius.circular(12),
+                              borderRadius: BorderRadius.circular(6),
+                              border: Border.all(
+                                color: isLow ? const Color(0xFFFECACA) : const Color(0xFFDCFCE7),
+                              ),
                             ),
                             child: Text(
                               it['status']!,
