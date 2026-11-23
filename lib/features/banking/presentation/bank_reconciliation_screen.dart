@@ -94,8 +94,9 @@ class _BankReconciliationScreenState extends State<BankReconciliationScreen> {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text('Matched and cleared bank transaction with book receipt RCT-2026-0220'),
-        backgroundColor: Color(0xFF16A34A),
+        backgroundColor: AppColors.paid,
         duration: Duration(seconds: 2),
+        behavior: SnackBarBehavior.floating,
       ),
     );
   }
@@ -127,7 +128,8 @@ class _BankReconciliationScreenState extends State<BankReconciliationScreen> {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text('Posted journal entry $reference for $narration'),
-                backgroundColor: const Color(0xFF16A34A),
+                backgroundColor: AppColors.paid,
+                behavior: SnackBarBehavior.floating,
               ),
             );
           }
@@ -147,7 +149,8 @@ class _BankReconciliationScreenState extends State<BankReconciliationScreen> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text('Imported $count bank statement line(s) successfully'),
-              backgroundColor: const Color(0xFF16A34A),
+              backgroundColor: AppColors.paid,
+              behavior: SnackBarBehavior.floating,
             ),
           );
         },
@@ -162,7 +165,8 @@ class _BankReconciliationScreenState extends State<BankReconciliationScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(context.l10n.reconciliationProgressSaved),
-          backgroundColor: Color(0xFF2563EB),
+          backgroundColor: AppColors.primary,
+          behavior: SnackBarBehavior.floating,
         ),
       );
     }
@@ -176,7 +180,8 @@ class _BankReconciliationScreenState extends State<BankReconciliationScreen> {
           content: Text(
             'Cannot finish reconciliation: Statement and cleared book balance have a difference of AED ${_session!.difference.toStringAsFixed(2)}. Difference must be 0.00 AED.',
           ),
-          backgroundColor: const Color(0xFFDC2626),
+          backgroundColor: AppColors.overdue,
+          behavior: SnackBarBehavior.floating,
         ),
       );
       return;
@@ -190,15 +195,19 @@ class _BankReconciliationScreenState extends State<BankReconciliationScreen> {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           title: Row(
             children: [
-              const Icon(Icons.check_circle, color: Color(0xFF16A34A), size: 24),
+              const Icon(Icons.check_circle_rounded, color: AppColors.paid, size: 24),
               const SizedBox(width: 8),
               Expanded(
-                child: Text(context.l10n.reconciliationComplete),
+                child: Text(
+                  context.l10n.reconciliationComplete,
+                  style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+                ),
               ),
             ],
           ),
           content: Text(
             'Bank account "${_session!.bankAccountName}" has been successfully reconciled for period ending ${_session!.statementDate} with zero variance (Difference: AED 0.00).',
+            style: const TextStyle(fontSize: 13, color: AppColors.textPrimary),
           ),
           actions: [
             ElevatedButton(
@@ -224,7 +233,7 @@ class _BankReconciliationScreenState extends State<BankReconciliationScreen> {
     final isMobile = MediaQuery.of(context).size.width < 768;
 
     return SingleChildScrollView(
-      padding: EdgeInsets.all(isMobile ? 16 : 24),
+      padding: EdgeInsetsDirectional.all(isMobile ? 16 : 24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -236,7 +245,7 @@ class _BankReconciliationScreenState extends State<BankReconciliationScreen> {
           _buildParametersCard(),
           const SizedBox(height: 16),
 
-          // Split View Table
+          // Split View Tables
           LayoutBuilder(
             builder: (context, constraints) {
               final isDesktop = constraints.maxWidth > 950;
@@ -277,26 +286,35 @@ class _BankReconciliationScreenState extends State<BankReconciliationScreen> {
           crossAxisAlignment: WrapCrossAlignment.center,
           children: [
             Text(
-              context.l10n.banking,
-              style: const TextStyle(fontSize: 12, color: AppColors.textSecondary, fontWeight: FontWeight.w500),
+              context.l10n.home,
+              style: const TextStyle(fontSize: 12.5, color: AppColors.textMuted),
             ),
-            const SizedBox(width: 4),
-            const Text('/', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
-            const SizedBox(width: 4),
+            const Padding(
+              padding: EdgeInsetsDirectional.symmetric(horizontal: 6),
+              child: Text('›', style: TextStyle(fontSize: 12.5, color: AppColors.textMuted)),
+            ),
+            Text(
+              context.l10n.banking,
+              style: const TextStyle(fontSize: 12.5, color: AppColors.textSecondary, fontWeight: FontWeight.w500),
+            ),
+            const Padding(
+              padding: EdgeInsetsDirectional.symmetric(horizontal: 6),
+              child: Text('›', style: TextStyle(fontSize: 12.5, color: AppColors.textMuted)),
+            ),
             Text(
               context.l10n.reconciliation,
-              style: TextStyle(fontSize: 12, color: Colors.blue.shade700, fontWeight: FontWeight.w500),
+              style: const TextStyle(fontSize: 12.5, color: AppColors.primary, fontWeight: FontWeight.w600),
             ),
           ],
         ),
-        const SizedBox(height: 4),
+        const SizedBox(height: 8),
         Text(
           context.l10n.bankReconciliation,
           style: const TextStyle(
             fontSize: 22,
-            fontWeight: FontWeight.w800,
+            fontWeight: FontWeight.w700,
             color: AppColors.textPrimary,
-            letterSpacing: -0.5,
+            letterSpacing: -0.4,
           ),
         ),
       ],
@@ -305,23 +323,30 @@ class _BankReconciliationScreenState extends State<BankReconciliationScreen> {
 
   Widget _buildParametersCard() {
     return Container(
-      padding: const EdgeInsets.all(18),
+      padding: const EdgeInsetsDirectional.all(18),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
+        color: AppColors.cardBackground,
+        borderRadius: BorderRadius.circular(12),
         border: Border.all(color: AppColors.border),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.025),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: LayoutBuilder(
         builder: (context, constraints) {
-          final isCompact = constraints.maxWidth < 800;
+          final isCompact = constraints.maxWidth < 840;
           if (isCompact) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _buildBankAccountSelector(),
-                const SizedBox(height: 12),
+                const SizedBox(height: 14),
                 _buildStatementDateField(),
-                const SizedBox(height: 12),
+                const SizedBox(height: 14),
                 _buildStatementEndingBalanceField(),
                 const SizedBox(height: 16),
                 _buildImportCsvButton(),
@@ -349,7 +374,10 @@ class _BankReconciliationScreenState extends State<BankReconciliationScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(context.l10n.bankAccount, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.textSecondary)),
+        Text(
+          context.l10n.bankAccount,
+          style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.textSecondary),
+        ),
         const SizedBox(height: 6),
         DropdownButtonFormField<int>(
           initialValue: _selectedBankAccountId,
@@ -360,7 +388,11 @@ class _BankReconciliationScreenState extends State<BankReconciliationScreen> {
           items: _bankAccounts.map((a) {
             return DropdownMenuItem<int>(
               value: a.id,
-              child: Text(a.displayName, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
+              child: Text(
+                a.displayName,
+                style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w500),
+                overflow: TextOverflow.ellipsis,
+              ),
             );
           }).toList(),
           onChanged: (val) {
@@ -380,12 +412,16 @@ class _BankReconciliationScreenState extends State<BankReconciliationScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(context.l10n.statementDate, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.textSecondary)),
+        Text(
+          context.l10n.statementDate,
+          style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.textSecondary),
+        ),
         const SizedBox(height: 6),
         TextFormField(
           controller: _dateController,
-          decoration: const InputDecoration(
-            contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          decoration: InputDecoration(
+            contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            suffixIcon: const Icon(Icons.calendar_today_rounded, size: 16, color: AppColors.textMuted),
           ),
           style: const TextStyle(fontSize: 13),
         ),
@@ -397,14 +433,29 @@ class _BankReconciliationScreenState extends State<BankReconciliationScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(context.l10n.statementEndingBalance, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.textSecondary)),
+        Text(
+          context.l10n.statementEndingBalance,
+          style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.textSecondary),
+        ),
         const SizedBox(height: 6),
         TextFormField(
           controller: _statementEndingBalanceController,
-          decoration: const InputDecoration(
-            contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          decoration: InputDecoration(
+            contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            prefixIcon: const Padding(
+              padding: EdgeInsetsDirectional.only(start: 12, end: 6),
+              child: Text(
+                'AED',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.textSecondary,
+                ),
+              ),
+            ),
+            prefixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),
           ),
-          style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+          style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700),
           keyboardType: const TextInputType.numberWithOptions(decimal: true),
           onChanged: _onStatementEndingBalanceChanged,
         ),
@@ -415,13 +466,16 @@ class _BankReconciliationScreenState extends State<BankReconciliationScreen> {
   Widget _buildImportCsvButton() {
     return OutlinedButton.icon(
       onPressed: _openImportCsvModal,
-      icon: const Icon(Icons.upload_file_outlined, size: 16),
-      label: Text(context.l10n.importStatementCsv, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
+      icon: const Icon(Icons.upload_file_rounded, size: 16),
+      label: Text(
+        context.l10n.importStatementCsv,
+        style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+      ),
       style: OutlinedButton.styleFrom(
         foregroundColor: AppColors.textPrimary,
         side: const BorderSide(color: AppColors.border),
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+        padding: const EdgeInsetsDirectional.symmetric(horizontal: 14, vertical: 11),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
     );
   }
@@ -429,21 +483,51 @@ class _BankReconciliationScreenState extends State<BankReconciliationScreen> {
   Widget _buildBankStatementCard(BankReconciliationSession session) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
+        color: AppColors.cardBackground,
+        borderRadius: BorderRadius.circular(12),
         border: Border.all(color: AppColors.border),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.02),
+            blurRadius: 6,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsets.fromLTRB(16, 16, 16, 12),
-            child: Text(
-              'Bank Statement Lines',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+          Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(16, 14, 16, 12),
+            child: Row(
+              children: [
+                const Expanded(
+                  child: Text(
+                    'Bank Statement Lines',
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: AppColors.textPrimary),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Container(
+                  padding: const EdgeInsetsDirectional.symmetric(horizontal: 8, vertical: 2),
+                  decoration: BoxDecoration(
+                    color: AppColors.primarySurface,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Text(
+                    '${session.statementLines.length} lines',
+                    style: const TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.primary,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
-          const Divider(height: 1),
+          const Divider(height: 1, color: AppColors.border),
 
           LayoutBuilder(
             builder: (context, constraints) {
@@ -457,26 +541,50 @@ class _BankReconciliationScreenState extends State<BankReconciliationScreen> {
                       // Header Row
                       Container(
                         color: const Color(0xFFF8FAFC),
-                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                        padding: const EdgeInsetsDirectional.symmetric(horizontal: 12, vertical: 9),
                         child: const Row(
                           children: [
                             SizedBox(width: 28), // Checkbox spacing
-                            SizedBox(width: 55, child: Text('Date', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textMuted))),
-                            Expanded(child: Text('Description', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textMuted))),
-                            SizedBox(width: 95, child: Text('Amount', textAlign: TextAlign.right, style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textMuted))),
+                            SizedBox(
+                              width: 55,
+                              child: Text(
+                                'Date',
+                                style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: AppColors.textMuted),
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                'Description',
+                                style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: AppColors.textMuted),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 95,
+                              child: Text(
+                                'Amount',
+                                textAlign: TextAlign.right,
+                                style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: AppColors.textMuted),
+                              ),
+                            ),
                             SizedBox(width: 14),
-                            SizedBox(width: 115, child: Text('Match', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textMuted))),
+                            SizedBox(
+                              width: 115,
+                              child: Text(
+                                'Match',
+                                style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: AppColors.textMuted),
+                              ),
+                            ),
                           ],
                         ),
                       ),
-                      const Divider(height: 1),
+                      const Divider(height: 1, color: AppColors.border),
 
                       // Statement Lines
                       ListView.separated(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: session.statementLines.length,
-                        separatorBuilder: (context, index) => const Divider(height: 1),
+                        separatorBuilder: (context, index) => const Divider(height: 1, color: AppColors.border),
                         itemBuilder: (context, index) {
                           final line = session.statementLines[index];
                           return _buildStatementLineRow(line);
@@ -498,8 +606,8 @@ class _BankReconciliationScreenState extends State<BankReconciliationScreen> {
     final formattedAmount = '${isCredit ? '+' : ''}${_currencyFormat.format(line.amount)}';
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      color: line.isChecked ? const Color(0x66F0FDF4) : Colors.white,
+      padding: const EdgeInsetsDirectional.symmetric(horizontal: 12, vertical: 8),
+      color: line.isChecked ? const Color(0xFFF0FDF4) : Colors.white,
       child: Row(
         children: [
           SizedBox(
@@ -510,8 +618,8 @@ class _BankReconciliationScreenState extends State<BankReconciliationScreen> {
               onChanged: (val) {
                 _toggleStatementLine(line.id, val ?? false);
               },
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(3)),
-              activeColor: const Color(0xFF2563EB),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+              activeColor: AppColors.primary,
             ),
           ),
           SizedBox(
@@ -535,8 +643,8 @@ class _BankReconciliationScreenState extends State<BankReconciliationScreen> {
               textAlign: TextAlign.right,
               style: TextStyle(
                 fontSize: 12.5,
-                fontWeight: FontWeight.bold,
-                color: isCredit ? const Color(0xFF16A34A) : const Color(0xFFDC2626),
+                fontWeight: FontWeight.w700,
+                color: isCredit ? AppColors.paid : AppColors.overdue,
               ),
             ),
           ),
@@ -557,7 +665,7 @@ class _BankReconciliationScreenState extends State<BankReconciliationScreen> {
         onTap: () => _openCreateBankEntryModal(line),
         borderRadius: BorderRadius.circular(4),
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          padding: const EdgeInsetsDirectional.symmetric(horizontal: 8, vertical: 4),
           decoration: BoxDecoration(
             color: const Color(0xFFFEF3C7),
             borderRadius: BorderRadius.circular(4),
@@ -565,7 +673,7 @@ class _BankReconciliationScreenState extends State<BankReconciliationScreen> {
           ),
           child: const Text(
             'Create entry',
-            style: TextStyle(fontSize: 10.5, fontWeight: FontWeight.bold, color: Color(0xFFB45309)),
+            style: TextStyle(fontSize: 10.5, fontWeight: FontWeight.w700, color: Color(0xFFB45309)),
             textAlign: TextAlign.center,
           ),
         ),
@@ -578,7 +686,7 @@ class _BankReconciliationScreenState extends State<BankReconciliationScreen> {
         onTap: () => _acceptSuggestion(line.id),
         borderRadius: BorderRadius.circular(4),
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          padding: const EdgeInsetsDirectional.symmetric(horizontal: 8, vertical: 4),
           decoration: BoxDecoration(
             color: const Color(0xFFEFF6FF),
             borderRadius: BorderRadius.circular(4),
@@ -586,7 +694,7 @@ class _BankReconciliationScreenState extends State<BankReconciliationScreen> {
           ),
           child: Text(
             'Suggest ${line.matchRef}',
-            style: const TextStyle(fontSize: 10.5, fontWeight: FontWeight.bold, color: Color(0xFF1D4ED8)),
+            style: const TextStyle(fontSize: 10.5, fontWeight: FontWeight.w700, color: Color(0xFF1D4ED8)),
             textAlign: TextAlign.center,
             overflow: TextOverflow.ellipsis,
           ),
@@ -597,14 +705,15 @@ class _BankReconciliationScreenState extends State<BankReconciliationScreen> {
     // 3. If matched (Figure 15: RCT-0219, PAY-0144)
     if (line.matchRef != null) {
       return Container(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        padding: const EdgeInsetsDirectional.symmetric(horizontal: 8, vertical: 4),
         decoration: BoxDecoration(
           color: const Color(0xFFDCFCE7),
           borderRadius: BorderRadius.circular(4),
+          border: Border.all(color: const Color(0xFF86EFAC)),
         ),
         child: Text(
           line.matchRef!,
-          style: const TextStyle(fontSize: 10.5, fontWeight: FontWeight.bold, color: Color(0xFF166534)),
+          style: const TextStyle(fontSize: 10.5, fontWeight: FontWeight.w700, color: Color(0xFF166534)),
           textAlign: TextAlign.center,
           overflow: TextOverflow.ellipsis,
         ),
@@ -621,25 +730,55 @@ class _BankReconciliationScreenState extends State<BankReconciliationScreen> {
   Widget _buildBookTransactionsCard(BankReconciliationSession session) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
+        color: AppColors.cardBackground,
+        borderRadius: BorderRadius.circular(12),
         border: Border.all(color: AppColors.border),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.02),
+            blurRadius: 6,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsets.fromLTRB(16, 16, 16, 12),
-            child: Text(
-              'Book Transactions (unreconciled)',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+          Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(16, 14, 16, 12),
+            child: Row(
+              children: [
+                const Expanded(
+                  child: Text(
+                    'Book Transactions (unreconciled)',
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: AppColors.textPrimary),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Container(
+                  padding: const EdgeInsetsDirectional.symmetric(horizontal: 8, vertical: 2),
+                  decoration: BoxDecoration(
+                    color: AppColors.primarySurface,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Text(
+                    '${session.bookTransactions.length} items',
+                    style: const TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.primary,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
-          const Divider(height: 1),
+          const Divider(height: 1, color: AppColors.border),
 
           LayoutBuilder(
             builder: (context, constraints) {
-              final effectiveWidth = constraints.maxWidth > 400 ? constraints.maxWidth : 400.0;
+              final effectiveWidth = constraints.maxWidth > 420 ? constraints.maxWidth : 420.0;
               return SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: SizedBox(
@@ -649,24 +788,42 @@ class _BankReconciliationScreenState extends State<BankReconciliationScreen> {
                       // Header Row
                       Container(
                         color: const Color(0xFFF8FAFC),
-                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                        padding: const EdgeInsetsDirectional.symmetric(horizontal: 12, vertical: 9),
                         child: const Row(
                           children: [
                             SizedBox(width: 28), // Checkbox spacing
-                            SizedBox(width: 60, child: Text('Date', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textMuted))),
-                            Expanded(child: Text('Reference', style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textMuted))),
-                            SizedBox(width: 95, child: Text('Amount', textAlign: TextAlign.right, style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: AppColors.textMuted))),
+                            SizedBox(
+                              width: 65,
+                              child: Text(
+                                'Date',
+                                style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: AppColors.textMuted),
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                'Reference',
+                                style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: AppColors.textMuted),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 95,
+                              child: Text(
+                                'Amount',
+                                textAlign: TextAlign.right,
+                                style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: AppColors.textMuted),
+                              ),
+                            ),
                           ],
                         ),
                       ),
-                      const Divider(height: 1),
+                      const Divider(height: 1, color: AppColors.border),
 
                       // Transactions List
                       ListView.separated(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: session.bookTransactions.length,
-                        separatorBuilder: (context, index) => const Divider(height: 1),
+                        separatorBuilder: (context, index) => const Divider(height: 1, color: AppColors.border),
                         itemBuilder: (context, index) {
                           final tx = session.bookTransactions[index];
                           return _buildBookTransactionRow(tx);
@@ -687,8 +844,8 @@ class _BankReconciliationScreenState extends State<BankReconciliationScreen> {
     final formattedAmount = _currencyFormat.format(tx.amount);
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      color: tx.isChecked ? const Color(0x66F0FDF4) : Colors.white,
+      padding: const EdgeInsetsDirectional.symmetric(horizontal: 12, vertical: 8),
+      color: tx.isChecked ? const Color(0xFFF0FDF4) : Colors.white,
       child: Row(
         children: [
           SizedBox(
@@ -699,12 +856,12 @@ class _BankReconciliationScreenState extends State<BankReconciliationScreen> {
               onChanged: (val) {
                 _toggleBookTransaction(tx.id, val ?? false);
               },
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(3)),
-              activeColor: const Color(0xFF2563EB),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+              activeColor: AppColors.primary,
             ),
           ),
           SizedBox(
-            width: 60,
+            width: 65,
             child: Text(
               tx.date,
               style: const TextStyle(fontSize: 12, color: AppColors.textSecondary, fontWeight: FontWeight.w500),
@@ -724,7 +881,7 @@ class _BankReconciliationScreenState extends State<BankReconciliationScreen> {
               textAlign: TextAlign.right,
               style: const TextStyle(
                 fontSize: 12.5,
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w700,
                 color: AppColors.textPrimary,
               ),
             ),
@@ -736,11 +893,18 @@ class _BankReconciliationScreenState extends State<BankReconciliationScreen> {
 
   Widget _buildSummaryBar(BankReconciliationSession session, double diff, bool isDifferenceZero) {
     return Container(
-      padding: const EdgeInsets.all(18),
+      padding: const EdgeInsetsDirectional.all(18),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
+        color: AppColors.cardBackground,
+        borderRadius: BorderRadius.circular(12),
         border: Border.all(color: AppColors.border),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.025),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: LayoutBuilder(
         builder: (context, constraints) {
@@ -751,7 +915,7 @@ class _BankReconciliationScreenState extends State<BankReconciliationScreen> {
               children: [
                 _buildMetricsRow(session, diff, isDifferenceZero),
                 const SizedBox(height: 16),
-                const Divider(height: 1),
+                const Divider(height: 1, color: AppColors.border),
                 const SizedBox(height: 16),
                 _buildActionsRow(isDifferenceZero),
               ],
@@ -776,18 +940,49 @@ class _BankReconciliationScreenState extends State<BankReconciliationScreen> {
       runSpacing: 12,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        _buildMetricItem('Statement balance', _currencyFormat.format(session.statementEndingBalance), AppColors.textPrimary),
-        _buildMetricItem('Cleared book balance', _currencyFormat.format(session.clearedBookBalance), AppColors.textPrimary),
         _buildMetricItem(
-          'Difference',
-          _currencyFormat.format(diff),
-          isDifferenceZero ? const Color(0xFF16A34A) : const Color(0xFFDC2626),
+          label: 'Statement balance',
+          value: _currencyFormat.format(session.statementEndingBalance),
+          valueColor: AppColors.textPrimary,
+        ),
+        _buildMetricItem(
+          label: 'Cleared book balance',
+          value: _currencyFormat.format(session.clearedBookBalance),
+          valueColor: AppColors.textPrimary,
+        ),
+        _buildMetricItem(
+          label: 'Difference',
+          value: _currencyFormat.format(diff),
+          valueColor: isDifferenceZero ? AppColors.paid : AppColors.overdue,
+          badge: isDifferenceZero
+              ? Container(
+                  margin: const EdgeInsetsDirectional.only(top: 4),
+                  padding: const EdgeInsetsDirectional.symmetric(horizontal: 6, vertical: 2),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFDCFCE7),
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: const Text(
+                    '✓ Balanced (0.00)',
+                    style: TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xFF166534),
+                    ),
+                  ),
+                )
+              : null,
         ),
       ],
     );
   }
 
-  Widget _buildMetricItem(String label, String value, Color valueColor) {
+  Widget _buildMetricItem({
+    required String label,
+    required String value,
+    required Color valueColor,
+    Widget? badge,
+  }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -805,6 +1000,7 @@ class _BankReconciliationScreenState extends State<BankReconciliationScreen> {
             letterSpacing: -0.3,
           ),
         ),
+        ?badge,
       ],
     );
   }
@@ -815,31 +1011,39 @@ class _BankReconciliationScreenState extends State<BankReconciliationScreen> {
       runSpacing: 12,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        OutlinedButton(
+        OutlinedButton.icon(
           onPressed: _handleSaveProgress,
+          icon: const Icon(Icons.bookmark_border_rounded, size: 16),
+          label: Text(
+            context.l10n.saveProgress,
+            style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+          ),
           style: OutlinedButton.styleFrom(
             foregroundColor: AppColors.textPrimary,
             side: const BorderSide(color: AppColors.border),
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+            padding: const EdgeInsetsDirectional.symmetric(horizontal: 16, vertical: 12),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           ),
-          child: Text(context.l10n.saveProgress, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
         ),
         Tooltip(
           message: isDifferenceZero
               ? 'Complete reconciliation'
               : 'Statement balance and cleared book balance must match (Difference must be 0.00 AED)',
-          child: ElevatedButton(
+          child: ElevatedButton.icon(
             // Finish Reconciliation is ONLY enabled when Difference == 0.00
             onPressed: isDifferenceZero ? _handleFinishReconciliation : null,
+            icon: const Icon(Icons.check_circle_outline_rounded, size: 16),
+            label: Text(
+              context.l10n.finishReconciliation,
+              style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+            ),
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF2563EB),
+              backgroundColor: AppColors.primary,
               disabledBackgroundColor: const Color(0x9993C5FD),
               disabledForegroundColor: Colors.white,
-              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+              padding: const EdgeInsetsDirectional.symmetric(horizontal: 18, vertical: 12),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             ),
-            child: Text(context.l10n.finishReconciliation, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
           ),
         ),
       ],

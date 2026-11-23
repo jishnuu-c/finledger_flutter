@@ -51,25 +51,35 @@ class _ImportStatementModalState extends State<ImportStatementModal> {
         horizontal: isMobile ? 12 : 32,
         vertical: isMobile ? 16 : 24,
       ),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+      backgroundColor: AppColors.cardBackground,
       child: Container(
         width: isMobile ? screenWidth - 24 : 580,
-        padding: EdgeInsets.all(isMobile ? 16 : 24),
+        padding: EdgeInsetsDirectional.all(isMobile ? 16 : 24),
         child: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Header
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    padding: const EdgeInsets.all(8),
+                    width: 40,
+                    height: 40,
                     decoration: BoxDecoration(
-                      color: const Color(0xFFEFF6FF),
-                      borderRadius: BorderRadius.circular(8),
+                      color: AppColors.primarySurface,
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        color: AppColors.primaryLight.withValues(alpha: 0.2),
+                      ),
                     ),
-                    child: const Icon(Icons.upload_file, color: Color(0xFF2563EB), size: 20),
+                    child: const Icon(
+                      Icons.upload_file_rounded,
+                      color: AppColors.primary,
+                      size: 20,
+                    ),
                   ),
                   const SizedBox(width: 12),
                   const Expanded(
@@ -78,7 +88,12 @@ class _ImportStatementModalState extends State<ImportStatementModal> {
                       children: [
                         Text(
                           'Import Bank Statement (CSV)',
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            color: AppColors.textPrimary,
+                            letterSpacing: -0.2,
+                          ),
                         ),
                         SizedBox(height: 2),
                         Text(
@@ -91,22 +106,23 @@ class _ImportStatementModalState extends State<ImportStatementModal> {
                   const SizedBox(width: 8),
                   IconButton(
                     onPressed: () => Navigator.of(context).pop(),
-                    icon: const Icon(Icons.close, size: 20, color: AppColors.textMuted),
+                    icon: const Icon(Icons.close_rounded, size: 20, color: AppColors.textMuted),
                     padding: EdgeInsets.zero,
-                    constraints: const BoxConstraints(),
+                    constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+                    tooltip: context.l10n.cancel,
                   ),
                 ],
               ),
               const SizedBox(height: 16),
-              const Divider(height: 1),
+              const Divider(height: 1, color: AppColors.border),
               const SizedBox(height: 16),
 
               // Expected format banner
               Container(
-                padding: const EdgeInsets.all(12),
+                padding: const EdgeInsetsDirectional.all(12),
                 decoration: BoxDecoration(
                   color: const Color(0xFFF8FAFC),
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(10),
                   border: Border.all(color: AppColors.border),
                 ),
                 child: Column(
@@ -115,33 +131,37 @@ class _ImportStatementModalState extends State<ImportStatementModal> {
                     const Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Icon(Icons.info_outline, size: 16, color: AppColors.textSecondary),
+                        Icon(Icons.info_outline_rounded, size: 16, color: AppColors.textSecondary),
                         SizedBox(width: 8),
                         Expanded(
                           child: Text(
                             'Format: Date, Description, Amount (positive for deposit, negative for withdrawal), Reference',
-                            style: TextStyle(fontSize: 11, color: AppColors.textSecondary),
+                            style: TextStyle(fontSize: 11.5, color: AppColors.textSecondary, height: 1.3),
                           ),
                         ),
                       ],
                     ),
                     const SizedBox(height: 8),
                     Align(
-                      alignment: Alignment.centerRight,
+                      alignment: AlignmentDirectional.centerEnd,
                       child: TextButton.icon(
                         onPressed: _loadSampleData,
-                        icon: const Icon(Icons.add, size: 14),
-                        label: Text(context.l10n.loadSampleCsv, style: const TextStyle(fontSize: 11)),
+                        icon: const Icon(Icons.add_rounded, size: 14),
+                        label: Text(
+                          context.l10n.loadSampleCsv,
+                          style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600),
+                        ),
                         style: TextButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                          padding: const EdgeInsetsDirectional.symmetric(horizontal: 10, vertical: 4),
                           minimumSize: Size.zero,
+                          visualDensity: VisualDensity.compact,
                         ),
                       ),
                     ),
                   ],
                 ),
               ),
-              const SizedBox(height: 14),
+              const SizedBox(height: 16),
 
               const Text(
                 'CSV Content *',
@@ -151,15 +171,20 @@ class _ImportStatementModalState extends State<ImportStatementModal> {
               TextFormField(
                 controller: _csvController,
                 maxLines: 7,
-                style: const TextStyle(fontFamily: 'monospace', fontSize: 12),
-                decoration: InputDecoration(
+                style: const TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 12,
+                  letterSpacing: 0.2,
+                ),
+                decoration: const InputDecoration(
                   hintText: 'Date,Description,Amount,Reference\n28-Oct,TT IN GULF HOSPITALITY,18900.00,RCT-0219',
-                  hintStyle: TextStyle(fontSize: 11, color: Colors.grey.shade400),
-                  contentPadding: const EdgeInsets.all(12),
+                  hintStyle: TextStyle(fontSize: 11, color: AppColors.textMuted),
+                  contentPadding: EdgeInsets.all(12),
                 ),
               ),
               const SizedBox(height: 20),
 
+              // Footer Actions
               Wrap(
                 alignment: WrapAlignment.end,
                 spacing: 12,
@@ -167,6 +192,9 @@ class _ImportStatementModalState extends State<ImportStatementModal> {
                 children: [
                   OutlinedButton(
                     onPressed: () => Navigator.of(context).pop(),
+                    style: OutlinedButton.styleFrom(
+                      padding: const EdgeInsetsDirectional.symmetric(horizontal: 16, vertical: 11),
+                    ),
                     child: Text(context.l10n.cancel),
                   ),
                   ElevatedButton.icon(
@@ -177,11 +205,12 @@ class _ImportStatementModalState extends State<ImportStatementModal> {
                         Navigator.of(context).pop();
                       }
                     },
-                    icon: const Icon(Icons.file_download_done, size: 16),
+                    icon: const Icon(Icons.file_download_done_rounded, size: 16),
                     label: Text(context.l10n.importAndAutoMatch),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF2563EB),
+                      backgroundColor: AppColors.primary,
                       foregroundColor: Colors.white,
+                      padding: const EdgeInsetsDirectional.symmetric(horizontal: 18, vertical: 11),
                     ),
                   ),
                 ],

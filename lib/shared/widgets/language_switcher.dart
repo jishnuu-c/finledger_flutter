@@ -108,7 +108,7 @@ class LanguageSwitcher extends ConsumerWidget {
           final isMobile = MediaQuery.of(context).size.width < 768;
           return Container(
             height: 32,
-            padding: EdgeInsetsDirectional.symmetric(horizontal: isMobile ? 5 : 8),
+            padding: EdgeInsetsDirectional.symmetric(horizontal: isMobile ? 6 : 8),
             decoration: BoxDecoration(
               color: const Color(0xFFF8FAFC),
               borderRadius: BorderRadius.circular(6),
@@ -117,26 +117,26 @@ class LanguageSwitcher extends ConsumerWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(
+                const Icon(
                   Icons.language_rounded,
-                  size: isMobile ? 14 : 15,
-                  color: const Color(0xFF475569),
+                  size: 15,
+                  color: Color(0xFF475569),
                 ),
-                SizedBox(width: isMobile ? 3 : 4),
+                const SizedBox(width: 4),
                 Text(
                   currentCode.toUpperCase(),
-                  style: TextStyle(
-                    fontSize: isMobile ? 11 : 11.5,
+                  style: const TextStyle(
+                    fontSize: 11.5,
                     fontWeight: FontWeight.w700,
-                    color: const Color(0xFF1E293B),
+                    color: Color(0xFF1E293B),
                     letterSpacing: 0.3,
                   ),
                 ),
                 const SizedBox(width: 2),
-                Icon(
+                const Icon(
                   Icons.keyboard_arrow_down_rounded,
-                  size: isMobile ? 13 : 14,
-                  color: const Color(0xFF64748B),
+                  size: 14,
+                  color: Color(0xFF64748B),
                 ),
               ],
             ),

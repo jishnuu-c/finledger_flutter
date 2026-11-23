@@ -114,22 +114,52 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                             const SizedBox(width: 4),
                           ],
 
-                          // Title / Breadcrumb: Guaranteed zero overflow on all screen sizes & languages
+                          // Title / Breadcrumb: Never overflows on any screen
                           Expanded(
                             child: Align(
                               alignment: AlignmentDirectional.centerStart,
-                              child: Text(
-                                isMobile
-                                    ? pageTitle
-                                    : '${context.l10n.home}  /  $pageTitle',
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                                style: TextStyle(
-                                  fontSize: isMobile ? 13 : 13.5,
-                                  color: isMobile ? AppColors.textPrimary : AppColors.textSecondary,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
+                              child: isMobile
+                                  ? Text(
+                                      pageTitle,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                      style: const TextStyle(
+                                        fontSize: 13,
+                                        color: AppColors.textPrimary,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    )
+                                  : Text.rich(
+                                      TextSpan(
+                                        children: [
+                                          TextSpan(
+                                            text: context.l10n.home,
+                                            style: const TextStyle(
+                                              fontSize: 12,
+                                              color: AppColors.textMuted,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          const TextSpan(
+                                            text: '  >  ',
+                                            style: TextStyle(
+                                              fontSize: 11,
+                                              color: AppColors.textMuted,
+                                            ),
+                                          ),
+                                          TextSpan(
+                                            text: pageTitle,
+                                            style: const TextStyle(
+                                              fontSize: 12.5,
+                                              color: AppColors.textSecondary,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                    ),
                             ),
                           ),
 
@@ -236,9 +266,9 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
                                   ConstrainedBox(
                                     constraints: BoxConstraints(
                                       maxWidth: isVeryNarrow
-                                          ? 55
+                                          ? 60
                                           : (isMobile
-                                              ? 75
+                                              ? 80
                                               : (constraints.maxWidth >= 900 ? 150 : 105)),
                                     ),
                                     child: Text(
