@@ -148,7 +148,8 @@ class BankingScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // Breadcrumb
-        Row(
+        Wrap(
+          crossAxisAlignment: WrapCrossAlignment.center,
           children: [
             Text(
               context.l10n.home,

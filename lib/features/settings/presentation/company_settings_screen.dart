@@ -436,39 +436,60 @@ class _CompanySettingsScreenState extends State<CompanySettingsScreen> {
                     const SizedBox(height: 16),
 
                     _buildFieldLabel(context.l10n.taxRegistrationNumberTrn),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: TextFormField(
-                            controller: _trnController,
-                            style: const TextStyle(fontSize: 13),
-                            decoration: _buildInputDecoration(prefixIcon: Icons.confirmation_number_outlined),
-                            validator: (v) {
-                              if (v == null || v.trim().isEmpty) return context.l10n.validationRequired;
-                              if (v.trim().length != 15) return context.l10n.validationTrn15Digits;
-                              return null;
-                            },
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    LayoutBuilder(
+                      builder: (context, fieldConstraints) {
+                        final isTight = fieldConstraints.maxWidth < 420;
+                        final badge = Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                           decoration: BoxDecoration(
                             color: const Color(0xFFDCFCE7),
                             borderRadius: BorderRadius.circular(6),
                           ),
                           child: Row(
+                            mainAxisSize: MainAxisSize.min,
                             children: [
                               const Icon(Icons.verified, size: 14, color: Color(0xFF166534)),
                               const SizedBox(width: 4),
-                              Text(
-                                context.l10n.ftaActive,
-                                style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Color(0xFF166534)),
+                              Flexible(
+                                child: Text(
+                                  context.l10n.ftaActive,
+                                  style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Color(0xFF166534)),
+                                ),
                               ),
                             ],
                           ),
-                        ),
-                      ],
+                        );
+
+                        final field = TextFormField(
+                          controller: _trnController,
+                          style: const TextStyle(fontSize: 13),
+                          decoration: _buildInputDecoration(prefixIcon: Icons.confirmation_number_outlined),
+                          validator: (v) {
+                            if (v == null || v.trim().isEmpty) return context.l10n.validationRequired;
+                            if (v.trim().length != 15) return context.l10n.validationTrn15Digits;
+                            return null;
+                          },
+                        );
+
+                        if (isTight) {
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              field,
+                              const SizedBox(height: 6),
+                              badge,
+                            ],
+                          );
+                        }
+
+                        return Row(
+                          children: [
+                            Expanded(child: field),
+                            const SizedBox(width: 8),
+                            badge,
+                          ],
+                        );
+                      },
                     ),
                     const SizedBox(height: 16),
 

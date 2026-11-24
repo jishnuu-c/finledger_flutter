@@ -315,11 +315,10 @@ class _ChartOfAccountsScreenState extends State<ChartOfAccountsScreen> {
             )
           : LayoutBuilder(
               builder: (context, constraints) {
-                final effectiveWidth = constraints.maxWidth > 1200 ? constraints.maxWidth : 1200.0;
                 return SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
-                  child: SizedBox(
-                    width: effectiveWidth,
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(minWidth: constraints.maxWidth),
                     child: DataTable(
                       headingRowHeight: 40,
                       dataRowMinHeight: 46,
@@ -329,46 +328,67 @@ class _ChartOfAccountsScreenState extends State<ChartOfAccountsScreen> {
                       headingRowColor: WidgetStateProperty.all(const Color(0xFFF8FAFC)),
                       columns: [
                         DataColumn(
-                          label: Text(
-                            context.l10n.colCode,
-                            style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: AppColors.textSecondary),
+                          label: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              context.l10n.colCode,
+                              style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: AppColors.textSecondary),
+                            ),
                           ),
                         ),
                         DataColumn(
-                          label: Text(
-                            context.l10n.colAccountName,
-                            style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: AppColors.textSecondary),
+                          label: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              context.l10n.colAccountName,
+                              style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: AppColors.textSecondary),
+                            ),
                           ),
                         ),
                         DataColumn(
-                          label: Text(
-                            context.l10n.accountType,
-                            style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: AppColors.textSecondary),
+                          label: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              context.l10n.accountType,
+                              style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: AppColors.textSecondary),
+                            ),
                           ),
                         ),
                         DataColumn(
-                          label: Text(
-                            context.l10n.colParent,
-                            style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: AppColors.textSecondary),
+                          label: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              context.l10n.colParent,
+                              style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: AppColors.textSecondary),
+                            ),
                           ),
                         ),
                         DataColumn(
                           numeric: true,
-                          label: Text(
-                            context.l10n.colBalanceAed,
-                            style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: AppColors.textSecondary),
+                          label: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              context.l10n.colBalanceAed,
+                              style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: AppColors.textSecondary),
+                            ),
                           ),
                         ),
                         DataColumn(
-                          label: Text(
-                            context.l10n.status,
-                            style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: AppColors.textSecondary),
+                          label: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              context.l10n.status,
+                              style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: AppColors.textSecondary),
+                            ),
                           ),
                         ),
                         DataColumn(
-                          label: Text(
-                            context.l10n.actions,
-                            style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: AppColors.textSecondary),
+                          label: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              context.l10n.actions,
+                              style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: AppColors.textSecondary),
+                            ),
                           ),
                         ),
                       ],

@@ -1013,32 +1013,44 @@ class _NewExpenseClaimScreenState extends State<NewExpenseClaimScreen> {
               spacing: 16,
               runSpacing: 8,
               children: [
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(context.l10n.net, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
-                    const SizedBox(width: 8),
-                    Text(_currencyFormat.format(_subtotalNet), style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
-                  ],
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  alignment: AlignmentDirectional.centerEnd,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(context.l10n.net, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                      const SizedBox(width: 8),
+                      Text(_currencyFormat.format(_subtotalNet), style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
+                    ],
+                  ),
                 ),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(context.l10n.vat, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
-                    const SizedBox(width: 8),
-                    Text(_currencyFormat.format(_taxTotal), style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
-                  ],
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  alignment: AlignmentDirectional.centerEnd,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(context.l10n.vat, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary)),
+                      const SizedBox(width: 8),
+                      Text(_currencyFormat.format(_taxTotal), style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
+                    ],
+                  ),
                 ),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(context.l10n.totalAed, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
-                    const SizedBox(width: 10),
-                    Text(
-                      _currencyFormat.format(_grandTotal),
-                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w800, color: Color(0xFF2563EB)),
-                    ),
-                  ],
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  alignment: AlignmentDirectional.centerEnd,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(context.l10n.totalAed, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
+                      const SizedBox(width: 10),
+                      Text(
+                        _currencyFormat.format(_grandTotal),
+                        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w800, color: Color(0xFF2563EB)),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
